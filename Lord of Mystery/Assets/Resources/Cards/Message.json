@@ -1,0 +1,35 @@
+{
+
+    "List_Message":
+    [
+        {
+            "Id": "Message_Id",
+            "Label": "Message Title",
+            "Image": "Image_Message_Id",
+            "Message_Content": "This is the message you want the player to know. So you are reading it right now."
+
+        },
+        {
+            "Id": "Beginning",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+        {
+            "Id": "Born",
+            "Label": "My Sense to the world",
+            "Image": "Image_Born",
+            "Message_Content": "I was born in Loen. Wandering through this kingdom for over two decades, I remain adrift in confusion. I believe I understand this world, yet I feel I only grasp its surface, a mere veil of reality. By chance, I learned of a private soiree of the highborn in loen. I feel compelled to venture there, perhaps to unveil answers to the enigmas that shroud my existence. "
+
+        }
+
+
+
+
+
+
+
+    ]
+
+}

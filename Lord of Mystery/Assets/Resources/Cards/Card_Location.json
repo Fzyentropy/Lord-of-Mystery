@@ -1,0 +1,67 @@
+{
+
+    "List_Card_Location":
+    [
+        {
+            "Id": "Private_Soiree",
+            "Label": "Private Soiree",
+            "Image": "Image_Private_Soiree",
+            "Description": "card_description",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 2,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+            },
+
+            "Produce_Resource":
+            {
+            },
+
+            "Produce_Message":
+            [
+                "The_Beyonder"
+            ],
+
+            "Produce_Card_Automatic":
+            [
+                "Flesh_And_Body"
+            ],
+
+            "Produce_Card_Action":
+            [
+                "Historical_Travel"
+            ],
+
+            "Produce_Card_Event":
+            [
+                "Goddess_Of_Barren"
+            ],
+
+            "Produce_Card_Location":
+            [
+                "Church_Of_Death"
+            ]
+
+        }
+
+
+
+
+
+
+
+    ]
+
+}
