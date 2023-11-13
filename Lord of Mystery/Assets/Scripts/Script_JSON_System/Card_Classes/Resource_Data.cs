@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Resource_Data
 {
+    public int Fund;
     public int Physical_Energy;
     public int Spirit;
     public int Soul;

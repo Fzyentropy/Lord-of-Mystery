@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public Card_Loader CardLoader;
 
     public GameObject message_Panel;
+    public GameObject Card_Location_Prefab;
 
 
     private void Awake()
@@ -58,6 +59,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public void Generate_Card_Location(string id)
+    {
+        GameObject cardLocation = Instantiate(Card_Location_Prefab, new Vector3(15,-10,0), Quaternion.identity);
+        cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id);
+    }
     
     public void Generate_Message(string id)
     {

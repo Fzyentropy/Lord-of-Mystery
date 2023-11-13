@@ -59,7 +59,9 @@ public class InputManager : MonoBehaviour
     void MouseLogic()
     {
         
-        if (Input.GetMouseButtonDown(0))
+        /////////////////////////////////     鼠标点击的时候，判断是否点击到了卡牌，以及判断是点击还是拖拽
+        
+        if (Input.GetMouseButtonDown(0))      
         {
             mouseDownTime = Time.time;   // record the time when hold down mouse left button
             
@@ -79,8 +81,9 @@ public class InputManager : MonoBehaviour
             lastMousePosition = Input.mousePosition;
         }
         
+        ///////////////////////////////////     若是拖拽，点击到了卡牌 就拖动卡牌，没点击卡牌（即点击 board）则拖动 board
         
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0))   
         {
             if (selectedObject != null)
             {
@@ -99,7 +102,7 @@ public class InputManager : MonoBehaviour
         }
         
         
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0))       //////////////   若只是点击，且点击到了卡牌，则 show Panel 
         {
             float duration = Time.time - mouseDownTime;  // Calculate the duration of the mouse button being held down
 
@@ -139,7 +142,7 @@ public class InputManager : MonoBehaviour
     }
     
     
-    private void ShowInfoPanel(Vector3 position)
+    private void ShowInfoPanel(Vector3 position)           //////////////////   实例化 info Panel
     {
         isInfoPanelOut = true;
         panelReference = Instantiate(infoPanelPrefab, position, Quaternion.identity);
@@ -148,7 +151,7 @@ public class InputManager : MonoBehaviour
         StartCoroutine(ScaleUp(panelReference.transform.localScale));
     }
 
-    private IEnumerator ScaleUp(Vector3 panelScale)        ////  弹出动画
+    private IEnumerator ScaleUp(Vector3 panelScale)        ///////////////////  弹出动画
     {
         float duration = 0.5f; 
         float elapsed = 0f;
@@ -167,7 +170,7 @@ public class InputManager : MonoBehaviour
     
     void MouseScroll()
     {
-        mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;
+        mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;    // 滚轮 改变视角大小
 
     }
     

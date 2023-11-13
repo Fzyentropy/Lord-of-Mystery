@@ -16,6 +16,7 @@ public class Card_Automatic
 
     public bool Burn;
     public int Use_Time;
+    public int Counter;
     public bool Only;
     public int Time;
 
@@ -26,6 +27,7 @@ public class Card_Automatic
     public List<string> Produce_Card_Action;
     public List<string> Produce_Card_Event;
     public List<string> Produce_Card_Location;
+    public List<string> Produce_Special_Effect;
 
     
     // 构造函数，用于从JSON数据初始化

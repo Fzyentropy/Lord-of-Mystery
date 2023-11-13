@@ -13,6 +13,7 @@
 
             "Burn": false,
             "Use_Time": 2,
+            "Counter": -1,
             "Only": true,
             "Time": 15,
 
@@ -52,6 +53,43 @@
             "Produce_Card_Location":
             [
                 "Church_Of_Death"
+            ]
+
+        },
+        {
+            "Id": "Loen",
+            "Label": "Loen",
+            "Image": "Image_Loen",
+            "Description": "The Kingdom of Loen, nestled in the northern reaches of the continent, where the people believe the Goddess of Night",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Counter": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 3
+            },
+
+            "Produce_Message":
+            [
+                "Born"
+            ],
+            
+            "Special_Effect":
+            [
+                "Realize_Flesh_And_Body"
             ]
 
         }

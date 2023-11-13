@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class Message_Feature : MonoBehaviour
 {
-    public Message _message;
+    public Message _message;                   // message 卡牌的实例，用 GameManager 中的Generate Message方法赋予
     
     public TMP_Text message_label;
     public Image message_image;

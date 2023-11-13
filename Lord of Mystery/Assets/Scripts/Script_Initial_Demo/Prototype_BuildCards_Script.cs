@@ -7,7 +7,8 @@ public class Prototype_BuildCards_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("msg", 2f, 3);
+        Invoke("msg", 2f);
+        GameManager.GM.Generate_Card_Location("Loen");
     }
 
     void msg()

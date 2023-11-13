@@ -13,11 +13,13 @@
 
             "Burn": true,
             "Use_Time": 3,
+            "Counter": -1,
             "Only": false,
             "Time": 30,
 
             "Produce_Resource":
             {
+                "Fund": 5,
                 "Physical_Energy": 1,
                 "Spirit": -1,
                 "Soul": 1,
@@ -66,6 +68,7 @@
 
             "Burn": false,
             "Use_Time": -1,
+            "Counter": -1,
             "Only": true,
             "Time": 30,
 
