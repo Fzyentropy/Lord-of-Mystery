@@ -29,7 +29,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
         body_part_image.sprite = Resources.Load<Sprite>("Image/" + _CardBodyPart.Image);
     }
 
-    private void OnMouseDown()
+    private void OnMouseDown()        ////    2023-11-15：不能使用此方法，因为拖拽时也会触发这个功能
     {
         GameManager.GM.Generate_Message(_CardBodyPart.Produce_Message);
         

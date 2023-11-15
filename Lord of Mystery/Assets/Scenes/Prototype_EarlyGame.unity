@@ -967,6 +967,7 @@ MonoBehaviour:
   Automatic_Card_List: []
   Location_Card_List: []
   Message_List: []
+  Body_Part_Card_List: []
 --- !u!1 &639056923
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,7 +1706,7 @@ GameObject:
   - component: {fileID: 1020650233}
   - component: {fileID: 1020650232}
   m_Layer: 0
-  m_Name: Prototype_BuildCards_Script
+  m_Name: Prototype_EarlyGame_Script
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1720,7 +1721,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1020650231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4d5f5fa1316324c9beb84f6dcf5af6, type: 3}
+  m_Script: {fileID: 11500000, guid: 151123a856ddd514990055bce70f41a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1020650233
@@ -2049,6 +2050,7 @@ MonoBehaviour:
   CardLoader: {fileID: 619533614}
   message_Panel: {fileID: 4127473093681423652, guid: 846aef75ddf6e89479cc0b50abb53adc, type: 3}
   Card_Location_Prefab: {fileID: 2650628250851114781, guid: 6b511319fbf9aeb45977d3529cbd3c76, type: 3}
+  Card_Body_Part_Prefab: {fileID: 0}
 --- !u!4 &1472352532
 Transform:
   m_ObjectHideFlags: 0
