@@ -15,7 +15,6 @@ public class Resource_Data
     public int Putrefaction;
     public int Madness;
     public int Godhood;
-
-    // 可以添加方法来处理资源的增加、减少等
+    
 }
 

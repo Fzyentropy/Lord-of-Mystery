@@ -9,6 +9,7 @@ public class Card_Loader : MonoBehaviour
     public const string PATH_CARD_AUTOMATIC = "Cards/Card_Automatic";
     public const string PATH_CARD_LOCATION = "Cards/Card_Location";
     public const string PATH_MESSAGE = "Cards/Message";
+    public const string PATH_CARD_BODY_PART = "Cards/Card_Body_Part";
 
     [SerializeField]
     public List<Card_Automatic> Automatic_Card_List;
@@ -16,12 +17,15 @@ public class Card_Loader : MonoBehaviour
     public List<Card_Location> Location_Card_List;
     [SerializeField]
     public List<Message> Message_List;
+    [SerializeField]
+    public List<Card_Body_Part> Body_Part_Card_List;
 
     void Start()
     {
         Load_All_Card_Automatic_From_JSON();
         Load_All_Card_Location_From_JSON();
         Load_All_Message_From_JSON();
+        Load_All_Card_Body_Part_From_JSON();
     }
 
     
@@ -71,6 +75,20 @@ public class Card_Loader : MonoBehaviour
             Message_List.Add(message);
         }
     }
+
+    public void Load_All_Card_Body_Part_From_JSON()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_CARD_BODY_PART);    // 从路径读取 JSON 文件
+        string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
+        
+        // 这个步骤可以将 JSON 中 "Card_Location" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Location 类型的 list 里面
+        Card_Body_Part_Wrapper bodyPartWrapper = JsonUtility.FromJson<Card_Body_Part_Wrapper>(jsonData);
+        
+        foreach (var card_body_part in bodyPartWrapper.List_Card_Body_Part)
+        {
+            Body_Part_Card_List.Add(card_body_part);
+        }
+    }
     
     
     ////////////////////////////////////////////////////////////////////     获取 list 中的卡牌对象 by ID
@@ -91,6 +109,10 @@ public class Card_Loader : MonoBehaviour
         return Message_List.Find(message => message.Id == id);
     }
 
+    public Card_Body_Part Get_Card_Body_Part_By_Id(string id)
+    {
+        return Body_Part_Card_List.Find(card_body_part => card_body_part.Id == id);
+    }
 
 
 }

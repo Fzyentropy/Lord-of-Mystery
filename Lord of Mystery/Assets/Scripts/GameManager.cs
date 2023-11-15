@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject message_Panel;
     public GameObject Card_Location_Prefab;
+    public GameObject Card_Body_Part_Prefab;
 
 
     private void Awake()
@@ -70,6 +72,12 @@ public class GameManager : MonoBehaviour
     {
         GameObject messagePanel = Instantiate(message_Panel,GameObject.Find("Canvas").transform);
         messagePanel.GetComponent<Message_Feature>()._message = CardLoader.Get_Message_By_Id(id);
+    }
+
+    public void Generate_Card_Body_Part(string id)
+    {
+        GameObject cardBodyPart = Instantiate(Card_Body_Part_Prefab, new Vector3(random.Range(-5,5),random.Range(-5,5),1), Quaternion.identity);
+        cardBodyPart.GetComponent<Card_Body_Part_Feature>()._CardBodyPart = CardLoader.Get_Card_Body_Part_By_Id(id);
     }
 
 

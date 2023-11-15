@@ -391,11 +391,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'I was born in Loen. Wandering through this kingdom for over two decades,
-    I remain adrift in confusion. I believe I understand this world, yet I feel I
-    only grasp its surface, a mere veil of reality. By chance, I learned of a private
-    soiree of the highborn in loen. perhaps to unveil answers to the enigmas that
-    shroud my existence. '
+  m_text: Ah, The Fool! A spirited journey awaits you, young wanderer. Embrace the
+    unknown with open arms and a courageous heart. Opportunities for growth and learning
+    beckon. Tread lightly yet boldly, for your path is one of discovery and joy.
+    Remember, every step is both a risk and a chance to soar.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

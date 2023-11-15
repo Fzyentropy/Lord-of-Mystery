@@ -16,8 +16,8 @@ public class InputManager : MonoBehaviour
     public float CameraScrollOffset = 3f;
     public float CameraMoveOffset = 0.05f;
 
-    public bool isInfoPanelOut = false;
-    private GameObject panelReference;
+    public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
+    public static GameObject panelReference;        // 打开的 Panel 的引用
 
 
     private void Start()
@@ -85,13 +85,14 @@ public class InputManager : MonoBehaviour
         
         else if (Input.GetMouseButton(0))   
         {
-            if (selectedObject != null)
+            if (selectedObject != null)      // 若点击到了卡牌（或任何可拖拽，带collider的物体），就拖拽卡牌
             {
+                 // 将来要加的 if (selectedObject.CompareTag("") 是 Card 或者 Function，则拖动 - TODO add tag compare
                 Vector3 delta = mainCamera.ScreenToWorldPoint(Input.mousePosition) - mainCamera.ScreenToWorldPoint(lastMousePosition);
                 delta.z = 0;
                 selectedObject.transform.position += delta;
             }
-            else
+            else                            // 若没有点击到
             {
                 Vector3 delta = Input.mousePosition - lastMousePosition;
                 Vector3 worldDelta = mainCamera.ScreenToWorldPoint(new Vector3(delta.x, delta.y, mainCamera.nearClipPlane)) - mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
@@ -102,7 +103,7 @@ public class InputManager : MonoBehaviour
         }
         
         
-        else if (Input.GetMouseButtonUp(0))       //////////////   若只是点击，且点击到了卡牌，则 show Panel 
+        else if (Input.GetMouseButtonUp(0))     //////////   若只是点击，且点击到了卡牌，或其他带 collider 物体，则 show Panel 
         {
             float duration = Time.time - mouseDownTime;  // Calculate the duration of the mouse button being held down
 
@@ -110,34 +111,52 @@ public class InputManager : MonoBehaviour
             {
                 if (isInfoPanelOut)
                 {
-                    Destroy(panelReference);
+                    Close_Current_Panel();
                     isInfoPanelOut = false;
                 }
                 else
                 if (selectedObject != null)
                     {
-                        // Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                        // RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-                        // if (hit.collider != null)
-                        // {
+                        
+                        /*Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                        if (hit.collider != null)
+                        {
                             ShowInfoPanel(new Vector3(
                                 mainCamera.ScreenToWorldPoint(Input.mousePosition).x,
                                 mainCamera.ScreenToWorldPoint(Input.mousePosition).y,
                                 3f));
-                        // }
+                        }*/
+
+                        if (selectedObject.GetComponent<Card_Location_Feature>() != null)
+                        {
+                            panelReference = selectedObject.GetComponent<Card_Location_Feature>().Open_Panel();
+                        }
+                        
+                        
+                        
+                        
+                        // panelReference = return  collider.gameObject.  GetComponent<通用打开panel脚本>. 打开 Panel()
+                        
+                        // Destroy 还不能就这么 Destroy，可能还得调用 卡牌里的方法，以返还资源
+                        
                         
                     }
-                
-                
+
                 selectedObject = null;
                 
             }
             
         }
+
+    }
+
+    public void Close_Current_Panel()
+    {
         
+        Destroy(panelReference);
         
-        
-        
+        // 在此处添加 任何处理 有关返还资源的
         
     }
     
@@ -153,7 +172,7 @@ public class InputManager : MonoBehaviour
 
     private IEnumerator ScaleUp(Vector3 panelScale)        ///////////////////  弹出动画
     {
-        float duration = 0.5f; 
+        float duration = 1.5f; 
         float elapsed = 0f;
         Vector3 scale = panelScale;
 

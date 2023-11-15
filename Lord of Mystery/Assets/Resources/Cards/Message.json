@@ -22,7 +22,169 @@
             "Image": "Image_Born",
             "Message_Content": "I was born in Loen. Wandering through this kingdom for over two decades, I remain adrift in confusion. I believe I understand this world, yet I feel I only grasp its surface, a mere veil of reality. By chance, I learned of a private soiree of the highborn in loen. I feel compelled to venture there, perhaps to unveil answers to the enigmas that shroud my existence. "
 
+        },
+        {
+            "Id": "Fortune_Teller_In_Loen",
+            "Label": "Fortune Teller In Loen",
+            "Image": "Image_Born",
+            "Message_Content": "In the allure of the night, I arrived in the Kingdom of Loen. There, I encountered a seer who claimed I was one of destiny's chosen. She expressed a desire to divine my future, shrouded in the mystique of the unknown."
+
+        },
+
+        {
+            "Id": "The_Fool",
+            "Label": "The Fool",
+            "Image": "Image_The_Fool",
+            "Message_Content": "A spirited journey awaits you, young wanderer. Embrace the unknown with open arms and a courageous heart. Opportunities for growth and learning beckon. Tread lightly yet boldly, for your path is one of discovery and joy. Remember, every step is both a risk and a chance to soar. "
+
+        },
+        {
+            "Id": "The_Magician",
+            "Label": "The Magician",
+            "Image": "Image_The_Magician",
+            "Message_Content": "Harness your skills and resources, for you have the power to manifest your desires. The world is your oyster, waiting for you to cast your spell of creativity and action. Focus your intent, and you shall turn possibilities into realities."
+        },
+        {
+            "Id": "The_High_Priestess",
+            "Label": "The High Priestess",
+            "Image": "Image_The_High_Priestess",
+            "Message_Content": "Intuition whispers secrets in your ear. Embrace your inner wisdom and the mysteries that lie within. A time of introspection and spiritual guidance awaits, revealing truths that lie beneath the surface."
+        },
+        {
+            "Id": "The_Empress",
+            "Label": "The Empress",
+            "Image": "Image_The_Empress",
+            "Message_Content": "Abundance and nurturing surround you. Embrace the role of creator and caretaker, fostering growth and harmony in your life. The Empress signals a time of fertility, beauty, and nature's bounty."
+        },
+        {
+            "Id": "The_Emperor",
+            "Label": "The Emperor",
+            "Image": "Image_The_Emperor",
+            "Message_Content": "Structure and authority pave your path. The Emperor calls for discipline and control, guiding you to establish order and stability in your life. Embrace leadership, for your strength will be the foundation of your achievements."
+        },
+        {
+            "Id": "The_Hierophant",
+            "Label": "The Hierophant",
+            "Image": "Image_The_Hierophant",
+            "Message_Content": "Tradition and wisdom guide your way. The Hierophant brings lessons of moral values and belief systems. It's time to seek counsel from a mentor or institution, or to adhere to established social structures and ideologies."
+        },
+        {
+            "Id": "The_Lovers",
+            "Label": "The Lovers",
+            "Image": "Image_The_Lovers",
+            "Message_Content": "Choices in love and harmony await. The Lovers signify a union or partnership that brings growth. This card also represents a moral or heart-led decision. Choose paths that align with your true self."
+        },
+        {
+            "Id": "The_Chariot",
+            "Label": "The Chariot",
+            "Image": "Image_The_Chariot",
+            "Message_Content": "Victory is within your grasp, driven by determination and willpower. The Chariot signals a journey of overcoming obstacles. Maintain focus and discipline, and you shall steer your way to success."
+        },
+        {
+            "Id": "Strength",
+            "Label": "Strength",
+            "Image": "Image_Strength",
+            "Message_Content": "Inner strength and courage reign. Strength is not just physical but emotional and spiritual. Face challenges with grace and resilience, and your gentle power will overcome and tame any adversities."
+        },
+        {
+            "Id": "The_Hermit",
+            "Label": "The Hermit",
+            "Image": "Image_The_Hermit",
+            "Message_Content": "Seek solitude to find wisdom. The Hermit invites you to a journey of introspection and self-discovery. In silence and retreat, you will find the inner guidance and answers you seek."
+        },
+        {
+            "Id": "Wheel_of_Fortune",
+            "Label": "Wheel of Fortune",
+            "Image": "Image_Wheel_of_Fortune",
+            "Message_Content": "Fate turns its wheel, bringing change and cycles. The Wheel of Fortune reminds you that life is full of ups and downs. Embrace the flux, and know that every turn brings new opportunities."
+        },
+        {
+            "Id": "Justice",
+            "Label": "Justice",
+            "Image": "Image_Justice",
+            "Message_Content": "Fairness and balance rule your decisions. Justice calls for honesty and integrity. Weigh your choices carefully, for each action will have its consequence, leading you to your rightful path."
+        },
+        {
+            "Id": "The_Hanged_Man",
+            "Label": "The Hanged Man",
+            "Image": "Image_The_Hanged_Man",
+            "Message_Content": "A pause for perspective is needed. The Hanged Man suggests a time of surrender and letting go. Sometimes, stepping back or viewing things from a new angle brings enlightenment."
+        },
+        {
+            "Id": "Death",
+            "Label": "Death",
+            "Image": "Image_Death",
+            "Message_Content": "Transformation awaits. Death is not an end, but a transition. It's time to let go of the old to make way for the new. Embrace the change, for it brings renewal and growth."
+        },
+        {
+            "Id": "Temperance",
+            "Label": "Temperance",
+            "Image": "Image_Temperance",
+            "Message_Content": "Harmony and balance are your guides. Temperance calls for moderation and patience. Blend the diverse aspects of your life into a cohesive whole. Your ability to adapt and integrate is your strength."
+        },
+        {
+            "Id": "The_Devil",
+            "Label": "The Devil",
+            "Image": "Image_The_Devil",
+            "Message_Content": "Break free from your chains. The Devil indicates a struggle with material or emotional bonds. Recognize and confront these limitations to find liberation and reclaim your power."
+        },
+        {
+            "Id": "The_Tower",
+            "Label": "The Tower",
+            "Image": "Image_The_Tower",
+            "Message_Content": "Sudden change brings liberation. The Tower signifies the collapse of old structures. Though disruptive, this upheaval clears the way for rebuilding and new insights. Embrace the transformation."
+        },
+        {
+            "Id": "The_Star",
+            "Label": "The Star",
+            "Image": "Image_The_Star",
+            "Message_Content": "Hope and inspiration light your path. The Star is a beacon of renewed faith and a sense of serenity. This card promises a sense of renewal, and the universe is guiding you towards healing."
+        },
+        {
+            "Id": "The_Moon",
+            "Label": "The Moon",
+            "Image": "Image_The_Moon",
+            "Message_Content": "Navigate through uncertainty. The Moon speaks of illusions and the need to trust your intuition. Explore the shadows of the subconscious, for this journey will reveal hidden truths and guide you to clarity."
+        },
+        {
+            "Id": "The_Sun",
+            "Label": "The Sun",
+            "Image": "Image_The_Sun",
+            "Message_Content": "Joy and vitality shine upon you. The Sun heralds a time of success, positivity, and clarity. Embrace this period of happiness and confidence, for your efforts are now bearing fruit."
+        },
+        {
+            "Id": "Judgement",
+            "Label": "Judgement",
+            "Image": "Image_Judgement",
+            "Message_Content": "Awaken to your calling. Judgement invites self-reflection and evaluation. It's time to rise and embrace a new phase of life. Heed your higher calling, and let your past experiences guide your rebirth."
+        },
+        {
+            "Id": "The_World",
+            "Label": "The World",
+            "Image": "Image_The_World",
+            "Message_Content": "Completion and achievement mark your journey's end. The World represents the fulfillment of a cycle, bringing a sense of accomplishment and unity. Celebrate your successes and prepare for the next phase of your life's adventure."
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
 
 

@@ -10,7 +10,9 @@ public class Message_FadeInFadeOut : MonoBehaviour
 
     private Vector3 originalPosition;
     private CanvasGroup canvasGroup;
-
+    
+    private bool ableToClick = false;  // 防止点击一下 panel 生成后直接消失
+ 
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -41,11 +43,13 @@ public class Message_FadeInFadeOut : MonoBehaviour
 
         canvasGroup.alpha = 1;
         transform.localPosition = originalPosition;
+
+        ableToClick = true;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // Left mouse button
+        if (Input.GetMouseButtonDown(0) && ableToClick) // Left mouse button
         {
             StartCoroutine(FadeOut());
         }

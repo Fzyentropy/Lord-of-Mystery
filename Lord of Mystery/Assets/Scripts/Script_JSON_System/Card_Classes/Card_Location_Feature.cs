@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using random = UnityEngine.Random;
 // using UnityEngine.UIElements;
 
 public class Card_Location_Feature : MonoBehaviour
@@ -19,9 +20,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     // Panel 相关
     public GameObject _card_location_panel;       // 要弹出的 Panel
-    public TMP_Text panel_label;
-    public TMP_Text panel_description;
-    public Image panel_image;
+    
     public List<Button> resource_buttons;
     public List<TMP_Text> resource_number;
     public List<GameObject> body_part_slots;
@@ -31,16 +30,16 @@ public class Card_Location_Feature : MonoBehaviour
     public GameObject progress_bar_prefab;        // 进度条 prefab
     public GameObject progress_bar;               // 进度条 指代
     public GameObject progress_bar_root;          // 进度条方块的根 指代
-    public GameObject progress_bar_position;
+    public GameObject progress_bar_position;      // 进度条位置标记 空物体
     public TMP_Text countdown_text;               // 显示秒数文本
     
 
-    // Requirement 触发条件
+    // Requirement 触发条件 字典集 包括 resources 和 body part
     public Dictionary<string, int> required_resources;
     public Dictionary<string, int> required_body_parts;
 
-    // Outcome 触发结果
-
+    // Outcome 触发结果 字典集 resource
+    public Dictionary<string, int> produce_resources;
 
     public int use_time_counter;
     
@@ -48,9 +47,12 @@ public class Card_Location_Feature : MonoBehaviour
     private void Start()
     {
         Check_If_Card_Exist();
-        Initialize_Card();
         AddColliderAndRigidbody();
-        StartCountdown();
+        
+        Initialize_Card();
+        Initialize_Card_Resource();
+        
+        // StartCountdown(); // for test
         
     }
 
@@ -62,16 +64,6 @@ public class Card_Location_Feature : MonoBehaviour
         {
             throw new NullReferenceException();
         }
-    }
-
-    
-    // 初始化卡牌，根据 _cardlocation 实例中的数据设置相关参数
-    void Initialize_Card()
-    {
-        card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
-        card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
-        use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
-
     }
     
     
@@ -94,13 +86,84 @@ public class Card_Location_Feature : MonoBehaviour
             rb2d.isKinematic = true;
         }
     }
+
     
     
-    // 当卡牌被点击时调用
-    private void OnMouseDown()
+    // 初始化卡牌图片和描述，根据 _cardlocation 实例中的数据设置相关参数
+    void Initialize_Card()
     {
-        // 打开 Panel
+        card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
+        card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
+        use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
+
     }
+
+    void Initialize_Card_Resource()
+    {
+        
+        required_resources = new Dictionary<string, int>
+        {
+            {"Fund", _cardLocation.Require_Resource.Fund},
+            {"Physical_Energy", _cardLocation.Require_Resource.Physical_Energy},
+            {"Spirit", _cardLocation.Require_Resource.Spirit},
+            {"Soul", _cardLocation.Require_Resource.Soul},
+            {"Spirituality_Infused_Material", _cardLocation.Require_Resource.Spirituality_Infused_Material},
+            {"Knowledge", _cardLocation.Require_Resource.Knowledge},
+            {"Belief", _cardLocation.Require_Resource.Belief},
+            {"Putrefaction", _cardLocation.Require_Resource.Putrefaction},
+            {"Madness", _cardLocation.Require_Resource.Madness},
+            {"Godhood", _cardLocation.Require_Resource.Godhood}
+        };
+
+        required_body_parts = new Dictionary<string, int>
+        {
+            { "Physical_Body", _cardLocation.Require_Body_Part.Physical_Body },
+            { "Spirit", _cardLocation.Require_Body_Part.Spirit },
+            { "Psyche", _cardLocation.Require_Body_Part.Psyche}
+
+        };
+        
+        produce_resources = new Dictionary<string, int>
+        {
+            {"Fund", _cardLocation.Produce_Resource.Fund},
+            {"Physical_Energy", _cardLocation.Produce_Resource.Physical_Energy},
+            {"Spirit", _cardLocation.Produce_Resource.Spirit},
+            {"Soul", _cardLocation.Produce_Resource.Soul},
+            {"Spirituality_Infused_Material", _cardLocation.Produce_Resource.Spirituality_Infused_Material},
+            {"Knowledge", _cardLocation.Produce_Resource.Knowledge},
+            {"Belief", _cardLocation.Produce_Resource.Belief},
+            {"Putrefaction", _cardLocation.Produce_Resource.Putrefaction},
+            {"Madness", _cardLocation.Produce_Resource.Madness},
+            {"Godhood", _cardLocation.Produce_Resource.Godhood}
+        };
+        
+    }
+
+
+
+
+
+
+
+    // 当卡牌被点击时调用，打开 Panel
+
+    public GameObject Open_Panel()
+    {
+        InputManager.isInfoPanelOut = true;        // 设置 Input Manager 中的 是否打开panel参数为 true
+        
+        GameObject panel = Instantiate(_card_location_panel, gameObject.transform.position, Quaternion.identity);  // 实例化 panel
+        Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
+        
+        panel_feature.Set_Sprite(Resources.Load<Sprite>("Image/" + _cardLocation.Image));   // 设置图片
+        panel_feature.Set_Label(_cardLocation.Label);
+        panel_feature.Set_Description(_cardLocation.Description);
+        
+
+        return panel;
+    }
+    
+    
+    
 
     
     // 检查 Require_Body_Part 和 Require_Resource 是否满足条件
@@ -153,7 +216,7 @@ public class Card_Location_Feature : MonoBehaviour
         
         
         // 销毁 进度条 prefab
-        
+        Destroy(progress_bar);
 
         // 触发卡牌效果
         TriggerCardEffects();
@@ -166,6 +229,19 @@ public class Card_Location_Feature : MonoBehaviour
         // 根据_cardLocation触发相应的效果
         // 比如：Produce_Resource, Produce_Message 等
         // ...
+
+        if (_cardLocation.Produce_Special_Effect.Count > 0)
+        {
+            foreach (var special_effect in _cardLocation.Produce_Special_Effect)
+            {
+                if (special_effect == "Draw_A_Tarot_Card")
+                {
+                    int randomElement = random.Range(0, GameManager.GM.CardLoader.Body_Part_Card_List.Count - 1);
+                    GameManager.GM.Generate_Card_Body_Part(GameManager.GM.CardLoader.Body_Part_Card_List[randomElement].Id);
+                }
+            }
+        }
+        
 
 
         use_time_counter--;         // 记一次使用次数，假如 use time 有限，则使用一定次数就销毁

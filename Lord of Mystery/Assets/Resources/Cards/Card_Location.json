@@ -3,6 +3,92 @@
     "List_Card_Location":
     [
         {
+            "Id": "card_id",
+            "Label": "card_lable",
+            "Image": "image_id",
+            "Description": "card_description",
+
+            "Rank": 9,
+            "Occupation": "Fortune_Teller",
+
+            "Burn": false,
+            "Use_Time": 2,
+            "Counter": 1,
+            "Only": true,
+            "Time": 30,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1,
+                "Psyche": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spirit": 1,
+                "Soul": 1,
+                "Spirituality_Infused_Material": 2,
+                "Knowledge": 1,
+                "Belief": 1,
+                "Putrefaction": 1,
+                "Madness": 1,
+                "Godhood": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spirit": -1,
+                "Soul": 1,
+                "Spirituality_Infused_Material": 2,
+                "Knowledge": -1,
+                "Belief": 1,
+                "Putrefaction": 1,
+                "Madness": 1,
+                "Godhood": 1
+            },
+
+            "Produce_Message":
+            [
+                "The_Beyonder"
+            ],
+
+            "Produce_Card_Automatic":
+            [
+                "Flesh_And_Body"
+            ],
+
+            "Produce_Card_Action":
+            [
+                "Historical_Travel"
+            ],
+
+            "Produce_Card_Event":
+            [
+                "Goddess_Of_Barren"
+            ],
+
+            "Produce_Card_Location":
+            [
+                "Church_Of_Death"
+            ],
+
+            "Produce_Body_Part":
+            [
+                "Physical_Body"
+            ],
+
+            "Produce_Special_Effect":
+            [
+                "Realize_Flesh_And_Body"
+            ]
+
+        },
+        {
             "Id": "Private_Soiree",
             "Label": "Private Soiree",
             "Image": "Image_Private_Soiree",
@@ -12,7 +98,7 @@
             "Occupation": "All",
 
             "Burn": false,
-            "Use_Time": 2,
+            "Use_Time": -1,
             "Counter": -1,
             "Only": true,
             "Time": 15,
@@ -90,6 +176,32 @@
             "Special_Effect":
             [
                 "Realize_Flesh_And_Body"
+            ]
+
+        },
+        {
+            "Id": "The_Fortune_Teller",
+            "Label": "The Fortune Teller",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+
+            "Rank": 9,
+            "Occupation": "Fortune_Teller",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Counter": 1,
+            "Only": true,
+            "Time": 1,
+
+            "Require_Resource":
+            {
+                "Fund": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
             ]
 
         }
