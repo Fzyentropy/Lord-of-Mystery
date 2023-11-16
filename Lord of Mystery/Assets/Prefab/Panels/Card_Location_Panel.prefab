@@ -1392,7 +1392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8120621837250317852}
   m_Layer: 0
-  m_Name: Body Parts without
+  m_Name: Body_Parts_without
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1427,7 +1427,7 @@ GameObject:
   - component: {fileID: 1421802434667976828}
   - component: {fileID: 1360806191975627815}
   m_Layer: 0
-  m_Name: StartButton
+  m_Name: Start_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1539,6 +1539,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268d766c80e0ded40ba8030669b83741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attached_panel: {fileID: 8673821900251910866}
+  is_button_available: 0
+  button_sprite_renderer: {fileID: 0}
+  mouse_click_position: {x: 0, y: 0, z: 0}
+  button_idle_color: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+  button_hover_color: {r: 1, g: 1, b: 1, a: 1}
+  button_click_color: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+  button_unavailable_color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
 --- !u!1 &6366338599018662811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,7 +1559,7 @@ GameObject:
   - component: {fileID: 1760884273528220463}
   - component: {fileID: 1278239928622706485}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: Button_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1574,7 +1582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.017296791, y: 0.021099567}
+  m_AnchoredPosition: {x: 0.173, y: 0.27}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &1760884273528220463
@@ -1702,7 +1710,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 8.117398, y: 2.36502, z: 9.765746, w: 1.8106246}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -1984,7 +1992,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6784314}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7921569}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2154,6 +2162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc06bb6005283d44287482088381461e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attached_card: {fileID: 0}
+  card_location_feature_in_attached_card: {fileID: 0}
+  start_button: {fileID: 5935870856679376324}
+  is_mouse_hover_on_panel: 0
   panel_image: {fileID: 4353840571473389007}
   panel_label: {fileID: 9052688202075834355}
   panel_description: {fileID: 2590580191475585822}
@@ -2167,7 +2179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3307308737500460447}
   m_Layer: 0
-  m_Name: Body Parts
+  m_Name: Body_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

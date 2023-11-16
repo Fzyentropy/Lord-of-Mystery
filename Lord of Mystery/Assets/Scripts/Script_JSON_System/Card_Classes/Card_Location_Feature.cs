@@ -24,7 +24,7 @@ public class Card_Location_Feature : MonoBehaviour
     public List<Button> resource_buttons;
     public List<TMP_Text> resource_number;
     public List<GameObject> body_part_slots;
-    public Button start_button;
+    // public Button start_button;
     
     // 进度条
     public GameObject progress_bar_prefab;        // 进度条 prefab
@@ -154,9 +154,16 @@ public class Card_Location_Feature : MonoBehaviour
         GameObject panel = Instantiate(_card_location_panel, gameObject.transform.position, Quaternion.identity);  // 实例化 panel
         Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
         
+        panel_feature.Set_Attached_Card(gameObject);        // 将生成的 panel 中的对于生成卡牌的指代设置为此卡
+        
         panel_feature.Set_Sprite(Resources.Load<Sprite>("Image/" + _cardLocation.Image));   // 设置图片
-        panel_feature.Set_Label(_cardLocation.Label);
-        panel_feature.Set_Description(_cardLocation.Description);
+        panel_feature.Set_Label(_cardLocation.Label);                                            // 设置 Label
+        panel_feature.Set_Description(_cardLocation.Description);                                // 设置 description
+        
+        // panel_feature. Set Resource Buttons
+        
+        
+        // panel_feature. Set Body Parts
         
 
         return panel;
@@ -175,20 +182,20 @@ public class Card_Location_Feature : MonoBehaviour
 
     
     // 开始倒计时， 或许需要重写，以加入进度条
-    public void StartCountdown()
+    public void Start_Countdown()
     {
-        StartCoroutine(Countdown());
+        StartCoroutine(Counting_Down_For_Card_Effect());
     }
     
     
     
     // 倒计时协程，包括进度条的功能
     
-    IEnumerator Countdown()
+    IEnumerator Counting_Down_For_Card_Effect()
     {
         float totalTime = _cardLocation.Time;   // 从 JSON 获取总计时
         float remainingTime = totalTime;        // 设置倒计时参数
-        float timeInterval = 0.05f;              // 设置时间间隔
+        float timeInterval = 0.05f;              // 设置进度条更新的时间间隔
 
         // 实例化 进度条 prefab
         progress_bar = Instantiate(progress_bar_prefab, transform.position, Quaternion.identity);
@@ -230,7 +237,10 @@ public class Card_Location_Feature : MonoBehaviour
         // 比如：Produce_Resource, Produce_Message 等
         // ...
 
-        if (_cardLocation.Produce_Special_Effect.Count > 0)
+        
+        // Special Effect
+        
+        if (_cardLocation.Produce_Special_Effect.Count > 0)       // 简单写的，根据 Special Effect 的 list 触发 Special Effect 
         {
             foreach (var special_effect in _cardLocation.Produce_Special_Effect)
             {

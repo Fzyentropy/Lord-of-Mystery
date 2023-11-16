@@ -27,12 +27,16 @@ public class GameManager : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////////////
 
     
-    public static GameManager GM;
-    public Card_Loader CardLoader;
+    public static GameManager GM;                   // 方便在其他脚本 调用 Game Manager 中方法和变量的 static 自身指代
+    
+    // 一些其他 Manager
+    public Card_Loader CardLoader;                  // 处理 从 JSON 文件到卡牌类结构的操作的脚本，提供一系列方法来获取卡牌
+    public Resource_Manager ResourceManager;        // 资源管理脚本 Resource Manager
 
-    public GameObject message_Panel;
-    public GameObject Card_Location_Prefab;
-    public GameObject Card_Body_Part_Prefab;
+    // 卡牌 prefab
+    public GameObject message_Panel;                // 左下角 message panel 的 prefab
+    public GameObject Card_Location_Prefab;         // Card_Location 的 prefab
+    public GameObject Card_Body_Part_Prefab;        // Card_Body_Part 的 prefab
 
 
     private void Awake()

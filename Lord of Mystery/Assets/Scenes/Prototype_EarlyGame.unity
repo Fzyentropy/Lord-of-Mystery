@@ -2048,9 +2048,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardLoader: {fileID: 619533614}
+  ResourceManager: {fileID: 1642947923}
   message_Panel: {fileID: 4127473093681423652, guid: 846aef75ddf6e89479cc0b50abb53adc, type: 3}
   Card_Location_Prefab: {fileID: 2650628250851114781, guid: 6b511319fbf9aeb45977d3529cbd3c76, type: 3}
-  Card_Body_Part_Prefab: {fileID: 0}
+  Card_Body_Part_Prefab: {fileID: 5566216679495704457, guid: c647c69d122fbb54bb994f8e243df365, type: 3}
 --- !u!4 &1472352532
 Transform:
   m_ObjectHideFlags: 0

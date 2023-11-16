@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prototype_BuildCards_Script : MonoBehaviour
+public class Prototype_FortuneTeller_Script : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

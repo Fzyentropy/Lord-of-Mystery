@@ -139,11 +139,10 @@ MonoBehaviour:
     Godhood: 0
   card_label: {fileID: 2328481247986825465}
   card_image: {fileID: 3453740908669060079}
-  _card_location_panel: {fileID: 8673821900251910866, guid: 787fca4d0354fa54e8f017e7e1bc4886, type: 3}
+  _card_location_panel: {fileID: 8673821900251910866, guid: 8d7437142244d1a489ff64f75d994fac, type: 3}
   resource_buttons: []
   resource_number: []
   body_part_slots: []
-  start_button: {fileID: 0}
   progress_bar_prefab: {fileID: 6519039351980061584, guid: 1dbcd721cc66ecb41b58bc9dad46383f, type: 3}
   progress_bar: {fileID: 0}
   progress_bar_root: {fileID: 0}

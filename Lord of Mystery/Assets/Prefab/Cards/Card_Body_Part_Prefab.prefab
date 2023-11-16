@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 5185196231508211715}
   - component: {fileID: 7651539474899524551}
   m_Layer: 0
-  m_Name: Card_Body_Part
+  m_Name: Card_Body_Part_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
