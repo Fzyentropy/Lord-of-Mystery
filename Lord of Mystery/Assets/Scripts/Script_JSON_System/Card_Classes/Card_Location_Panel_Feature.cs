@@ -65,11 +65,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
 
 
-    
-    
-    
-
-
-
-
+    private void OnMouseOver()
+    {
+        Debug.Log("mouse over big panel");
+        is_mouse_hover_on_panel = true;
+    }
 }
