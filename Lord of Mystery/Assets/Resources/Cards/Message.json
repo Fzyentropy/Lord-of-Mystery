@@ -7,8 +7,28 @@
             "Label": "Message Title",
             "Image": "Image_Message_Id",
             "Message_Content": "This is the message you want the player to know. So you are reading it right now."
+        },
+        {
+            "Id": "Physical_Body",
+            "Label": "Physical Body",
+            "Image": "Image_Physical_Body",
+            "Message_Content": "The Heart Relentless beats to protect the skin of the world we understand."
+        },
+        {
+            "Id": "Spirit",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+        },
+        {
+            "Id": "Psyche",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
 
         },
+
+
         {
             "Id": "Beginning",
             "Label": "I start to feel",
@@ -30,6 +50,9 @@
             "Message_Content": "In the allure of the night, I arrived in the Kingdom of Loen. There, I encountered a seer who claimed I was one of destiny's chosen. She expressed a desire to divine my future, shrouded in the mystique of the unknown."
 
         },
+
+
+
 
         {
             "Id": "The_Fool",

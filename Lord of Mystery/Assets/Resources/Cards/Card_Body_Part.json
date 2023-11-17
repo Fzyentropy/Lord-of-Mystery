@@ -2,6 +2,29 @@
 
     "List_Card_Body_Part":
     [
+
+        {
+            "Id": "Physical_Body",
+            "Label": "Physical Body",
+            "Image": "Image_Physical_Body",
+            "Produce_Message":"Physical_Body"
+        },
+        {
+            "Id": "Spirit",
+            "Label": "Spirit",
+            "Image": "Image_Spirit",
+            "Produce_Message":"Spirit"
+        },
+        {
+            "Id": "Psyche",
+            "Label": "Psyche",
+            "Image": "Image_Psyche",
+            "Produce_Message":"Psyche"
+        },
+
+
+
+
         {
             "Id": "The_Fool",
             "Label": "The Fool",
