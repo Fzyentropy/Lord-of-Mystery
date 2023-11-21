@@ -30,9 +30,14 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;                   // 方便在其他脚本 调用 Game Manager 中方法和变量的 static 自身指代
     
     // 一些其他 Manager
+    [Header("Managers")]
     public Card_Loader CardLoader;                  // 处理 从 JSON 文件到卡牌类结构的操作的脚本，提供一系列方法来获取卡牌
     public Resource_Manager ResourceManager;        // 资源管理脚本 Resource Manager
+    public Panel_Manager PanelManager;
+    public Input_Manager InputManager;
 
+    [Space(10)]
+    
     // 卡牌 prefab
     public GameObject message_Panel;                // 左下角 message panel 的 prefab
     public GameObject Card_Location_Prefab;         // Card_Location 的 prefab

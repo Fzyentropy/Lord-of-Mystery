@@ -149,7 +149,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     public GameObject Open_Panel()
     {
-        InputManager.isInfoPanelOut = true;        // 设置 Input Manager 中的 是否打开panel参数为 true
+        GameManager.GM.PanelManager.is_panel_open = true;        // 设置 Panel Manager 中的 是否打开panel参数为 true
         
         GameObject panel = Instantiate(_card_location_panel, gameObject.transform.position, Quaternion.identity);  // 实例化 panel
         Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本

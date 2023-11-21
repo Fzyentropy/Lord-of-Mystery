@@ -5,24 +5,24 @@ using UnityEngine;
 
 
 
-public class InputManager : MonoBehaviour
+public class Input_Manager : MonoBehaviour
 {
     public Camera mainCamera;          // remember to assign a camera here
     public GameObject infoPanelPrefab; // Assign a prefab of the information panel in the inspector
     private GameObject selectedObject;
     private Vector3 lastMousePosition;
-    private float mouseDownTime;
+    
+    public Vector3 mouse_click_position;        // 点击时记录鼠标位置，方便判定点击还是拖拽
 
-    public float CameraScrollOffset = 3f;
-    public float CameraMoveOffset = 0.05f;
+    public float CameraScrollOffset = 3f;       // 鼠标滚轮缩放 速率 
+    public float CameraMoveOffset = 0.05f;      // 鼠标拖拽移动 速率
 
-    public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
-    public static GameObject panelReference;        // 打开的 Panel 的引用
 
+    
 
     private void Start()
     {
-        FindMainCamera();
+        FindMainCamera();       // 找到场景中的 camera
         
         
     }
@@ -31,18 +31,15 @@ public class InputManager : MonoBehaviour
     {
         
         MouseScroll();
-        
         MouseLogic();
         
     }
-
-    /////////////////////////////////////////////////////////////////////////
+    
+    
     /////////////////////////////////////////////////////////////////////////               FUNCTIONS
-    /////////////////////////////////////////////////////////////////////////
 
     
-
-    void FindMainCamera()
+    void FindMainCamera()       // 找到场景中的 camera
     {
         if (mainCamera == null)
         {
@@ -50,22 +47,23 @@ public class InputManager : MonoBehaviour
         }
     }
     
-    
-
-    /// <summary>
-    /// //////////////////      Mouse Logic
-    /// </summary>
-    
-    void MouseLogic()
+    void MouseScroll()              // 鼠标滚轮可以缩放场景
     {
         
-        /////////////////////////////////     鼠标点击的时候，判断是否点击到了卡牌，以及判断是点击还是拖拽
+        // 加上判定条件，以限制缩放大小
+        mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;    // 滚轮 改变视角大小
+
+    }
+    
+    void MouseLogic()           ////  Mouse Logic - 鼠标点击的时候，判断是否点击到了卡牌，以及判断是点击还是拖拽
+    {
         
-        if (Input.GetMouseButtonDown(0))      
+        if (Input.GetMouseButtonDown(0))
         {
-            mouseDownTime = Time.time;   // record the time when hold down mouse left button
             
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            mouse_click_position = Input.mousePosition;     // 点击时记录鼠标的位置，以判断点击或拖拽
+
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);                         // 射线检测
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
             if (hit.collider != null)
@@ -83,8 +81,11 @@ public class InputManager : MonoBehaviour
         
         ///////////////////////////////////     若是拖拽，点击到了卡牌 就拖动卡牌，没点击卡牌（即点击 board）则拖动 board
         
-        else if (Input.GetMouseButton(0))   
+        else 
+        
+        if (Input.GetMouseButton(0))   
         {
+
             if (selectedObject != null)      // 若点击到了卡牌（或任何可拖拽，带collider的物体），就拖拽卡牌
             {
                  // 将来要加的 if (selectedObject.CompareTag("") 是 Card 或者 Function，则拖动 - TODO add tag compare
@@ -92,7 +93,7 @@ public class InputManager : MonoBehaviour
                 delta.z = 0;
                 selectedObject.transform.position += delta;
             }
-            else                            // 若没有点击到
+            else                            // 若没有点击到，则移动 camera（拖动 board）
             {
                 Vector3 delta = Input.mousePosition - lastMousePosition;
                 Vector3 worldDelta = mainCamera.ScreenToWorldPoint(new Vector3(delta.x, delta.y, mainCamera.nearClipPlane)) - mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
@@ -105,14 +106,17 @@ public class InputManager : MonoBehaviour
         
         else if (Input.GetMouseButtonUp(0))     //////////   若只是点击，且点击到了卡牌，或其他带 collider 物体，则 show Panel 
         {
-            float duration = Time.time - mouseDownTime;  // Calculate the duration of the mouse button being held down
 
-            if (duration < 0.15f) // Adjust the threshold value as needed
+            if (Input.mousePosition == mouse_click_position)    // 若 当前鼠标位置与按下的时候相等，说明是点击，则 ——
             {
-                if (isInfoPanelOut)
+                if (selectedObject == null)
+                {
+                    
+                }
+                if (GameManager.GM.PanelManager.is_panel_open)      // 假如已经有 panel 打开，则关闭 panel
                 {
                     Close_Current_Panel();
-                    isInfoPanelOut = false;
+                    GameManager.GM.PanelManager.is_panel_open = false;
                 }
                 else
                 if (selectedObject != null)
@@ -130,7 +134,7 @@ public class InputManager : MonoBehaviour
 
                         if (selectedObject.GetComponent<Card_Location_Feature>() != null)
                         {
-                            panelReference = selectedObject.GetComponent<Card_Location_Feature>().Open_Panel();
+                            GameManager.GM.PanelManager.current_panel_reference = selectedObject.GetComponent<Card_Location_Feature>().Open_Panel();
                         }
                         
                         
@@ -154,7 +158,7 @@ public class InputManager : MonoBehaviour
     public void Close_Current_Panel()
     {
         
-        Destroy(panelReference);
+        Destroy(GameManager.GM.PanelManager.current_panel_reference);
         
         // 在此处添加 任何处理 有关返还资源的
         
@@ -163,11 +167,11 @@ public class InputManager : MonoBehaviour
     
     private void ShowInfoPanel(Vector3 position)           //////////////////   实例化 info Panel
     {
-        isInfoPanelOut = true;
-        panelReference = Instantiate(infoPanelPrefab, position, Quaternion.identity);
+        GameManager.GM.PanelManager.is_panel_open = true;
+        GameManager.GM.PanelManager.current_panel_reference = Instantiate(infoPanelPrefab, position, Quaternion.identity);
         // panel.transform.localScale = Vector3.zero;
 
-        StartCoroutine(ScaleUp(panelReference.transform.localScale));
+        StartCoroutine(ScaleUp(GameManager.GM.PanelManager.current_panel_reference.transform.localScale));
     }
 
     private IEnumerator ScaleUp(Vector3 panelScale)        ///////////////////  弹出动画
@@ -187,11 +191,7 @@ public class InputManager : MonoBehaviour
         transform.localScale = Vector3.one;
     }
     
-    void MouseScroll()
-    {
-        mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;    // 滚轮 改变视角大小
 
-    }
     
     
 }
