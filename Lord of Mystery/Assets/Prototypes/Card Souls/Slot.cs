@@ -66,7 +66,7 @@ public class Slot : MonoBehaviour
     // 高亮方法
     public void Highlight()
     {
-        if (isAble)
+        if (isAble && !CardSouls_Manager.CardSoulsManager.isPlayerDoingAction)
         {
             edgeSpr.color = Color.white;
         }
@@ -80,7 +80,7 @@ public class Slot : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (isAble)
+        if (isAble && !CardSouls_Manager.CardSoulsManager.isPlayerDoingAction)
         {
             spr.color = mouseOverColor;
         }
@@ -93,7 +93,7 @@ public class Slot : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (isAble)
+        if (isAble && !CardSouls_Manager.CardSoulsManager.isPlayerDoingAction)
         {
             StartCoroutine(CardSouls_Manager.CardSoulsManager.MoveToSlot(this));
         }
