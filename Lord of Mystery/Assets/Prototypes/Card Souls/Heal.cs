@@ -29,7 +29,12 @@ public class Heal : MonoBehaviour
     {
         if (!CardSouls_Manager.CardSoulsManager.isPlayerDoingAction)
         {
-            StartCoroutine(CardSouls_Manager.CardSoulsManager.Heal());
+            if (CardSouls_Manager.CardSoulsManager.estukFlaskNumber > 0)
+            {
+                CardSouls_Manager.CardSoulsManager.estukFlaskNumber--;
+                StartCoroutine(CardSouls_Manager.CardSoulsManager.Heal());
+            }
+            
         }
     }
 }

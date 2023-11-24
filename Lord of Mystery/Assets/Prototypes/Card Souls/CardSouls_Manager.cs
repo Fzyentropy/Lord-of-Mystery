@@ -5,6 +5,8 @@ using UnityEngine;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CardSouls_Manager : MonoBehaviour
 {
@@ -16,12 +18,19 @@ public class CardSouls_Manager : MonoBehaviour
     public GameObject player;
     public int playerHP = 100;
     public int currentPlayerHP;
+    public int estukFlaskNumber = 3;
+    public int estukFlaskHeal = 45;
+    public float playerMoveTime = 2f;
+    public float playerAttackTime = 1.5f;
+    public float playerEstukFlaskTime = 2f;
+    public bool isPlayerDead = false;
 
     // Gundyr
     [Header("Gundyr")]
     public GameObject gundyr;
     public int gundyrHP = 1000;
     public int currentGundyrHP;
+    public float gundyrAttackTime = 3f;
 
     // Slot
     [Header("Slot")]
@@ -45,10 +54,14 @@ public class CardSouls_Manager : MonoBehaviour
     [Header("UI")]
     public GameObject playerHealthBar;
     public GameObject gundyrHealthBar;
+    public GameObject gundyrHealthBarWrapper;
+    public GameObject gundyrName;
 
     public GameObject BlackScreen;
     public TMP_Text dieText;
     public GameObject blackScreenPrefab;
+
+    public TMP_Text estukFlaskNumberText;
     
     // Attack
     [Header("Attack")]
@@ -58,6 +71,20 @@ public class CardSouls_Manager : MonoBehaviour
     public GameObject red_prefab;
     public List<GameObject> all_reds;
     public bool isGundyrAttacking;
+    
+    // Audio
+    public AudioSource gundyrMusic;
+    public AudioSource swordHit;
+    public AudioSource slay;
+    public AudioSource youDied;
+    public AudioSource EstukFlaskDrink;
+    public AudioSource dodge;
+    public AudioSource gundyrAttack1;
+    public AudioSource gundyrAttack2;
+    public AudioSource gundyrAttack3;
+    public AudioSource gundyrMoan1;
+    public AudioSource HeirOfFireDestroyed;
+    private AudioSource gundyrAttackSFX;
 
 
 
@@ -65,14 +92,15 @@ public class CardSouls_Manager : MonoBehaviour
     private void Awake()
     {
         CardSoulsManager = this;
+        
     }
 
     private void Start()
     {
         PlacePlayer();
         SetHP();
-
-        StartCoroutine(GundyrAttackRoutine());
+        
+        StartCoroutine(FacingGundyr());
     }
 
     private void Update()
@@ -96,6 +124,11 @@ public class CardSouls_Manager : MonoBehaviour
         player.transform.position = startSlot.transform.position;
         playerX = startSlot.GetComponent<Slot>().x;
         playerY = startSlot.GetComponent<Slot>().y;
+
+        if (estukFlaskNumberText == null)
+        {
+            estukFlaskNumberText = GameObject.Find("Estuk Flask num").GetComponent<TMP_Text>();
+        }
     }
 
     void SetHP()
@@ -129,10 +162,42 @@ public class CardSouls_Manager : MonoBehaviour
 
         playerHealthBar.transform.localScale = 
             new Vector3(playerScale, playerHealthBar.transform.localScale.y, playerHealthBar.transform.localScale.z);
-        gundyrHealthBar.transform.localScale =
-            new Vector3(gundyrScale, gundyrHealthBar.transform.localScale.y, gundyrHealthBar.transform.localScale.z);
-        Debug.Log("player scale : "+ playerScale);
-        Debug.Log("playerHP = " + playerHP);
+        if (gundyrHealthBar.activeSelf)
+        {
+            gundyrHealthBar.transform.localScale =
+                new Vector3(gundyrScale, gundyrHealthBar.transform.localScale.y, gundyrHealthBar.transform.localScale.z);
+        }
+        
+        estukFlaskNumberText.text = estukFlaskNumber.ToString();
+    }
+
+    public IEnumerator FacingGundyr()
+    {
+        isGundyrAttacking = true;
+        // 淡入
+        BlackScreen.SetActive(true);
+
+        Image black = BlackScreen.GetComponent<Image>();
+        
+        float elapsedTime = 0.05f;
+        float elapsedStep = 0.03f;
+
+        while (black.color.a > 0.05)
+        {
+            black.color = new Color(0, 0, 0, black.color.a - elapsedStep);
+            yield return new WaitForSeconds(elapsedTime);
+        }
+        black.color = Color.clear;
+        
+        // yield return new WaitForSeconds(1f);
+        gundyrMusic.Play();
+        yield return new WaitForSeconds(2f);
+        gundyrHealthBar.SetActive(true);
+        gundyrHealthBarWrapper.SetActive(true);
+        gundyrName.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        isGundyrAttacking = false;
+
     }
 
 
@@ -223,10 +288,11 @@ public class CardSouls_Manager : MonoBehaviour
     {
         isPlayerDoingAction = true;
 
-        yield return StartCoroutine(CallPlayerProgressBar(2));
+        yield return StartCoroutine(CallPlayerProgressBar(playerMoveTime));
 
 
         // 触移动
+        dodge.Play();   // 播放 SFX dodge
         player.transform.position = slot.gameObject.transform.position;
         playerX = slot.x;
         playerY = slot.y;
@@ -240,19 +306,25 @@ public class CardSouls_Manager : MonoBehaviour
     {
         isPlayerDoingAction = true;
 
-        yield return StartCoroutine(CallPlayerProgressBar(2));
+        yield return StartCoroutine(CallPlayerProgressBar(playerAttackTime));
 
         
         // 攻击逻辑
         
+       
+        
         if (playerX == 1)
         {
+            
             if (currentGundyrHP - PlayerAttackDamage <= 0)
             {
+                currentGundyrHP = 0;
+                StopAllCoroutines();
                 StartCoroutine(BeatGundyr());
             }
             else
             {
+                swordHit.Play();        // 播放 打击音效
                 currentGundyrHP -= PlayerAttackDamage;
             }
             
@@ -267,11 +339,11 @@ public class CardSouls_Manager : MonoBehaviour
     {
         isPlayerDoingAction = true;
 
-        yield return StartCoroutine(CallPlayerProgressBar(3));
+        yield return StartCoroutine(CallPlayerProgressBar(playerEstukFlaskTime));
 
         
         // 回血逻辑
-        StartCoroutine(HealOverTime(45));
+        StartCoroutine(HealOverTime(estukFlaskHeal));
         isPlayerDoingAction = false;
     }
 
@@ -281,6 +353,8 @@ public class CardSouls_Manager : MonoBehaviour
         float healInterval = 0.025f;
         int healEachTime = 1;
 
+        EstukFlaskDrink.Play();     // 播放音效
+        
         while (amountHealed < totalHealAmount) {
             
             currentPlayerHP += healEachTime;
@@ -317,8 +391,11 @@ public class CardSouls_Manager : MonoBehaviour
             yield return new WaitForSeconds(attackDelay); // 等待攻击倒计时
             
             ChooseAttackSlots(); // 选择攻击的slot
+            
+            
+            yield return StartCoroutine(CallGundyrProgressBar(gundyrAttackTime));
 
-            yield return StartCoroutine(CallGundyrProgressBar(3));
+            
             
             // 检查是否对玩家造成伤害
             DamagePlayer();
@@ -330,6 +407,53 @@ public class CardSouls_Manager : MonoBehaviour
     void ChooseAttackSlots()
     {
         int attackMoveIndicator = Random.Range(1, 6);
+        int[] indicators = new []{1};
+        
+        // 古达攻击算法
+
+        // □ ■ ■ □
+        // □ □ □ □
+        if (playerX == 1 && (playerY == 2 || playerY == 3))
+        {
+            indicators = new[] { 1, 1, 2, 3 };
+
+        }
+        // □ □ □ □
+        // □ ■ ■ □
+        else if (playerX == 2 && (playerY == 2 || playerY == 3))
+        {
+            indicators = new[] { 1, 5, 7, 8 };
+        }
+        // ■ □ □ □
+        // □ □ □ □
+        else if (playerX == 1 && playerY == 1)
+        {
+            indicators = new[] { 2, 4 };
+        }
+        // □ □ □ ■
+        // □ □ □ □
+        else if (playerX == 1 && playerY == 4)
+        {
+            indicators = new[] { 3, 6 };
+        }
+        // □ □ □ □
+        // ■ □ □ □
+        else if (playerX == 2 && playerY == 1)
+        {
+            indicators = new[] { 4, 7 };
+        }
+        // □ □ □ □
+        // □ □ □ ■
+        else if (playerX == 2 && playerY == 4)
+        {
+            indicators = new[] { 6, 8 };
+        }
+        
+        int indicator = Random.Range(0, indicators.Length - 1);
+        attackMoveIndicator = indicators[indicator];
+        
+        
+        
         
         // ■ ■ ■ ■
         // □ □ □ □
@@ -342,6 +466,8 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(1, 3),
                 new Vector2Int(1, 4)
             };
+
+            gundyrAttackSFX = gundyrAttack1;    // 设置音效 1
         }
         
         // ■ ■ ■ □
@@ -355,6 +481,8 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(1, 3),
                 new Vector2Int(2, 2)
             };
+            
+            gundyrAttackSFX = gundyrAttack1;    // 设置音效 1
         }
         
         // □ ■ ■ ■
@@ -368,6 +496,8 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(1, 3),
                 new Vector2Int(1, 4)
             };
+            
+            gundyrAttackSFX = gundyrAttack1;    // 设置音效 1
         }
         
         // ■ ■ □ □
@@ -381,6 +511,8 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(2, 1),
                 new Vector2Int(2, 2)
             };
+            
+            gundyrAttackSFX = gundyrAttack2;    // 设置音效 2
         }
         
         // □ ■ ■ □
@@ -394,6 +526,8 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(1, 3),
                 new Vector2Int(2, 3)
             };
+            
+            gundyrAttackSFX = gundyrAttack2;    // 设置音效 2
         }
         
         // □ □ ■ ■
@@ -407,23 +541,27 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(1, 3),
                 new Vector2Int(1, 4)
             };
+            
+            gundyrAttackSFX = gundyrAttack2;    // 设置音效 2
         }
         
         // □ ■ □ □
-        // ■ ■ ■ □
+        // □ ■ ■ □
         if (attackMoveIndicator == 7)
         {
             attackSlots = new List<Vector2Int>()
             {
-                new Vector2Int(2, 1), 
+                // new Vector2Int(2, 1), 
                 new Vector2Int(2, 2),
                 new Vector2Int(2, 3),
                 new Vector2Int(1, 2)
             };
+            
+            gundyrAttackSFX = gundyrAttack1;    // 设置音效 1
         }
         
         // □ □ ■ □
-        // □ ■ ■ ■
+        // □ ■ ■ □
         if (attackMoveIndicator == 8)
         {
             attackSlots = new List<Vector2Int>()
@@ -431,8 +569,10 @@ public class CardSouls_Manager : MonoBehaviour
                 new Vector2Int(1, 3), 
                 new Vector2Int(2, 2),
                 new Vector2Int(2, 3),
-                new Vector2Int(2, 4)
+                // new Vector2Int(2, 4)
             };
+            
+            gundyrAttackSFX = gundyrAttack1;    // 设置音效 1
         }
 
         foreach (var vector2Int in attackSlots)
@@ -453,7 +593,7 @@ public class CardSouls_Manager : MonoBehaviour
     {
         
         Vector2Int playerSlot = new Vector2Int(playerX, playerY);
-        if (attackSlots.Contains(playerSlot)) 
+        if (attackSlots.Contains(playerSlot) && !isPlayerDead) 
         {
             
             StopAllCoroutines();
@@ -466,16 +606,20 @@ public class CardSouls_Manager : MonoBehaviour
 
             isGundyrAttacking = false;      // 设置
             
+            
+            
             if (currentPlayerHP - GundyrAttackDamage <= 0)
             {
                 // 玩家死亡
                 currentPlayerHP = 0;
-                
+                slay.Play();        // 播放 slay 音效
+                isPlayerDead = true;
                 // 玩家死亡逻辑
                 StartCoroutine(PlayerDead());
             }
             else
             {
+                gundyrAttackSFX.Play();     // 播放 古达攻击 音效
                 currentPlayerHP -= GundyrAttackDamage;
             }
 
@@ -505,15 +649,118 @@ public class CardSouls_Manager : MonoBehaviour
 
     IEnumerator PlayerDead()
     {
+        yield return new WaitForSeconds(1f);
         Instantiate(blackScreenPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        yield return new WaitForSeconds(1f);
+        
+        youDied.Play();     // 播放音效
+        dieText.text = "YOU DIED";
+        dieText.fontSize = 175;
         dieText.color = Color.red;
-        yield return null;
+        StartCoroutine(YouDiedScale());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(PlayerBackToFirelink());
+    }
+
+    IEnumerator YouDiedScale()              // 让 YOU DIED 逐渐放大
+    {
+        float scaleStep = 0.01f;
+        float timeStep = 0.05f;
+        float currentScaleX = dieText.gameObject.transform.localScale.x;
+        while (dieText.gameObject.transform.localScale.x < 1.3f * currentScaleX)
+        {
+            dieText.gameObject.transform.localScale = new Vector3(
+                dieText.gameObject.transform.localScale.x + dieText.gameObject.transform.localScale.x * scaleStep,
+                dieText.gameObject.transform.localScale.y + dieText.gameObject.transform.localScale.y * scaleStep,
+                dieText.gameObject.transform.localScale.z);
+            yield return new WaitForSeconds(timeStep);
+        }
+
+        
+    }
+
+    IEnumerator PlayerBackToFirelink()
+    {
+        float volumeStep = 0.03f;
+        float screenStep = 0.07f;
+        float timeStep = 0.05f;
+        Image black = BlackScreen.GetComponent<Image>();
+
+        while (gundyrMusic.volume > 0.05 || black.color.a < 0.95)
+        {
+            gundyrMusic.volume -= volumeStep;
+            black.color = new Color(0, 0, 0, black.color.a + screenStep);
+            if (gundyrMusic.volume <= 0.05)
+            {
+                gundyrMusic.volume = 0;
+            }
+
+            if (black.color.a >= 0.95)
+            {
+                black.color = Color.black;
+            }
+
+            yield return new WaitForSeconds(timeStep);
+        }
+
+        yield return new WaitForSeconds(2f);
+        
+        SceneManager.LoadScene("Prototype_CardSouls_FirelinkShrine");
+
     }
 
     IEnumerator BeatGundyr()
     {
-        yield return null;
+        // 处理善后工作
+
+        // destroy all progress bar
+        foreach (GameObject progressbar  in allProgressBar)
+        {
+            Destroy(progressbar);
+        }
+        
+        // 撤掉红色
+        foreach (var reddd in all_reds)
+        {
+            Destroy(reddd);
+        }
+        all_reds.Clear();
+
+        isGundyrAttacking = true;      // 设置
+        
+        
+        
+        slay.Play();        // 播放 slay 音效
+
+        yield return new WaitForSeconds(4f);
+        
+        Instantiate(blackScreenPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        HeirOfFireDestroyed.Play();     // 播放音效
+        dieText.text = "HEIR OF FIRE DESTROYED";
+        dieText.fontSize = 117;
+
+        float colorStep = 0.05f;
+        float timeStep = 0.05f;
+        while (dieText.color.a < 0.95)
+        {
+            dieText.color = new Color(1,0.86F,0.39F, dieText.color.a + colorStep);
+            if (dieText.color.a >= 0.95)
+            {
+                dieText.color = new Color(1, 0.86F, 0.39F, 1);
+            }
+
+            yield return new WaitForSeconds(timeStep);
+        }
+        
+
+        yield return new WaitForSeconds(7f);
+
+        StartCoroutine(PlayerBackToFirelink());
+
+
     }
+    
+    
 
 
 
