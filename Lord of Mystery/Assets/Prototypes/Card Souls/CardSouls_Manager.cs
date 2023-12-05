@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
+// using UnityEditor.Experimental.GraphView;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -129,6 +129,8 @@ public class CardSouls_Manager : MonoBehaviour
         {
             estukFlaskNumberText = GameObject.Find("Estuk Flask num").GetComponent<TMP_Text>();
         }
+
+        isPlayerDoingAction = true;
     }
 
     void SetHP()
@@ -188,6 +190,8 @@ public class CardSouls_Manager : MonoBehaviour
             yield return new WaitForSeconds(elapsedTime);
         }
         black.color = Color.clear;
+
+        isPlayerDoingAction = false;
         
         // yield return new WaitForSeconds(1f);
         gundyrMusic.Play();
@@ -406,8 +410,8 @@ public class CardSouls_Manager : MonoBehaviour
 
     void ChooseAttackSlots()
     {
-        int attackMoveIndicator = Random.Range(1, 6);
-        int[] indicators = new []{1};
+        // int attackMoveIndicator = 0;
+        int[] indicators = new []{0};
         
         // 古达攻击算法
 
@@ -428,19 +432,19 @@ public class CardSouls_Manager : MonoBehaviour
         // □ □ □ □
         else if (playerX == 1 && playerY == 1)
         {
-            indicators = new[] { 2, 4 };
+            indicators = new[] { 1, 2, 4 };
         }
         // □ □ □ ■
         // □ □ □ □
         else if (playerX == 1 && playerY == 4)
         {
-            indicators = new[] { 3, 6 };
+            indicators = new[] { 1, 3, 6 };
         }
         // □ □ □ □
         // ■ □ □ □
         else if (playerX == 2 && playerY == 1)
         {
-            indicators = new[] { 4, 7 };
+            indicators = new[] { 2, 7, 4 };
         }
         // □ □ □ □
         // □ □ □ ■
@@ -449,10 +453,10 @@ public class CardSouls_Manager : MonoBehaviour
             indicators = new[] { 6, 8 };
         }
         
-        int indicator = Random.Range(0, indicators.Length - 1);
-        attackMoveIndicator = indicators[indicator];
+        int indicator = Random.Range(0, indicators.Length);
+        int attackMoveIndicator = indicators[indicator];
         
-        
+        Debug.Log(attackMoveIndicator + "   " + indicators.Length);
         
         
         // ■ ■ ■ ■
@@ -610,6 +614,7 @@ public class CardSouls_Manager : MonoBehaviour
             
             if (currentPlayerHP - GundyrAttackDamage <= 0)
             {
+                StartCoroutine(CallPlayerProgressBar(1));
                 // 玩家死亡
                 currentPlayerHP = 0;
                 slay.Play();        // 播放 slay 音效
@@ -621,9 +626,10 @@ public class CardSouls_Manager : MonoBehaviour
             {
                 gundyrAttackSFX.Play();     // 播放 古达攻击 音效
                 currentPlayerHP -= GundyrAttackDamage;
+                StartCoroutine(TakingDamage());
             }
 
-            StartCoroutine(TakingDamage());
+            
 
         }
         
@@ -649,8 +655,10 @@ public class CardSouls_Manager : MonoBehaviour
 
     IEnumerator PlayerDead()
     {
-        yield return new WaitForSeconds(1f);
+        isPlayerDoingAction = true;     // disable player action
+        yield return new WaitForSeconds(0.5f);
         Instantiate(blackScreenPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        
         yield return new WaitForSeconds(1f);
         
         youDied.Play();     // 播放音效

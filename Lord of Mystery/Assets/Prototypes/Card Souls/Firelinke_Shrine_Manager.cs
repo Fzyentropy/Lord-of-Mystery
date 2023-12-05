@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,8 @@ public class Firelinke_Shrine_Manager : MonoBehaviour
 {
     public static Firelinke_Shrine_Manager FSM;
     public GameObject BlackScreen;
+    public AudioSource NewSceneSFX;
+    public GameObject sceneText;
     public bool isFading = false;
 
     public AudioSource fireLinkShrineMusic;
@@ -38,7 +41,30 @@ public class Firelinke_Shrine_Manager : MonoBehaviour
         black.color = Color.clear;
         
         // yield return new WaitForSeconds(1f);
+        
+        NewSceneSFX.Play();
         fireLinkShrineMusic.Play();
+        // show the location Text
+        TMP_Text sText = sceneText.GetComponent<TMP_Text>();
+        float textElapsedTime = 0.05f;
+        float textElapsedStep = 0.07f;
+        sText.color = Color.clear;
+        while (sText.color.a < 0.95)
+        {
+            sText.color = new Color(1, 1, 1, sText.color.a + textElapsedStep);
+            yield return new WaitForSeconds(textElapsedTime);
+        }
+        sText.color = Color.white;
+
+        yield return new WaitForSeconds(3f);
+        
+        while (sText.color.a > 0.05)
+        {
+            sText.color = new Color(1, 1, 1, sText.color.a - textElapsedStep);
+            yield return new WaitForSeconds(textElapsedTime);
+        }
+        sText.color = Color.clear;
+        
 
         isFading = false;
     }
