@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class Resource_Manager : MonoBehaviour
 {
+    // 各个资源的数量
     public int Fund;
     public int Physical_Energy;
     public int Spirit;
@@ -19,23 +20,21 @@ public class Resource_Manager : MonoBehaviour
     
     
     // 资源位置标记和占用情况
-    private Dictionary<int, bool> resourceLocationsOccupied = new Dictionary<int, bool>();
-    private Dictionary<string, int> resourceLocationIndex = new Dictionary<string, int>();
+    private Dictionary<int, bool> resourceLocationsOccupied = new Dictionary<int, bool>();      // int : 资源槽位的编号    bool : 是否被占用
+    private Dictionary<string, int> resourceLocationIndex = new Dictionary<string, int>();      // string : 资源名称    int : 资源占用的槽位编号
 
-    public GameObject fund_icon_pure; // Fund资源的图标Prefab
-    public GameObject physical_energy_icon_pure; // Physical_Energy资源的图标Prefab
-    public GameObject spirit_icon_pure; // Spirit资源的图标Prefab
-    public GameObject soul_icon_pure; // Soul资源的图标Prefab
-    public GameObject spirituality_infused_material_icon_pure; // Spirituality_Infused_Material资源的图标Prefab
-    public GameObject knowledge_icon_pure; // Knowledge资源的图标Prefab
-    public GameObject belief_icon_pure; // Belief资源的图标Prefab
-    public GameObject putrefaction_icon_pure; // Putrefaction资源的图标Prefab
-    public GameObject madness_icon_pure; // Madness资源的图标Prefab
-    public GameObject godhood_icon_pure; // Godhood资源的图标Prefab
+    public GameObject fund_icon_pure;   // Fund资源的图标Prefab
+    public GameObject physical_energy_icon_pure;    // Physical_Energy资源的图标Prefab
+    public GameObject spirit_icon_pure;     // Spirit资源的图标Prefab
+    public GameObject soul_icon_pure;   // Soul资源的图标Prefab
+    public GameObject spirituality_infused_material_icon_pure;  // Spirituality_Infused_Material资源的图标Prefab
+    public GameObject knowledge_icon_pure;  // Knowledge资源的图标Prefab
+    public GameObject belief_icon_pure;     // Belief资源的图标Prefab
+    public GameObject putrefaction_icon_pure;   // Putrefaction资源的图标Prefab
+    public GameObject madness_icon_pure;    // Madness资源的图标Prefab
+    public GameObject godhood_icon_pure;    // Godhood资源的图标Prefab
 
     
-
-
 
     private bool is_fund_ever_appears = false;
     private bool is_physical_energy_ever_appears = false; // 检查Physical_Energy资源是否曾出现

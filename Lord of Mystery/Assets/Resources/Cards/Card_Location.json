@@ -204,6 +204,80 @@
                 "Draw_A_Tarot_Card"
             ]
 
+        },
+        {
+            "Id": "Location_Panel_Test_1",
+            "Label": "Panel Test 1",
+            "Image": "image_id",
+            "Description": "card_description",
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1,
+                "Psyche": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spirit": 1,
+                "Soul": 1
+            },
+
+            "Produce_Message":
+            [
+                "Born"
+            ]
+        },
+        {
+            "Id": "Location_Panel_Test_2",
+            "Label": "Panel Test 2",
+            "Image": "image_id",
+            "Description": "card_description",
+
+            "Require_Resource":
+            {
+                "Spirituality_Infused_Material": 2,
+                "Godhood": 3,
+                "Knowledge": 4,
+                "Madness": 11
+            },
+
+            "Produce_Message":
+            [
+                "Born"
+            ]
+        },
+        {
+            "Id": "Location_Panel_Test_3",
+            "Label": "Panel Test 3",
+            "Image": "image_id",
+            "Description": "card_description",
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1,
+                "Psyche": 1
+            },
+
+            "Produce_Message":
+            [
+                "Born"
+            ]
+        },
+        {
+            "Id": "Location_Panel_Test_4",
+            "Label": "Panel Test 4",
+            "Image": "image_id",
+            "Description": "card_description",
+
+            "Produce_Message":
+            [
+                "Born"
+            ]
         }
 
 

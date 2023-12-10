@@ -96,22 +96,22 @@ public class Card_Loader : MonoBehaviour
 
     public Card_Automatic Get_Card_Automatic_By_Id(string id)
     {
-        return Automatic_Card_List.Find(card_automatic => card_automatic.Id == id);
+        return Automatic_Card_List.Find(card_automatic => card_automatic.Id == id);     // 根据 id 返回 Card_Automatic 实例
     }
 
     public Card_Location Get_Card_Location_By_Id(string id)
     {
-        return Location_Card_List.Find(card_location => card_location.Id == id);
+        return Location_Card_List.Find(card_location => card_location.Id == id);     // 根据 id 返回 Card_Location 实例
     }
     
     public Message Get_Message_By_Id(string id)
     {
-        return Message_List.Find(message => message.Id == id);
+        return Message_List.Find(message => message.Id == id);     // 根据 id 返回 Message 实例
     }
 
     public Card_Body_Part Get_Card_Body_Part_By_Id(string id)
     {
-        return Body_Part_Card_List.Find(card_body_part => card_body_part.Id == id);
+        return Body_Part_Card_List.Find(card_body_part => card_body_part.Id == id);     // 根据 id 返回 Body_Part 实例
     }
 
 

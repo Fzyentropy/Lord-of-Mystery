@@ -66,21 +66,21 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void Generate_Card_Location(string id)
+    public void Generate_Card_Location(string id)   // 实例化 Card_Location， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
     {
-        GameObject cardLocation = Instantiate(Card_Location_Prefab, new Vector3(15,-10,0), Quaternion.identity);
-        cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id);
+        GameObject cardLocation = Instantiate(Card_Location_Prefab, new Vector3(15,-10,0), Quaternion.identity);    
+        cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id); 
     }
     
-    public void Generate_Message(string id)
+    public void Generate_Message(string id)     // 实例化 message，根据 id 从 Card_Loader 中的 message list 中找到 message 实例，并赋予生成的 message prefab
     {
         GameObject messagePanel = Instantiate(message_Panel,GameObject.Find("Canvas").transform);
         messagePanel.GetComponent<Message_Feature>()._message = CardLoader.Get_Message_By_Id(id);
     }
 
-    public void Generate_Card_Body_Part(string id)
+    public void Generate_Card_Body_Part(string id)  // 实例化 Body_Part， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
     {
-        GameObject cardBodyPart = Instantiate(Card_Body_Part_Prefab, new Vector3(random.Range(-5,5),random.Range(-5,5),1), Quaternion.identity);
+        GameObject cardBodyPart = Instantiate(Card_Body_Part_Prefab, new Vector3(random.Range(-3,3),random.Range(-3,3),1), Quaternion.identity);
         cardBodyPart.GetComponent<Card_Body_Part_Feature>()._CardBodyPart = CardLoader.Get_Card_Body_Part_By_Id(id);
     }
 
