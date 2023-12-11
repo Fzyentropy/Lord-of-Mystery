@@ -208,8 +208,11 @@
         {
             "Id": "Location_Panel_Test_1",
             "Label": "Panel Test 1",
-            "Image": "image_id",
-            "Description": "card_description",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+
+            "Use_Time": -1,
+            "Time": 3,
 
             "Require_Body_Part":
             {
@@ -226,16 +229,19 @@
                 "Soul": 1
             },
 
-            "Produce_Message":
+            "Produce_Special_Effect":
             [
-                "Born"
+                "Draw_A_Tarot_Card"
             ]
         },
         {
             "Id": "Location_Panel_Test_2",
             "Label": "Panel Test 2",
-            "Image": "image_id",
-            "Description": "card_description",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+
+            "Use_Time": -1,
+            "Time": 3,
 
             "Require_Resource":
             {
@@ -245,16 +251,19 @@
                 "Madness": 11
             },
 
-            "Produce_Message":
+            "Produce_Special_Effect":
             [
-                "Born"
+                "Draw_A_Tarot_Card"
             ]
         },
         {
             "Id": "Location_Panel_Test_3",
             "Label": "Panel Test 3",
-            "Image": "image_id",
-            "Description": "card_description",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+
+            "Use_Time": -1,
+            "Time": 3,
 
             "Require_Body_Part":
             {
@@ -263,20 +272,30 @@
                 "Psyche": 1
             },
 
-            "Produce_Message":
+            "Produce_Special_Effect":
             [
-                "Born"
+                "Draw_A_Tarot_Card"
             ]
         },
         {
             "Id": "Location_Panel_Test_4",
             "Label": "Panel Test 4",
-            "Image": "image_id",
-            "Description": "card_description",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
 
-            "Produce_Message":
+            "Use_Time": -1,
+            "Time": 3,
+
+            "Produce_Resource":
+            {
+                "Fund": 3,
+                "Physical_Energy": 2,
+                "Spirit": 1
+            },
+
+            "Produce_Special_Effect":
             [
-                "Born"
+                "Draw_A_Tarot_Card"
             ]
         }
 

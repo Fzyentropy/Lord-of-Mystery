@@ -2176,9 +2176,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: -1877140517
+  m_SortingLayer: 3
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   m_FlipX: 0
@@ -2343,9 +2343,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
-  m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingLayerID: -1877140517
+  m_SortingLayer: 3
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1278239928622706485
 MonoBehaviour:
@@ -3104,6 +3104,20 @@ MonoBehaviour:
   resource_4_amount_text: {fileID: 1018389738395472415}
   resource_5_amount_text: {fileID: 4336104925059496756}
   requiredBodyPartsThisPanel: []
+  resource_1_amount: -1
+  current_resource_1_amount: 0
+  resource_2_amount: -1
+  current_resource_2_amount: 0
+  resource_3_amount: -1
+  current_resource_3_amount: 0
+  resource_4_amount: -1
+  current_resource_4_amount: 0
+  resource_5_amount: -1
+  current_resource_5_amount: 0
+  is_body_part_1_filled: 0
+  is_body_part_2_filled: 0
+  is_body_part_3_filled: 0
+  is_body_part_4_filled: 0
   Button_Fund: {fileID: 3953027631342908348, guid: 45eeb0305dc84cc46a5888d81afb402a, type: 3}
   Button_Physical_Energy: {fileID: 8069154514472205973, guid: d30949d4fb6028a48b7366813c3c519c, type: 3}
   Button_Spirit: {fileID: 5722414193232788536, guid: c042d612106de164cbd2b90b9781de5f, type: 3}

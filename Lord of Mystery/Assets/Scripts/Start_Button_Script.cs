@@ -99,7 +99,11 @@ public class Start_Button_Script : MonoBehaviour
             
                 // Randomly_Generate_A_Body_Part();
             
-                attached_panel.GetComponent<Card_Location_Panel_Feature>().attached_card.GetComponent<Card_Location_Feature>().Start_Countdown();
+                attached_panel.
+                    GetComponent<Card_Location_Panel_Feature>().
+                        attached_card.
+                            GetComponent<Card_Location_Feature>().
+                                Start_Countdown();
                 
             
             }

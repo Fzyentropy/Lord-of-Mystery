@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4877695618378898899}
   - component: {fileID: 4877695618378898898}
+  - component: {fileID: 2806176203207461949}
+  - component: {fileID: 5982604793513422800}
   m_Layer: 0
   m_Name: Putrefaction_Button
   m_TagString: Untagged
@@ -84,3 +86,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2806176203207461949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877695618378898901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f968065a9dcf5647afe9fc548395658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Current_Resource: 7
+  is_resource_set: 1
+  attached_panel: {fileID: 0}
+  panel_resource_slot_number: 0
+--- !u!58 &5982604793513422800
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4877695618378898901}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

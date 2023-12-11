@@ -34,20 +34,20 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public Dictionary<int, bool> availableBodyPartSlot;     // 用于记录 body part section 上 available 的 slot
     public List<string> requiredBodyPartsThisPanel;         // 用于记录需要的 body part 的 list
     
-    private int resource_1_amount = -1;                 // resource_X_amount 用于记录该资源需要消耗的 总数
-    private int current_resource_1_amount = 0;          // current_resource_X_amount 用于记录 panel 当前吸收的资源数量
-    private int resource_2_amount = -1;
-    private int current_resource_2_amount = 0;
-    private int resource_3_amount = -1;
-    private int current_resource_3_amount = 0;
-    private int resource_4_amount = -1;
-    private int current_resource_4_amount = 0;
-    private int resource_5_amount = -1;
-    private int current_resource_5_amount = 0;
-    private bool is_body_part_1_filled = false;         // 是否用 body part 填充了
-    private bool is_body_part_2_filled = false;
-    private bool is_body_part_3_filled = false;
-    private bool is_body_part_4_filled = false;
+    public int resource_1_amount = -1;                 // resource_X_amount 用于记录该资源需要消耗的 总数
+    public int current_resource_1_amount = 0;          // current_resource_X_amount 用于记录 panel 当前吸收的资源数量
+    public int resource_2_amount = -1;
+    public int current_resource_2_amount = 0;
+    public int resource_3_amount = -1;
+    public int current_resource_3_amount = 0;
+    public int resource_4_amount = -1;
+    public int current_resource_4_amount = 0;
+    public int resource_5_amount = -1;
+    public int current_resource_5_amount = 0;
+    public bool is_body_part_1_filled = false;         // 是否用 body part 填充了
+    public bool is_body_part_2_filled = false;
+    public bool is_body_part_3_filled = false;
+    public bool is_body_part_4_filled = false;
     
 
     // Resource Button Prefab
@@ -194,44 +194,55 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             if (resource.Key == "Fund")
             {
                 resource_button = Instantiate(Button_Fund, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Fund");  //设置按钮操纵的资源为 Fund
             }
             else if (resource.Key == "Physical_Energy")
             {
                 resource_button = Instantiate(Button_Physical_Energy, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Physical_Energy");  //设置按钮操纵的资源为Physical_Energy
             }
             else if (resource.Key == "Spirit")
             {
                 resource_button = Instantiate(Button_Spirit, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Spirit");  //设置按钮操纵的资源为 Spirit
             }
             else if (resource.Key == "Soul")
             {
                 resource_button = Instantiate(Button_Soul, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Soul");  //设置按钮操纵的资源为 Soul
             }
             else if (resource.Key == "Spirituality_Infused_Material")
             {
                 resource_button = Instantiate(Button_Spirituality_Infused_Material, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Spirituality_Infused_Material");  //设置按钮操纵的资源为
             }
             else if (resource.Key == "Knowledge")
             {
                 resource_button = Instantiate(Button_Knowledge, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Knowledge");  //设置按钮操纵的资源为 Knowledge
             }
             else if (resource.Key == "Belief")
             {
                 resource_button = Instantiate(Button_Belief, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Belief");  //设置按钮操纵的资源为 Belief
             }
             else if (resource.Key == "Putrefaction")
             {
                 resource_button = Instantiate(Button_Putrefaction, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Putrefaction");  //设置按钮操纵的资源为 Putrefaction
             }
             else if (resource.Key == "Madness")
             {
                 resource_button = Instantiate(Button_Madness, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Madness");  //设置按钮操纵的资源为 Madness
             }
             else if (resource.Key == "Godhood")
             {
                 resource_button = Instantiate(Button_Godhood, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Godhood");  //设置按钮操纵的资源为 Godhood
             }
             
+            resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Attached_Panel(gameObject); // 设置 resource button 的 panel 指代为此
             Find_Resource_Available_Slot_And_Set_Value(resource_button, resource.Value);     // 调用方法：寻找 available 的 slot 并将按钮放置在相应的位置
         }
         
@@ -246,12 +257,12 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 availableResourceSlot[i] = false;
                 button.transform.localPosition = GameObject.Find("Resource_"+i).transform.localPosition;   // 放置到 available slot 的空物体位置
                 
-                // 根据 slot 的编号，设置对应 资源总数参数的值
-                if (i == 1) { resource_1_amount = value; }
-                if (i == 2) { resource_2_amount = value; }
-                if (i == 3) { resource_3_amount = value; }
-                if (i == 4) { resource_4_amount = value; }
-                if (i == 5) { resource_5_amount = value; }
+                // 根据 slot 的编号，设置对应 资源总数 参数的值, 并调用 resource button 中的方法，设置 resource button 中对应在此 panel 上资源编号的参数
+                if (i == 1) { resource_1_amount = value; button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(1);}
+                if (i == 2) { resource_2_amount = value; button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(2);}
+                if (i == 3) { resource_3_amount = value; button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(3);}
+                if (i == 4) { resource_4_amount = value; button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(4);}
+                if (i == 5) { resource_5_amount = value; button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(5);}
                 break;
             }
         }
@@ -270,7 +281,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         
     }
     
-    void Set_Start_Button()         // 设置按钮的指代
+    void Set_Start_Button()         // 设置start按钮的指代
     {
         if (start_button == null)
         {

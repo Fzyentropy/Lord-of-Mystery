@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public Camera mainCamera;          // remember to assign a camera here
+    public Camera mainCamera;          // 用于 get 场景中的 camera
     public GameObject infoPanelPrefab; // Assign a prefab of the information panel in the inspector
     private GameObject selectedObject;
     private Vector3 lastMousePosition;
@@ -22,16 +22,13 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        FindMainCamera();
-        
-        
+        FindMainCamera();       // 找到场景中的 main camera
+
     }
     
     void Update()
     {
-        
         MouseScroll();
-        
         MouseLogic();
         
     }
@@ -56,7 +53,7 @@ public class InputManager : MonoBehaviour
     /// //////////////////      Mouse Logic
     /// </summary>
     
-    void MouseLogic()
+    void MouseLogic()           
     {
         
         /////////////////////////////////     鼠标点击的时候，判断是否点击到了卡牌，以及判断是点击还是拖拽

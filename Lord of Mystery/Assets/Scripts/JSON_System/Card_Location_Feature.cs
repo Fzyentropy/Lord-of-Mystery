@@ -15,13 +15,13 @@ public class Card_Location_Feature : MonoBehaviour
     public Resource_Data _ResourceData;         // 用于跟 资源管理脚本实例 传值
     
     // 卡牌数据
-    public TMP_Text card_label;
-    public SpriteRenderer card_image;
+    public TMP_Text card_label;                 // 卡牌的 label，名称
+    public SpriteRenderer card_image;           // 卡牌的 image，图片
 
     // Panel 相关
-    public GameObject _card_location_panel;       // 要弹出的 Panel
+    public GameObject _card_location_panel;       // 点击此卡时，要弹出的 Panel
     
-    public List<Button> resource_buttons;
+    public List<Button> resource_buttons;       
     public List<TMP_Text> resource_number;
     public List<GameObject> body_part_slots;
     // public Button start_button;
@@ -46,8 +46,9 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void Start()
     {
-        Check_If_Card_Exist();
-        AddColliderAndRigidbody();
+        Check_If_Card_Exist();      // 检查卡牌实例是否存在
+        Check_Card_JSON_Setting_Soft_Bug();     // 检查卡牌的 JSON 是否有好好设置，有没有设为 0 的参数
+        AddColliderAndRigidbody();      // 如果没加 collider 和 rigidbody，则加上
         
         Initialize_Card();
         Initialize_Card_Resource();
@@ -57,12 +58,25 @@ public class Card_Location_Feature : MonoBehaviour
     }
 
     
-    // 如果 _cardlocation 卡牌实例为空，则报错
-    void Check_If_Card_Exist()
+    
+    void Check_If_Card_Exist()      // 检查 _cardLocation 卡牌实例是否为空，如果 _cardlocation 卡牌实例为空，则报错
     {
         if (_cardLocation == null)
         {
-            throw new NullReferenceException();
+            throw new NullReferenceException("Card Location 卡牌实例不存在");
+        }
+    }
+
+    void Check_Card_JSON_Setting_Soft_Bug()     // 检查卡牌的 JSON 是否有好好设置
+    {
+        if (_cardLocation.Time <= 0)
+        {
+            Debug.LogWarning("警告：卡牌的倒计时时间设置为0");
+        }
+
+        if (_cardLocation.Use_Time == 0)
+        {
+            Debug.LogWarning("警告：卡牌的使用次数设置为0");
         }
     }
     
@@ -90,7 +104,7 @@ public class Card_Location_Feature : MonoBehaviour
     
     
     // 初始化卡牌图片和描述，根据 _cardlocation 实例中的数据设置相关参数
-    void Initialize_Card()
+    void Initialize_Card()      
     {
         card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
@@ -230,34 +244,7 @@ public class Card_Location_Feature : MonoBehaviour
     }
     
     
-    // 卡牌效果
-    void TriggerCardEffects()
-    {
-        // 根据_cardLocation触发相应的效果
-        // 比如：Produce_Resource, Produce_Message 等
-        // ...
-
         
-        // Special Effect
-        
-        if (_cardLocation.Produce_Special_Effect.Count > 0)       // 简单写的，根据 Special Effect 的 list 触发 Special Effect 
-        {
-            foreach (var special_effect in _cardLocation.Produce_Special_Effect)
-            {
-                if (special_effect == "Draw_A_Tarot_Card")
-                {
-                    int randomElement = random.Range(0, GameManager.GM.CardLoader.Body_Part_Card_List.Count - 1);
-                    GameManager.GM.Generate_Card_Body_Part(GameManager.GM.CardLoader.Body_Part_Card_List[randomElement].Id);
-                }
-            }
-        }
-        
-
-
-        use_time_counter--;         // 记一次使用次数，假如 use time 有限，则使用一定次数就销毁
-        Check_Use_Time();
-    }
-    
     
     // 检查卡牌效果使用次数 是否超过 限制的次数，超过即销毁（TODO 销毁动画）
     // 需要在 每次使用卡牌效果时 调用
@@ -269,6 +256,92 @@ public class Card_Location_Feature : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    
+    
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////                 卡牌效果                   //////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    /////////////////     触发卡牌效果
+    
+    void TriggerCardEffects()
+    {
+        // 根据_cardLocation触发相应的效果
+        // 比如：Produce_Resource, Produce_Message 等
+        // ...
+        
+        
+        
+        // Produce Resource
+
+        foreach (var resource in produce_resources)     // 对于资源字典里的每个资源
+        {
+            if (resource.Value > 0)         // 假如要 produce 的资源大于 0，则触发 resource manager 里的 add 方法
+            {
+                GameManager.GM.ResourceManager.Add_Resource(resource.Key, resource.Value, gameObject.transform.position);
+            }
+        }
+
+        
+        // Special Effect
+        
+        if (_cardLocation.Produce_Special_Effect.Count > 0)       // 简单写的，根据 Special Effect 的 list 触发 Special Effect 
+        {
+            foreach (var special_effect in _cardLocation.Produce_Special_Effect)
+            {
+                if (special_effect == "Draw_A_Tarot_Card")
+                {
+                    Draw_A_Tarot_Card();
+                }
+
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+            }
+        }
+        
+        use_time_counter--;         // 记一次使用次数，假如 use time 有限，则使用一定次数就销毁
+        Check_Use_Time();
+    }
+
+
+    void Draw_A_Tarot_Card()
+    {
+        int randomElement = random.Range(0, GameManager.GM.CardLoader.Body_Part_Card_List.Count - 1);
+        GameManager.GM.Generate_Card_Body_Part(GameManager.GM.CardLoader.Body_Part_Card_List[randomElement].Id);
+    }
+
     
     
     
