@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6995461528452922417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ProgressBar Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,8 +42,9 @@ GameObject:
   - component: {fileID: 5192219712967150763}
   - component: {fileID: 3264124835062451237}
   - component: {fileID: 3197951123223943867}
-  - component: {fileID: 2191665588177911181}
-  m_Layer: 0
+  - component: {fileID: 7357350245066612597}
+  - component: {fileID: 4277094356126301526}
+  m_Layer: 7
   m_Name: Card_Location_Prefab
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -140,6 +141,7 @@ MonoBehaviour:
   card_label: {fileID: 2328481247986825465}
   card_image: {fileID: 3453740908669060079}
   _card_location_panel: {fileID: 8673821900251910866, guid: 8d7437142244d1a489ff64f75d994fac, type: 3}
+  showed_panel: {fileID: 0}
   resource_buttons: []
   resource_number: []
   body_part_slots: []
@@ -149,6 +151,8 @@ MonoBehaviour:
   progress_bar_position: {fileID: 194552405214738341}
   countdown_text: {fileID: 0}
   use_time_counter: 0
+  LayerIndex: 0
+  cardFrame: {fileID: 6485729948196864830}
 --- !u!61 &3197951123223943867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,7 +179,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.6, y: 7.8}
   m_EdgeRadius: 0
---- !u!50 &2191665588177911181
+--- !u!50 &7357350245066612597
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -196,6 +200,105 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!120 &4277094356126301526
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650628250851114781}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
 --- !u!1 &4692501844783692280
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +310,7 @@ GameObject:
   - component: {fileID: 6520250155182050372}
   - component: {fileID: 6018408892092244273}
   - component: {fileID: 2328481247986825465}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,9 +375,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1866592771
+  m_SortingLayer: 1
+  m_SortingOrder: 3
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2328481247986825465
 MonoBehaviour:
@@ -378,7 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2425090465841032551}
   - component: {fileID: 4717634083754993366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card_Frame temp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,9 +541,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1866592771
+  m_SortingLayer: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 8d691d51cc186b1488236ad5aaef6e0f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -463,7 +566,7 @@ GameObject:
   - component: {fileID: 8801959446227739087}
   - component: {fileID: 3602805576023204968}
   - component: {fileID: 7896390134320044794}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card Frame Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,8 +626,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1866592771
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -598,7 +701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8263778985454435803}
   - component: {fileID: 3453740908669060079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -658,9 +761,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1866592771
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2a48079520d06254e82b20d39c7efdf9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

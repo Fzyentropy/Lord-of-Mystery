@@ -5,19 +5,27 @@ using UnityEngine;
 
 
 
-public class InputManager : MonoBehaviour
+public class Input_Manager : MonoBehaviour
 {
     public Camera mainCamera;          // 用于 get 场景中的 camera
     public GameObject infoPanelPrefab; // Assign a prefab of the information panel in the inspector
     private GameObject selectedObject;
-    private Vector3 lastMousePosition;
+    
     private float mouseDownTime;
 
     public float CameraScrollOffset = 3f;
     public float CameraMoveOffset = 0.05f;
 
-    public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
-    public static GameObject panelReference;        // 打开的 Panel 的引用
+    // public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
+    // public static GameObject panelReference;        // 打开的 Panel 的引用
+
+    private Vector3 lastMousePosition;      // 用于拖拽时临时存储鼠标位置的参数
+    public bool isClickOnObjects = true;      // 开关，鼠标点击到了带 collider 的物体，或 idle 时：true，点击到空地方：false
+    private Vector3 click_mouse_position;     // 用于记录点击的时候鼠标的位置，来判断是点击还是拖拽
+
+    public GameObject Dragging_Object;
+    
+    
 
 
     private void Start()
@@ -46,14 +54,76 @@ public class InputManager : MonoBehaviour
             mainCamera = Camera.main;
         }
     }
-    
-    
 
-    /// <summary>
-    /// //////////////////      Mouse Logic
-    /// </summary>
+
+
+
+    void MouseLogic()
+    {
+
+        if (Input.GetMouseButtonDown(0))    // 按下鼠标左键时
+        {
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);     // 发出射线检测，检测是否碰到了碰撞体
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+            if (hit.collider == null)       // 如果没有检测到碰撞体，则开关为否
+            {
+                isClickOnObjects = false;
+            }
+            else
+            {
+                isClickOnObjects = true;    // 如果检测到了碰撞体，开关为是
+            }
+
+            click_mouse_position = Input.mousePosition;
+            lastMousePosition = Input.mousePosition;
+        }
+
+        if (Input.GetMouseButton(0))        // 按住鼠标左键时
+        {
+            
+            // 如果没有点到任何带 collider 的物体，则拖拽 board
+            if (!isClickOnObjects)
+            {
+                Vector3 delta = Input.mousePosition - lastMousePosition;        // 拖拽 board 逻辑
+                Vector3 worldDelta = mainCamera.ScreenToWorldPoint(
+                    new Vector3(delta.x, delta.y, mainCamera.nearClipPlane)) - 
+                                mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
+                mainCamera.transform.position -= worldDelta;
+            }
+            
+            lastMousePosition = Input.mousePosition;        // 更新当前鼠标位置
+        }
+
+        if (Input.GetMouseButtonUp(0))      // 松开鼠标左键时
+        {
+            // 如果鼠标指针位置几乎没变，则可以视为点击，触发点击功能
+            
+            // 如果已经有 panel 打开，则关闭 panel
+            if ((Input.mousePosition - click_mouse_position).magnitude < 0.1 && !isClickOnObjects)
+            {
+                // 点击
+                if (GameManager.GM.PanelManager.current_panel != null)    // 如果已经有 panel 打开，则关闭 panel
+                {
+                    GameManager.GM.PanelManager.Close_Current_Panel();      // 调用 panel manager 中的销毁 panel 方法
+                    GameManager.GM.PanelManager.isPanelOpen = false;        // 重新设置 panel 是否打开 为否
+                }
+            }
+
+            isClickOnObjects = true;
+
+        }
+
+
+
+
+    }
+
+
+    /// //////////////////      Mouse Logic 2023-11-12
+
     
-    void MouseLogic()           
+    void MouseLogic_2023_11_12()           // 旧的 鼠标逻辑，射线检测，所有 collider 都能拖拽，
     {
         
         /////////////////////////////////     鼠标点击的时候，判断是否点击到了卡牌，以及判断是点击还是拖拽
@@ -106,10 +176,10 @@ public class InputManager : MonoBehaviour
 
             if (duration < 0.15f) // Adjust the threshold value as needed
             {
-                if (isInfoPanelOut)
+                if (GameManager.GM.PanelManager.isPanelOpen)    // 如果已经有 panel 打开，则关闭 panel
                 {
-                    Close_Current_Panel();
-                    isInfoPanelOut = false;
+                    GameManager.GM.PanelManager.Close_Current_Panel();      // 调用 panel manager 中的销毁 panel 方法
+                    GameManager.GM.PanelManager.isPanelOpen = false;        // 重新设置 panel 是否打开 为否
                 }
                 else
                 if (selectedObject != null)
@@ -125,9 +195,9 @@ public class InputManager : MonoBehaviour
                                 3f));
                         }*/
 
-                        if (selectedObject.GetComponent<Card_Location_Feature>() != null)
+                        if (selectedObject.GetComponent<Card_Location_Feature>() != null)   // 判断点击的卡牌是否是 Card Location
                         {
-                            panelReference = selectedObject.GetComponent<Card_Location_Feature>().Open_Panel();
+                            GameManager.GM.PanelManager.current_panel = selectedObject.GetComponent<Card_Location_Feature>().Open_Panel(); // 是的话打开 panel
                         }
                         
                         
@@ -148,23 +218,16 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public void Close_Current_Panel()
-    {
-        
-        Destroy(panelReference);
-        
-        // 在此处添加 任何处理 有关返还资源的
-        
-    }
+
     
     
     private void ShowInfoPanel(Vector3 position)           //////////////////   实例化 info Panel
     {
-        isInfoPanelOut = true;
-        panelReference = Instantiate(infoPanelPrefab, position, Quaternion.identity);
+        GameManager.GM.PanelManager.isPanelOpen = true;
+        GameManager.GM.PanelManager.current_panel = Instantiate(infoPanelPrefab, position, Quaternion.identity);
         // panel.transform.localScale = Vector3.zero;
 
-        StartCoroutine(ScaleUp(panelReference.transform.localScale));
+        StartCoroutine(ScaleUp(GameManager.GM.PanelManager.current_panel.transform.localScale));
     }
 
     private IEnumerator ScaleUp(Vector3 panelScale)        ///////////////////  弹出动画

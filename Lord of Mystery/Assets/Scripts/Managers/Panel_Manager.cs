@@ -17,8 +17,8 @@ public class Panel_Manager : MonoBehaviour
     private GameObject sequence_card_panel;
     private GameObject function_panel;
 
-    private bool isPanelOpen = false;
-    private GameObject certain_panel;
+    public bool isPanelOpen = false;
+    public GameObject current_panel;
 
 
 
@@ -56,6 +56,15 @@ public class Panel_Manager : MonoBehaviour
         
     }
     
+    
+    public void Close_Current_Panel()
+    {
+        Debug.Log("current panel destroyed ");
+        Destroy(current_panel);
+        
+        // 在此处添加 任何处理 有关返还资源的
+        
+    }
     
     
     

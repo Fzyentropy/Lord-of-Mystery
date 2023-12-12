@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6345839443180861320}
   - component: {fileID: 2914276383649375405}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slot_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,9 +70,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
   m_FlipX: 0
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1436972410555675296}
   - component: {fileID: 4393563568561711370}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slot_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,9 +154,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
   m_FlipX: 0
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5595702010556206917}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 6181399920436314863}
   - component: {fileID: 8681311679941232010}
   - component: {fileID: 2590580191475585822}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -275,9 +275,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2590580191475585822
 MonoBehaviour:
@@ -384,7 +384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6807901554709886525}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1913442686582867211}
   - component: {fileID: 1001050689619698664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Background_Body_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,9 +476,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.6784314}
   m_FlipX: 0
@@ -501,7 +501,7 @@ GameObject:
   - component: {fileID: 6969115759020786650}
   - component: {fileID: 2683868749074858712}
   - component: {fileID: 1018389738395472415}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_Text_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,9 +566,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1018389738395472415
 MonoBehaviour:
@@ -671,7 +671,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1166320946566971220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +703,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8421577711213415646}
   - component: {fileID: 2606614695563425686}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Resource_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -763,9 +763,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.5294118}
   m_FlipX: 0
@@ -786,7 +786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 926550194334723694}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Start_Button_Location_With_BodyParts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,7 +819,7 @@ GameObject:
   - component: {fileID: 8506263798446909619}
   - component: {fileID: 7810349408131420484}
   - component: {fileID: 5714225140950797527}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_Text_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,9 +884,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5714225140950797527
 MonoBehaviour:
@@ -989,7 +989,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1841019851690737460}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Start_Button_Location_Without_BodyParts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1022,7 +1022,7 @@ GameObject:
   - component: {fileID: 7777396359915543761}
   - component: {fileID: 3694292555873742855}
   - component: {fileID: 4336104925059496756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_Text_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,9 +1087,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4336104925059496756
 MonoBehaviour:
@@ -1192,7 +1192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4868924193114746119}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1231,7 +1231,7 @@ GameObject:
   - component: {fileID: 5959526967883203974}
   - component: {fileID: 1321024660767586739}
   - component: {fileID: 9052688202075834355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1296,9 +1296,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &9052688202075834355
 MonoBehaviour:
@@ -1401,7 +1401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1131689062525276637}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1433,7 +1433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4547667226252011080}
   - component: {fileID: 7439667734038432256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1493,9 +1493,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   m_FlipX: 0
@@ -1516,7 +1516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6183867011242994259}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1547,7 +1547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7270721669104350984}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_Location_Description_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1578,7 +1578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1271866211964533496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_Resource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 6593999448520276857}
   - component: {fileID: 9078532776913707735}
   - component: {fileID: 3341512055169707715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Effect_Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1687,9 +1687,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3341512055169707715
 MonoBehaviour:
@@ -1793,7 +1793,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6133730306602386925}
   - component: {fileID: 4353840571473389007}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1853,9 +1853,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 836e2ef6a4d83a1458f75abac6b74b3e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1878,7 +1878,7 @@ GameObject:
   - component: {fileID: 1196272240821139543}
   - component: {fileID: 2614282058951909716}
   - component: {fileID: 4233934900282109203}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_Text_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1943,9 +1943,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4233934900282109203
 MonoBehaviour:
@@ -2048,7 +2048,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 417291207750359739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_Location_Indicators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2079,7 +2079,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8120621837250317852}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_StartButton_Without_BodyParts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2115,7 +2115,7 @@ GameObject:
   - component: {fileID: 3625569748772959761}
   - component: {fileID: 1421802434667976828}
   - component: {fileID: 1360806191975627815}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Start_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2176,9 +2176,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1877140517
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   m_FlipX: 0
@@ -2245,7 +2245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8333333278573893806}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_Location_Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2278,7 +2278,7 @@ GameObject:
   - component: {fileID: 1988506677168149535}
   - component: {fileID: 1760884273528220463}
   - component: {fileID: 1278239928622706485}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Button_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2343,9 +2343,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1877140517
-  m_SortingLayer: 3
-  m_SortingOrder: 1
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 5
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1278239928622706485
 MonoBehaviour:
@@ -2448,7 +2448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2777271193303904361}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ---------- positions ----------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2480,7 +2480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2694145842227177899}
   - component: {fileID: 2155170597586001669}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slot_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2540,9 +2540,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
   m_FlipX: 0
@@ -2564,7 +2564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3883929719412354254}
   - component: {fileID: 1561949189875009090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Slot_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2624,9 +2624,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
   m_FlipX: 0
@@ -2648,7 +2648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6860016184881081483}
   - component: {fileID: 5546447443818524006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Background_Body_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2708,9 +2708,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.7921569}
   m_FlipX: 0
@@ -2731,7 +2731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7834236960122167525}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ---------- positions End -----------
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2764,7 +2764,7 @@ GameObject:
   - component: {fileID: 8372957617420579497}
   - component: {fileID: 784404284037656458}
   - component: {fileID: 4020610378920115196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Resource_Text_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2829,9 +2829,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1650932325
+  m_SortingLayerID: 412510705
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4020610378920115196
 MonoBehaviour:
@@ -2935,7 +2935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8673821900018984781}
   - component: {fileID: 8673821900018984770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Panel_Description_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2995,9 +2995,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingLayerID: 412510705
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.14150941, g: 0.056183737, b: 0, a: 0.5294118}
   m_FlipX: 0
@@ -3020,7 +3020,7 @@ GameObject:
   - component: {fileID: 8673821900251910867}
   - component: {fileID: 7228708588636136583}
   - component: {fileID: 2311226996343459427}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Card_Location_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3140,7 +3140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3007913603176239757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_Location_Resource_End
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3171,7 +3171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3307308737500460447}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Section_StartButton_With_BodyParts
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,6 +8,8 @@ TagManager:
   - GetMachine
   - Ritual
   - Card
+  - Body_Parts
+  - Card_Location
   layers:
   - Default
   - TransparentFX
@@ -16,10 +18,10 @@ TagManager:
   - Water
   - UI
   - itemLayer
+  - Card
+  - Panel
   - 
-  - 
-  - 
-  - 
+  - DraggingLayer
   - 
   - 
   - 
@@ -48,9 +50,15 @@ TagManager:
   - name: Cards
     uniqueID: 2428374525
     locked: 0
+  - name: Panel
+    uniqueID: 412510705
+    locked: 0
   - name: Text Layer
     uniqueID: 1650932325
     locked: 0
   - name: Button
     uniqueID: 2417826779
+    locked: 0
+  - name: Dragging
+    uniqueID: 912256071
     locked: 0
