@@ -68,7 +68,13 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public SpriteRenderer panel_image;   
     public TMP_Text panel_label;
     public TMP_Text panel_description;
+    
+    // Mis Variables
+    private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
+    private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
 
+    
+    
 
     private void Start()
     {
@@ -341,7 +347,44 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("mouse over big panel");
+        Debug.Log("is over the LOCATION PANEL");
         is_mouse_hover_on_panel = true;
+    }
+
+    private void OnMouseDown()
+    {
+        // 记录鼠标位置
+        click_mouse_position = Input.mousePosition;
+        lastMousePosition = Input.mousePosition;
+    }
+
+    private void OnMouseDrag()
+    {
+        
+        GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+        // float mouse_drag_sensitivity = 0.05f;
+        
+        // 如果鼠标移动，卡牌随之移动
+        Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
+        delta.z = 0;
+        gameObject.transform.position += delta;
+        lastMousePosition = Input.mousePosition;
+        
+    }
+
+    private void OnMouseUp()
+    {
+        GameManager.GM.InputManager.Dragging_Object = null;      // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
+    }
+
+    private void OnMouseExit()
+    {
+        
+    }
+
+
+    private void OnDestroy()        // 当 Panel 被销毁的时候， 返还 resource 和 body part
+    {
+        Debug.Log("panel 销毁了");
     }
 }

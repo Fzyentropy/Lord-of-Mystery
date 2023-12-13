@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using random = UnityEngine.Random;
@@ -55,6 +56,9 @@ public class Card_Location_Feature : MonoBehaviour
     
     public GameObject cardFrame;       // 临时 原 physical body 卡牌图片，用于调整 Order in Layer
 
+    public bool isHighlightYellow = false;    // 是否需要黄色高亮，在拖拽需要的 body part 到卡牌上方时为黄色
+    public bool isHighlight = false;    // 判断是否需要高亮
+
 
     private void Start()
     {
@@ -66,11 +70,12 @@ public class Card_Location_Feature : MonoBehaviour
             LayerIndex = gameObject.layer;
         }
         
-        Initialize_Card();
-        Initialize_Card_Resource();
+        Initialize_Card();      // 设置卡牌 label，image，初始化卡牌使用次数，等设置
+        Initialize_Card_Resource();     // 根据 Card_Location 实例设置 3个字典 - 消耗的resource，消耗的body part，生产的resource
+
         
-        // StartCountdown(); // for test
-        
+        StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
+
     }
 
     
@@ -177,8 +182,8 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         // 高亮
-        if (GameManager.GM.InputManager.Dragging_Object == null)
-            Highlight_Collider();
+        if (GameManager.GM.InputManager.Dragging_Object == null) // 鼠标悬停时，如果没拖拽着其他卡牌，则高亮
+            isHighlight = true;
     }
 
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
@@ -198,7 +203,8 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
         GameManager.GM.InputManager.Dragging_Object = gameObject;       // 将 Input Manager 中的 正在拖拽物体 记录为此物体
-        Clear_Highlight_Collider();                             // 取消高亮
+        // Clear_Highlight_Collider();                             // 取消高亮
+        isHighlight = false;                             // 取消高亮
         
         // 如果鼠标移动，卡牌随之移动
         // float mouse_drag_sensitivity = 0.05f;
@@ -231,26 +237,37 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnMouseExit()      // 当鼠标离开卡牌上方时，取消高亮
     {
-        // 取消高亮
-        Clear_Highlight_Collider();
+        isHighlight = false;    // 取消高亮, by 设定高亮参数为 false
     }
     
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)     
     {
-        if (other.gameObject.CompareTag("Body_Parts") &&                    // 如果重叠的卡牌是 Body Parts
-            other.gameObject.layer == LayerMask.NameToLayer("DraggingLayer") )      // 且重叠的卡牌在 dragging layer（正在被拖拽）
-        {
-            // 触发高亮功能
-            Highlight_Collider();
-        }
+
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)      // 当有卡牌悬停时
     {
+        if (other.CompareTag("Body_Parts"))
+        {
+            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = this;    // 向与此卡重叠的 body part 传入此 card body part feature
+                
+            if (Check_If_Dragging_BodyPart_Is_Need())       // 如果拖拽的是需要的 body part，则高亮为黄色
+            {
+                isHighlightYellow = true;
+            }
+            
+        }
+        
+    }
+
+    void OnTriggerExit2D(Collider2D other)      // 当悬停的卡牌离开时
+    {
+        
         if (other.gameObject.CompareTag("Body_Parts"))
         {
             // 取消高亮功能
             Clear_Highlight_Collider();
+            isHighlightYellow = false;
         }
     }
     
@@ -286,7 +303,7 @@ public class Card_Location_Feature : MonoBehaviour
     }
 
 
-    public void Highlight_Collider()        // 利用 collider和 Line Renderer 来高亮 collider 边缘
+    public void Highlight_Collider(Color color)        // 利用 collider和 Line Renderer 来高亮 collider 边缘
     {
         BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
@@ -312,8 +329,8 @@ public class Card_Location_Feature : MonoBehaviour
 
         // 设置材质和颜色
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = Color.white; // 高亮颜色
-        lineRenderer.endColor = Color.white; // 高亮颜色
+        lineRenderer.startColor = color; // 高亮颜色
+        lineRenderer.endColor = color; // 高亮颜色
     }
 
     public void Clear_Highlight_Collider()      // 将 Line Renderer 的颜色设置为 透明
@@ -328,18 +345,66 @@ public class Card_Location_Feature : MonoBehaviour
 
     public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
-        card_label.GetComponent<Renderer>().sortingOrder += 5;
-        card_image.sortingOrder += 5;
-        cardFrame.GetComponent<SpriteRenderer>().sortingOrder += 5;
+        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging"; 
+        card_image.sortingLayerName = "Dragging"; 
+        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging"; 
     }
     public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
-        card_label.GetComponent<Renderer>().sortingOrder -= 5;
-        card_image.sortingOrder -= 5;
-        cardFrame.GetComponent<SpriteRenderer>().sortingOrder -= 5;
+        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
+        card_image.sortingLayerName = "Cards";
+        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Cards";
     }
-    
-    
+
+    public bool Check_If_Dragging_BodyPart_Is_Need()     // 检测当前拖拽的卡牌是否是 body part，如果是，则判定是不是需要的 body part
+    {
+        if (GameManager.GM.InputManager.Dragging_Object != null)   // 如果 dragging Object 是 body part
+        {
+            Card_Body_Part_Feature bodyPartFeature =
+                GameManager.GM.InputManager.Dragging_Object.GetComponent<Card_Body_Part_Feature>();
+
+            if (bodyPartFeature != null)
+            {
+                foreach (var bodyPart in required_body_parts)
+                {
+                    if (bodyPart.Key == bodyPartFeature._CardBodyPart.Id)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public IEnumerator Highlight_If_Dragging_Needed_BodyPart()
+    {
+        while (true)
+        {
+            if (Check_If_Dragging_BodyPart_Is_Need())   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
+            {
+                if (!isHighlightYellow)
+                    Highlight_Collider(Color.white);
+                else
+                    Highlight_Collider(Color.yellow);
+            }
+            else if (isHighlight)       // 如果鼠标悬停让 isHighlight 参数为 true 了，也高亮，高亮白色
+            {
+                Highlight_Collider(Color.white);
+            }
+            else
+            {
+                Clear_Highlight_Collider();
+            }
+            
+            yield return null;
+        }
+    }
     
     
 

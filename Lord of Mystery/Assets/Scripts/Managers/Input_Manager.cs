@@ -23,9 +23,10 @@ public class Input_Manager : MonoBehaviour
     public bool isClickOnObjects = true;      // 开关，鼠标点击到了带 collider 的物体，或 idle 时：true，点击到空地方：false
     private Vector3 click_mouse_position;     // 用于记录点击的时候鼠标的位置，来判断是点击还是拖拽
 
-    public GameObject Dragging_Object;
     
+    public GameObject Dragging_Object;      // 当前拖拽的 卡牌 / body part 等物体的 GameObject
     
+        
 
 
     private void Start()
@@ -38,7 +39,7 @@ public class Input_Manager : MonoBehaviour
     {
         MouseScroll();
         MouseLogic();
-        
+        CheckRayCast();
     }
 
     /////////////////////////////////////////////////////////////////////////
@@ -55,6 +56,19 @@ public class Input_Manager : MonoBehaviour
         }
     }
 
+    void CheckRayCast()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+        // 遍历所有碰撞的对象
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null)
+            {
+                Debug.Log("射线碰撞到了: " + hit.collider.gameObject.name);
+            }
+        }
+    }
 
 
 

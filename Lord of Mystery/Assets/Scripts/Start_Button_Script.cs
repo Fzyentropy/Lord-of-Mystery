@@ -28,6 +28,8 @@ public class Start_Button_Script : MonoBehaviour
         Set_Button_Renderer();    // 设置 button 的 SpriteRenderer 指代
         // Set_Button_Availability(false);
     }
+    
+
 
 
     public void Set_Attached_Panel(GameObject attachedPanel)
@@ -61,7 +63,7 @@ public class Start_Button_Script : MonoBehaviour
     
     private void OnMouseOver()
     {
-        Debug.Log("is over the button");
+        Debug.Log("is over the BUTTON");
         if (is_button_available)
         {
             button_sprite_renderer.color = button_hover_color;
@@ -105,21 +107,14 @@ public class Start_Button_Script : MonoBehaviour
                             GetComponent<Card_Location_Feature>().
                                 Start_Countdown();
                 
+                Destroy(attached_panel);
             
             }
         }
         
 
     }
-
-
-    public void Randomly_Generate_A_Body_Part()
-    {
-        int randomElement = random.Range(0, GameManager.GM.CardLoader.Body_Part_Card_List.Count - 1);
-        GameManager.GM.Generate_Card_Body_Part(GameManager.GM.CardLoader.Body_Part_Card_List[randomElement].Id);
-        // new Vector3(
-        //     random.Range(-12,12),random.Range(-12,12),1));
-    }
+    
     
     
     

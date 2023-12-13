@@ -17,9 +17,12 @@ public class Panel_Manager : MonoBehaviour
     private GameObject sequence_card_panel;
     private GameObject function_panel;
 
+    // panel 指代
     public bool isPanelOpen = false;
     public GameObject current_panel;
 
+    // message 指代
+    
 
 
 

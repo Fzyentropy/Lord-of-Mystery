@@ -12,7 +12,9 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     public SpriteRenderer body_part_image;
     public TMP_Text body_part_label;
-    
+
+    public Card_Location_Feature overlapped_card_location; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
+
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
@@ -69,7 +71,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
     {
         // 如果鼠标移动，卡牌随之移动
 
-        GameManager.GM.InputManager.Dragging_Object = gameObject;      // 设置是否在 drag 为 true
+        GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
         Clear_Highlight_Collider();                             // 取消高亮
         
         // float mouse_drag_sensitivity = 0.05f;
@@ -81,8 +83,8 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
-        // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
-        if ((Input.mousePosition - click_mouse_position).magnitude < 0.5)
+        
+        if ((Input.mousePosition - click_mouse_position).magnitude < 0.2) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
         {
             /*      TODO 替换成 message 判定和关闭 message
             if (GameManager.GM.PanelManager.isPanelOpen)
@@ -99,6 +101,14 @@ public class Card_Body_Part_Feature : MonoBehaviour
         // 调整 卡牌的渲染 layer 让其回到原位
         gameObject.layer = LayerIndex; 
         DecreaseOrderInLayer();     // 设置回 原 Order in Layer
+
+        if (overlapped_card_location != null)     // 如果在一个 card location 上面 （
+        {
+            // 触发对应 card location 中的方法，来打开panel，然后将这张卡 merge 到其中一个 slot 上
+            
+        }
+        
+        
     }
 
     private void OnMouseExit()      // 当鼠标离开卡牌上方时，取消高亮

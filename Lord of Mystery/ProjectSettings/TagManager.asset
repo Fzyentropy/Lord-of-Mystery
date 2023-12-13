@@ -50,6 +50,9 @@ TagManager:
   - name: Cards
     uniqueID: 2428374525
     locked: 0
+  - name: Body Parts
+    uniqueID: 4031428311
+    locked: 0
   - name: Panel
     uniqueID: 412510705
     locked: 0
