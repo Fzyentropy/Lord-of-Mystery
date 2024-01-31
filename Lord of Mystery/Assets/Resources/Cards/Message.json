@@ -28,6 +28,35 @@
 
         },
 
+        {
+            "Id": "Physical_Energy",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+        {
+            "Id": "Spirit",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+        {
+            "Id": "Fund",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+        {
+            "Id": "Soul",
+            "Label": "I start to feel",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+
 
         {
             "Id": "Beginning",

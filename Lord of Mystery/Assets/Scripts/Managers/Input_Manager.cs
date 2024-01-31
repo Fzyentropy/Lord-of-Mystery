@@ -211,7 +211,7 @@ public class Input_Manager : MonoBehaviour
 
                         if (selectedObject.GetComponent<Card_Location_Feature>() != null)   // 判断点击的卡牌是否是 Card Location
                         {
-                            GameManager.GM.PanelManager.current_panel = selectedObject.GetComponent<Card_Location_Feature>().Open_Panel(); // 是的话打开 panel
+                            selectedObject.GetComponent<Card_Location_Feature>().Open_Panel(); // 是的话打开 panel
                         }
                         
                         
@@ -235,15 +235,16 @@ public class Input_Manager : MonoBehaviour
 
     
     
-    private void ShowInfoPanel(Vector3 position)           //////////////////   实例化 info Panel
+    /*private void ShowInfoPanel(Vector3 position)           //////////////////   实例化 info Panel
     {
         GameManager.GM.PanelManager.isPanelOpen = true;
         GameManager.GM.PanelManager.current_panel = Instantiate(infoPanelPrefab, position, Quaternion.identity);
         // panel.transform.localScale = Vector3.zero;
 
         StartCoroutine(ScaleUp(GameManager.GM.PanelManager.current_panel.transform.localScale));
-    }
+    }*/
 
+    
     private IEnumerator ScaleUp(Vector3 panelScale)        ///////////////////  弹出动画
     {
         float duration = 1.5f; 

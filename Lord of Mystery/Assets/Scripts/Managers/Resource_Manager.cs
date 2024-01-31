@@ -27,6 +27,7 @@ public class Resource_Manager : MonoBehaviour
     private Dictionary<string, int> resourceLocationIndex = new Dictionary<string, int>();      // string : 资源名称    int : 资源占用的槽位编号
     private Dictionary<int, bool> slotAbleToShowText = new Dictionary<int, bool>();      // int : 资源槽位的编号    bool : 是否可以被update资源数量text了，字典用于开锁：是否可以显示资源数量
 
+    // 各资源的 icon prefab
     public GameObject fund_icon_pure;   // Fund资源的图标Prefab
     public GameObject physical_energy_icon_pure;    // Physical_Energy资源的图标Prefab
     public GameObject spirit_icon_pure;     // Spirit资源的图标Prefab
@@ -38,7 +39,7 @@ public class Resource_Manager : MonoBehaviour
     public GameObject madness_icon_pure;    // Madness资源的图标Prefab
     public GameObject godhood_icon_pure;    // Godhood资源的图标Prefab
     
-
+    // 判定各资源是否出现过
     private bool is_fund_ever_appears = false;
     private bool is_physical_energy_ever_appears = false; // 检查Physical_Energy资源是否曾出现
     private bool is_spirit_ever_appears = false; // 检查Spirit资源是否曾出现
@@ -69,7 +70,7 @@ public class Resource_Manager : MonoBehaviour
     // 在Start中初始化资源位置占用情况
     void Start()
     {
-        InitializeDictionaries();       // 初始化 上方建立的字典
+        InitializeDictionaries();       // 初始化 上方建立的字典  // TODO 未来加入保存功能后，可能要更改此方法，因为不能每次加载都初始化
 
 
         // 加载或设置fundIconPrefab
@@ -212,7 +213,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Fund += amount;       // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Fund", amount);         // 调用动画效果
+            Animate_Resource_Change(true, position, "Fund", amount);         // 调用动画效果
         }
 
     // 减少Fund资源，仅在减少资源时调用，因此输入的 amount 需要为正值                    - Fund
@@ -225,7 +226,7 @@ public class Resource_Manager : MonoBehaviour
                 Resource_Amount_Flash("Fund", -amount);
                 
                 // 调用动画效果，具体执行
-                AnimateResourceChange(false, position, "Fund", amount);
+                Animate_Resource_Change(false, position, "Fund", amount);
             }
             else
             {
@@ -240,7 +241,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Physical_Energy += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Physical_Energy", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Physical_Energy", amount); // 调用动画效果
         }
 
         // 减少Physical_Energy资源，仅在减少资源时调用，因此外部需做好 加减判断                   - Physical_Energy
@@ -252,7 +253,7 @@ public class Resource_Manager : MonoBehaviour
                 // Physical_Energy -= amount;
                 Resource_Amount_Flash("Physical_Energy", -amount);
                 
-                AnimateResourceChange(false, position, "Physical_Energy", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Physical_Energy", amount); // 调用动画效果
             }
             else
             {
@@ -267,7 +268,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Spirit += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Spirit", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Spirit", amount); // 调用动画效果
         }
 
     // 减少Spirit资源，仅在减少资源时调用，因此外部需做好 加减判断                    - Spirit
@@ -279,7 +280,7 @@ public class Resource_Manager : MonoBehaviour
                 // Spirit -= amount;
                 Resource_Amount_Flash("Spirit", -amount);
                 
-                AnimateResourceChange(false, position, "Spirit", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Spirit", amount); // 调用动画效果
             }
             else
             {
@@ -295,7 +296,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Soul += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Soul", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Soul", amount); // 调用动画效果
         }
 
     // 减少Soul资源，仅在减少资源时调用，因此外部需做好 加减判断                  - Soul
@@ -307,7 +308,7 @@ public class Resource_Manager : MonoBehaviour
                 // Soul -= amount;
                 Resource_Amount_Flash("Soul", -amount);
                 
-                AnimateResourceChange(false, position, "Soul", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Soul", amount); // 调用动画效果
             }
             else
             {
@@ -322,7 +323,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Spirituality_Infused_Material += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Spirituality_Infused_Material", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Spirituality_Infused_Material", amount); // 调用动画效果
         }
 
     // 减少Spirituality_Infused_Material资源，仅在减少资源时调用，因此外部需做好 加减判断     - Spirituality_Infused_Material
@@ -334,7 +335,7 @@ public class Resource_Manager : MonoBehaviour
                 // Spirituality_Infused_Material -= amount;
                 Resource_Amount_Flash("Spirituality_Infused_Material", -amount);
                 
-                AnimateResourceChange(false, position, "Spirituality_Infused_Material", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Spirituality_Infused_Material", amount); // 调用动画效果
             }
             else
             {
@@ -349,7 +350,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Knowledge += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Knowledge", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Knowledge", amount); // 调用动画效果
         }
 
     // 减少Knowledge资源，仅在减少资源时调用，因此外部需做好 加减判断                     - Knowledge
@@ -361,7 +362,7 @@ public class Resource_Manager : MonoBehaviour
                 // Knowledge -= amount;
                 Resource_Amount_Flash("Knowledge", -amount);
                 
-                AnimateResourceChange(false, position, "Knowledge", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Knowledge", amount); // 调用动画效果
             }
             else
             {
@@ -376,7 +377,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Belief += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Belief", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Belief", amount); // 调用动画效果
         }
 
     // 减少Belief资源，仅在减少资源时调用，因此外部需做好 加减判断                    - Belief
@@ -388,7 +389,7 @@ public class Resource_Manager : MonoBehaviour
                 // Belief -= amount;
                 Resource_Amount_Flash("Belief", -amount);
                 
-                AnimateResourceChange(false, position, "Belief", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Belief", amount); // 调用动画效果
             }
             else
             {
@@ -404,7 +405,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Putrefaction += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Putrefaction", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Putrefaction", amount); // 调用动画效果
         }
 
     // 减少Putrefaction资源，仅在减少资源时调用，因此外部需做好 加减判断              - Putrefaction
@@ -416,7 +417,7 @@ public class Resource_Manager : MonoBehaviour
                 // Putrefaction -= amount;
                 Resource_Amount_Flash("Putrefaction", -amount);
                 
-                AnimateResourceChange(false, position, "Putrefaction", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Putrefaction", amount); // 调用动画效果
             }
             else
             {
@@ -432,7 +433,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Madness += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Madness", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Madness", amount); // 调用动画效果
         }
 
     // 减少Madness资源，仅在减少资源时调用，因此外部需做好 加减判断                   - Madness
@@ -444,7 +445,7 @@ public class Resource_Manager : MonoBehaviour
                 // Madness -= amount;
                 Resource_Amount_Flash("Madness", -amount);
                 
-                AnimateResourceChange(false, position, "Madness", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Madness", amount); // 调用动画效果
             }
             else
             {
@@ -459,7 +460,7 @@ public class Resource_Manager : MonoBehaviour
         {
             // Godhood += amount;      // 在 Animate Resource Change 结束后，再增加
             
-            AnimateResourceChange(true, position, "Godhood", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Godhood", amount); // 调用动画效果
         }
 
     // 减少Godhood资源，仅在减少资源时调用，因此外部需做好 加减判断                   - Godhood
@@ -471,7 +472,7 @@ public class Resource_Manager : MonoBehaviour
                 // Godhood -= amount;
                 Resource_Amount_Flash("Godhood", -amount);
                 
-                AnimateResourceChange(false, position, "Godhood", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Godhood", amount); // 调用动画效果
             }
             else
             {
@@ -486,8 +487,12 @@ public class Resource_Manager : MonoBehaviour
 
     // 动画效果，游戏表现，生产或消耗资源的执行
     
-    private void AnimateResourceChange(bool isAdding, Vector3 position, string resourceName, int animatedAmount)
+    private void Animate_Resource_Change(bool isAdding, Vector3 position, string resourceName, int animatedAmount)
     {
+
+        float first_time_adding_time = 1f;
+        float adding_time = 0.6f;
+        float reducing_time = 0.2f;
 
         if (resourceName == "Fund")
         {
@@ -602,18 +607,20 @@ public class Resource_Manager : MonoBehaviour
                 resourceLocationIndex[resourceName] = locationIndex;    // 记录资源对应的 resource_location_X 的 X 序号
                 
                 Vector3 targetPosition = GetResourceLocationPosition(locationIndex);    // 获取到 resource_location_X 的位置
-                iconInstance.transform.DOMove(targetPosition, 2f).OnComplete(() => // 移动完成后，添加 collider 和脚本组件
+                iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";      // 将 资源icon 的 Sorting层 改为 最上层
+                iconInstance.transform.DOMove(targetPosition, first_time_adding_time).OnComplete(() => // 移动完成后，添加 collider 和脚本组件
                     {
                         // 添加脚本组件和 collider
                         iconInstance.AddComponent<Resource_Click_Message>();
                         iconInstance.GetComponent<Resource_Click_Message>().messageId = resourceName;
                         CircleCollider2D circleCollider = iconInstance.AddComponent<CircleCollider2D>();
-                        circleCollider.isTrigger = true;
+                        iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
                         
                         // 出现 number（暂定不出现资源名称先 2023-12-10）
                         // 更新 2个 Dictionary 的记录，来让 Update 中 "更新各 slot 中资源数量" 的 TMP_text 投入工作
                         slotAbleToShowText[locationIndex] = true;       // 开锁，编号为 X 的槽位可以开始显示 资源数量的 text 了
                         Resource_Amount_Flash(resourceName, animatedAmount);
+
                     }
                 );
                 
@@ -622,7 +629,8 @@ public class Resource_Manager : MonoBehaviour
             else        // 如果不是第一次了
             {
                 Vector3 targetPosition = GetResourceLocationPosition(resourceLocationIndex[resourceName]);
-                iconInstance.transform.DOMove(targetPosition, 1f).OnComplete(() =>
+                iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
+                iconInstance.transform.DOMove(targetPosition, adding_time).OnComplete(() =>
                     {
                         Destroy(iconInstance);
                         Resource_Amount_Flash(resourceName, animatedAmount);
@@ -650,7 +658,7 @@ public class Resource_Manager : MonoBehaviour
             else   // 如果不是第一次*/
             {
                 iconInstance.transform.position = GetResourceLocationPosition(resourceLocationIndex[resourceName]);
-                iconInstance.transform.DOMove(position, 1f).OnComplete(() =>
+                iconInstance.transform.DOMove(position, reducing_time).OnComplete(() =>
                     Destroy(iconInstance));
             }
         }
@@ -690,84 +698,7 @@ public class Resource_Manager : MonoBehaviour
         return locationObject != null ? locationObject.transform.position : Vector3.zero;
     }
     
-    // 在 Update 中，如果一个资源 slot 被占领，则显示并实时更新资源的 数量 text
-    private void Update_Resource_Amount_In_Slots()
-    {
-        foreach (var slot in resourceLocationsOccupied)     // 对于每个槽位
-        {
-            string resourceName = "";
-            if (slot.Value && slotAbleToShowText[slot.Key])     // 如果槽位被占用 且 槽位对应的资源数量 text 能够显示
-            {
-                
-                // 则获取槽位号 X 对应的资源名称
-                foreach (var slotResource in resourceLocationIndex)
-                {
-                    if (slotResource.Value == slot.Key)
-                    {
-                        resourceName = slotResource.Key;
-                        break;
-                    }
-                }
-                
-                // 根据资源的名称，将相应的槽位对应的 amount text 的文本更新为 该资源拥有的数量
-
-                if (resourceName == "Fund")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Fund.ToString();
-                }
-                if (resourceName == "Physical_Energy")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Physical_Energy.ToString();
-                }
-                if (resourceName == "Spirit")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Spirit.ToString();
-                }
-                if (resourceName == "Soul")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Soul.ToString();
-                }
-                if (resourceName == "Spirituality_Infused_Material")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Spirituality_Infused_Material.ToString();
-                }
-                if (resourceName == "Knowledge")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Knowledge.ToString();
-                }
-                if (resourceName == "Belief")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Belief.ToString();
-                }
-                if (resourceName == "Putrefaction")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Putrefaction.ToString();
-                }
-                if (resourceName == "Madness")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Madness.ToString();
-                }
-                if (resourceName == "Godhood")
-                {
-                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Godhood.ToString();
-                }
-                
-            }
-        }
-        
-    }
-
-
+    
     private void Resource_Amount_Flash(string flash_resource, int flash_amount)
     {
         StartCoroutine(Number_Flash(flash_resource, flash_amount));
@@ -875,7 +806,7 @@ public class Resource_Manager : MonoBehaviour
         {
             if (flash_resource == "Fund")
             {
-                float finalAmount = Fund - flash_amount;
+                float finalAmount = Fund + flash_amount;
                 while (Fund > finalAmount)
                 {
                     Fund--;
@@ -884,7 +815,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Physical_Energy")
             {
-                float finalAmount = Physical_Energy - flash_amount;
+                float finalAmount = Physical_Energy + flash_amount;
                 while (Physical_Energy > finalAmount)
                 {
                     Physical_Energy--;
@@ -893,7 +824,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Spirit")
             {
-                float finalAmount = Spirit - flash_amount;
+                float finalAmount = Spirit + flash_amount;
                 while (Spirit > finalAmount)
                 {
                     Spirit--;
@@ -902,7 +833,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Soul")
             {
-                float finalAmount = Soul - flash_amount;
+                float finalAmount = Soul + flash_amount;
                 while (Soul > finalAmount)
                 {
                     Soul--;
@@ -911,7 +842,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Spirituality_Infused_Material")
             {
-                float finalAmount = Spirituality_Infused_Material - flash_amount;
+                float finalAmount = Spirituality_Infused_Material + flash_amount;
                 while (Spirituality_Infused_Material > finalAmount)
                 {
                     Spirituality_Infused_Material--;
@@ -920,7 +851,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Knowledge")
             {
-                float finalAmount = Knowledge - flash_amount;
+                float finalAmount = Knowledge + flash_amount;
                 while (Knowledge > finalAmount)
                 {
                     Knowledge--;
@@ -929,7 +860,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Belief")
             {
-                float finalAmount = Belief - flash_amount;
+                float finalAmount = Belief + flash_amount;
                 while (Belief > finalAmount)
                 {
                     Belief--;
@@ -938,7 +869,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Putrefaction")
             {
-                float finalAmount = Putrefaction - flash_amount;
+                float finalAmount = Putrefaction + flash_amount;
                 while (Putrefaction > finalAmount)
                 {
                     Putrefaction--;
@@ -947,7 +878,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Madness")
             {
-                float finalAmount = Madness - flash_amount;
+                float finalAmount = Madness + flash_amount;
                 while (Madness > finalAmount)
                 {
                     Madness--;
@@ -956,7 +887,7 @@ public class Resource_Manager : MonoBehaviour
             }
             if (flash_resource == "Godhood")
             {
-                float finalAmount = Godhood - flash_amount;
+                float finalAmount = Godhood + flash_amount;
                 while (Godhood > finalAmount)
                 {
                     Godhood--;
@@ -967,6 +898,84 @@ public class Resource_Manager : MonoBehaviour
         
     }
     
+    
+    // 在 Update 中，如果一个资源 slot 被占领，则显示并实时更新资源的 数量 text
+    private void Update_Resource_Amount_In_Slots()
+    {
+        foreach (var slot in resourceLocationsOccupied)     // 对于每个槽位
+        {
+            string resourceName = "";
+            if (slot.Value && slotAbleToShowText[slot.Key])     // 如果槽位被占用 且 槽位对应的资源数量 text 能够显示
+            {
+                
+                // 则获取槽位号 X 对应的资源名称
+                foreach (var slotResource in resourceLocationIndex)
+                {
+                    if (slotResource.Value == slot.Key)
+                    {
+                        resourceName = slotResource.Key;
+                        break;
+                    }
+                }
+                
+                // 根据资源的名称，将相应的槽位对应的 amount text 的文本更新为 该资源拥有的数量
+
+                if (resourceName == "Fund")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Fund.ToString();
+                }
+                if (resourceName == "Physical_Energy")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Physical_Energy.ToString();
+                }
+                if (resourceName == "Spirit")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Spirit.ToString();
+                }
+                if (resourceName == "Soul")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Soul.ToString();
+                }
+                if (resourceName == "Spirituality_Infused_Material")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Spirituality_Infused_Material.ToString();
+                }
+                if (resourceName == "Knowledge")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Knowledge.ToString();
+                }
+                if (resourceName == "Belief")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Belief.ToString();
+                }
+                if (resourceName == "Putrefaction")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Putrefaction.ToString();
+                }
+                if (resourceName == "Madness")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Madness.ToString();
+                }
+                if (resourceName == "Godhood")
+                {
+                    TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
+                    amount_text.text = Godhood.ToString();
+                }
+                
+            }
+        }
+        
+    }
+
     
     
     

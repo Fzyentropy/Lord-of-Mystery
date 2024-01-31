@@ -86,14 +86,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
         
         if ((Input.mousePosition - click_mouse_position).magnitude < 0.2) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
         {
-            /*      TODO 替换成 message 判定和关闭 message
-            if (GameManager.GM.PanelManager.isPanelOpen)
-            {
-                GameManager.GM.PanelManager.Close_Current_Panel();
-            }
-            */
-
-            GameManager.GM.Generate_Message(_CardBodyPart.Produce_Message);
+            Card_Body_Part_Mouse_Click_Function();                      // 点击功能的封装
         }
         
         GameManager.GM.InputManager.Dragging_Object = null;      // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
@@ -165,18 +158,36 @@ public class Card_Body_Part_Feature : MonoBehaviour
         cardBottom.GetComponent<SpriteRenderer>().sortingOrder += 5;
         cover.GetComponent<SpriteRenderer>().sortingOrder += 5;
     }
-    public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+    public void DecreaseOrderInLayer()       // 减少 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
         body_part_label.GetComponent<Renderer>().sortingOrder -= 5;
         body_part_image.sortingOrder -= 5;
         cardBottom.GetComponent<SpriteRenderer>().sortingOrder -= 5;
         cover.GetComponent<SpriteRenderer>().sortingOrder -= 5;
     }
-    
-    
-    
-    
-    
+
+
+
+
+    public void Card_Body_Part_Mouse_Click_Function()
+    {
+        
+        //  当前如果点击一张 body part 卡，则弹出介绍信息
+        {
+            /*      TODO 替换成 message 判定和关闭 message            // 如果当前有其他 message，先关闭
+            if (GameManager.GM.PanelManager.isPanelOpen)
+            {
+                GameManager.GM.PanelManager.Close_Current_Panel();
+            }
+            */
+
+            GameManager.GM.Generate_Message(_CardBodyPart.Produce_Message);      // 生成此 body part 卡对应的 message
+        }
+        
+        
+        
+        
+    }
     
     
     

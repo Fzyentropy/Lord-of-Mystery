@@ -5,6 +5,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 using random = UnityEngine.Random;
@@ -23,12 +24,15 @@ public class Card_Location_Feature : MonoBehaviour
 
     // Panel 相关
     public GameObject _card_location_panel;       // 点击此卡时，要弹出的 Panel prefab
-    public GameObject showed_panel;             // 打开时 存储下 打开的 panel 指代
+    public GameObject showed_panel;             // 打开这张卡对应的 panel 时，记录 打开的 panel 到此参数
     
     public List<Button> resource_buttons;       
     public List<TMP_Text> resource_number;
     public List<GameObject> body_part_slots;
     // public Button start_button;
+    
+    // 进度
+    public bool is_counting_down = false;     // panel 是否在倒计时生产中
     
     // 进度条
     public GameObject progress_bar_prefab;        // 进度条 prefab
@@ -78,6 +82,8 @@ public class Card_Location_Feature : MonoBehaviour
 
     }
 
+    
+    
     
     
     void Check_If_Card_Exist()      // 检查 _cardLocation 卡牌实例是否为空，如果 _cardlocation 卡牌实例为空，则报错
@@ -217,15 +223,9 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
         
-        if ((Input.mousePosition - click_mouse_position).magnitude < 0.5) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
+        if ((Input.mousePosition - click_mouse_position).magnitude < 0.4) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
         {
-            if (GameManager.GM.PanelManager.current_panel != showed_panel)            // 如果有其他 panel 打开了，关闭它
-            {
-                GameManager.GM.PanelManager.Close_Current_Panel();
-            }
-
-            // Open_Panel();
-            GameManager.GM.PanelManager.current_panel = Open_Panel();   // 打开 panel
+            Open_Panel();   // 打开 panel
         }
 
         GameManager.GM.InputManager.Dragging_Object = null;     // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
@@ -249,7 +249,7 @@ public class Card_Location_Feature : MonoBehaviour
     {
         if (other.CompareTag("Body_Parts"))
         {
-            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = this;    // 向与此卡重叠的 body part 传入此 card body part feature
+            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = this;    // 向与此卡重叠的 body part 传入此 card location feature
                 
             if (Check_If_Dragging_BodyPart_Is_Need())       // 如果拖拽的是需要的 body part，则高亮为黄色
             {
@@ -277,15 +277,21 @@ public class Card_Location_Feature : MonoBehaviour
 
     // 当卡牌被点击时调用，打开 Panel
 
-    public GameObject Open_Panel()
+    public GameObject Open_Panel_2023_12_13()
     {
-        Debug.Log("panel opened");
-        GameManager.GM.PanelManager.isPanelOpen = true;        // 设置 Panel Manager 中的 是否打开panel参数为 true
-        
         
         GameObject panel = Instantiate(_card_location_panel, gameObject.transform.position, Quaternion.identity);  // 实例化 panel
         Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
         showed_panel = panel;
+        
+        if (GameManager.GM.PanelManager.current_panel != null && GameManager.GM.PanelManager.current_panel != showed_panel) // 如果有 panel 打开但不是此 panel，关闭它
+        {
+            GameManager.GM.PanelManager.Close_Current_Panel();
+        }
+        GameManager.GM.PanelManager.isPanelOpen = true;        // 设置 Panel Manager 中的 是否打开panel参数为 true
+        
+        
+        
 
         panel_feature.Set_Attached_Card(gameObject);        // 将生成的 panel 中的对于生成卡牌的指代设置为此卡
         
@@ -300,6 +306,52 @@ public class Card_Location_Feature : MonoBehaviour
         
 
         return panel;
+    }
+    
+    // 当卡牌被点击时调用，打开 Panel
+
+    public void Open_Panel()
+    {
+        if (GameManager.GM.PanelManager.current_panel == null       // 如果 当前 panel 为空（没有已经打开的 panel）
+            ||                                                      // 或者
+            GameManager.GM.PanelManager.current_panel != null &&    // 当前 panel 不为空（说明有 panel 已经打开），且打开的 panel 不是此卡打开的
+            GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()   
+                .attached_card_location_feature != this)      
+        {
+            if (GameManager.GM.PanelManager.current_panel != null)
+                GameManager.GM.PanelManager.Close_Current_Panel();              // 有打开的 panel 则关闭 panel
+            
+            // 生成新的 panel
+            GameObject panel = Instantiate(_card_location_panel, gameObject.transform.position, Quaternion.identity);  // 实例化 panel
+            Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
+
+            panel_feature.Set_Attached_Card(gameObject);        // 将生成的 panel 中的对于生成卡牌的指代设置为此卡
+            panel_feature.Set_Sprite(Resources.Load<Sprite>("Image/" + _cardLocation.Image));   // 设置图片
+            panel_feature.Set_Label(_cardLocation.Label);                                            // 设置 Label
+            panel_feature.Set_Description(_cardLocation.Description);                                // 设置 description
+
+            showed_panel = panel;       // 记录打开的 panel 实例到 showed panel 参数
+            // GameManager.GM.PanelManager.current_panel = panel;      // 将 "打开的 panel" 设置为刚打开的 panel
+            GameManager.GM.PanelManager.Set_Panel_Reference_And_Scale_Up(panel);
+            GameManager.GM.PanelManager.isPanelOpen = true;
+            
+
+            // panel_feature. Set Resource Buttons
+
+            // panel_feature. Set Body Parts
+
+            // return panel;
+            
+        }
+
+    }
+
+    public void AbsorbBodyParts()
+    {
+        Open_Panel();   // 自带是否打开的检测
+        showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Body_Part();        // 调用 panel 中的方法
+
+
     }
 
 
@@ -342,19 +394,7 @@ public class Card_Location_Feature : MonoBehaviour
             lineRenderer.endColor = Color.clear; // 高亮颜色
         }
     }
-
-    public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
-    {
-        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging"; 
-        card_image.sortingLayerName = "Dragging"; 
-        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging"; 
-    }
-    public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
-    {
-        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
-        card_image.sortingLayerName = "Cards";
-        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Cards";
-    }
+    
 
     public bool Check_If_Dragging_BodyPart_Is_Need()     // 检测当前拖拽的卡牌是否是 body part，如果是，则判定是不是需要的 body part
     {
@@ -407,6 +447,19 @@ public class Card_Location_Feature : MonoBehaviour
     }
     
     
+    public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+    {
+        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging"; 
+        card_image.sortingLayerName = "Dragging"; 
+        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging"; 
+    }
+    public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+    {
+        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
+        card_image.sortingLayerName = "Cards";
+        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Cards";
+    }
+    
 
     
     // 检查 Require_Body_Part 和 Require_Resource 是否满足条件
@@ -417,18 +470,19 @@ public class Card_Location_Feature : MonoBehaviour
     }
 
     
-    // 开始倒计时 方法
+    ////////////////////////////////////////////////////////////////////////////////      开始倒计时 方法
     public void Start_Countdown()
     {
         StartCoroutine(Counting_Down_For_Card_Effect());
     }
     
     
-    
     // 倒计时协程，包括进度条的功能
     
     IEnumerator Counting_Down_For_Card_Effect()
     {
+        is_counting_down = true;   // 设置 "正在倒计时" 为是
+        
         float totalTime = _cardLocation.Time;   // 从 JSON 获取总计时
         float remainingTime = totalTime;        // 设置倒计时参数
         float timeInterval = 0.05f;              // 设置进度条更新的时间间隔
@@ -460,27 +514,11 @@ public class Card_Location_Feature : MonoBehaviour
         
         // 销毁 进度条 prefab
         Destroy(progress_bar);
+        is_counting_down = false;   // 设置 "正在倒计时" 为否
 
         // 触发卡牌效果
-        TriggerCardEffects();
+        Trigger_Card_Effects();
     }
-    
-    
-        
-    
-    // 检查卡牌效果使用次数 是否超过 限制的次数，超过即销毁（TODO 销毁动画）
-    // 需要在 每次使用卡牌效果时 调用
-    void Check_Use_Time()
-    {
-        if (use_time_counter <= 0)
-        {
-            // TODO 销毁动画，写一个方法，或者做一个特效，或者shader
-            Destroy(gameObject);
-        }
-    }
-    
-    
-    
     
     
     
@@ -491,7 +529,7 @@ public class Card_Location_Feature : MonoBehaviour
     
     /////////////////     触发卡牌效果
     
-    void TriggerCardEffects()
+    void Trigger_Card_Effects()
     {
         // 根据_cardLocation触发相应的效果
         // 比如：Produce_Resource, Produce_Message 等
@@ -557,7 +595,19 @@ public class Card_Location_Feature : MonoBehaviour
         Check_Use_Time();
     }
 
+    
+    // 检查卡牌效果使用次数 是否超过 限制的次数，超过即销毁（TODO 销毁动画）
+    // 需要在 每次使用卡牌效果时 调用
+    void Check_Use_Time()
+    {
+        if (use_time_counter <= 0)
+        {
+            // TODO 销毁动画，写一个方法，或者做一个特效，或者shader
+            Destroy(gameObject);
+        }
+    }
 
+    
     void Draw_A_Tarot_Card()
     {
         int randomElement = random.Range(0, GameManager.GM.CardLoader.Body_Part_Card_List.Count - 1);

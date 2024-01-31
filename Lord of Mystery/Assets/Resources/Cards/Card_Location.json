@@ -207,9 +207,9 @@
         },
         {
             "Id": "Location_Panel_Test_1",
-            "Label": "Panel Test 1",
-            "Image": "Image_The_Fortune_Teller",
-            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+            "Label": "Fortune Telling",
+            "Image": "Image_Fortune_Telling",
+            "Description": "Is our fate determined or not? I am always asking. However, there must be price to look at the future...",
 
             "Use_Time": -1,
             "Time": 3,
@@ -236,9 +236,9 @@
         },
         {
             "Id": "Location_Panel_Test_2",
-            "Label": "Panel Test 2",
-            "Image": "Image_The_Fortune_Teller",
-            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+            "Label": "Goddess of Barren",
+            "Image": "Image_Goddess_Of_Barren",
+            "Description": "",
 
             "Use_Time": -1,
             "Time": 3,
@@ -258,9 +258,9 @@
         },
         {
             "Id": "Location_Panel_Test_3",
-            "Label": "Panel Test 3",
-            "Image": "Image_The_Fortune_Teller",
-            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+            "Label": "The Feast",
+            "Image": "Image_The_Feast",
+            "Description": "Organic body can not persist long. New ways are waiting for us.",
 
             "Use_Time": -1,
             "Time": 3,
@@ -279,24 +279,21 @@
         },
         {
             "Id": "Location_Panel_Test_4",
-            "Label": "Panel Test 4",
-            "Image": "Image_The_Fortune_Teller",
-            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+            "Label": "Blessing from the Moon",
+            "Image": "Image_Blessing_From_The_Moon",
+            "Description": "Moon, the mother of the land.",
 
             "Use_Time": -1,
             "Time": 3,
 
             "Produce_Resource":
             {
-                "Fund": 3,
-                "Physical_Energy": 2,
-                "Spirit": 1
-            },
-
-            "Produce_Special_Effect":
-            [
-                "Draw_A_Tarot_Card"
-            ]
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spirit": 1,
+                "Soul": 1
+                
+            }
         }
 
 

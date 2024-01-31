@@ -18,7 +18,9 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
         Putrefaction,
         Madness,
         Godhood
+        ////////////////////// TODO 其他资源扩展，如有
     }
+   
 
     public Resources Current_Resource;     // 用于标记当前 button 对应的资源是哪种
     public bool is_resource_set = false;        // 判断这个 button 对应的 resource 是否设置了
@@ -26,7 +28,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
     public GameObject attached_panel;       // 用于指代这个 button 附着的 panel 的 GameObject
     private Card_Location_Panel_Feature attached_panel_feature;     // 这个 button 附着的 panel 的 panel_feature 脚本
 
-    public int panel_resource_slot_number = 0;
+    public int panel_resource_slot_number = 0;      // 这个按钮资源 对应的槽位 slot 编号 X
 
     private Vector2 click_mouse_position;       // 用于检测鼠标是 点击还是拖拽 的临时参数，记录鼠标按下时的位置
 
@@ -101,6 +103,8 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
             Current_Resource = Resources.Godhood;
             is_resource_set = true;
         }
+        
+        ////////////////////// TODO 其他资源扩展，如有
 
     }
 
@@ -185,6 +189,80 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
                 Add_Panel_Absorb_Amount();
             }
         }
+        if (Current_Resource == Resources.Physical_Energy)     // 如果这个按钮被设置为 Physical_Energy 按钮，则吸收 Physical_Energy
+        {
+            if (GameManager.GM.ResourceManager.Physical_Energy > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Physical_Energy(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Spirit)     // 如果这个按钮被设置为 Spirit 按钮，则吸收 Spirit
+        {
+            if (GameManager.GM.ResourceManager.Spirit > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Spirit(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Soul)     // 如果这个按钮被设置为 Soul 按钮，则吸收 Soul
+        {
+            if (GameManager.GM.ResourceManager.Soul > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Soul(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Spirituality_Infused_Material)     // 如果这个按钮被设置为 Spirituality_Infused_Material 按钮，则吸收 Spirituality_Infused_Material
+        {
+            if (GameManager.GM.ResourceManager.Spirituality_Infused_Material > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Spirituality_Infused_Material(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Knowledge)     // 如果这个按钮被设置为 Knowledge 按钮，则吸收 Knowledge
+        {
+            if (GameManager.GM.ResourceManager.Knowledge > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Knowledge(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Belief)     // 如果这个按钮被设置为 Belief 按钮，则吸收 Belief
+        {
+            if (GameManager.GM.ResourceManager.Belief > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Belief(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Putrefaction)     // 如果这个按钮被设置为 Putrefaction 按钮，则吸收 Putrefaction
+        {
+            if (GameManager.GM.ResourceManager.Putrefaction > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Putrefaction(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Madness)     // 如果这个按钮被设置为 Madness 按钮，则吸收 Madness
+        {
+            if (GameManager.GM.ResourceManager.Madness > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Madness(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        if (Current_Resource == Resources.Godhood)     // 如果这个按钮被设置为 Godhood 按钮，则吸收 Godhood
+        {
+            if (GameManager.GM.ResourceManager.Godhood > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Godhood(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }
+        
+        ////////////////////// TODO 其他资源扩展，如有
     }
 
     private void OnMouseOver()
@@ -199,7 +277,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.05)  // 鼠标位置基本没变
+        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.2)  // 鼠标位置基本没变
         {
             AbsorbResource();
         }
