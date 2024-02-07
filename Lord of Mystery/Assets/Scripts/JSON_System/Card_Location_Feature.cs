@@ -24,7 +24,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     // Panel 相关
     public GameObject _card_location_panel;       // 点击此卡时，要弹出的 Panel prefab
-    public GameObject showed_panel;             // 打开这张卡对应的 panel 时，记录 打开的 panel 到此参数
+    public GameObject  showed_panel;             // 打开这张卡对应的 panel 时，记录 打开的 panel 到此参数
     
     public List<Button> resource_buttons;       
     public List<TMP_Text> resource_number;
@@ -43,8 +43,8 @@ public class Card_Location_Feature : MonoBehaviour
     
 
     // Requirement 触发条件 字典集 包括 resources 和 body part
-    public Dictionary<string, int> required_resources;
-    public Dictionary<string, int> required_body_parts;
+    public Dictionary<string, int> required_resources;      // 要消耗的 resources
+    public Dictionary<string, int> required_body_parts;     // 要消耗的 body part
 
     // Outcome 触发结果 字典集 resource
     public Dictionary<string, int> produce_resources;
@@ -62,6 +62,8 @@ public class Card_Location_Feature : MonoBehaviour
 
     public bool isHighlightYellow = false;    // 是否需要黄色高亮，在拖拽需要的 body part 到卡牌上方时为黄色
     public bool isHighlight = false;    // 判断是否需要高亮
+    
+    private bool yellow_highlight_bodypart_variable_switch = true;     // 用于让当前 card location 被 body part 重叠时，只在第一次重叠时传入此 card location feature 实例到 body part feature 的参数里
 
 
     private void Start()
@@ -249,13 +251,14 @@ public class Card_Location_Feature : MonoBehaviour
     {
         if (other.CompareTag("Body_Parts"))
         {
-            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = this;    // 向与此卡重叠的 body part 传入此 card location feature
-                
-            if (Check_If_Dragging_BodyPart_Is_Need())       // 如果拖拽的是需要的 body part，则高亮为黄色
+            if (yellow_highlight_bodypart_variable_switch)      // 此 switch 并不管用，TODO 将来加上根据距离的判定，距离最近的吸收
             {
-                isHighlightYellow = true;
+                yellow_highlight_bodypart_variable_switch = false;
+                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = this;    // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
             }
-            
+
+            if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location == this)
+                isHighlightYellow = true;   // 将高亮改为黄色
         }
         
     }
@@ -266,8 +269,8 @@ public class Card_Location_Feature : MonoBehaviour
         if (other.gameObject.CompareTag("Body_Parts"))
         {
             // 取消高亮功能
-            Clear_Highlight_Collider();
             isHighlightYellow = false;
+            yellow_highlight_bodypart_variable_switch = true;
         }
     }
     
@@ -275,7 +278,7 @@ public class Card_Location_Feature : MonoBehaviour
     
 
 
-    // 当卡牌被点击时调用，打开 Panel
+    // 当卡牌被点击时调用，打开 Panel -2023_12_13
 
     public GameObject Open_Panel_2023_12_13()
     {
@@ -346,13 +349,6 @@ public class Card_Location_Feature : MonoBehaviour
 
     }
 
-    public void AbsorbBodyParts()
-    {
-        Open_Panel();   // 自带是否打开的检测
-        showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Body_Part();        // 调用 panel 中的方法
-
-
-    }
 
 
     public void Highlight_Collider(Color color)        // 利用 collider和 Line Renderer 来高亮 collider 边缘
@@ -396,37 +392,132 @@ public class Card_Location_Feature : MonoBehaviour
     }
     
 
-    public bool Check_If_Dragging_BodyPart_Is_Need()     // 检测当前拖拽的卡牌是否是 body part，如果是，则判定是不是需要的 body part
+    /////////////啰嗦版 检测当前拖拽的卡牌是否是这张卡能够吸收的 body part，此判定若通过，则可以直接调用 card location panel feature 中的 吸收 body part 方法
+    /*public bool Check_If_Dragging_BodyPart_Is_Need()     
     {
-        if (GameManager.GM.InputManager.Dragging_Object != null)   // 如果 dragging Object 是 body part
+        if (GameManager.GM.InputManager.Dragging_Object != null)   // 如果正在 dragging Object
         {
             Card_Body_Part_Feature bodyPartFeature =
-                GameManager.GM.InputManager.Dragging_Object.GetComponent<Card_Body_Part_Feature>();
+                GameManager.GM.InputManager.Dragging_Object.GetComponent<Card_Body_Part_Feature>();     // 尝试获取 body part feature
+            
 
-            if (bodyPartFeature != null)
+            
+
+            if (bodyPartFeature != null)            // 且如果 dragging Object 是 body part，通过检测是否存在 body part feature 判断
             {
-                foreach (var bodyPart in required_body_parts)
+                Debug.Log("Body Part Type： " + bodyPartFeature._CardBodyPart.Id);
+                foreach (var GG in required_body_parts)
                 {
-                    if (bodyPart.Key == bodyPartFeature._CardBodyPart.Id)
+                    Debug.Log("Required body part : "+ GG.Key);
+                }
+                
+                
+                if (GameManager.GM.PanelManager.isPanelOpen)        // 如果 panel 打开着
+                {
+
+                    Card_Location_Panel_Feature cardLocationPanelFeature =
+                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>();
+
+                    if (cardLocationPanelFeature != null)      // 如果打开的 panel 是个 card location panel, 通过检测是否存在 card location panel feature 判断
                     {
-                        return true;
+
+                        if (cardLocationPanelFeature.attached_card == gameObject)   // 如果打开这个 card location panel 的卡是 这张卡
+                        {
+                            
+                            if (cardLocationPanelFeature.Find_First_Body_Part_Type_In_Slots
+                                    (bodyPartFeature._CardBodyPart.Id)      // 传入当前拖拽的 body part 的类型 string
+                                > 0) // 如果打开的这个 card location panel 中，仍可以吸收 该类型的 body part，则返回 true 
+                            {
+                                Debug.Log(cardLocationPanelFeature.Find_First_Body_Part_Type_In_Slots
+                                    (bodyPartFeature._CardBodyPart.Id));
+                                return true;
+                            }
+                            
+                        }
+                        else   // 打开的 card location panel 不是跟这张卡绑定的
+                        {
+                            foreach (var bodyPart in required_body_parts)
+                            {
+                                if (bodyPartFeature._CardBodyPart.Id == bodyPart.Key && bodyPart.Value > 0)     // 检测当前拖拽的 body part 的 id 是否跟需要的 body part 中的一样
+                                {                                                           // TODO 将来还要加上对是否吸收满了 body part 的检测
+                                    return true;
+                                }
+                            }
+                        }
+
+                    }
+                    else   // 打开的 panel 不是 card location panel 的话
+                    {
+                        foreach (var bodyPart in required_body_parts)
+                        {
+                            if (bodyPartFeature._CardBodyPart.Id == bodyPart.Key && bodyPart.Value > 0)     // 检测当前拖拽的 body part 的 id 是否跟需要的 body part 中的一样
+                            {                                                           // TODO 将来还要加上对是否吸收满了 body part 的检测
+                                return true;
+                            }
+                        }
+                    }
+                    
+                }
+                else   // panel 没打卡的话
+                {
+                    foreach (var bodyPart in required_body_parts)
+                    {
+                        if (bodyPartFeature._CardBodyPart.Id == bodyPart.Key && bodyPart.Value > 0)     // 检测当前拖拽的 body part 的 id 是否跟需要的 body part 中的一样
+                        {                                                           // TODO 将来还要加上对是否吸收满了 body part 的检测
+                            return true;
+                        }
                     }
                 }
-                return false;
+
             }
-            return false;
+            
         }
-        else
+
+        return false;
+    }*/
+    
+    // 检测当前拖拽的卡牌是否是这张卡能够吸收的 body part，此判定若通过，则可以直接调用 card location panel feature 中的 吸收 body part 方法
+    public bool Check_If_Dragging_BodyPart_Is_Need(GameObject draggingObject)     // 传入卡牌 GameObject，比如当前拖拽的卡牌，看是否是 body part，如果是，则判定是不是需要的 body part
+    {
+        if (draggingObject != null)   // 如果正在 dragging Object
         {
-            return false;
+            Card_Body_Part_Feature bodyPartFeature =
+                draggingObject.GetComponent<Card_Body_Part_Feature>();     // 尝试获取 body part feature
+
+            if (bodyPartFeature != null)            // 且如果 dragging Object 是 body part，通过检测是否存在 body part feature 判断
+            {
+                
+                if (GameManager.GM.PanelManager.isPanelOpen &&      // 如果 panel 打开着
+                    GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null &&    // 如果打开的 panel 是个 card location panel 
+                    GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject &&  // 如果打开这个 panel 的卡是 这张卡
+                    GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().
+                        Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) > 0)     // 传入当前拖拽的 body part 的类型 string)  
+                {
+                    return true;
+                }
+                else
+                {
+                    foreach (var bodyPart in required_body_parts)
+                    {
+                        if (bodyPartFeature._CardBodyPart.Id == bodyPart.Key && bodyPart.Value > 0)     // 检测当前拖拽的 body part 的 id 是否跟需要的 body part 中的一样
+                        {                                                          
+                            return true;
+                        }
+                    }
+                }
+
+            }
+            
         }
+
+        return false;
     }
 
     public IEnumerator Highlight_If_Dragging_Needed_BodyPart()
     {
         while (true)
         {
-            if (Check_If_Dragging_BodyPart_Is_Need())   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
+            if (Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object))   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
             {
                 if (!isHighlightYellow)
                     Highlight_Collider(Color.white);
@@ -460,6 +551,20 @@ public class Card_Location_Feature : MonoBehaviour
         cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Cards";
     }
     
+    
+    
+    
+    
+    
+    public IEnumerator Absorb_Dragging_Body_Parts(GameObject bodyPartToAbsorb)         // 被 card body part feature 调用的 吸收 body part 方法
+    {
+        Open_Panel();   // 自带是否打开的检测
+
+        yield return new WaitUntil(() => showed_panel.GetComponent<Card_Location_Panel_Feature>().isPanelWellSet);  // 等到 panel well set 了
+        
+        showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Body_Part_Based_On_Type(bodyPartToAbsorb);        // 调用 panel 中的方法
+
+    }
 
     
     // 检查 Require_Body_Part 和 Require_Resource 是否满足条件

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.Enumeration;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,13 +31,16 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public TMP_Text resource_5_amount_text;
     // 添加更多的资源槽位，如果需要 - resource_X_amount_text，需要在 prefab 中添加对应的 TMP_text 和 icon
 
-    // Resource and Body Part
+    // Resource 相关的 Dictionary
     public Dictionary<int, bool> availableResourceSlot;     // 用于记录 resource section 上 available 的 button slot
     public Dictionary<string, int> requiredResourcesThisPanel;  // 用于记录 required resource 及对应数量的 字典
     public Dictionary<string, int> resourceSlotNumber = new Dictionary<string, int>() {};    // 用于记录 required resource 及对应的 slot 编号
-    public Dictionary<int, bool> availableBodyPartSlot;     // 用于记录 body part section 上 available 的 slot
-    public List<string> requiredBodyPartsThisPanel;         // 用于记录需要的 body part 的 list
     
+    // Body Part 相关的 Dictionary
+    public Dictionary<int, string> requiredBodyPartsThisPanel;         // 用于记录需要的 body part 的 Dictionary, int:槽位编号, string:Body Part类型的string
+    // public List<string> currentlyAbsorbedBodyPart;          // 用于记录当前已经吸收的 Body Part，临时，可能没必要
+    public Dictionary<int, bool> currentlyAbosorbedBodyPartSlots;       // 用于记录 body part 的各个 slot 是否已经吸收, int:槽位编号, bool:是否已经吸收 body part
+
     public int resource_1_amount = -1;                 // resource_X_amount 用于记录该资源需要消耗的 总数
     public int current_resource_1_amount = 0;          // current_resource_X_amount 用于记录 panel 当前吸收的资源数量
     public int resource_2_amount = -1;
@@ -60,7 +64,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     
     
 
-    // Resource Button Prefab
+    // Resource Button Prefab，panel 上的资源按钮
     [Header("Resource Button Prefab")] 
     public GameObject Button_Fund;
     public GameObject Button_Physical_Energy;
@@ -72,6 +76,18 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Button_Putrefaction;
     public GameObject Button_Madness;
     public GameObject Button_Godhood;
+    
+    // Body Part prefab, Body part 的 Card prefab
+    [Header("Body Part Prefab")]
+    public GameObject Body_Part_Prefab_Physical_Body;
+    public GameObject Body_Part_Prefab_Spirit;
+    public GameObject Body_Part_Prefab_Psyche;
+     
+    // Body Part prefab，panel 上的 body part 槽位（也是按钮）
+    [Header("Body Part Slot Prefab")] 
+    public GameObject Slot_Physical_Body;
+    public GameObject Slot_Spirit;
+    public GameObject Slot_Psyche;
 
     // panel 外观设置
     [Header("Panel Appearance")]
@@ -82,6 +98,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
+    public bool isPanelWellSet = false;     // 用于判定这个 panel 是否已经初始化完全，用以调用 Find_First_Empty_Body_Part_Type_In_Slots 方法
 
     
     
@@ -116,7 +133,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         bool isRequireResource = false;
         bool isRequireBodyParts = false;
         requiredResourcesThisPanel = new Dictionary<string, int>() { };
-        requiredBodyPartsThisPanel = new List<string>() { };
+        requiredBodyPartsThisPanel = new Dictionary<int, string>() { };
+        currentlyAbosorbedBodyPartSlots = new Dictionary<int, bool>() { };
+        int temporaryBodyPartSlotNumber = 1;            // 用于初始化 Body Part 槽位 Dictionary<int, string> 中的 int 参数
         
         // 检查所有的 required_resource 值是否大于0，如果有大于0的则说明此 panel 对应的卡牌需要消耗资源，则需要 resource section 
         foreach (KeyValuePair<string,int> required_resource in attached_card_location_feature.required_resources)
@@ -134,9 +153,10 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             if (required_body_part.Value > 0)
             {
                 isRequireBodyParts = true;
-                for (int i = required_body_part.Value; i > 0; i--)
+                for (int i = required_body_part.Value; i > 0; i--)      // 将需要的 Body Part 记录进 Body Part 槽位字典 Dictionary<int,string>
                 {
-                    requiredBodyPartsThisPanel.Add(required_body_part.Key);
+                    requiredBodyPartsThisPanel.Add(temporaryBodyPartSlotNumber,required_body_part.Key);
+                    temporaryBodyPartSlotNumber++;
                 }
             }
         }
@@ -186,14 +206,19 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                     GameObject.Find("Section_Location_Description_End").transform.localPosition;
             }
         }
-
-        if (requiredResourcesThisPanel.Count > 0)
-        {
-            Set_Resource_Button();      // 实例化 resource button
-        }
         
-        Set_Body_Part_Slots();        // 临时，将来将把此方法写进 body part 的判定中，并根据需要的 body part 来初始化槽位
 
+        if (requiredResourcesThisPanel.Count > 0)   // 如果需要消耗 resource，则根据需要的 resource 生成 resource 按钮
+        {
+            Set_Resource_Button();    
+        }
+
+        if (requiredBodyPartsThisPanel.Count > 0)         // 如果需要消耗 body part，则根据需要的 body part 生成 body part 的槽位
+        {
+            Set_Body_Part_Slots();       
+        }
+
+        isPanelWellSet = true;
     }
 
     public void Set_Resource_Button()       // 具体方法 ：实例化 resource button，并设置 消耗资源的参数
@@ -321,16 +346,40 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
     }
 
-    public void Set_Body_Part_Slots()           // 临时，将所有 body part 的 slot 都设置为 true，将来将修改方法，将根据 RequiredBodyPartThisPanel 的 list 来设置
+    public void Set_Body_Part_Slots()           // 根据 这张卡需要的 body part 设置 body part slot   // TODO 有 bug ： 打开 panel 的时候 null reference
     {
-        availableBodyPartSlot = new Dictionary<int, bool>()
+
+        foreach (var body_part in requiredBodyPartsThisPanel)   // 对于每一个需要的 body part
         {
-            { 1, true },
-            { 2, true },
-            { 3, true },
-            { 4, true }
-        };
-        
+         
+            // 初始化记录当前 body part slot 占用情况字典，将所有 body part 槽位对应的占用设置为 false(尚未占用），保证了记录是否占用槽位的字典与 required body part 序号相等
+            currentlyAbosorbedBodyPartSlots.Add(body_part.Key, false);      
+            
+            // Instantiate body part
+            // place it to the slot position
+
+            GameObject bodyPartSlot = null;
+
+            if (body_part.Value == "Physical_Body")             // 根据其类型，生成不同的槽位 prefab
+            {
+                bodyPartSlot = Instantiate(Slot_Physical_Body, panel_section_body_part.transform);
+            }
+            if (body_part.Value == "Spirit")
+            {
+                bodyPartSlot = Instantiate(Slot_Spirit, panel_section_body_part.transform);
+            }
+            if (body_part.Value == "Psyche")
+            {
+                bodyPartSlot = Instantiate(Slot_Psyche, panel_section_body_part.transform);
+            }
+            
+            // TODO 设置 body part slot 的 panel 指代为此 panel
+            
+            bodyPartSlot.transform.localPosition =
+                GameObject.Find("Body_Part_Slot_" + body_part.Key).transform.localPosition;     // 将生成的 slot 移动至 slot 标记点 X
+
+        }
+
         
     }
     
@@ -375,7 +424,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log("is over the LOCATION PANEL");
+        // Debug.Log("is over the LOCATION PANEL");
         is_mouse_hover_on_panel = true;
     }
 
@@ -507,19 +556,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
     }
 
-   
 
-
-    public void Absorb_Body_Part()
-    {
-        
-        
-        
-        
-        
-        
-    }
-    
 
     public bool Check_If_Absorb_All_BodyParts()     // 检查是否吸收完了所有需要的 body part
     {
@@ -531,63 +568,109 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     ///////////////////////////////////////////////////     判定函数 结束
     
     
-    ///////////////////////////////////////////////////     更新 panel 状态
-     
     
-    // 如果相应的资源 总数大于0（说明需要消耗，不涉及该资源则为 -1）且当前未吸收满（总数 - current > 0), 则显示剩余需要吸收的数量，否则不显示
-    private void Update_Resource_Number()       
+    ///////////////////////////////////////////////////     资源，body part，Manipulation 方法
+    
+    
+    // 给定一个类型的 body part，寻找此 panel 中第一个该类型的 slot
+    public int Find_First_Empty_Body_Part_Type_In_Slots(string bodyPartType)
     {
-        if (resource_1_amount > 0 && resource_1_amount - current_resource_1_amount > 0) 
-        { resource_1_amount_text.text = (resource_1_amount - current_resource_1_amount).ToString(); }
-        else { resource_1_amount_text.text = ""; }
-        
-        if (resource_2_amount > 0 && resource_2_amount - current_resource_2_amount > 0) 
-        { resource_2_amount_text.text = (resource_2_amount - current_resource_2_amount).ToString(); }
-        else { resource_2_amount_text.text = ""; }
-        
-        if (resource_3_amount > 0 && resource_3_amount - current_resource_3_amount > 0) 
-        { resource_3_amount_text.text = (resource_3_amount - current_resource_3_amount).ToString(); }
-        else { resource_3_amount_text.text = ""; }
-        
-        if (resource_4_amount > 0 && resource_4_amount - current_resource_4_amount > 0) 
-        { resource_4_amount_text.text = (resource_4_amount - current_resource_4_amount).ToString(); }
-        else { resource_4_amount_text.text = ""; }
-        
-        if (resource_5_amount > 0 && resource_5_amount - current_resource_5_amount > 0) 
-        { resource_5_amount_text.text = (resource_5_amount - current_resource_5_amount).ToString(); }
-        else { resource_5_amount_text.text = ""; }
-        
-    }
+        if (requiredBodyPartsThisPanel.Count > 0)
+        {
+            for (int i = 1; i <= requiredBodyPartsThisPanel.Count; i++)     // 对于每个此 panel 需要的 body part 槽位
+            {
+                if (requiredBodyPartsThisPanel[i] == bodyPartType       // 如果槽位上对应的 body part 类型，与要寻找的类型相等
+                    && !currentlyAbosorbedBodyPartSlots[i])             // 而且该槽位没有被占用
+                {
+                    return i;                                       // 则返回 slot 编号 i
+                }
 
-    void Set_Start_Button_Availablitity()       // 设置 Start 按钮是否可点击，以及按钮的 text
-    {
-        if (Check_If_Absorb_All_Requirements())     // 如果吸收了 所有需要的资源
-        {
-            if (attached_card_location_feature.is_counting_down)    // 如果正在倒计时
-            {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Arriving");
-            }
-            else      // 如果没在倒计时  
-            {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(true);
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
             }
         }
-        else  // 如果没吸收够 所有需要的资源
-        {
-            start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
-            start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
-        }
+        
+        return 0;           // 没找到则返回 0
     }
     
     
-    ///////////////////////////////////////////////////     更新 panel 状态 结束
+    // 吸收一个给定类型的 body part 的操作
+        // 在拖拽 body part 到卡牌时调用此方法
+    public void Absorb_Body_Part_Based_On_Type(GameObject bodyPartToAbsorb)
+    {
+        if (bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>() != null)    // 确保输入的是 body part
+        {
+            
+            // board 上的 body part 减少
+            
+            GameManager.GM.BodyPartManager.Destroy_Body_Part(bodyPartToAbsorb);
+            
+            
+            // panel 上的 body part 增加
+
+            string bodyPartToAbsorbType = bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id; // 获取 body part 类型 string
+
+            GameObject instantiatedBodyPartOnPanel = null;
+
+            if (bodyPartToAbsorbType == "Physical_Body")
+            {
+                instantiatedBodyPartOnPanel = GameManager.GM.Generate_Card_Body_Part("Physical_Body");
+            }
+            
+            if (bodyPartToAbsorbType == "Spirit")
+            {
+                instantiatedBodyPartOnPanel = GameManager.GM.Generate_Card_Body_Part("Spirit");
+            }
+            
+            if (bodyPartToAbsorbType == "Psyche")
+            {
+                instantiatedBodyPartOnPanel = GameManager.GM.Generate_Card_Body_Part("Psyche");
+            }
+            
+            // 调整 panel 上生成 body part 卡牌的 缩放 Adjust Scale of Instantiate card
+
+            instantiatedBodyPartOnPanel.transform.localScale *=  0.8f;
+            
+            // 设置 panel 上生成的 body part 卡牌的 父层级为 panel 上 body part Section
+            
+            instantiatedBodyPartOnPanel.transform.parent = panel_section_body_part.transform;
+
+            // instantiatedBodyPartOnPanel.GetComponent<SpriteRenderer>().sortingLayerName = "Panel";
+            // instantiatedBodyPartOnPanel.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            
+            
+            // 调整 panel 上生成 body part 卡牌的 位置，到 slot X
+            
+            instantiatedBodyPartOnPanel.transform.localPosition = 
+                GameObject.Find(
+                    "Body_Part_Slot_" + Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType)
+                        ).transform.localPosition;    
+            
+            
+            // 设置 currentlyAbsorbedBodyPartSlots 字典中相应的槽位为 “被占据 ” ，即将值设置为 true
+            
+            currentlyAbosorbedBodyPartSlots[                                
+                    Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType)]
+                = true;
+            
+            
+
+
+        }
+
+    }
     
+    // 吸收一个特定 slot 的 body part 的操作
+        // 点击 panel 上的 body part 槽位时调用此方法
+
+    public void Absorb_Body_Part_Based_On_Slot(int slotNumber)
+    {
+        
+        
+        
+    }
     
+    // return body part，从 slot 返回桌面
     
-    ///////////////////////////////////////////////////     其他函数
-    
+
     
     public void Return_Resource()              // 关闭 panel 时，返还所有资源，执行逻辑，被 Panel_Manager 在关闭 panel 时调用
     {
@@ -664,6 +747,71 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
         
     }
+    
+    
+    ///////////////////////////////////////////////////     资源，body part，Manipulation 方法   结束
+    
+    
+    
+    ///////////////////////////////////////////////////     更新 panel 状态
+     
+    
+    // 如果相应的资源 总数大于0（说明需要消耗，不涉及该资源则为 -1）且当前未吸收满（总数 - current > 0), 则显示剩余需要吸收的数量，否则不显示
+    private void Update_Resource_Number()       
+    {
+        if (resource_1_amount > 0 && resource_1_amount - current_resource_1_amount > 0) 
+        { resource_1_amount_text.text = (resource_1_amount - current_resource_1_amount).ToString(); }
+        else { resource_1_amount_text.text = ""; }
+        
+        if (resource_2_amount > 0 && resource_2_amount - current_resource_2_amount > 0) 
+        { resource_2_amount_text.text = (resource_2_amount - current_resource_2_amount).ToString(); }
+        else { resource_2_amount_text.text = ""; }
+        
+        if (resource_3_amount > 0 && resource_3_amount - current_resource_3_amount > 0) 
+        { resource_3_amount_text.text = (resource_3_amount - current_resource_3_amount).ToString(); }
+        else { resource_3_amount_text.text = ""; }
+        
+        if (resource_4_amount > 0 && resource_4_amount - current_resource_4_amount > 0) 
+        { resource_4_amount_text.text = (resource_4_amount - current_resource_4_amount).ToString(); }
+        else { resource_4_amount_text.text = ""; }
+        
+        if (resource_5_amount > 0 && resource_5_amount - current_resource_5_amount > 0) 
+        { resource_5_amount_text.text = (resource_5_amount - current_resource_5_amount).ToString(); }
+        else { resource_5_amount_text.text = ""; }
+        
+    }
+
+    void Set_Start_Button_Availablitity()       // 设置 Start 按钮是否可点击，以及按钮的 text
+    {
+        if (Check_If_Absorb_All_Requirements())     // 如果吸收了 所有需要的资源
+        {
+            if (attached_card_location_feature.is_counting_down)    // 如果正在倒计时
+            {
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Arriving");
+            }
+            else      // 如果没在倒计时  
+            {
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(true);
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
+            }
+        }
+        else  // 如果没吸收够 所有需要的资源
+        {
+            start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
+            start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
+        }
+    }
+    
+    
+    ///////////////////////////////////////////////////     更新 panel 状态 结束
+    
+    
+    
+    ///////////////////////////////////////////////////     其他函数
+    
+    
+    
     
     
     

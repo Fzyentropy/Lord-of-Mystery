@@ -217,8 +217,7 @@
             "Require_Body_Part":
             {
                 "Physical_Body": 1,
-                "Spirit": 1,
-                "Psyche": 1
+                "Spirit": 2
             },
 
             "Require_Resource":
@@ -267,7 +266,7 @@
 
             "Require_Body_Part":
             {
-                "Physical_Body": 1,
+                "Physical_Body": 2,
                 "Spirit": 1,
                 "Psyche": 1
             },
@@ -285,6 +284,11 @@
 
             "Use_Time": -1,
             "Time": 3,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
 
             "Produce_Resource":
             {

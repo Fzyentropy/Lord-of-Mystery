@@ -14,7 +14,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
     public TMP_Text body_part_label;
 
     public Card_Location_Feature overlapped_card_location; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
-
+ 
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
@@ -95,10 +95,14 @@ public class Card_Body_Part_Feature : MonoBehaviour
         gameObject.layer = LayerIndex; 
         DecreaseOrderInLayer();     // 设置回 原 Order in Layer
 
-        if (overlapped_card_location != null)     // 如果在一个 card location 上面 （
+        
+        
+        // 如果在一个 card location 上面, 触发对应 card location 中的方法，来打开panel，然后将这张卡 merge 到其中一个 slot 上
+        // 判定是否能吸收
+        // TODO 要加上 是否重叠的判定
+        if (overlapped_card_location != null && overlapped_card_location.Check_If_Dragging_BodyPart_Is_Need(gameObject))     
         {
-            // 触发对应 card location 中的方法，来打开panel，然后将这张卡 merge 到其中一个 slot 上
-            
+            StartCoroutine(overlapped_card_location.Absorb_Dragging_Body_Parts(gameObject));
         }
         
         

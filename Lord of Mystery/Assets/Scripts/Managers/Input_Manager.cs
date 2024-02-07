@@ -65,7 +65,7 @@ public class Input_Manager : MonoBehaviour
         {
             if (hit.collider != null)
             {
-                Debug.Log("射线碰撞到了: " + hit.collider.gameObject.name);
+                // Debug.Log("射线碰撞到了: " + hit.collider.gameObject.name);
             }
         }
     }
