@@ -25,6 +25,9 @@ public class Panel_Manager : MonoBehaviour
 
     // message 指代
     
+    
+    // 数值参数
+    public Vector3 panel_original_scale = Vector3.one;
 
 
 
@@ -42,7 +45,7 @@ public class Panel_Manager : MonoBehaviour
         
         // 获取到 Game Object 的原始 transform 和 所有 spriteRenderer 与 TMP text 的数据
         Transform panel_original_transform = panel.transform;
-        Vector3 panel_original_scale = panel_original_transform.lossyScale;
+        panel_original_scale = panel_original_transform.lossyScale;
         
         SpriteRenderer[] original_spriterenderers = panel.GetComponentsInChildren<SpriteRenderer>();
         Dictionary<SpriteRenderer, Color> original_spriterenderer_color = new Dictionary<SpriteRenderer, Color>() { };
@@ -92,6 +95,7 @@ public class Panel_Manager : MonoBehaviour
         if (current_panel.GetComponent<Card_Location_Panel_Feature>() != null)
         {
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Resource();
+            current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Body_Part();
         }
         
         Destroy(current_panel);

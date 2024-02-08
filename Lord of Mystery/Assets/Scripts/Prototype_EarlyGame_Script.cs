@@ -11,7 +11,8 @@ public class Prototype_EarlyGame_Script : MonoBehaviour
         GameManager.GM.Generate_Card_Location("Location_Panel_Test_2");
         GameManager.GM.Generate_Card_Location("Location_Panel_Test_3");
         GameManager.GM.Generate_Card_Location("Location_Panel_Test_4");
-        GameManager.GM.Generate_Card_Body_Part("Physical_Body");
+        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Physical_Body", Vector3.zero, new Vector3(1,1,0));
+        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Spirit", Vector3.zero, new Vector3(1,1,0));
     }
     
     

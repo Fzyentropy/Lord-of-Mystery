@@ -40,6 +40,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public Dictionary<int, string> requiredBodyPartsThisPanel;         // 用于记录需要的 body part 的 Dictionary, int:槽位编号, string:Body Part类型的string
     // public List<string> currentlyAbsorbedBodyPart;          // 用于记录当前已经吸收的 Body Part，临时，可能没必要
     public Dictionary<int, bool> currentlyAbosorbedBodyPartSlots;       // 用于记录 body part 的各个 slot 是否已经吸收, int:槽位编号, bool:是否已经吸收 body part
+    public Dictionary<int, GameObject> absorbedBodyPartGameObjects;     // 用于记录 已经吸收的 body part 的 Game Object，方便访问
 
     public int resource_1_amount = -1;                 // resource_X_amount 用于记录该资源需要消耗的 总数
     public int current_resource_1_amount = 0;          // current_resource_X_amount 用于记录 panel 当前吸收的资源数量
@@ -135,6 +136,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         requiredResourcesThisPanel = new Dictionary<string, int>() { };
         requiredBodyPartsThisPanel = new Dictionary<int, string>() { };
         currentlyAbosorbedBodyPartSlots = new Dictionary<int, bool>() { };
+        absorbedBodyPartGameObjects = new Dictionary<int, GameObject>() {};
         int temporaryBodyPartSlotNumber = 1;            // 用于初始化 Body Part 槽位 Dictionary<int, string> 中的 int 参数
         
         // 检查所有的 required_resource 值是否大于0，如果有大于0的则说明此 panel 对应的卡牌需要消耗资源，则需要 resource section 
@@ -461,7 +463,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     
     private void OnDestroy()        // 当 Panel 被销毁的时候， 返还 resource 和 body part
     {
-        Debug.Log("panel 销毁了");
+        // Debug.Log("panel 销毁了");
         // Return_Resource();
     }
     
@@ -592,18 +594,13 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
     
     
-    // 吸收一个给定类型的 body part 的操作
+    // 吸收一个给定类型的 body part 的细节操作
         // 在拖拽 body part 到卡牌时调用此方法
     public void Absorb_Body_Part_Based_On_Type(GameObject bodyPartToAbsorb)
     {
         if (bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>() != null)    // 确保输入的是 body part
         {
-            
-            // board 上的 body part 减少
-            
-            GameManager.GM.BodyPartManager.Destroy_Body_Part(bodyPartToAbsorb);
-            
-            
+
             // panel 上的 body part 增加
 
             string bodyPartToAbsorbType = bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id; // 获取 body part 类型 string
@@ -625,33 +622,59 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 instantiatedBodyPartOnPanel = GameManager.GM.Generate_Card_Body_Part("Psyche");
             }
             
+            // 传递 last position
+            
+            instantiatedBodyPartOnPanel.GetComponent<Card_Body_Part_Feature>().lastPosition =      
+                bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>().lastPosition;
+            
             // 调整 panel 上生成 body part 卡牌的 缩放 Adjust Scale of Instantiate card
 
-            instantiatedBodyPartOnPanel.transform.localScale *=  0.8f;
+            float scaleOffset = 0.8f;
+
+            instantiatedBodyPartOnPanel.transform.localScale *=
+                GameManager.GM.PanelManager.current_panel.transform.lossyScale.x * scaleOffset / GameManager.GM.PanelManager.panel_original_scale.x;
             
             // 设置 panel 上生成的 body part 卡牌的 父层级为 panel 上 body part Section
             
             instantiatedBodyPartOnPanel.transform.parent = panel_section_body_part.transform;
 
-            // instantiatedBodyPartOnPanel.GetComponent<SpriteRenderer>().sortingLayerName = "Panel";
-            // instantiatedBodyPartOnPanel.GetComponent<SpriteRenderer>().sortingOrder = 3;
+            foreach (var spriteRenderer in instantiatedBodyPartOnPanel.GetComponentsInChildren<SpriteRenderer>())
+            {
+                spriteRenderer.sortingLayerName = "Panel";
+                spriteRenderer.sortingOrder = 2;
+            }
+
+            foreach (var tmpText in instantiatedBodyPartOnPanel.GetComponentsInChildren<TMP_Text>())
+            {
+                tmpText.GetComponent<Renderer>().sortingLayerName = "Panel";
+                tmpText.GetComponent<Renderer>().sortingOrder = 2;
+            }
             
             
-            // 调整 panel 上生成 body part 卡牌的 位置，到 slot X
+            // 获取空 Slot X 的编号
+
+            int EmptySlotNumber = Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType);
+            
+            
+            // 调整 panel 上生成 body part 卡牌的 位置，到 slot X 的位置
             
             instantiatedBodyPartOnPanel.transform.localPosition = 
-                GameObject.Find(
-                    "Body_Part_Slot_" + Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType)
-                        ).transform.localPosition;    
+                GameObject.Find("Body_Part_Slot_" + EmptySlotNumber).transform.localPosition;   
+            
+            
+            // 将新生成的 body part GameObject 记录进 absorbed Body Part 字典
+            
+            absorbedBodyPartGameObjects.Add(EmptySlotNumber, instantiatedBodyPartOnPanel);
             
             
             // 设置 currentlyAbsorbedBodyPartSlots 字典中相应的槽位为 “被占据 ” ，即将值设置为 true
             
-            currentlyAbosorbedBodyPartSlots[                                
-                    Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType)]
-                = true;
+            currentlyAbosorbedBodyPartSlots[EmptySlotNumber] = true;
             
             
+            // board 上的 body part 减少
+            
+            GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(bodyPartToAbsorb);
 
 
         }
@@ -745,6 +768,22 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_5_amount, gameObject.transform.position);
             current_resource_5_amount = 0;
         }
+        
+    }
+
+    public void Return_Body_Part()
+    {
+        foreach (var slot in currentlyAbosorbedBodyPartSlots)
+        {
+            if (slot.Value)
+            {
+                GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board(
+                    requiredBodyPartsThisPanel[slot.Key],
+                    absorbedBodyPartGameObjects[slot.Key].transform.position,
+                    absorbedBodyPartGameObjects[slot.Key].GetComponent<Card_Body_Part_Feature>().lastPosition);
+            }
+        }
+        
         
     }
     

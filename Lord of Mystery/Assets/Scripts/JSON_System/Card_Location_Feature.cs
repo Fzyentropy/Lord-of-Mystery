@@ -251,14 +251,21 @@ public class Card_Location_Feature : MonoBehaviour
     {
         if (other.CompareTag("Body_Parts"))
         {
-            if (yellow_highlight_bodypart_variable_switch)      // 此 switch 并不管用，TODO 将来加上根据距离的判定，距离最近的吸收
+            if (GameManager.GM.InputManager.Dragging_Object == other.gameObject)
             {
-                yellow_highlight_bodypart_variable_switch = false;
-                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = this;    // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
-            }
+                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = gameObject;    // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
 
-            if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location == this)
-                isHighlightYellow = true;   // 将高亮改为黄色
+                if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location == gameObject)
+                {
+                    isHighlightYellow = true;   // 将高亮改为黄色
+                }
+                else
+                {
+                    isHighlightYellow = false;
+                }
+                
+            }
+            
         }
         
     }
@@ -268,9 +275,12 @@ public class Card_Location_Feature : MonoBehaviour
         
         if (other.gameObject.CompareTag("Body_Parts"))
         {
-            // 取消高亮功能
+            // 取消黄色 Highlight
             isHighlightYellow = false;
-            yellow_highlight_bodypart_variable_switch = true;
+
+            // “ 取出 ” body part 重叠物体
+            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = null;
+
         }
     }
     
@@ -566,7 +576,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     }
 
-    
+     
     // 检查 Require_Body_Part 和 Require_Resource 是否满足条件
     public void CheckAndFulfillConditions()
     {

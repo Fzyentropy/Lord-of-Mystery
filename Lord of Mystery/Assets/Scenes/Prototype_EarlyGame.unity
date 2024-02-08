@@ -1150,6 +1150,7 @@ MonoBehaviour:
   Panel_Function: {fileID: 0}
   isPanelOpen: 0
   current_panel: {fileID: 0}
+  panel_original_scale: {x: 1, y: 1, z: 1}
 --- !u!4 &98605791
 Transform:
   m_ObjectHideFlags: 0
@@ -17894,7 +17895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1472352530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1076.4827, y: 532.16125, z: 2.0476813}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

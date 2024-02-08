@@ -124,7 +124,10 @@ public class Start_Button_Script : MonoBehaviour
                                 Start_Countdown();
                 
                 Destroy(attached_panel);
-            
+
+                GameManager.GM.PanelManager.isPanelOpen = false;
+                GameManager.GM.PanelManager.current_panel = null;
+
             }
         }
         

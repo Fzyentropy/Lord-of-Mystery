@@ -13,7 +13,9 @@ public class Card_Body_Part_Feature : MonoBehaviour
     public SpriteRenderer body_part_image;
     public TMP_Text body_part_label;
 
-    public Card_Location_Feature overlapped_card_location; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
+    public GameObject overlapped_card_location; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
+
+    public Vector3 lastPosition;        // 用于记录拖拽时最后停下的 location
  
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
@@ -23,6 +25,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
     public GameObject cover;    // 临时，用于 cover 原 physical body 卡牌名称的 小方块，用于调整 Order in Layer
 
     public int LayerIndex;
+    public const string OriginalSortingLayer = "Body Parts";
     
     
 
@@ -31,7 +34,12 @@ public class Card_Body_Part_Feature : MonoBehaviour
         Initialize_Body_Part();
         Set_Layer_Index();      // 设置 layer 的 index
     }
-    
+
+    private void Update()
+    {
+        Debug.Log(overlapped_card_location);
+    }
+
 
     void Initialize_Body_Part()
     {
@@ -60,15 +68,16 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
         // 取消高亮
         
-
-        // 调整卡牌的渲染 layer，让其到最上面
-        
-        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-        IncreaseOrderInLayer();     // 增加渲染的 order in layer，将物体渲染在最前面
     }
 
     private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
+        
+        // 调整卡牌的渲染 layer，让其到最上面
+        
+        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        IncreaseSortingLayer();     // 增加渲染的 order in layer，将物体渲染在最前面
+        
         // 如果鼠标移动，卡牌随之移动
 
         GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
@@ -93,16 +102,20 @@ public class Card_Body_Part_Feature : MonoBehaviour
         
         // 调整 卡牌的渲染 layer 让其回到原位
         gameObject.layer = LayerIndex; 
-        DecreaseOrderInLayer();     // 设置回 原 Order in Layer
-
+        DecreaseSortingLayer();     // 设置回 原 Order in Layer
         
         
         // 如果在一个 card location 上面, 触发对应 card location 中的方法，来打开panel，然后将这张卡 merge 到其中一个 slot 上
         // 判定是否能吸收
         // TODO 要加上 是否重叠的判定
-        if (overlapped_card_location != null && overlapped_card_location.Check_If_Dragging_BodyPart_Is_Need(gameObject))     
+        if (overlapped_card_location != null && 
+            overlapped_card_location.GetComponent<Card_Location_Feature>().Check_If_Dragging_BodyPart_Is_Need(gameObject))     
         {
-            StartCoroutine(overlapped_card_location.Absorb_Dragging_Body_Parts(gameObject));
+            StartCoroutine(overlapped_card_location.GetComponent<Card_Location_Feature>().Absorb_Dragging_Body_Parts(gameObject));
+        }
+        else
+        {
+            lastPosition = transform.position;
         }
         
         
@@ -155,19 +168,19 @@ public class Card_Body_Part_Feature : MonoBehaviour
         }
     }
     
-    public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+    public void IncreaseSortingLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
-        body_part_label.GetComponent<Renderer>().sortingOrder += 5;
-        body_part_image.sortingOrder += 5;
-        cardBottom.GetComponent<SpriteRenderer>().sortingOrder += 5;
-        cover.GetComponent<SpriteRenderer>().sortingOrder += 5;
+        body_part_label.GetComponent<Renderer>().sortingLayerName = "Dragging";
+        body_part_image.sortingLayerName = "Dragging";
+        cardBottom.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
+        cover.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
     }
-    public void DecreaseOrderInLayer()       // 减少 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+    public void DecreaseSortingLayer()       // 减少 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
-        body_part_label.GetComponent<Renderer>().sortingOrder -= 5;
-        body_part_image.sortingOrder -= 5;
-        cardBottom.GetComponent<SpriteRenderer>().sortingOrder -= 5;
-        cover.GetComponent<SpriteRenderer>().sortingOrder -= 5;
+        body_part_label.GetComponent<Renderer>().sortingLayerName = OriginalSortingLayer;
+        body_part_image.sortingLayerName = OriginalSortingLayer;
+        cardBottom.GetComponent<SpriteRenderer>().sortingLayerName = OriginalSortingLayer;
+        cover.GetComponent<SpriteRenderer>().sortingLayerName = OriginalSortingLayer;
     }
 
 
