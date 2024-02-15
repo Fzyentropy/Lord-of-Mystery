@@ -164,7 +164,6 @@
 
             "Produce_Resource":
             {
-                "Fund": 5,
                 "Physical_Energy": 3
             },
 
@@ -173,9 +172,9 @@
                 "Born"
             ],
             
-            "Special_Effect":
+            "Produce_Card_Location":
             [
-                "Realize_Flesh_And_Body"
+                "Mother"
             ]
 
         },
@@ -216,8 +215,7 @@
 
             "Require_Body_Part":
             {
-                "Physical_Body": 1,
-                "Spirit": 2
+                "Physical_Body": 1
             },
 
             "Require_Resource":

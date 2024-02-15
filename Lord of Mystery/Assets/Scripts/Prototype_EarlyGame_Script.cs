@@ -7,12 +7,20 @@ public class Prototype_EarlyGame_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.GM.Generate_Card_Location("Location_Panel_Test_1");
-        GameManager.GM.Generate_Card_Location("Location_Panel_Test_2");
-        GameManager.GM.Generate_Card_Location("Location_Panel_Test_3");
-        GameManager.GM.Generate_Card_Location("Location_Panel_Test_4");
-        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Physical_Body", Vector3.zero, new Vector3(1,1,0));
-        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Spirit", Vector3.zero, new Vector3(1,1,0));
+        StartCoroutine(Game_Start());
+    }
+
+    IEnumerator Game_Start()
+    {
+        
+        GameManager.GM.Generate_Card_Location("Loen", new Vector3(10,-8,0));
+       
+        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Physical_Body", new Vector3(20,-8,0), new Vector3(20,-8,0));
+
+        yield return new WaitForSeconds(0.5f);
+        
+        GameManager.GM.Generate_Message("Beginning");
+
     }
     
     

@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public Body_Part_Manager BodyPartManager;       // body part 管理脚本
     public Panel_Manager PanelManager;              // panel 管理 manager
     public Input_Manager InputManager;              // Input Manager
+    public Card_Effects CardEffects;                // 卡牌效果 功能集成
 
     // 卡牌 prefab
     public GameObject message_Panel;                // 左下角 message panel 的 prefab
@@ -69,9 +70,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void Generate_Card_Location(string id)   // 实例化 Card_Location， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
+    public void Generate_Card_Location(string id, Vector3 position)   // 实例化 Card_Location， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
     {
-        GameObject cardLocation = Instantiate(Card_Location_Prefab, new Vector3(15,-10,0), Quaternion.identity);    
+        GameObject cardLocation = Instantiate(Card_Location_Prefab, position, Quaternion.identity);    
         cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id); 
     }
     

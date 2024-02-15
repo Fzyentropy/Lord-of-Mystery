@@ -32,6 +32,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     // 添加更多的资源槽位，如果需要 - resource_X_amount_text，需要在 prefab 中添加对应的 TMP_text 和 icon
 
     // Resource 相关的 Dictionary
+    [Header("Dictionary")]
     public Dictionary<int, bool> availableResourceSlot;     // 用于记录 resource section 上 available 的 button slot
     public Dictionary<string, int> requiredResourcesThisPanel;  // 用于记录 required resource 及对应数量的 字典
     public Dictionary<string, int> resourceSlotNumber = new Dictionary<string, int>() {};    // 用于记录 required resource 及对应的 slot 编号
@@ -60,8 +61,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     
     // Panel Status
     private bool is_resource_ok = false;
-    // public bool is_bodypart_ok = false;
-    private bool is_bodypart_ok = true;      // 临时将 body part 设置为 true，for test
+    private bool is_bodypart_ok = false;
     
     
 
@@ -111,8 +111,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
 
     private void Update()
-    {
-        Check_If_Absorb_All_Resource();
+    { 
         Update_Resource_Number();
         Set_Start_Button_Availablitity();
 
@@ -160,7 +159,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                     requiredBodyPartsThisPanel.Add(temporaryBodyPartSlotNumber,required_body_part.Key);
                     temporaryBodyPartSlotNumber++;
                 }
-            }
+            } 
         }
 
         // 根据上方的检查结果，设置 section 是否出现以及位置
@@ -477,7 +476,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     public bool Check_If_Absorb_All_Requirements()      // 检查是否吸收完了所有需要的 resource 和 body part
     {
-        return is_resource_ok && is_bodypart_ok;
+        return Check_If_Absorb_All_Resource() && Check_If_Absorb_All_BodyParts();
     }
 
     public bool Check_If_Absorb_All_Resource()      // 检查是否吸收完了所有需要的 resource
@@ -562,7 +561,21 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     public bool Check_If_Absorb_All_BodyParts()     // 检查是否吸收完了所有需要的 body part
     {
-        return false;
+
+        if (requiredBodyPartsThisPanel.Count > 0)
+        {
+            foreach (var slot in currentlyAbosorbedBodyPartSlots)
+            {
+                if (!slot.Value)
+                {
+                    is_bodypart_ok = false;
+                    return false;
+                }
+            }
+        }
+
+        is_bodypart_ok = true;
+        return true;
 
     }
     

@@ -7,7 +7,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; 
 using random = UnityEngine.Random;
 // using UnityEngine.UIElements;
 
@@ -630,9 +630,46 @@ public class Card_Location_Feature : MonoBehaviour
         // 销毁 进度条 prefab
         Destroy(progress_bar);
         is_counting_down = false;   // 设置 "正在倒计时" 为否
+        
+        // 如果需要 body part，则吐出用完的 body part
+        Return_BodyParts_After_Progress();
 
         // 触发卡牌效果
         Trigger_Card_Effects();
+    }
+    
+    
+    // 吐出 body part 实际执行
+    public void Return_BodyParts_After_Progress()
+    {
+        float bodyPartReturnNumberCount = 0;        // body part 计数，用于计算生成的 body part 的 x 轴间距
+        float bodyPartReturnXOffset = 5f;           // 如果吐出多个 body part，每个之间的 x 轴间距 
+        float bodyPartReturnYOffset = -9f;       // 吐出 body part 时候 body part 距离这个 card location 的 y 轴位移
+        
+        foreach (var body_part in required_body_parts)
+        {
+            if (body_part.Value > 0)
+            {
+                for (int i = 1; i <= body_part.Value; i++)
+                {
+                    GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board(
+                        body_part.Key,
+                        gameObject.transform.position, 
+                        new Vector3(
+                            gameObject.transform.position.x + bodyPartReturnNumberCount * bodyPartReturnXOffset, 
+                            gameObject.transform.position.y + bodyPartReturnYOffset,
+                            gameObject.transform.position.z
+                            )
+                        );
+
+                    bodyPartReturnNumberCount++;
+
+                }
+            }
+        }
+        
+        
+        
     }
     
     
@@ -662,6 +699,21 @@ public class Card_Location_Feature : MonoBehaviour
             }
         }
 
+        
+        // Produce Card Location
+        
+        if (_cardLocation.Produce_Card_Location.Count > 0)
+        {
+
+            foreach (var str in _cardLocation.Produce_Card_Location)
+            {
+
+                
+                
+            }
+            
+        }
+        
         
         // Special Effect
         
@@ -708,7 +760,8 @@ public class Card_Location_Feature : MonoBehaviour
         
         use_time_counter--;         // 记一次使用次数，假如 use time 有限，则使用一定次数就销毁
         Check_Use_Time();
-    }
+        
+    } // Trigger_Card_Effect  END
 
     
     // 检查卡牌效果使用次数 是否超过 限制的次数，超过即销毁（TODO 销毁动画）
