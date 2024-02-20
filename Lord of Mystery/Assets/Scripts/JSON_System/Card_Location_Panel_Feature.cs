@@ -654,13 +654,13 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             foreach (var spriteRenderer in instantiatedBodyPartOnPanel.GetComponentsInChildren<SpriteRenderer>())
             {
                 spriteRenderer.sortingLayerName = "Panel";
-                spriteRenderer.sortingOrder = 2;
+                spriteRenderer.sortingOrder = 3;
             }
 
             foreach (var tmpText in instantiatedBodyPartOnPanel.GetComponentsInChildren<TMP_Text>())
             {
                 tmpText.GetComponent<Renderer>().sortingLayerName = "Panel";
-                tmpText.GetComponent<Renderer>().sortingOrder = 2;
+                tmpText.GetComponent<Renderer>().sortingOrder = 3;
             }
             
             
