@@ -654,13 +654,13 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             foreach (var spriteRenderer in instantiatedBodyPartOnPanel.GetComponentsInChildren<SpriteRenderer>())
             {
                 spriteRenderer.sortingLayerName = "Panel";
-                spriteRenderer.sortingOrder = 3;
+                spriteRenderer.sortingOrder = 3;    // (panel上 bodypart 的 slot sorting order 为 2)
             }
 
             foreach (var tmpText in instantiatedBodyPartOnPanel.GetComponentsInChildren<TMP_Text>())
             {
                 tmpText.GetComponent<Renderer>().sortingLayerName = "Panel";
-                tmpText.GetComponent<Renderer>().sortingOrder = 3;
+                tmpText.GetComponent<Renderer>().sortingOrder = 3;  // (panel上 bodypart 的 slot sorting order 为 2)
             }
             
             

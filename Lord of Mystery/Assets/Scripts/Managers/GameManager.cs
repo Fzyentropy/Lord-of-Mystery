@@ -7,7 +7,9 @@ using random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     
-
+    // 玩家状态 Player Status
+    public int Current_Rank;            // 玩家当前处于序列几 Sequence X
+    public string Current_Occupation;       // 玩家当前的职业名称 Occupation
     
     
 
@@ -32,29 +34,41 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SetGameManager();
+        Set_Game_Manager();
     }
 
     private void Start()
     {
-        SetCardLoader();
+        Set_Card_Loader();
+        Set_Player_Status();
     }
     
     
     /////////////////////////////////////////////////////////////////////////////////////////   Initial Set up
     
-    void SetGameManager()
+    void Set_Game_Manager()
     {
         GM = this;
     }
 
-    void SetCardLoader()
+    void Set_Card_Loader()
     {
         if (CardLoader == null)
         {
             CardLoader = GameObject.Find("Card_Loader").GetComponent<Card_Loader>();
         }
     }
+
+    void Set_Player_Status()
+    {
+
+        Current_Rank = 10;
+        Current_Occupation = "All";
+
+
+        ///// TODO 加上 其他玩家状态设置，以及保存和读取功能
+    }
+    
 
 
     public void Generate_Card_Location(string id, Vector3 position)   // 实例化 Card_Location， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
