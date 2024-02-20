@@ -13,16 +13,20 @@ using random = UnityEngine.Random;
 
 public class Card_Location_Feature : MonoBehaviour
 {
-
+    // 卡牌数据
     public Card_Location _cardLocation;         // Card_Location 的卡牌实例
-
     public Resource_Data _ResourceData;         // 用于跟 资源管理脚本实例 传值
     
-    // 卡牌数据
-    public TMP_Text card_label;                 // 卡牌的 label，名称
+    // 卡牌 prefab 各元素指代
+    [Header("prefab elements")]
+    public SpriteRenderer card_frame;           // 卡牌的 frame，边框
+    public SpriteRenderer card_name_tag;        // 卡牌的 name tag，名字栏
     public SpriteRenderer card_image;           // 卡牌的 image，图片
-
+    public TMP_Text card_label;                 // 卡牌的 label，名称
+    public SpriteRenderer card_image_mask;      // 卡牌的 image mask，遮罩
+    
     // Panel 相关
+    [Header("panel relevance")]
     public GameObject _card_location_panel;       // 点击此卡时，要弹出的 Panel prefab
     public GameObject  showed_panel;             // 打开这张卡对应的 panel 时，记录 打开的 panel 到此参数
     
@@ -57,8 +61,6 @@ public class Card_Location_Feature : MonoBehaviour
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
 
     public int LayerIndex;      // 记录此 GameObject 所处的 layer（“Card_Location")
-    
-    public GameObject cardFrame;       // 临时 原 physical body 卡牌图片，用于调整 Order in Layer
 
     public bool isHighlightYellow = false;    // 是否需要黄色高亮，在拖拽需要的 body part 到卡牌上方时为黄色
     public bool isHighlight = false;    // 判断是否需要高亮
@@ -82,6 +84,7 @@ public class Card_Location_Feature : MonoBehaviour
         
         StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
 
+        Start_Countdown_If_Auto();
     }
 
     
@@ -203,16 +206,21 @@ public class Card_Location_Feature : MonoBehaviour
         // 取消高亮
         
 
-        // 调整卡牌的渲染 layer，让其到最上面
-        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-        IncreaseOrderInLayer();
+        
     }
 
     private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
+        
         GameManager.GM.InputManager.Dragging_Object = gameObject;       // 将 Input Manager 中的 正在拖拽物体 记录为此物体
         // Clear_Highlight_Collider();                             // 取消高亮
         isHighlight = false;                             // 取消高亮
+        
+        
+        // 调整卡牌的渲染 layer，让其到最上面
+        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        IncreaseOrderInLayer();
+        
         
         // 如果鼠标移动，卡牌随之移动
         // float mouse_drag_sensitivity = 0.05f;
@@ -550,15 +558,19 @@ public class Card_Location_Feature : MonoBehaviour
     
     public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
-        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging"; 
-        card_image.sortingLayerName = "Dragging"; 
-        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging"; 
+        card_frame.sortingLayerName = "Dragging";
+        card_name_tag.sortingLayerName = "Dragging";
+        card_image.sortingLayerName = "Dragging";
+        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging";
+        card_image_mask.sortingLayerName = "Dragging";
     }
     public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
-        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
+        card_frame.sortingLayerName = "Cards";
+        card_name_tag.sortingLayerName = "Cards";
         card_image.sortingLayerName = "Cards";
-        cardFrame.GetComponent<SpriteRenderer>().sortingLayerName = "Cards";
+        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
+        card_image_mask.sortingLayerName = "Cards";
     }
     
     
@@ -586,6 +598,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     
     ////////////////////////////////////////////////////////////////////////////////      开始倒计时 方法
+    
     public void Start_Countdown()
     {
         StartCoroutine(Counting_Down_For_Card_Effect());
@@ -636,7 +649,22 @@ public class Card_Location_Feature : MonoBehaviour
 
         // 触发卡牌效果
         Trigger_Card_Effects();
+
+        
+        if (_cardLocation.Repeatable)   // 临时，如果是 可重复的，则反复循环
+        {
+            Start_Countdown();
+        }
     }
+
+    
+    
+    public void Start_Countdown_If_Auto()       // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic
+    {
+        if (_cardLocation.Auto_Start)       
+            Start_Countdown();
+    }
+    
     
     
     // 吐出 body part 实际执行
@@ -689,6 +717,15 @@ public class Card_Location_Feature : MonoBehaviour
         
         
         
+        
+        // Produce Message
+
+        foreach (var MessageString in _cardLocation.Produce_Message)
+        {
+            GameManager.GM.Generate_Message(MessageString);
+        }
+        
+        
         // Produce Resource
 
         foreach (var resource in produce_resources)     // 对于资源字典里的每个资源
@@ -697,6 +734,10 @@ public class Card_Location_Feature : MonoBehaviour
             {
                 GameManager.GM.ResourceManager.Add_Resource(resource.Key, resource.Value, gameObject.transform.position);
             }
+            else if (resource.Value < 0)
+            {
+                GameManager.GM.ResourceManager.Reduce_Resource(resource.Key,-1 * resource.Value,gameObject.transform.position);
+            }
         }
 
         
@@ -704,11 +745,20 @@ public class Card_Location_Feature : MonoBehaviour
         
         if (_cardLocation.Produce_Card_Location.Count > 0)
         {
+            float newCardLocationPositionXOffset = 8f;
+            float newCardLocationPositionYOffset = 8f;
+            float XOffset = 8f;
 
-            foreach (var str in _cardLocation.Produce_Card_Location)
+            foreach (var cardLocationString in _cardLocation.Produce_Card_Location)
             {
 
-                
+                GameManager.GM.Generate_Card_Location(cardLocationString, 
+                    new Vector3(
+                        gameObject.transform.position.x + newCardLocationPositionXOffset,
+                        gameObject.transform.position.y + newCardLocationPositionYOffset,
+                        gameObject.transform.position.z));
+
+                newCardLocationPositionXOffset += XOffset;
                 
             }
             

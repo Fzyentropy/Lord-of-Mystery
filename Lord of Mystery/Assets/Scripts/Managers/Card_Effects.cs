@@ -6,10 +6,11 @@ using UnityEngine;
 public class Card_Effects : MonoBehaviour
 {
 
-    public string str;
-
-    private void Start()
-    {
-        
-    }
+    
+    
+    
+    
+    
+    
+    
 }

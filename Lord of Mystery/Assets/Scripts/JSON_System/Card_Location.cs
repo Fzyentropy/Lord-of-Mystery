@@ -18,6 +18,11 @@ public class Card_Location
     public int Counter;
     public bool Only;
     public int Time;
+    
+    // 临时，用于 prototype，模拟其他卡功能
+    public bool Auto_Start;
+    public bool Moveable;
+    public bool Repeatable;
 
     public Body_Part_Data Require_Body_Part;
     public Resource_Data Require_Resource;

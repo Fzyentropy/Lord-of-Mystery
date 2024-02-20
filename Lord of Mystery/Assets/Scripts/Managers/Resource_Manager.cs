@@ -219,7 +219,7 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Reduce_Fund(int amount, Vector3 position)   
         {
-            if (Fund - amount >= 0)
+            if (Fund - amount >= 0)    
             {
                 // Fund -= amount;
                 Resource_Amount_Flash("Fund", -amount);

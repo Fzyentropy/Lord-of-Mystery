@@ -2544,7 +2544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &469607195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3080,7 +3080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &519420029
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5596,6 +5596,8 @@ MonoBehaviour:
   infoPanelPrefab: {fileID: 8766828040753878853, guid: 786f8de7d4c3f7243a46782d4a0e5fb9, type: 3}
   CameraScrollOffset: 3
   CameraMoveOffset: 0.05
+  isClickOnObjects: 1
+  Dragging_Object: {fileID: 0}
 --- !u!1 &1123158772
 GameObject:
   m_ObjectHideFlags: 0
@@ -7402,6 +7404,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardLoader: {fileID: 0}
   ResourceManager: {fileID: 0}
+  BodyPartManager: {fileID: 0}
+  PanelManager: {fileID: 0}
+  InputManager: {fileID: 0}
+  CardEffects: {fileID: 0}
   message_Panel: {fileID: 0}
   Card_Location_Prefab: {fileID: 0}
   Card_Body_Part_Prefab: {fileID: 0}
