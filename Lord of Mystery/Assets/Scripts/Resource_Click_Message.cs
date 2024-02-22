@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Resource_Click_Message : MonoBehaviour
 {
-    public string messageId = "Born";
+    public string messageId;
     
     private void OnMouseDown()
     {

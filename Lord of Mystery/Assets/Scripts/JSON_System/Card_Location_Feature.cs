@@ -13,6 +13,8 @@ using random = UnityEngine.Random;
 
 public class Card_Location_Feature : MonoBehaviour
 {
+    
+    
     // 卡牌数据
     public Card_Location _cardLocation;         // Card_Location 的卡牌实例
     public Resource_Data _ResourceData;         // 用于跟 资源管理脚本实例 传值
@@ -67,6 +69,15 @@ public class Card_Location_Feature : MonoBehaviour
     
     private bool yellow_highlight_bodypart_variable_switch = true;     // 用于让当前 card location 被 body part 重叠时，只在第一次重叠时传入此 card location feature 实例到 body part feature 的参数里
 
+    float newCardLocationPositionXOffset = 8f;      // 生成新的 card location 的时候的 X Offset
+    float newCardLocationPositionYOffset = -8f;      // 生成新的 card location 的时候的 Y Offset
+    
+    
+    
+    
+    
+    
+    
 
     private void Start()
     {
@@ -745,21 +756,19 @@ public class Card_Location_Feature : MonoBehaviour
         
         if (_cardLocation.Produce_Card_Location.Count > 0)
         {
-            float newCardLocationPositionXOffset = 8f;
-            float newCardLocationPositionYOffset = 8f;
-            float XOffset = 8f;
+            float XOffset = newCardLocationPositionXOffset;
 
             foreach (var cardLocationString in _cardLocation.Produce_Card_Location)
             {
 
                 GameManager.GM.Generate_Card_Location(cardLocationString, 
                     new Vector3(
-                        gameObject.transform.position.x + newCardLocationPositionXOffset,
+                        gameObject.transform.position.x + XOffset,
                         gameObject.transform.position.y + newCardLocationPositionYOffset,
                         gameObject.transform.position.z));
 
-                newCardLocationPositionXOffset += XOffset;
-                
+                XOffset += newCardLocationPositionXOffset;
+
             }
             
         }
@@ -776,9 +785,9 @@ public class Card_Location_Feature : MonoBehaviour
                     Draw_A_Tarot_Card();
                 }
 
-                if (special_effect == "")
+                if (special_effect == "Draw_New_Card_Location")
                 {
-                    
+                    Draw_New_Card_Location();
                 }
                 
                 if (special_effect == "")
@@ -826,11 +835,47 @@ public class Card_Location_Feature : MonoBehaviour
     }
 
     
+    // 抽一张塔罗牌（body part）
     void Draw_A_Tarot_Card()
     {
         int randomElement = random.Range(0, GameManager.GM.CardLoader.Body_Part_Card_List.Count - 1);
         GameManager.GM.Generate_Card_Body_Part(GameManager.GM.CardLoader.Body_Part_Card_List[randomElement].Id);
     }
+    
+    
+    // 抽一张匹配当前序列等级 Rank 和职业 Occupation 的 Card Location
+    void Draw_New_Card_Location()
+    {
+        if (GameManager.GM.Draw_New_Card_Location_Times == 0)   // 如果之前没抽过 card location，则抽取 A Menial Job
+        {
+            GameManager.GM.Generate_Card_Location("A_Menial_Job", 
+                new Vector3(
+                    gameObject.transform.position.x,
+                    gameObject.transform.position.y + newCardLocationPositionYOffset,      // 在下方 Y offset 的位置
+                    gameObject.transform.position.z));
+
+            GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+        }
+
+
+        // else if(GameManager.GM.Draw_New_Card_Location_Times == X)  {}        // TODO 其他抽卡次数的时候触发事件
+
+        else
+        {
+            //获取一个随机的 且 匹配当前 rank 和 occupation 的 card location 的 id
+            string random_card_location_id = GameManager.GM.Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation();
+            
+            GameManager.GM.Generate_Card_Location(random_card_location_id,
+                new Vector3(
+                    gameObject.transform.position.x,
+                    gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                    gameObject.transform.position.z));
+            
+            GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+        }
+    }
+    
+    
 
     
     

@@ -113,6 +113,19 @@ public class Card_Loader : MonoBehaviour
     {
         return Body_Part_Card_List.Find(card_body_part => card_body_part.Id == id);     // 根据 id 返回 Body_Part 实例
     }
+    
+    
+    
+    ////////////////////////////////////////////////////////////////////     
+    
+
+    
+    
+    
+    
+    
+    
+    
 
 
 }

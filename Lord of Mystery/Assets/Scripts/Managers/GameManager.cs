@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using random = UnityEngine.Random;
 
@@ -11,6 +12,13 @@ public class GameManager : MonoBehaviour
     public int Current_Rank;            // 玩家当前处于序列几 Sequence X
     public string Current_Occupation;       // 玩家当前的职业名称 Occupation
     
+    
+    // 玩家拥有的卡牌 Player's Cards
+    public List<string> Player_Owned_Card_Location_List;
+
+
+    // 一些计数器 Counters
+    public int Draw_New_Card_Location_Times;     // 抽取新 Card Location 卡的次数，用于 Lens 的计数
     
 
     /////////////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +49,8 @@ public class GameManager : MonoBehaviour
     {
         Set_Card_Loader();
         Set_Player_Status();
+        Set_Player_Owned_Cards();
+        Set_Counters();
     }
     
     
@@ -59,7 +69,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Set_Player_Status()
+    // 设置玩家状态 Set Player Status
+    void Set_Player_Status()        
     {
 
         Current_Rank = 10;
@@ -68,6 +79,26 @@ public class GameManager : MonoBehaviour
 
         ///// TODO 加上 其他玩家状态设置，以及保存和读取功能
     }
+
+
+    // 设置玩家当前拥有的卡牌 Player Owned Cards
+    void Set_Player_Owned_Cards()
+    {
+        Player_Owned_Card_Location_List = new List<string>() { };
+
+        ///// TODO 加上 保存和读取功能
+    }
+
+    
+    // 设置各种计数器 Set Counters
+    void Set_Counters()         
+    {
+        Draw_New_Card_Location_Times = 0;
+
+
+
+        ///// TODO 加上 其他计数器设置，以及保存和读取功能
+    }
     
 
 
@@ -75,6 +106,9 @@ public class GameManager : MonoBehaviour
     {
         GameObject cardLocation = Instantiate(Card_Location_Prefab, position, Quaternion.identity);    
         cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id); 
+        
+        // 将添加的 card location 的 Id string 记录到 Player Owned Card list 里面
+        Player_Owned_Card_Location_List.Add(id);
     }
     
     public void Generate_Message(string id)     // 实例化 message，根据 id 从 Card_Loader 中的 message list 中找到 message 实例，并赋予生成的 message prefab
@@ -90,6 +124,50 @@ public class GameManager : MonoBehaviour
         return cardBodyPart;
     }
 
+
+    
+    // 获取 匹配当前 Rank 和 Occupation 的 Card Location 的 Id，返回 Id 的 string list
+    public List<string> Get_Card_Location_Ids_Based_On_Rank_And_Occupation()        
+    {
+        List<string> Ids = new List<string>() { };
+
+        foreach (var card_location_instance in CardLoader.Location_Card_List)
+        {
+            if(card_location_instance.Rank == Current_Rank &&               // 若 card location 实例的 rank 与 当前rank 相等
+               card_location_instance.Occupation == Current_Occupation)     // 若 card location 实例的 occupation 与当前 occupation 相等
+            {
+                Ids.Add(card_location_instance.Id);
+            }
+        }
+
+        return Ids;
+    }
+
+    // 获取 匹配当前 Rank 和 Occupation 的 随机一张 Card Location， 调用 Ids 方法，（有唯一性判定）
+    public string Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation()
+    {
+        List<string> list_of_id = Get_Card_Location_Ids_Based_On_Rank_And_Occupation();
+        
+        int index = random.Range(0, list_of_id.Count - 1);
+
+        /*while (true)
+        {
+            
+            foreach (var card_location_id_string in Player_Owned_Card_Location_List)        // 卡牌唯一性 Only 判定
+            {
+                if (card_location_id_string == list_of_id[index] &&                 // 若已经有了同名称卡牌
+                    CardLoader.Get_Card_Location_By_Id(card_location_id_string).Only)   // 且此卡是 Only 唯一的
+                {
+                    index = random.Range(0, list_of_id.Count - 1);
+                }
+            }
+            
+            return list_of_id[index];
+        }*/
+        
+        return list_of_id[index];
+
+    }
 
 
 

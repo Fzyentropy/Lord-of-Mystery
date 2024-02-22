@@ -30,9 +30,9 @@
 
         {
             "Id": "Physical_Energy",
-            "Label": "I start to feel",
-            "Image": "Image_Beginning",
-            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+            "Label": "Physical Energy",
+            "Image": "Image_Physical_Energy",
+            "Message_Content": "I feel the beat of my heart, the rhythm of breath — every movement, every action, drains my physical energy. I'm a vessel, subject to the demands of being, where even the simplest tasks exact a toll on my vitality. "
 
         },
         {
@@ -44,9 +44,9 @@
         },
         {
             "Id": "Fund",
-            "Label": "I start to feel",
-            "Image": "Image_Beginning",
-            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+            "Label": "Fund",
+            "Image": "Image_Fund",
+            "Message_Content": "The coins, tarnished with bronze rust, which felt to me, at first, as if they were the very essence upon which survival in this world depended."
 
         },
         {
@@ -67,9 +67,9 @@
         },
         {
             "Id": "Born",
-            "Label": "My Sense to the world",
+            "Label": "I was born in Loen",
             "Image": "Image_Born",
-            "Message_Content": "I was born in Loen. Wandering through this kingdom for over two decades, I remain adrift in confusion. I believe I understand this world, yet I feel I only grasp its surface, a mere veil of reality. By chance, I learned of a private soiree of the highborn in loen. I feel compelled to venture there, perhaps to unveil answers to the enigmas that shroud my existence. "
+            "Message_Content": "I was born in Loen. Wandering through this kingdom for over two decades, I remain adrift in confusion. I believe I understand this world, yet I feel I only grasp its surface, a mere veil of reality. "
 
         },
         {
