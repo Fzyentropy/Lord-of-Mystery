@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     // 一些计数器 Counters
     public int Draw_New_Card_Location_Times;     // 抽取新 Card Location 卡的次数，用于 Lens 的计数
     
+    
 
     /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     public Panel_Manager PanelManager;              // panel 管理 manager
     public Input_Manager InputManager;              // Input Manager
     public Card_Effects CardEffects;                // 卡牌效果 功能集成
+    public Event_Manager EventManager;              // 事件触发和管理 Manager
 
     // 卡牌 prefab
     public GameObject message_Panel;                // 左下角 message panel 的 prefab
@@ -42,25 +44,27 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Set_Game_Manager();
+        Set_Game_Manager();     // 设置 GM 为 static 唯一 GameManager
     }
 
     private void Start()
     {
-        Set_Card_Loader();
-        Set_Player_Status();
-        Set_Player_Owned_Cards();
-        Set_Counters();
+        Set_Card_Loader();                  // 指代 Card Loader
+        Set_Player_Status();                // 设置玩家状态
+        Set_Player_Owned_Cards();           // 设置玩家当前拥有的卡牌
+        Set_Counters();                 // 设置各种计数器
     }
     
     
     /////////////////////////////////////////////////////////////////////////////////////////   Initial Set up
     
+    // 设置 GM 为 static 唯一 GameManager
     void Set_Game_Manager()
     {
         GM = this;
     }
 
+    // 指代 Card Loader
     void Set_Card_Loader()
     {
         if (CardLoader == null)
@@ -73,8 +77,8 @@ public class GameManager : MonoBehaviour
     void Set_Player_Status()        
     {
 
-        Current_Rank = 10;
-        Current_Occupation = "All";
+        Current_Rank = 10;                  // 临时
+        Current_Occupation = "All";         // 临时
 
 
         ///// TODO 加上 其他玩家状态设置，以及保存和读取功能
@@ -84,7 +88,7 @@ public class GameManager : MonoBehaviour
     // 设置玩家当前拥有的卡牌 Player Owned Cards
     void Set_Player_Owned_Cards()
     {
-        Player_Owned_Card_Location_List = new List<string>() { };
+        Player_Owned_Card_Location_List = new List<string>() { };   // 临时
 
         ///// TODO 加上 保存和读取功能
     }
@@ -93,12 +97,16 @@ public class GameManager : MonoBehaviour
     // 设置各种计数器 Set Counters
     void Set_Counters()         
     {
-        Draw_New_Card_Location_Times = 0;
+        Draw_New_Card_Location_Times = 0;       // 临时
 
 
 
         ///// TODO 加上 其他计数器设置，以及保存和读取功能
     }
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////////////   Set up END
     
 
 
@@ -149,21 +157,50 @@ public class GameManager : MonoBehaviour
         List<string> list_of_id = Get_Card_Location_Ids_Based_On_Rank_And_Occupation();
         
         int index = random.Range(0, list_of_id.Count - 1);
-
-        /*while (true)
+        
+        
+        // 判定新抽的卡牌是不是 已经拥有的并且是 Only 属性的卡牌，是则重新抽取
         {
-            
-            foreach (var card_location_id_string in Player_Owned_Card_Location_List)        // 卡牌唯一性 Only 判定
+            bool if_contains_only_card = false;    // 用于在一次判定中检测是否有 only属性 且存在的卡牌，true表示有，false表示没有
+            bool check_only_passer = false;         // 用于最终确定 id string 没有重复之后的 放行 bool 参数
+
+            while (true)
             {
-                if (card_location_id_string == list_of_id[index] &&                 // 若已经有了同名称卡牌
-                    CardLoader.Get_Card_Location_By_Id(card_location_id_string).Only)   // 且此卡是 Only 唯一的
+                if (check_only_passer)
                 {
-                    index = random.Range(0, list_of_id.Count - 1);
+                    break;
                 }
-            }
             
-            return list_of_id[index];
-        }*/
+                while (true)
+                {
+                    if_contains_only_card = false;      // 重置判定参数
+                
+                    foreach (var card_location_id_string in Player_Owned_Card_Location_List)        // 卡牌唯一性 Only 判定
+                    {
+                        if (card_location_id_string == list_of_id[index] &&                 // 若已经有了同名称卡牌
+                            CardLoader.Get_Card_Location_By_Id(card_location_id_string).Only)   // 且此卡是 Only 唯一的
+                        {
+                            if_contains_only_card = true;
+                            break;
+                        }
+                    }
+
+                    if (!if_contains_only_card)         // 如果全程没检测到 only card，则判定通过，break
+                    {
+                        check_only_passer = true;
+                        break;
+                    }
+                    else
+                    {
+                        index = random.Range(0, list_of_id.Count - 1);      // 重新抽一张
+                    }
+                
+                }
+            
+            
+            }
+        }
+        
         
         return list_of_id[index];
 

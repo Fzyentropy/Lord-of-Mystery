@@ -20,6 +20,18 @@ public class Resource_Manager : MonoBehaviour
     public int Madness;
     public int Godhood;
     
+    // 各个资源的数量，用于显示在 UI 上的计数，会有闪烁动画，改变真实数量后，将滞后闪烁至最终值
+    public int Fund_UI_Amount;
+    public int Physical_Energy_UI_Amount;
+    public int Spirit_UI_Amount;
+    public int Soul_UI_Amount;
+    public int Spirituality_Infused_Material_UI_Amount;
+    public int Knowledge_UI_Amount;
+    public int Belief_UI_Amount;
+    public int Putrefaction_UI_Amount;
+    public int Madness_UI_Amount;
+    public int Godhood_UI_Amount;
+    
     
     // 资源位置标记和占用情况，真正出现在游戏中的标记参数，需要保存
     private Dictionary<int, bool> resourceLocationsOccupied = new Dictionary<int, bool>();      // int : 资源槽位的编号    bool : 是否被占用, true:占用，false:没占用
@@ -49,31 +61,25 @@ public class Resource_Manager : MonoBehaviour
     private bool is_putrefaction_ever_appears = false; // 检查Putrefaction资源是否曾出现
     private bool is_madness_ever_appears = false; // 检查Madness资源是否曾出现
     private bool is_godhood_ever_appears = false; // 检查Godhood资源是否曾出现
-
-    public TMP_Text resource_1_Amount_text;
-    public TMP_Text resource_2_Amount_text;
-    public TMP_Text resource_3_Amount_text;
-    public TMP_Text resource_4_Amount_text;
-    public TMP_Text resource_5_Amount_text;
-    public TMP_Text resource_6_Amount_text;
-    public TMP_Text resource_7_Amount_text;
-    public TMP_Text resource_8_Amount_text;
-    public TMP_Text resource_9_Amount_text;
-
-
-    private bool FirstTimeBoolPasser = false;      // 用于将上方的 is_XXX_ever_appears 布尔值赋予此参数，来判断是否是第一次
-
-    private GameObject iconInstance;
     
+
+    // Mis
+    private bool FirstTimeBoolPasser = false;      // 用于将上方的 is_XXX_ever_appears 布尔值赋予此参数，来判断是否是第一次
+    
+
+
+
+
 
     // 在Start中初始化资源位置占用情况
     void Start()
     {
         InitializeDictionaries();       // 初始化 上方建立的字典  // TODO 未来加入保存功能后，可能要更改此方法，因为不能每次加载都初始化
-
-
+        
         // 加载或设置fundIconPrefab
         // fundIconPrefab = ...
+
+        StartCoroutine(Update_Resource_UI_Amount());      // 更新 resource真实数量 与 UI显示数量 差值 的协程
     }
 
     private void Update()
@@ -111,6 +117,8 @@ public class Resource_Manager : MonoBehaviour
 
     }
 
+    
+    
 
     // 增加资源的集成方法，输入资源名称，来调用下面增加特定资源的方法
     public void Add_Resource(string resource_type, int amount, Vector3 position)
@@ -222,7 +230,7 @@ public class Resource_Manager : MonoBehaviour
             if (Fund - amount >= 0)    
             {
                 // Fund -= amount;
-                Resource_Amount_Flash("Fund", -amount);
+                Resource_Amount_Change("Fund", -amount);
                 
                 // 调用动画效果，具体执行
                 Animate_Resource_Change(false, position, "Fund", amount);
@@ -250,7 +258,7 @@ public class Resource_Manager : MonoBehaviour
             if (Physical_Energy - amount >= 0)
             {
                 // Physical_Energy -= amount;
-                Resource_Amount_Flash("Physical_Energy", -amount);
+                Resource_Amount_Change("Physical_Energy", -amount);
                 
                 Animate_Resource_Change(false, position, "Physical_Energy", amount); // 调用动画效果
             }
@@ -277,7 +285,7 @@ public class Resource_Manager : MonoBehaviour
             if (Spirit - amount >= 0)
             {
                 // Spirit -= amount;
-                Resource_Amount_Flash("Spirit", -amount);
+                Resource_Amount_Change("Spirit", -amount);
                 
                 Animate_Resource_Change(false, position, "Spirit", amount); // 调用动画效果
             }
@@ -305,7 +313,7 @@ public class Resource_Manager : MonoBehaviour
             if (Soul - amount >= 0)
             {
                 // Soul -= amount;
-                Resource_Amount_Flash("Soul", -amount);
+                Resource_Amount_Change("Soul", -amount);
                 
                 Animate_Resource_Change(false, position, "Soul", amount); // 调用动画效果
             }
@@ -332,7 +340,7 @@ public class Resource_Manager : MonoBehaviour
             if (Spirituality_Infused_Material - amount >= 0)
             {
                 // Spirituality_Infused_Material -= amount;
-                Resource_Amount_Flash("Spirituality_Infused_Material", -amount);
+                Resource_Amount_Change("Spirituality_Infused_Material", -amount);
                 
                 Animate_Resource_Change(false, position, "Spirituality_Infused_Material", amount); // 调用动画效果
             }
@@ -359,7 +367,7 @@ public class Resource_Manager : MonoBehaviour
             if (Knowledge - amount >= 0)
             {
                 // Knowledge -= amount;
-                Resource_Amount_Flash("Knowledge", -amount);
+                Resource_Amount_Change("Knowledge", -amount);
                 
                 Animate_Resource_Change(false, position, "Knowledge", amount); // 调用动画效果
             }
@@ -386,7 +394,7 @@ public class Resource_Manager : MonoBehaviour
             if (Belief - amount >= 0)
             {
                 // Belief -= amount;
-                Resource_Amount_Flash("Belief", -amount);
+                Resource_Amount_Change("Belief", -amount);
                 
                 Animate_Resource_Change(false, position, "Belief", amount); // 调用动画效果
             }
@@ -414,7 +422,7 @@ public class Resource_Manager : MonoBehaviour
             if (Putrefaction - amount >= 0)
             {
                 // Putrefaction -= amount;
-                Resource_Amount_Flash("Putrefaction", -amount);
+                Resource_Amount_Change("Putrefaction", -amount);
                 
                 Animate_Resource_Change(false, position, "Putrefaction", amount); // 调用动画效果
             }
@@ -442,7 +450,7 @@ public class Resource_Manager : MonoBehaviour
             if (Madness - amount >= 0)
             {
                 // Madness -= amount;
-                Resource_Amount_Flash("Madness", -amount);
+                Resource_Amount_Change("Madness", -amount);
                 
                 Animate_Resource_Change(false, position, "Madness", amount); // 调用动画效果
             }
@@ -469,7 +477,7 @@ public class Resource_Manager : MonoBehaviour
             if (Godhood - amount >= 0)
             {
                 // Godhood -= amount;
-                Resource_Amount_Flash("Godhood", -amount);
+                Resource_Amount_Change("Godhood", -amount);
                 
                 Animate_Resource_Change(false, position, "Godhood", amount); // 调用动画效果
             }
@@ -488,6 +496,7 @@ public class Resource_Manager : MonoBehaviour
     
     private void Animate_Resource_Change(bool isAdding, Vector3 position, string resourceName, int animatedAmount)
     {
+        GameObject iconInstance = null;     // 临时变量，存储生成的 resource icon 实例
 
         float first_time_adding_time = 1f;
         float adding_time = 0.6f;
@@ -618,7 +627,7 @@ public class Resource_Manager : MonoBehaviour
                         // 出现 number（暂定不出现资源名称先 2023-12-10）
                         // 更新 2个 Dictionary 的记录，来让 Update 中 "更新各 slot 中资源数量" 的 TMP_text 投入工作
                         slotAbleToShowText[locationIndex] = true;       // 开锁，编号为 X 的槽位可以开始显示 资源数量的 text 了
-                        Resource_Amount_Flash(resourceName, animatedAmount);
+                        Resource_Amount_Change(resourceName, animatedAmount);
 
                     }
                 );
@@ -632,7 +641,7 @@ public class Resource_Manager : MonoBehaviour
                 iconInstance.transform.DOMove(targetPosition, adding_time).OnComplete(() =>
                     {
                         Destroy(iconInstance);
-                        Resource_Amount_Flash(resourceName, animatedAmount);
+                        Resource_Amount_Change(resourceName, animatedAmount);
                     });
                 
             }
@@ -697,13 +706,12 @@ public class Resource_Manager : MonoBehaviour
         return locationObject != null ? locationObject.transform.position : Vector3.zero;
     }
     
-    
-    private void Resource_Amount_Flash(string flash_resource, int flash_amount)
+    // 原更改资源真实数量的方法，让 resource 在改变数量时数字闪烁，  archived 2024-2-28
+    /*private void Resource_Amount_Flash(string flash_resource, int flash_amount) //输入有正有负
     {
         StartCoroutine(Number_Flash(flash_resource, flash_amount));
-    }
-
-    private IEnumerator Number_Flash(string flash_resource, int flash_amount)
+    }*/
+    /*private IEnumerator Number_Flash(string flash_resource, int flash_amount)
     {
         float flash_one_time = 0.1f;    // 一次闪烁的时间
         
@@ -895,6 +903,53 @@ public class Resource_Manager : MonoBehaviour
             }
         }
         
+    }*/
+    
+    
+    // ** 实际更改资源 真实数量 的方法 
+    private void Resource_Amount_Change(string change_resource, int change_amount) //输入有正有负
+    {
+        
+        if (change_resource == "Fund")
+        {
+            Fund += change_amount;
+        }
+        if (change_resource == "Physical_Energy")
+        {
+            Physical_Energy += change_amount;
+        }
+        if (change_resource == "Spirit")
+        {
+            Spirit += change_amount;
+        }
+        if (change_resource == "Soul")
+        {
+            Soul += change_amount;
+        }
+        if (change_resource == "Spirituality_Infused_Material")
+        {
+            Spirituality_Infused_Material += change_amount;
+        }
+        if (change_resource == "Knowledge")
+        {
+            Knowledge += change_amount;
+        }
+        if (change_resource == "Belief")
+        {
+            Belief += change_amount;
+        }
+        if (change_resource == "Putrefaction")
+        {
+            Putrefaction += change_amount;
+        }
+        if (change_resource == "Madness")
+        {
+            Madness += change_amount;
+        }
+        if (change_resource == "Godhood")
+        {
+            Godhood += change_amount;
+        }
     }
     
     
@@ -922,52 +977,52 @@ public class Resource_Manager : MonoBehaviour
                 if (resourceName == "Fund")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Fund.ToString();
+                    amount_text.text = Fund_UI_Amount.ToString();
                 }
                 if (resourceName == "Physical_Energy")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Physical_Energy.ToString();
+                    amount_text.text = Physical_Energy_UI_Amount.ToString();
                 }
                 if (resourceName == "Spirit")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Spirit.ToString();
+                    amount_text.text = Spirit_UI_Amount.ToString();
                 }
                 if (resourceName == "Soul")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Soul.ToString();
+                    amount_text.text = Soul_UI_Amount.ToString();
                 }
                 if (resourceName == "Spirituality_Infused_Material")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Spirituality_Infused_Material.ToString();
+                    amount_text.text = Spirituality_Infused_Material_UI_Amount.ToString();
                 }
                 if (resourceName == "Knowledge")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Knowledge.ToString();
+                    amount_text.text = Knowledge_UI_Amount.ToString();
                 }
                 if (resourceName == "Belief")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Belief.ToString();
+                    amount_text.text = Belief_UI_Amount.ToString();
                 }
                 if (resourceName == "Putrefaction")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Putrefaction.ToString();
+                    amount_text.text = Putrefaction_UI_Amount.ToString();
                 }
                 if (resourceName == "Madness")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Madness.ToString();
+                    amount_text.text = Madness_UI_Amount.ToString();
                 }
                 if (resourceName == "Godhood")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Godhood.ToString();
+                    amount_text.text = Godhood_UI_Amount.ToString();
                 }
                 
             }
@@ -975,6 +1030,71 @@ public class Resource_Manager : MonoBehaviour
         
     }
 
+    private IEnumerator Update_Resource_UI_Amount()
+    {
+        int flash_amount_each_time = 1;
+        float flash_time = 0.1f;
+        
+        
+        while (true)
+        {
+
+            if (Fund_UI_Amount != Fund)     // 假如 resource数量 有更新，即 resource真实数量 和 UI显示数量 不一样 
+            {
+                int Change = Fund - Fund_UI_Amount;
+                Fund_UI_Amount += flash_amount_each_time * Math.Sign(Change);  // Math.Sign 返回一个数的正负值
+            }
+            if (Physical_Energy_UI_Amount != Physical_Energy)     
+            {
+                int Change = Physical_Energy - Physical_Energy_UI_Amount;
+                Physical_Energy_UI_Amount += flash_amount_each_time * Math.Sign(Change);  
+            }
+            if (Spirit_UI_Amount != Spirit)
+            {
+                int Change = Spirit - Spirit_UI_Amount;
+                Spirit_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
+            }
+            if (Soul_UI_Amount != Soul) 
+            {
+                int Change = Soul - Soul_UI_Amount;
+                Soul_UI_Amount += flash_amount_each_time * Math.Sign(Change);
+            }
+            if (Spirituality_Infused_Material_UI_Amount != Spirituality_Infused_Material) 
+            {
+                int Change = Spirituality_Infused_Material - Spirituality_Infused_Material_UI_Amount;
+                Spirituality_Infused_Material_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
+            }
+            if (Knowledge_UI_Amount != Knowledge) 
+            {
+                int Change = Knowledge - Knowledge_UI_Amount;
+                Knowledge_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
+            }
+            if (Belief_UI_Amount != Belief) 
+            {
+                int Change = Belief - Belief_UI_Amount;
+                Belief_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
+            }
+            if (Putrefaction_UI_Amount != Putrefaction)
+            {
+                int Change = Putrefaction - Putrefaction_UI_Amount;
+                Putrefaction_UI_Amount += flash_amount_each_time * Math.Sign(Change);
+            }
+            if (Madness_UI_Amount != Madness)
+            {
+                int Change = Madness - Madness_UI_Amount;
+                Madness_UI_Amount += flash_amount_each_time * Math.Sign(Change);
+            }
+            if (Godhood_UI_Amount != Godhood)
+            {
+                int Change = Godhood - Godhood_UI_Amount;
+                Godhood_UI_Amount += flash_amount_each_time * Math.Sign(Change);
+            }
+
+
+            yield return new WaitForSeconds(flash_time);
+        }
+    }
+    
     
     
     

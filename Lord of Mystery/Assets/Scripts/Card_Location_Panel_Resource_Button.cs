@@ -30,7 +30,16 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
 
     public int panel_resource_slot_number = 0;      // 这个按钮资源 对应的槽位 slot 编号 X
 
+    // Sprite Highlight
+    public SpriteRenderer highlightSprite;      // 用于粗糙地制作 描边效果
+    
+    
+    // Mis
     private Vector2 click_mouse_position;       // 用于检测鼠标是 点击还是拖拽 的临时参数，记录鼠标按下时的位置
+    private Color highlight_color = new Color(1, 1, 1, 1);
+    private Color transparent_color = Color.clear;
+    
+    
 
 
     private void Start()
@@ -118,7 +127,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
 
 
     public bool Check_If_Absorb_Full()      // 根据此资源对应的 panel 资源槽位是哪个，判断 panel 对这个资源的吸收是否满了
-    {
+    {                                       // 没吸收满 : 返回 true，  吸收满了 : 返回 false
         switch (panel_resource_slot_number)
         {
             case 1 :
@@ -267,7 +276,12 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
 
     private void OnMouseOver()
     {
-        // 改变颜色
+        if(Check_If_Absorb_Full()){highlightSprite.color = highlight_color;}  // 没吸收满，则高亮
+    }
+
+    private void OnMouseExit()
+    {
+        highlightSprite.color = transparent_color;  // 鼠标移开，取消高亮 
     }
 
     private void OnMouseDown()
@@ -282,4 +296,8 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
             AbsorbResource();
         }
     }
+
+    
+    
+    
 }

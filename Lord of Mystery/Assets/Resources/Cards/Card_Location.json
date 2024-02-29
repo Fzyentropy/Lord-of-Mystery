@@ -351,7 +351,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 45,
+            "Time": 35,
 
             "Require_Resource":
             {
@@ -420,8 +420,8 @@
         {
             "Id": "Ms_Wendy",
             "Label": "Ms Wendy",
-            "Image": "Image_Miss_Wendy",
-            "Description": "By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Image": "Image_Ms_Wendy",
+            "Description": "Grateful for Ms. Wendy's generosity, she offered me a part-time job baking bread in her bakery. Though she appears young, rumors suggest she's been in this town for many many years. I refrain from asking too much; after all, it doesn't affect my livelihood.",
 
             "Rank": 10,
             "Occupation": "All",
@@ -443,7 +443,7 @@
             "Rank": 10,
             "Occupation": "All",
 
-            "Use_Time": -1,
+            "Use_Time": 3,
             "Time": 25,
 
             "Require_Resource":
@@ -480,7 +480,7 @@
             
             "Produce_Resource":
             {
-                "Physical_Energy": 4
+                "Physical_Energy": 3
             }
         }
 

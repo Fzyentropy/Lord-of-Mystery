@@ -598,6 +598,8 @@ public class Card_Location_Feature : MonoBehaviour
         showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Body_Part_Based_On_Type(bodyPartToAbsorb);        // 调用 panel 中的方法
 
     }
+    
+    
 
      
     // 检查 Require_Body_Part 和 Require_Resource 是否满足条件
