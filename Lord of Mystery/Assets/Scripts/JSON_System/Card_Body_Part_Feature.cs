@@ -10,11 +10,14 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     public Card_Body_Part _CardBodyPart;
 
-    public SpriteRenderer body_part_image;
-    public TMP_Text body_part_label;
+    // 卡牌 prefab 各元素指代
+    public SpriteRenderer body_part_image;      // Body part Image 图像
+    public TMP_Text body_part_label;            // Body part name 名称
+    public SpriteRenderer body_part_label_cover;                    // Body Part 卡牌名称的区域
+    public SpriteRenderer body_part_shadow;     // Body part shadow 卡牌阴影
 
+    // Important Marking Variable
     public GameObject overlapped_card_location; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
-
     public Vector3 lastPosition;        // 用于记录拖拽时最后停下的 location
  
     // Mis Variables
@@ -22,10 +25,12 @@ public class Card_Body_Part_Feature : MonoBehaviour
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
     
     public GameObject cardBottom;       // 临时 原 physical body 卡牌图片，用于调整 Order in Layer
-    public GameObject cover;    // 临时，用于 cover 原 physical body 卡牌名称的 小方块，用于调整 Order in Layer
+    
 
     public int LayerIndex;
     public const string OriginalSortingLayer = "Body Parts";
+
+    private bool dragging_shadow_effect_if_transformed = false;
     
     
 
@@ -37,7 +42,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(overlapped_card_location);
+        // Debug.Log(overlapped_card_location);
     }
 
 
@@ -167,20 +172,67 @@ public class Card_Body_Part_Feature : MonoBehaviour
             lineRenderer.endColor = Color.clear; // 高亮颜色
         }
     }
-    
-    public void IncreaseSortingLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+
+    public void IncreaseSortingLayer() // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
         body_part_label.GetComponent<Renderer>().sortingLayerName = "Dragging";
         body_part_image.sortingLayerName = "Dragging";
-        cardBottom.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
-        cover.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
+        body_part_label_cover.sortingLayerName = "Dragging";
+        body_part_shadow.sortingLayerName = "Dragging";
+
+        float x_movement = -0.2f;
+        float y_movement = 0.2f;
+
+        if (!dragging_shadow_effect_if_transformed)
+        {
+            dragging_shadow_effect_if_transformed = true;
+
+            body_part_label.transform.localPosition = new Vector3(
+                body_part_label.transform.localPosition.x + x_movement,
+                body_part_label.transform.localPosition.y + y_movement,
+                body_part_label.transform.localPosition.z);
+
+            body_part_image.transform.localPosition = new Vector3(
+                body_part_image.transform.localPosition.x + x_movement,
+                body_part_image.transform.localPosition.y + y_movement,
+                body_part_image.transform.localPosition.z);
+
+            body_part_label_cover.transform.localPosition = new Vector3(
+                body_part_label_cover.transform.localPosition.x + x_movement,
+                body_part_label_cover.transform.localPosition.y + y_movement,
+                body_part_label_cover.transform.localPosition.z);
+        }
     }
+
     public void DecreaseSortingLayer()       // 减少 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
         body_part_label.GetComponent<Renderer>().sortingLayerName = OriginalSortingLayer;
         body_part_image.sortingLayerName = OriginalSortingLayer;
-        cardBottom.GetComponent<SpriteRenderer>().sortingLayerName = OriginalSortingLayer;
-        cover.GetComponent<SpriteRenderer>().sortingLayerName = OriginalSortingLayer;
+        body_part_label_cover.sortingLayerName = OriginalSortingLayer;
+        body_part_shadow.sortingLayerName = OriginalSortingLayer;
+        
+        float x_movement = 0.2f;
+        float y_movement = -0.2f;
+
+        if (dragging_shadow_effect_if_transformed)
+        {
+            dragging_shadow_effect_if_transformed = false;
+
+            body_part_label.transform.localPosition = new Vector3(
+                body_part_label.transform.localPosition.x + x_movement,
+                body_part_label.transform.localPosition.y + y_movement,
+                body_part_label.transform.localPosition.z);
+
+            body_part_image.transform.localPosition = new Vector3(
+                body_part_image.transform.localPosition.x + x_movement,
+                body_part_image.transform.localPosition.y + y_movement,
+                body_part_image.transform.localPosition.z);
+
+            body_part_label_cover.transform.localPosition = new Vector3(
+                body_part_label_cover.transform.localPosition.x + x_movement,
+                body_part_label_cover.transform.localPosition.y + y_movement,
+                body_part_label_cover.transform.localPosition.z);
+        }
     }
 
 

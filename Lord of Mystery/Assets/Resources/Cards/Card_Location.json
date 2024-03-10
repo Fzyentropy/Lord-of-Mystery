@@ -88,60 +88,7 @@
             ]
 
         },
-        {
-            "Id": "Private_Soiree",
-            "Label": "Private Soiree",
-            "Image": "Image_Private_Soiree",
-            "Description": "card_description",
-
-            "Rank": -1,
-            "Occupation": "All",
-
-            "Burn": false,
-            "Use_Time": -1,
-            "Counter": -1,
-            "Only": true,
-            "Time": 15,
-
-            "Require_Body_Part":
-            {
-                "Physical_Body": 1
-            },
-
-            "Require_Resource":
-            {
-            },
-
-            "Produce_Resource":
-            {
-            },
-
-            "Produce_Message":
-            [
-                "The_Beyonder"
-            ],
-
-            "Produce_Card_Automatic":
-            [
-                "Flesh_And_Body"
-            ],
-
-            "Produce_Card_Action":
-            [
-                "Historical_Travel"
-            ],
-
-            "Produce_Card_Event":
-            [
-                "Goddess_Of_Barren"
-            ],
-
-            "Produce_Card_Location":
-            [
-                "Church_Of_Death"
-            ]
-
-        },
+        
         {
             "Id": "Loen",
             "Label": "Loen",
@@ -308,7 +255,7 @@
             "Occupation": "All",
 
             "Use_Time": 1,
-            "Time": 15,
+            "Time": 10,
             "Auto_Start": true,
 
             "Produce_Resource":
@@ -351,11 +298,11 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 35,
+            "Time": 25,
 
             "Require_Resource":
             {
-                "Physical_Energy": 3
+                "Physical_Energy": 2
             },
 
             "Require_Body_Part":
@@ -438,7 +385,7 @@
             "Id": "Invest_With_Lanevus",
             "Label": "Invest with Lanevus",
             "Image": "Image_Invest_With_Lanevus",
-            "Description": "By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Description": "Lanevus of Loen, known both for wealth and questionable repute, is gathering funds for a mining project. It promises gain, but his reputation makes one ponder: is it worth the risk? ",
 
             "Rank": 10,
             "Occupation": "All",
@@ -460,7 +407,7 @@
             "Id": "Buy_A_Piece_Of_White_Bread",
             "Label": "Buy a Piece of White Bread",
             "Image": "Image_Buy_A_Piece_Of_White_Bread",
-            "Description": "By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Description": "\"Time for some better food,\" I decide. A simple change, aiming for a bit of comfort in my routine.",
 
             "Rank": 10,
             "Occupation": "All",
@@ -482,6 +429,125 @@
             {
                 "Physical_Energy": 3
             }
+        },
+        {
+            "Id": "Private_Soiree",
+            "Label": "Private Soiree",
+            "Image": "Image_Private_Soiree",
+            "Description": "By chance, I learned of a private soiree of the highborn in loen. I feel compelled to venture there, perhaps to unveil answers to the enigmas that shroud my existence.",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Counter": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Resource":
+            {
+                "Fund": 5
+            },
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+
+            "Produce_Message":
+            [
+                "The_Beyonder"
+            ],
+
+            "Produce_Card_Location":
+            [
+                "Noble_Trade_Fair",
+                "Level_Up_Sequence_10_9"
+            ]
+
+        },
+        {
+            "Id": "Noble_Trade_Fair",
+            "Label": "Noble Trade Fair",
+            "Image": "Image_Noble_Trade_Fair",
+            "Description": "A trade fair I've heard whispered about in the hushed halls of noble soirees. They say it's where one can obtain spirituality-infused material, rumored to have connections to the \"Beyonders\".",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 5
+            },
+
+            "Produce_Resource":
+            {
+                "Spirituality_Infused_Material": 1
+            }
+
+        },
+        {
+            "Id": "Level_Up_Sequence_10_9",
+            "Label": "?",
+            "Image": "Image_Level_Up",
+            "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 5,
+                "Spirituality_Infused_Material": 2
+            },
+
+            "Produce_Card_Location":
+            [
+                "Sequence_9_Fortune_Teller"
+            ]
+
+        },
+        {
+            "Id": "Sequence_9_Fortune_Teller",
+            "Label": "Sequence 9: The Fortune Teller",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": ".............................",
+
+            "Rank": -1,
+            "Occupation": "Fortune_Teller",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+
         }
 
 

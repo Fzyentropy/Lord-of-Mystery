@@ -622,7 +622,7 @@ public class Resource_Manager : MonoBehaviour
                         iconInstance.AddComponent<Resource_Click_Message>();
                         iconInstance.GetComponent<Resource_Click_Message>().messageId = resourceName;
                         CircleCollider2D circleCollider = iconInstance.AddComponent<CircleCollider2D>();
-                        iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
+                        iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "OnBoards";
                         
                         // 出现 number（暂定不出现资源名称先 2023-12-10）
                         // 更新 2个 Dictionary 的记录，来让 Update 中 "更新各 slot 中资源数量" 的 TMP_text 投入工作

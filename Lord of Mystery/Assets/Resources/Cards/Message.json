@@ -215,10 +215,16 @@
             "Label": "The World",
             "Image": "Image_The_World",
             "Message_Content": "Completion and achievement mark your journey's end. The World represents the fulfillment of a cycle, bringing a sense of accomplishment and unity. Celebrate your successes and prepare for the next phase of your life's adventure."
+        },
+        
+        
+        {
+            "Id": "The_Beyonder",
+            "Label": "About the \"Beyonder\"",
+            "Image": "Image_The_Beyonder",
+            "Message_Content": "At the soiree, my eyes were opened: the world is veiled in layers unseen. I know about 'Beyonders', beings with powers echoing the ancient gods, capable of..."
+
         }
-        
-        
-        
         
         
         

@@ -79,7 +79,7 @@ public class Start_Button_Script : MonoBehaviour
     
     private void OnMouseOver()
     {
-        Debug.Log("is over the BUTTON");
+        // Debug.Log("is over the BUTTON");
         if (is_button_available)
         {
             button_sprite_renderer.color = button_hover_color;

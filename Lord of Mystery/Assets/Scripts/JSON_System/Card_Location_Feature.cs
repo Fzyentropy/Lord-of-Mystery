@@ -1,11 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI; 
 using random = UnityEngine.Random;
@@ -26,6 +22,7 @@ public class Card_Location_Feature : MonoBehaviour
     public SpriteRenderer card_image;           // 卡牌的 image，图片
     public TMP_Text card_label;                 // 卡牌的 label，名称
     public SpriteRenderer card_image_mask;      // 卡牌的 image mask，遮罩
+    public SpriteRenderer card_shadow;          // 卡牌的 shadow 阴影
     
     // Panel 相关
     [Header("panel relevance")]
@@ -71,7 +68,9 @@ public class Card_Location_Feature : MonoBehaviour
 
     float newCardLocationPositionXOffset = 8f;      // 生成新的 card location 的时候的 X Offset
     float newCardLocationPositionYOffset = -8f;      // 生成新的 card location 的时候的 Y Offset
-    
+
+    private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
+     
     
     
     
@@ -574,6 +573,42 @@ public class Card_Location_Feature : MonoBehaviour
         card_image.sortingLayerName = "Dragging";
         card_label.GetComponent<Renderer>().sortingLayerName = "Dragging";
         card_image_mask.sortingLayerName = "Dragging";
+        card_shadow.sortingLayerName = "Dragging";
+
+        float x_movement = -0.3f;
+        float y_movement = 0.3f;
+
+        if (!dragging_shadow_effect_if_transformed)
+        {
+            dragging_shadow_effect_if_transformed = true;
+            
+            card_frame.transform.localPosition = new Vector3(
+                card_frame.transform.localPosition.x + x_movement,
+                card_frame.transform.localPosition.y + y_movement,
+                card_frame.transform.localPosition.z);
+        
+            card_name_tag.transform.localPosition = new Vector3(
+                card_name_tag.transform.localPosition.x + x_movement,
+                card_name_tag.transform.localPosition.y + y_movement,
+                card_name_tag.transform.localPosition.z);
+        
+            card_image.transform.localPosition = new Vector3(
+                card_image.transform.localPosition.x + x_movement,
+                card_image.transform.localPosition.y + y_movement,
+                card_image.transform.localPosition.z);
+        
+            card_label.transform.localPosition = new Vector3(
+                card_label.transform.localPosition.x + x_movement,
+                card_label.transform.localPosition.y + y_movement,
+                card_label.transform.localPosition.z);
+        
+            card_image_mask.transform.localPosition = new Vector3(
+                card_image_mask.transform.localPosition.x + x_movement,
+                card_image_mask.transform.localPosition.y + y_movement,
+                card_image_mask.transform.localPosition.z);
+        }
+        
+        
     }
     public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
@@ -582,6 +617,40 @@ public class Card_Location_Feature : MonoBehaviour
         card_image.sortingLayerName = "Cards";
         card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
         card_image_mask.sortingLayerName = "Cards";
+        card_shadow.sortingLayerName = "Cards";
+        
+        float x_movement = 0.3f;
+        float y_movement = -0.3f;
+
+        if (dragging_shadow_effect_if_transformed)
+        {
+            dragging_shadow_effect_if_transformed = false;
+            
+            card_frame.transform.localPosition = new Vector3(
+                card_frame.transform.localPosition.x + x_movement,
+                card_frame.transform.localPosition.y + y_movement,
+                card_frame.transform.localPosition.z);
+        
+            card_name_tag.transform.localPosition = new Vector3(
+                card_name_tag.transform.localPosition.x + x_movement,
+                card_name_tag.transform.localPosition.y + y_movement,
+                card_name_tag.transform.localPosition.z);
+        
+            card_image.transform.localPosition = new Vector3(
+                card_image.transform.localPosition.x + x_movement,
+                card_image.transform.localPosition.y + y_movement,
+                card_image.transform.localPosition.z);
+        
+            card_label.transform.localPosition = new Vector3(
+                card_label.transform.localPosition.x + x_movement,
+                card_label.transform.localPosition.y + y_movement,
+                card_label.transform.localPosition.z);
+        
+            card_image_mask.transform.localPosition = new Vector3(
+                card_image_mask.transform.localPosition.x + x_movement,
+                card_image_mask.transform.localPosition.y + y_movement,
+                card_image_mask.transform.localPosition.z);
+        }
     }
     
     
