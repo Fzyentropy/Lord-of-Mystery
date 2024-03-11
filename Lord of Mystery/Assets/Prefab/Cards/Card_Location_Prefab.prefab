@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1169303764423618333}
   - component: {fileID: 8429035146368408124}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8659115513779393943}
   - component: {fileID: 7033580355473418520}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Card_Name_Tag
   m_TagString: Untagged
   m_Icon: {fileID: 0}

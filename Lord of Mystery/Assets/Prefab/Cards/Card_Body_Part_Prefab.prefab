@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 260484455979938890}
   - component: {fileID: 228465456025152122}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: body_part_label_cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579491617566491343}
   - component: {fileID: 2379447303044674672}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7643127715839993471}
   - component: {fileID: 4486288308980272154}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: body_part_image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 5185196231508211715}
   - component: {fileID: 7651539474899524551}
   - component: {fileID: 4756945292436905961}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Card_Body_Part_Prefab
   m_TagString: Body_Parts
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ GameObject:
   - component: {fileID: 1397181279387703577}
   - component: {fileID: 4000443633146633352}
   - component: {fileID: 902039671460385493}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: body_part_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}

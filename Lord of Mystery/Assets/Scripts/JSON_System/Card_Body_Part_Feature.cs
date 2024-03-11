@@ -50,6 +50,8 @@ public class Card_Body_Part_Feature : MonoBehaviour
     {
         body_part_label.text = _CardBodyPart.Label;
         body_part_image.sprite = Resources.Load<Sprite>("Image/" + _CardBodyPart.Image);
+
+        gameObject.name = _CardBodyPart.Id;     // 设置此 body part 的 GameObject 的名称为 ID
     }
 
     void Set_Layer_Index()      // 设置 layer 的 index
@@ -61,38 +63,49 @@ public class Card_Body_Part_Feature : MonoBehaviour
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         // 高亮
-        if (GameManager.GM.InputManager.Dragging_Object == null)
+        if (GameManager.GM.InputManager.Dragging_Object == null 
+            && GameManager.GM.InputManager.raycast_top_object == gameObject)    //只有当射线检测的 top GameObject 是这张卡时
             Highlight_Collider();
     }
 
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
     {
-        // 记录鼠标位置
-        click_mouse_position = Input.mousePosition;
-        lastMousePosition = Input.mousePosition;
+        if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        {
+            // 记录鼠标位置
+            click_mouse_position = Input.mousePosition;
+            lastMousePosition = Input.mousePosition;
 
-        // 取消高亮
+            // 取消高亮
+
+            
+        }
         
     }
 
     private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
-        
-        // 调整卡牌的渲染 layer，让其到最上面
-        
-        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-        IncreaseSortingLayer();     // 增加渲染的 order in layer，将物体渲染在最前面
-        
-        // 如果鼠标移动，卡牌随之移动
+        if (GameManager.GM.InputManager.raycast_top_object == gameObject) //只有当射线检测的 top GameObject 是这张卡时
 
-        GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
-        Clear_Highlight_Collider();                             // 取消高亮
+        {
+            // 调整卡牌的渲染 layer，让其到最上面
         
-        // float mouse_drag_sensitivity = 0.05f;
-        Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
-        delta.z = 0;
-        gameObject.transform.position += delta;
-        lastMousePosition = Input.mousePosition;
+            gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+            IncreaseSortingLayer();     // 增加渲染的 order in layer，将物体渲染在最前面
+        
+            // 如果鼠标移动，卡牌随之移动
+
+            GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+            Clear_Highlight_Collider();                             // 取消高亮
+        
+            // float mouse_drag_sensitivity = 0.05f;
+            Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
+            delta.z = 0;
+            gameObject.transform.position += delta;
+            lastMousePosition = Input.mousePosition;
+            
+        }
+        
     }
 
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）

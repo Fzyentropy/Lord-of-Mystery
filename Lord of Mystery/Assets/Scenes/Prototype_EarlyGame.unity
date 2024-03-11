@@ -5532,6 +5532,7 @@ MonoBehaviour:
   CameraMoveOffset: 0.05
   isClickOnObjects: 1
   Dragging_Object: {fileID: 0}
+  raycast_top_object: {fileID: 0}
 --- !u!4 &531238711
 Transform:
   m_ObjectHideFlags: 0
@@ -7304,6 +7305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5e137469f537941b591e548b7191e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Event_Private_Soiree: 0
 --- !u!4 &634363477
 Transform:
   m_ObjectHideFlags: 0
@@ -19679,6 +19681,16 @@ MonoBehaviour:
   Putrefaction: 0
   Madness: 0
   Godhood: 0
+  Fund_UI_Amount: 0
+  Physical_Energy_UI_Amount: 0
+  Spirit_UI_Amount: 0
+  Soul_UI_Amount: 0
+  Spirituality_Infused_Material_UI_Amount: 0
+  Knowledge_UI_Amount: 0
+  Belief_UI_Amount: 0
+  Putrefaction_UI_Amount: 0
+  Madness_UI_Amount: 0
+  Godhood_UI_Amount: 0
   fund_icon_pure: {fileID: 3953027631342908348, guid: 11b50445992b9b44ab50855d6a37e36d, type: 3}
   physical_energy_icon_pure: {fileID: 8069154514472205973, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
   spirit_icon_pure: {fileID: 5722414193232788536, guid: 11ed9f3bab976094cbf4a1978359f968, type: 3}
@@ -19689,15 +19701,6 @@ MonoBehaviour:
   putrefaction_icon_pure: {fileID: 4877695618378898901, guid: 60fd3eebd62852c4fb2a43a6f2fb30b9, type: 3}
   madness_icon_pure: {fileID: 3219249540205346602, guid: 00368c0acd188ad44805ee3be6123d49, type: 3}
   godhood_icon_pure: {fileID: 870034428689274399, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
-  resource_1_Amount_text: {fileID: 0}
-  resource_2_Amount_text: {fileID: 0}
-  resource_3_Amount_text: {fileID: 0}
-  resource_4_Amount_text: {fileID: 0}
-  resource_5_Amount_text: {fileID: 0}
-  resource_6_Amount_text: {fileID: 0}
-  resource_7_Amount_text: {fileID: 0}
-  resource_8_Amount_text: {fileID: 0}
-  resource_9_Amount_text: {fileID: 0}
 --- !u!4 &1642947924
 Transform:
   m_ObjectHideFlags: 0

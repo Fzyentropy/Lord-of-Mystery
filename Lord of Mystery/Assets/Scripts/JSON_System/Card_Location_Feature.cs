@@ -84,10 +84,7 @@ public class Card_Location_Feature : MonoBehaviour
         Check_Card_JSON_Setting_Soft_Bug();     // 检查卡牌的 JSON 是否有好好设置，有没有设为 0 的参数
         AddColliderAndRigidbody();      // 如果没加 collider 和 rigidbody，则加上
         Set_Layer_Index();          // 设置 layer 的 index
-        {
-            LayerIndex = gameObject.layer;
-        }
-        
+
         Initialize_Card();      // 设置卡牌 label，image，初始化卡牌使用次数，等设置
         Initialize_Card_Resource();     // 根据 Card_Location 实例设置 3个字典 - 消耗的resource，消耗的body part，生产的resource
 
@@ -156,6 +153,7 @@ public class Card_Location_Feature : MonoBehaviour
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
         use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
 
+        gameObject.name = _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
     }
 
     void Initialize_Card_Resource()
@@ -203,42 +201,53 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         // 高亮
-        if (GameManager.GM.InputManager.Dragging_Object == null) // 鼠标悬停时，如果没拖拽着其他卡牌，则高亮
+        if (GameManager.GM.InputManager.Dragging_Object == null         // 鼠标悬停时，如果没拖拽着其他卡牌，
+            && GameManager.GM.InputManager.raycast_top_object == gameObject)     // 且此卡在 射线检测最上层，则高亮
+        {
             isHighlight = true;
+        }
     }
 
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
     {
-        // 记录鼠标位置
-        click_mouse_position = Input.mousePosition;
-        lastMousePosition = Input.mousePosition;
+        if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        {
+            // 记录鼠标位置
+            click_mouse_position = Input.mousePosition;
+            lastMousePosition = Input.mousePosition;
 
-        // 取消高亮
-        
+            // 取消高亮
 
+            
+            
+        }
         
     }
 
-    private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
+    private void OnMouseDrag() // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
-        
-        GameManager.GM.InputManager.Dragging_Object = gameObject;       // 将 Input Manager 中的 正在拖拽物体 记录为此物体
-        // Clear_Highlight_Collider();                             // 取消高亮
-        isHighlight = false;                             // 取消高亮
-        
-        
-        // 调整卡牌的渲染 layer，让其到最上面
-        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-        IncreaseOrderInLayer();
-        
-        
-        // 如果鼠标移动，卡牌随之移动
-        // float mouse_drag_sensitivity = 0.05f;
-        Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
-        delta.z = 0;
-        gameObject.transform.position += delta;
-        lastMousePosition = Input.mousePosition;
-    }
+        if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        {
+
+            GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+            // Clear_Highlight_Collider();                             // 取消高亮
+            isHighlight = false; // 取消高亮
+
+
+            // 调整卡牌的渲染 layer，让其到最上面
+            gameObject.layer = LayerMask.NameToLayer("DraggingLayer"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+            IncreaseOrderInLayer();
+
+
+            // 如果鼠标移动，卡牌随之移动
+            // float mouse_drag_sensitivity = 0.05f;
+            Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) -
+                            Camera.main.ScreenToWorldPoint(lastMousePosition);
+            delta.z = 0;
+            gameObject.transform.position += delta;
+            lastMousePosition = Input.mousePosition;
+        }
+}
 
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
@@ -360,6 +369,7 @@ public class Card_Location_Feature : MonoBehaviour
             panel_feature.Set_Sprite(Resources.Load<Sprite>("Image/" + _cardLocation.Image));   // 设置图片
             panel_feature.Set_Label(_cardLocation.Label);                                            // 设置 Label
             panel_feature.Set_Description(_cardLocation.Description);                                // 设置 description
+            panel.name = "Card_Location_Panel__" + _cardLocation.Id;                    // 设置 panel 的 GameObject 名称
 
             showed_panel = panel;       // 记录打开的 panel 实例到 showed panel 参数
             // GameManager.GM.PanelManager.current_panel = panel;      // 将 "打开的 panel" 设置为刚打开的 panel

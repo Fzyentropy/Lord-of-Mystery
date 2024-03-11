@@ -26,7 +26,7 @@ public class Input_Manager : MonoBehaviour
     
     public GameObject Dragging_Object;      // 当前拖拽的 卡牌 / body part 等物体的 GameObject
     
-        
+    public GameObject raycast_top_object;       // 射线检测最顶层的 GameObject
 
 
     private void Start()
@@ -58,15 +58,33 @@ public class Input_Manager : MonoBehaviour
 
     void CheckRayCast()
     {
+        Vector3 offsetVector = new Vector3(0, 0, 20);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+        Debug.DrawRay(ray.origin, ray.direction * 1000, Color.red); // debug
+        
         RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
-        // 遍历所有碰撞的对象
-        foreach (RaycastHit2D hit in hits)
+        GameObject topGameObject = null;
+        int topLayer = 0;
+        string col = "";
+        
+        if (hits.Length > 0)
         {
-            if (hit.collider != null)
+            // 遍历所有碰撞的对象
+            foreach (var hit in hits)
             {
-                // Debug.Log("射线碰撞到了: " + hit.collider.gameObject.name);
+                col += "  " + hit.collider.gameObject.layer; // debug
+                
+                if (hit.collider.gameObject.layer > topLayer)
+                {
+                    topLayer = hit.collider.gameObject.layer;
+                    topGameObject = hit.collider.gameObject;
+                }
             }
+
+            raycast_top_object = topGameObject;
+            
+            Debug.Log("射线检测层级： " + col); // debug
         }
     }
 
