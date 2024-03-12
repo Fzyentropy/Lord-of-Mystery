@@ -60,8 +60,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public bool is_body_part_4_filled = false;
     
     // Panel Status
-    private bool is_resource_ok = false;
-    private bool is_bodypart_ok = false;
+    private bool is_resource_ok;
+    private bool is_bodypart_ok;
     
     
 
@@ -77,6 +77,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Button_Putrefaction;
     public GameObject Button_Madness;
     public GameObject Button_Godhood;
+    public GameObject Button_Death;     // Death button added
     
     // Body Part prefab, Body part 的 Card prefab
     [Header("Body Part Prefab")]
@@ -113,6 +114,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     private void Update()
     { 
         Update_Resource_Number();
+        Check_If_Absorb_All_Resource();
+        Check_If_Absorb_All_BodyParts();
         Set_Start_Button_Availablitity();
 
     }
@@ -224,7 +227,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     public void Set_Resource_Button()       // 具体方法 ：实例化 resource button，并设置 消耗资源的参数
     {
-        availableResourceSlot = new Dictionary<int, bool>()     // 初始化 slot 字典
+        availableResourceSlot = new Dictionary<int, bool>()     // 初始化 slot 字典 (暂定5个slot，将来或许添加更多)
         {
             { 1, true },
             { 2, true },
@@ -286,6 +289,11 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             else if (resource.Key == "Godhood")
             {
                 resource_button = Instantiate(Button_Godhood, panel_section_resource.transform);    // 实例化 button
+                // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Godhood");  //设置按钮操纵的资源为 Godhood
+            }
+            else if (resource.Key == "Death")
+            {
+                resource_button = Instantiate(Button_Death, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Godhood");  //设置按钮操纵的资源为 Godhood
             }
             
@@ -494,7 +502,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     public bool Check_If_Absorb_All_Requirements()      // 检查是否吸收完了所有需要的 resource 和 body part
     {
-        return Check_If_Absorb_All_Resource() && Check_If_Absorb_All_BodyParts();
+        return is_resource_ok && is_bodypart_ok;
     }
 
     public bool Check_If_Absorb_All_Resource()      // 检查是否吸收完了所有需要的 resource
@@ -943,7 +951,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             if (attached_card_location_feature.is_counting_down)    // 如果正在倒计时
             {
                 start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Arriving");
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("....");
             }
             else      // 如果没在倒计时  
             {

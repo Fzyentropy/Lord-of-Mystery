@@ -170,7 +170,8 @@ public class Card_Location_Feature : MonoBehaviour
             {"Belief", _cardLocation.Require_Resource.Belief},
             {"Putrefaction", _cardLocation.Require_Resource.Putrefaction},
             {"Madness", _cardLocation.Require_Resource.Madness},
-            {"Godhood", _cardLocation.Require_Resource.Godhood}
+            {"Godhood", _cardLocation.Require_Resource.Godhood},
+            {"Death", _cardLocation.Require_Resource.Death}     // Death added
         };
 
         required_body_parts = new Dictionary<string, int>
@@ -192,7 +193,8 @@ public class Card_Location_Feature : MonoBehaviour
             {"Belief", _cardLocation.Produce_Resource.Belief},
             {"Putrefaction", _cardLocation.Produce_Resource.Putrefaction},
             {"Madness", _cardLocation.Produce_Resource.Madness},
-            {"Godhood", _cardLocation.Produce_Resource.Godhood}
+            {"Godhood", _cardLocation.Produce_Resource.Godhood},
+            {"Death", _cardLocation.Produce_Resource.Death}     // Death added
         };
         
     }

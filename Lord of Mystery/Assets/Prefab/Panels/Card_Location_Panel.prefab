@@ -3126,6 +3126,7 @@ MonoBehaviour:
   Button_Putrefaction: {fileID: 4877695618378898901, guid: 8e3e4d4a010d74541a3efe414afaf137, type: 3}
   Button_Madness: {fileID: 3219249540205346602, guid: 6cfba02e0b6db344fb94c8a9e6b5288e, type: 3}
   Button_Godhood: {fileID: 870034428689274399, guid: c29c7249b2387bf46ae191549949a246, type: 3}
+  Button_Death: {fileID: 5722414193232788536, guid: 06b7103c19c536f49a958f461b002786, type: 3}
   Body_Part_Prefab_Physical_Body: {fileID: 0}
   Body_Part_Prefab_Spirit: {fileID: 0}
   Body_Part_Prefab_Psyche: {fileID: 0}

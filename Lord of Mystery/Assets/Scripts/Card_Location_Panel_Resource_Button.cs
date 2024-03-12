@@ -17,7 +17,8 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
         Belief,
         Putrefaction,
         Madness,
-        Godhood
+        Godhood,
+        Death
         ////////////////////// TODO 其他资源扩展，如有
     }
    
@@ -110,6 +111,11 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
         if (resource == "Godhood")
         {
             Current_Resource = Resources.Godhood;
+            is_resource_set = true;
+        }
+        if (resource == "Death")        // Death
+        {
+            Current_Resource = Resources.Death;
             is_resource_set = true;
         }
         

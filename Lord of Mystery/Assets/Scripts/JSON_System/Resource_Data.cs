@@ -15,6 +15,7 @@ public class Resource_Data
     public int Putrefaction;
     public int Madness;
     public int Godhood;
-    
+
+    public int Death;
 }
 

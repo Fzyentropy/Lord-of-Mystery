@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 public class Resource_Manager : MonoBehaviour
 {
     // 各个资源的数量，真正出现在游戏中的计数参数，需要保存
+    [HideInInspector]
     public int Fund;
     public int Physical_Energy;
     public int Spirit;
@@ -19,6 +20,9 @@ public class Resource_Manager : MonoBehaviour
     public int Putrefaction;
     public int Madness;
     public int Godhood;
+    
+    public int Death;   // Death added
+    public int Max_Death = 6;    // the Max of Death, reached => Death
     
     // 各个资源的数量，用于显示在 UI 上的计数，会有闪烁动画，改变真实数量后，将滞后闪烁至最终值
     public int Fund_UI_Amount;
@@ -31,6 +35,9 @@ public class Resource_Manager : MonoBehaviour
     public int Putrefaction_UI_Amount;
     public int Madness_UI_Amount;
     public int Godhood_UI_Amount;
+    
+    public int Death_UI_Amount;     // Death
+    public int Max_Death_UI_Amount = 6;     // 最大 Death
     
     
     // 资源位置标记和占用情况，真正出现在游戏中的标记参数，需要保存
@@ -50,6 +57,9 @@ public class Resource_Manager : MonoBehaviour
     public GameObject madness_icon_pure;    // Madness资源的图标Prefab
     public GameObject godhood_icon_pure;    // Godhood资源的图标Prefab
     
+    public GameObject death_icon_pure;      // Death资源的图标Prefab
+    public GameObject death_bar_prefab;     // Death 进度条 prefab！！
+    
     // 判定各资源是否出现过
     private bool is_fund_ever_appears = false;
     private bool is_physical_energy_ever_appears = false; // 检查Physical_Energy资源是否曾出现
@@ -61,25 +71,32 @@ public class Resource_Manager : MonoBehaviour
     private bool is_putrefaction_ever_appears = false; // 检查Putrefaction资源是否曾出现
     private bool is_madness_ever_appears = false; // 检查Madness资源是否曾出现
     private bool is_godhood_ever_appears = false; // 检查Godhood资源是否曾出现
+    private bool is_death_ever_appears = false;     // 检查Death资源是否曾出现
     
 
     // Mis
     private bool FirstTimeBoolPasser = false;      // 用于将上方的 is_XXX_ever_appears 布尔值赋予此参数，来判断是否是第一次
+
+
     
-
-
-
-
+    
+    private void Awake()
+    {
+        Set_Max_Death();        // 临时设置 Max Death
+    }
+    
+    
 
     // 在Start中初始化资源位置占用情况
     void Start()
     {
-        InitializeDictionaries();       // 初始化 上方建立的字典  // TODO 未来加入保存功能后，可能要更改此方法，因为不能每次加载都初始化
+        Initialize_Dictionaries();       // 初始化 上方建立的字典  // TODO 未来加入保存功能后，可能要更改此方法，因为不能每次加载都初始化
         
         // 加载或设置fundIconPrefab
         // fundIconPrefab = ...
 
         StartCoroutine(Update_Resource_UI_Amount());      // 更新 resource真实数量 与 UI显示数量 差值 的协程
+
     }
 
     private void Update()
@@ -89,7 +106,7 @@ public class Resource_Manager : MonoBehaviour
 
     
     
-    private void InitializeDictionaries()   // 初始化 上方建立的字典
+    private void Initialize_Dictionaries()   // 初始化 上方建立的字典
     {
         for (int i = 1; i <= 10; i++)       // 初始化 资源槽位是否被占用字典
         {
@@ -107,7 +124,8 @@ public class Resource_Manager : MonoBehaviour
             {"Belief", -1},
             {"Putrefaction", -1},
             {"Madness", -1},
-            {"Godhood", -1}
+            {"Godhood", -1},
+            // No Death,
         };
         
         for (int i = 1; i <= 10; i++)       // 初始化 槽位是否能显示数量字典
@@ -117,6 +135,10 @@ public class Resource_Manager : MonoBehaviour
 
     }
 
+    void Set_Max_Death()        // 临时，设置最大死亡值数值，将来会根据职业和等级做更改
+    {
+        Max_Death = 6;
+    }
     
     
 
@@ -162,6 +184,10 @@ public class Resource_Manager : MonoBehaviour
         else if (resource_type == "Godhood")        // 如果输入的是 Godhood，则 Add Godhood
         {
             Add_Godhood(amount, position);
+        }
+        else if (resource_type == "Death")      // Death
+        {
+            Add_Death(amount, position);
         }
         
     }
@@ -209,6 +235,10 @@ public class Resource_Manager : MonoBehaviour
         {
             Reduce_Godhood(amount, position);
         }
+        else if (resource_type == "Death")        // Death
+        {
+            Reduce_Death(amount, position); 
+        }
 
     }
     
@@ -218,7 +248,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 Position，以追踪来源
         public void Add_Fund(int amount, Vector3 position)     
         {
-            // Fund += amount;       // 在 Animate Resource Change 结束后，再增加
+            // Fund += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Fund", amount);         // 调用动画效果
         }
@@ -230,8 +261,10 @@ public class Resource_Manager : MonoBehaviour
             if (Fund - amount >= 0)    
             {
                 // Fund -= amount;
-                Resource_Amount_Change("Fund", -amount);
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
                 
+                Resource_Amount_Change("Fund", -amount);
+
                 // 调用动画效果，具体执行
                 Animate_Resource_Change(false, position, "Fund", amount);
             }
@@ -246,7 +279,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Physical_Energy(int amount, Vector3 position)
         {
-            // Physical_Energy += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Physical_Energy += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Physical_Energy", amount); // 调用动画效果
         }
@@ -258,6 +292,8 @@ public class Resource_Manager : MonoBehaviour
             if (Physical_Energy - amount >= 0)
             {
                 // Physical_Energy -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Physical_Energy", -amount);
                 
                 Animate_Resource_Change(false, position, "Physical_Energy", amount); // 调用动画效果
@@ -265,7 +301,20 @@ public class Resource_Manager : MonoBehaviour
             else
             {
                 // 资源不足，特殊效果触发
+                
+                /////////////////////////////    Physical Energy 不足，则不足部分生成 Death
+                int amount_physical_energy = Physical_Energy;
+                int amount_death = amount - Physical_Energy;
+                Resource_Amount_Change("Physical_Energy", -amount_physical_energy);
+                Animate_Resource_Change(false,position,"Physical_Energy", amount);
+                Add_Death(amount_death,position);
+                
+                
+
                 // TODO: 特殊效果的实现
+
+
+
             }
         }
 
@@ -273,7 +322,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Spirit(int amount, Vector3 position)
         {
-            // Spirit += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Spirit += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Spirit", amount); // 调用动画效果
         }
@@ -285,6 +335,8 @@ public class Resource_Manager : MonoBehaviour
             if (Spirit - amount >= 0)
             {
                 // Spirit -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Spirit", -amount);
                 
                 Animate_Resource_Change(false, position, "Spirit", amount); // 调用动画效果
@@ -301,7 +353,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Soul(int amount, Vector3 position)
         {
-            // Soul += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Soul += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Soul", amount); // 调用动画效果
         }
@@ -313,6 +366,8 @@ public class Resource_Manager : MonoBehaviour
             if (Soul - amount >= 0)
             {
                 // Soul -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Soul", -amount);
                 
                 Animate_Resource_Change(false, position, "Soul", amount); // 调用动画效果
@@ -328,7 +383,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Spirituality_Infused_Material(int amount, Vector3 position)
         {
-            // Spirituality_Infused_Material += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Spirituality_Infused_Material += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Spirituality_Infused_Material", amount); // 调用动画效果
         }
@@ -340,6 +396,8 @@ public class Resource_Manager : MonoBehaviour
             if (Spirituality_Infused_Material - amount >= 0)
             {
                 // Spirituality_Infused_Material -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Spirituality_Infused_Material", -amount);
                 
                 Animate_Resource_Change(false, position, "Spirituality_Infused_Material", amount); // 调用动画效果
@@ -355,7 +413,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Knowledge(int amount, Vector3 position)
         {
-            // Knowledge += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Knowledge += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Knowledge", amount); // 调用动画效果
         }
@@ -367,6 +426,8 @@ public class Resource_Manager : MonoBehaviour
             if (Knowledge - amount >= 0)
             {
                 // Knowledge -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Knowledge", -amount);
                 
                 Animate_Resource_Change(false, position, "Knowledge", amount); // 调用动画效果
@@ -382,7 +443,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Belief(int amount, Vector3 position)
         {
-            // Belief += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Belief += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Belief", amount); // 调用动画效果
         }
@@ -394,6 +456,8 @@ public class Resource_Manager : MonoBehaviour
             if (Belief - amount >= 0)
             {
                 // Belief -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Belief", -amount);
                 
                 Animate_Resource_Change(false, position, "Belief", amount); // 调用动画效果
@@ -410,7 +474,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Putrefaction(int amount, Vector3 position)
         {
-            // Putrefaction += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Putrefaction += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Putrefaction", amount); // 调用动画效果
         }
@@ -422,6 +487,8 @@ public class Resource_Manager : MonoBehaviour
             if (Putrefaction - amount >= 0)
             {
                 // Putrefaction -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Putrefaction", -amount);
                 
                 Animate_Resource_Change(false, position, "Putrefaction", amount); // 调用动画效果
@@ -438,7 +505,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Madness(int amount, Vector3 position)
         {
-            // Madness += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Madness += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Madness", amount); // 调用动画效果
         }
@@ -450,6 +518,8 @@ public class Resource_Manager : MonoBehaviour
             if (Madness - amount >= 0)
             {
                 // Madness -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Madness", -amount);
                 
                 Animate_Resource_Change(false, position, "Madness", amount); // 调用动画效果
@@ -465,7 +535,8 @@ public class Resource_Manager : MonoBehaviour
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Godhood(int amount, Vector3 position)
         {
-            // Godhood += amount;      // 在 Animate Resource Change 结束后，再增加
+            // Godhood += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Godhood", amount); // 调用动画效果
         }
@@ -477,9 +548,42 @@ public class Resource_Manager : MonoBehaviour
             if (Godhood - amount >= 0)
             {
                 // Godhood -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
                 Resource_Amount_Change("Godhood", -amount);
                 
                 Animate_Resource_Change(false, position, "Godhood", amount); // 调用动画效果
+            }
+            else
+            {
+                // 资源不足，特殊效果触发
+                // TODO: 特殊效果的实现
+            }
+        }
+        
+        
+        // 增加Death资源，仅在增加资源时调用，因此外部需做好 加减判断                   + Death
+        // 调用需传入当前物体 location，以追踪来源
+        public void Add_Death(int amount, Vector3 position)
+        {
+            // Death += amount;
+            // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
+            
+            Animate_Resource_Change(true, position, "Death", amount); // 调用动画效果
+        }
+
+        // 减少Death资源，仅在减少资源时调用，因此外部需做好 加减判断                   - Death
+        // 调用需传入当前物体 location，以追踪来源
+        public void Reduce_Death(int amount, Vector3 position)
+        {
+            if (Death - amount >= 0)
+            {
+                // Death -= amount;
+                // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
+                
+                Resource_Amount_Change("Death", -amount);
+                
+                Animate_Resource_Change(false, position, "Death", amount); // 调用动画效果
             }
             else
             {
@@ -603,6 +707,22 @@ public class Resource_Manager : MonoBehaviour
                 is_godhood_ever_appears = true;
             }
         }
+        
+        // Death资源 在这个位置的操作可以变得不同，比如生成一个进度条
+        // TODO 加入 Death 资源处理
+        // if (resourceName == "Death")
+        
+        if (resourceName == "Death")
+        {
+            iconInstance = Instantiate(death_icon_pure, position, Quaternion.identity); // 在调用物体位置生成 icon
+            
+            if (isAdding)     // 如果是增加资源，则用 First Time Bool Passer 获取布尔值，判断是否是第一次，然后将 ever appears 设为 true（即出现过了）
+            {
+                FirstTimeBoolPasser = is_death_ever_appears;
+                is_death_ever_appears = true;
+            }
+        }
+        
 
    
         
@@ -610,33 +730,66 @@ public class Resource_Manager : MonoBehaviour
         {
             if (!FirstTimeBoolPasser)     // 如果是第一次
             {
-                int locationIndex = FindAvailableResourceLocation();      // 找到空的 resource_location_X 的 slot，获取到空 slot 的序号 X
-                resourceLocationsOccupied[locationIndex] = true;        // 相应的 resource_location_X slot 被占领
-                resourceLocationIndex[resourceName] = locationIndex;    // 记录资源对应的 resource_location_X 的 X 序号
-                
-                Vector3 targetPosition = GetResourceLocationPosition(locationIndex);    // 获取到 resource_location_X 的位置
-                iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";      // 将 资源icon 的 Sorting层 改为 最上层
-                iconInstance.transform.DOMove(targetPosition, first_time_adding_time).OnComplete(() => // 移动完成后，添加 collider 和脚本组件
-                    {
-                        // 添加脚本组件和 collider
-                        iconInstance.AddComponent<Resource_Click_Message>();
-                        iconInstance.GetComponent<Resource_Click_Message>().messageId = resourceName;
-                        CircleCollider2D circleCollider = iconInstance.AddComponent<CircleCollider2D>();
-                        iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "OnBoards";
-                        
-                        // 出现 number（暂定不出现资源名称先 2023-12-10）
-                        // 更新 2个 Dictionary 的记录，来让 Update 中 "更新各 slot 中资源数量" 的 TMP_text 投入工作
-                        slotAbleToShowText[locationIndex] = true;       // 开锁，编号为 X 的槽位可以开始显示 资源数量的 text 了
-                        Resource_Amount_Change(resourceName, animatedAmount);
 
-                    }
-                );
+                if (resourceName == "Death")            // 如果是 Death，添加 Death 进度条生成
+                {
+                    Vector3 deathPosition = GameObject.Find("Resource_Location_Death").transform.position;      // 找 Death 进度条的 position
+                    
+                    iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";      // 将 资源icon 的 Sorting层 改为 最上层
+                    iconInstance.transform.DOMove(deathPosition, first_time_adding_time).OnComplete(() => // 移动完成后，添加 collider 和脚本组件
+                        {
+                            Destroy(iconInstance);      // 销毁 death icon
+                            
+                            // TODO 添加炫酷的进度条出现特效
+                            Instantiate(death_bar_prefab, deathPosition, Quaternion.identity);            // 生成 Death 进度条 prefab
+                            
+                            Resource_Amount_Change(resourceName, animatedAmount);
+
+                        }
+                    );
+
+                }
+
+                else
+                {
+                    int locationIndex = FindAvailableResourceLocation();      // 找到空的 resource_location_X 的 slot，获取到空 slot 的序号 X
+                    resourceLocationsOccupied[locationIndex] = true;        // 相应的 resource_location_X slot 被占领
+                    resourceLocationIndex[resourceName] = locationIndex;    // 记录资源对应的 resource_location_X 的 X 序号
+                
+                    Vector3 targetPosition = GetResourceLocationPosition(locationIndex);    // 获取到 resource_location_X 的位置
+                    iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";      // 将 资源icon 的 Sorting层 改为 最上层
+                    iconInstance.transform.DOMove(targetPosition, first_time_adding_time).OnComplete(() => // 移动完成后，添加 collider 和脚本组件
+                        {
+                            // 添加脚本组件和 collider
+                            iconInstance.AddComponent<Resource_Click_Message>();
+                            iconInstance.GetComponent<Resource_Click_Message>().messageId = resourceName;
+                            CircleCollider2D circleCollider = iconInstance.AddComponent<CircleCollider2D>();
+                            iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "OnBoards";
+                        
+                            // 出现 number（暂定不出现资源名称先 2023-12-10）
+                            // 更新 2个 Dictionary 的记录，来让 Update 中 "更新各 slot 中资源数量" 的 TMP_text 投入工作
+                            slotAbleToShowText[locationIndex] = true;       // 开锁，编号为 X 的槽位可以开始显示 资源数量的 text 了
+                            Resource_Amount_Change(resourceName, animatedAmount);
+
+                        }
+                    );
+                }
                 
                 
             }
             else        // 如果不是第一次了
             {
-                Vector3 targetPosition = GetResourceLocationPosition(resourceLocationIndex[resourceName]);
+
+                Vector3 targetPosition = new Vector3(0, 0, 0);
+                if (resourceName == "Death")
+                {
+                    // 如果是 Death，则单独寻找 Death 进度条的 position
+                    targetPosition = GameObject.Find("Resource_Location_Death").transform.position;      // 找到 Death 的 location
+                }
+                else
+                {
+                    targetPosition = GetResourceLocationPosition(resourceLocationIndex[resourceName]);  // 如果不是 Death，则用寻找功能来寻找资源位置
+                }
                 iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "Dragging";
                 iconInstance.transform.DOMove(targetPosition, adding_time).OnComplete(() =>
                     {
@@ -665,7 +818,15 @@ public class Resource_Manager : MonoBehaviour
             }
             else   // 如果不是第一次*/
             {
-                iconInstance.transform.position = GetResourceLocationPosition(resourceLocationIndex[resourceName]);
+                if (resourceName == "Death")        // 如果是 Death，则直接寻找 death 的 position
+                {
+                    iconInstance.transform.position = GameObject.Find("Resource_Location_Death").transform.position;
+                }
+                else                               // 如果不是 Death，则调用方法来寻找 资源的 position
+                {
+                    iconInstance.transform.position = GetResourceLocationPosition(resourceLocationIndex[resourceName]);
+                }
+                
                 iconInstance.transform.DOMove(position, reducing_time).OnComplete(() =>
                     Destroy(iconInstance));
             }
@@ -950,6 +1111,10 @@ public class Resource_Manager : MonoBehaviour
         {
             Godhood += change_amount;
         }
+        if (change_resource == "Death")
+        {
+            Death += change_amount;
+        }
     }
     
     
@@ -1027,7 +1192,7 @@ public class Resource_Manager : MonoBehaviour
                 
             }
         }
-        
+
     }
 
     private IEnumerator Update_Resource_UI_Amount()
@@ -1089,6 +1254,20 @@ public class Resource_Manager : MonoBehaviour
                 int Change = Godhood - Godhood_UI_Amount;
                 Godhood_UI_Amount += flash_amount_each_time * Math.Sign(Change);
             }
+            
+            
+            
+            if (Max_Death_UI_Amount != Max_Death)       // 更新 Max Death 数量
+            {
+                int Change = Max_Death - Max_Death_UI_Amount;
+                Max_Death_UI_Amount += flash_amount_each_time * Math.Sign(Change);
+            }
+            if (Death_UI_Amount != Death)       // 更新 Death 数量
+            {
+                int Change = Death - Death_UI_Amount;
+                Death_UI_Amount += flash_amount_each_time * Math.Sign(Change);
+            }
+            
 
 
             yield return new WaitForSeconds(flash_time);
