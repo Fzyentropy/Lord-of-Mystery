@@ -38,7 +38,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     // Body Part 相关的 Dictionary
     public Dictionary<int, string> requiredBodyPartsThisPanel;         // 用于记录需要的 body part 的 Dictionary, int:槽位编号, string:Body Part类型的string
     // public List<string> currentlyAbsorbedBodyPart;          // 用于记录当前已经吸收的 Body Part，临时，可能没必要
-    public Dictionary<int, bool> currentlyAbosorbedBodyPartSlots;       // 用于记录 body part 的各个 slot 是否已经吸收, int:槽位编号, bool:是否已经吸收 body part
+    public Dictionary<int, bool> currentlyAbosorbedBodyPartSlots;       // 用于记录body part的各个slot是否已经吸收, int:槽位编号, bool:是否已经吸收body part (true: 吸收了, false: 没吸收)
     public Dictionary<int, GameObject> absorbedBodyPartGameObjects;     // 用于记录 已经吸收的 body part 的 Game Object，方便访问
 
     public int resource_1_amount = -1;                 // resource_X_amount 用于记录该资源需要消耗的 总数
@@ -600,6 +600,28 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
     
     
+    // 给定一个 body part，判定 board 上是否有该类型的 body part 卡牌存在
+    public bool Have_Giving_Type_Of_Body_Part_On_Board(string bodyPartType)
+    {
+        if (bodyPartType == "Physical_Body")
+        {
+            return GameManager.GM.BodyPartManager.Body_Part_Physical_Body > 0;
+        }
+        else if (bodyPartType == "Spirit")
+        {
+            return GameManager.GM.BodyPartManager.Body_Part_Spirit > 0;
+        }
+        else if (bodyPartType == "Psyche")
+        {
+            return GameManager.GM.BodyPartManager.Body_Part_Psyche > 0;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    
     ///////////////////////////////////////////////////     判定函数 结束
     
     
@@ -627,16 +649,22 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
     
     
-    // 吸收一个给定类型的 body part 的细节操作
+    
+    // 吸收一个给定类型的 body part 的细节操作                      // 原先的代码，含复杂的卡牌 merge 细节操作（已封装）
         // 在拖拽 body part 到卡牌时调用此方法
-    public void Absorb_Body_Part_Based_On_Type(GameObject bodyPartToAbsorb)
+    /*public void Absorb_Body_Part_Based_On_Type(GameObject body_part_card_to_absorb)
     {
-        if (bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>() != null)    // 确保输入的是 body part
+        if (body_part_card_to_absorb.GetComponent<Card_Body_Part_Feature>() != null)    // 确保输入的是 body part
         {
 
             // panel 上的 body part 增加
 
-            string bodyPartToAbsorbType = bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id; // 获取 body part 类型 string
+            string bodyPartToAbsorbType = body_part_card_to_absorb.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id; // 获取 body part 类型 string
+            
+            // 获取空 Slot X 的编号
+
+            int EmptySlotNumber = Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType);
+            
 
             GameObject instantiatedBodyPartOnPanel = null;
 
@@ -658,7 +686,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             // 传递 last position
             
             instantiatedBodyPartOnPanel.GetComponent<Card_Body_Part_Feature>().lastPosition =      
-                bodyPartToAbsorb.GetComponent<Card_Body_Part_Feature>().lastPosition;
+                body_part_card_to_absorb.GetComponent<Card_Body_Part_Feature>().lastPosition;
             
             // 调整 panel 上生成 body part 卡牌的 缩放 Adjust Scale of Instantiate card
 
@@ -670,6 +698,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             // 设置 panel 上生成的 body part 卡牌的 父层级为 panel 上 body part Section
             
             instantiatedBodyPartOnPanel.transform.parent = panel_section_body_part.transform;
+            
+            // 设置 新生成的 body part 的各个 Sprite 元素的 Sorting Layer
 
             foreach (var spriteRenderer in instantiatedBodyPartOnPanel.GetComponentsInChildren<SpriteRenderer>())
             {
@@ -683,10 +713,6 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 tmpText.GetComponent<Renderer>().sortingOrder += 4;  // (panel上 bodypart 的 slot sorting order 为 2)
             }
             
-            
-            // 获取空 Slot X 的编号
-
-            int EmptySlotNumber = Find_First_Empty_Body_Part_Type_In_Slots(bodyPartToAbsorbType);
             
             
             // 调整 panel 上生成 body part 卡牌的 位置，到 slot X 的位置
@@ -707,38 +733,115 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             
             // board 上的 body part 减少
             
-            GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(bodyPartToAbsorb);
+            GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(body_part_card_to_absorb);
 
 
         }
 
-    }
-
-
-    public bool Have_Giving_Type_Of_Body_Part_On_Board(string bodyPartType)
+    }*/
+    
+    
+    // 吸收一个特定 slot 的 body part 的操作                     // 原先的代码，含复杂的卡牌 merge 细节操作（已封装）
+        // 点击 panel 上的 body part 槽位时调用此方法
+    /*public void Absorb_Body_Part_Based_On_Slot(int slot_number)
+        {
+            
+            // 从板子上找到一个该 slot 对应类型的 body part卡，销毁它
+            Card_Body_Part_Feature[] bodyParts = FindObjectsOfType<Card_Body_Part_Feature>();
+            List<GameObject> bodyPartGameObject = new List<GameObject>() { };
+            foreach (var body_part_feature in bodyParts)
+            {
+                bodyPartGameObject.Add(body_part_feature.gameObject);
+            }
+    
+            GameObject selected_body_part = bodyPartGameObject.Find(
+                game_object => game_object.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == requiredBodyPartsThisPanel[slot_number]);
+    
+            
+        // 在 panel 上生成一个（可从上面扒）
+    
+            // 生成一个新的 body part 实例
+            
+            GameObject instantiatedBodyPartOnPanel =
+                GameManager.GM.Generate_Card_Body_Part(requiredBodyPartsThisPanel[slot_number]);     // TODO 替换成 一个 body part 的空壳
+    
+            // 传递 last position
+                
+            instantiatedBodyPartOnPanel.GetComponent<Card_Body_Part_Feature>().lastPosition =      
+                selected_body_part.GetComponent<Card_Body_Part_Feature>().lastPosition;
+            
+            
+            // 调整 panel 上生成 body part 卡牌的 缩放 Adjust Scale of Instantiate card
+    
+            float scaleOffset = 0.8f;
+    
+            instantiatedBodyPartOnPanel.transform.localScale *=
+                GameManager.GM.PanelManager.current_panel.transform.lossyScale.x * scaleOffset / GameManager.GM.PanelManager.panel_original_scale.x;
+                
+            // 设置 panel 上生成的 body part 卡牌的 父层级为 panel 上 body part Section
+                
+            instantiatedBodyPartOnPanel.transform.parent = panel_section_body_part.transform;
+            
+            // 设置 新生成的 body part 的各个 Sprite 元素的 Sorting Layer
+    
+            foreach (var spriteRenderer in instantiatedBodyPartOnPanel.GetComponentsInChildren<SpriteRenderer>())
+            {
+                spriteRenderer.sortingLayerName = "Panel";
+                spriteRenderer.sortingOrder += 4;    // (panel上 bodypart 的 slot sorting order 为 2)
+            }
+    
+            foreach (var tmpText in instantiatedBodyPartOnPanel.GetComponentsInChildren<TMP_Text>())
+            {
+                tmpText.GetComponent<Renderer>().sortingLayerName = "Panel";
+                tmpText.GetComponent<Renderer>().sortingOrder += 4;  // (panel上 bodypart 的 slot sorting order 为 2)
+            }
+            
+            
+            // 调整 panel 上生成 body part 卡牌的 位置，到 slot X 的位置
+                
+            instantiatedBodyPartOnPanel.transform.localPosition = 
+                GameObject.Find("Body_Part_Slot_" + slot_number).transform.localPosition;  
+            
+            // 将新生成的 body part GameObject 记录进 absorbed Body Part 字典
+                
+            absorbedBodyPartGameObjects.Add(slot_number, instantiatedBodyPartOnPanel);
+            
+            // 设置 currentlyAbsorbedBodyPartSlots 字典中相应的槽位为 “被占据 ” ，即将值设置为 true
+                
+            currentlyAbosorbedBodyPartSlots[slot_number] = true;
+    
+            // board 上的 body part 减少
+    
+            GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(selected_body_part);      // 最后销毁
+    
+        }*/
+    
+    
+    
+    
+    // 吸收一个给定类型的 body part 的细节操作
+        // 在拖拽 body part 到卡牌时调用此方法
+    public void Absorb_Body_Part_Based_On_Type(GameObject body_part_card_to_absorb)
     {
-        if (bodyPartType == "Physical_Body")
+        if (body_part_card_to_absorb.GetComponent<Card_Body_Part_Feature>() != null)    // 确保输入的是 body part
         {
-            return GameManager.GM.BodyPartManager.Body_Part_Physical_Body > 0;
+            
+            // 获取空 Slot X 的编号
+            int EmptySlotNumber = Find_First_Empty_Body_Part_Type_In_Slots(
+                body_part_card_to_absorb.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id);
+            
+            // 调用 Merge 方法进行 merge 细节操作
+            Merge_Body_Part_To_Slot(body_part_card_to_absorb, EmptySlotNumber);
+            
         }
-        else if (bodyPartType == "Spirit")
-        {
-            return GameManager.GM.BodyPartManager.Body_Part_Spirit > 0;
-        }
-        else if (bodyPartType == "Psyche")
-        {
-            return GameManager.GM.BodyPartManager.Body_Part_Psyche > 0;
-        }
-        else
-        {
-            return false;
-        }
+
     }
+    
     
     // 吸收一个特定 slot 的 body part 的操作
         // 点击 panel 上的 body part 槽位时调用此方法
 
-    public void Absorb_Body_Part_Based_On_Slot(int slotNumber)
+    public void Absorb_Body_Part_Based_On_Slot(int slot_number)
     {
         
         // 从板子上找到一个该 slot 对应类型的 body part卡，销毁它
@@ -750,40 +853,63 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
 
         GameObject selected_body_part = bodyPartGameObject.Find(
-            game_object => game_object.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == requiredBodyPartsThisPanel[slotNumber]);
-
+            game_object => game_object.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == requiredBodyPartsThisPanel[slot_number]);
         
-    // 在 panel 上生成一个（可从上面扒）
+        
+        // 调用 Merge 方法进行 merge 细节操作
+        Merge_Body_Part_To_Slot(selected_body_part, slot_number);
+
+    }
+    
+    
+    
+    
+    // 吸收一个给定类型 且在特定 slot 上的 body part 的操作
+        // 拖拽特定 body part 卡牌到 panel 上的 body part 槽位时调用此方法 
+    public void Absorb_Body_Part_Based_On_Type_And_Slot(GameObject body_part_card_to_absorb, int slot_number)
+    {
+        Merge_Body_Part_To_Slot(body_part_card_to_absorb, slot_number);
+    }
+
+
+    // 给定一个body part的GameObject (此GameObject为生成的空壳)，和 Slot number，将 body part 卡牌 Merge 上去
+    public void Merge_Body_Part_To_Slot(GameObject bodyPartToMerge_Original, int slotNumber)    
+    {
 
         // 生成一个新的 body part 实例
         
-        GameObject instantiatedBodyPartOnPanel =
-            GameManager.GM.Generate_Card_Body_Part(requiredBodyPartsThisPanel[slotNumber]);
-
+        GameObject bodyPartToMerge_Instantiated =
+            GameManager.GM.Generate_Card_Body_Part(requiredBodyPartsThisPanel[slotNumber]);     // TODO 替换成 一个 body part 的空壳
+        
+        
         // 传递 last position
             
-        instantiatedBodyPartOnPanel.GetComponent<Card_Body_Part_Feature>().lastPosition =      
-            selected_body_part.GetComponent<Card_Body_Part_Feature>().lastPosition;
+        bodyPartToMerge_Instantiated.GetComponent<Card_Body_Part_Feature>().lastPosition =      
+            bodyPartToMerge_Original.GetComponent<Card_Body_Part_Feature>().lastPosition;
         
         
         // 调整 panel 上生成 body part 卡牌的 缩放 Adjust Scale of Instantiate card
 
         float scaleOffset = 0.8f;
 
-        instantiatedBodyPartOnPanel.transform.localScale *=
+        bodyPartToMerge_Instantiated.transform.localScale *=
             GameManager.GM.PanelManager.current_panel.transform.lossyScale.x * scaleOffset / GameManager.GM.PanelManager.panel_original_scale.x;
-            
+        
+        
         // 设置 panel 上生成的 body part 卡牌的 父层级为 panel 上 body part Section
             
-        instantiatedBodyPartOnPanel.transform.parent = panel_section_body_part.transform;
+        bodyPartToMerge_Instantiated.transform.parent = panel_section_body_part.transform;
+        
+        
+        // 设置 新生成的 body part 的各个 Sprite 元素的 Sorting Layer
 
-        foreach (var spriteRenderer in instantiatedBodyPartOnPanel.GetComponentsInChildren<SpriteRenderer>())
+        foreach (var spriteRenderer in bodyPartToMerge_Instantiated.GetComponentsInChildren<SpriteRenderer>())
         {
             spriteRenderer.sortingLayerName = "Panel";
             spriteRenderer.sortingOrder += 4;    // (panel上 bodypart 的 slot sorting order 为 2)
         }
 
-        foreach (var tmpText in instantiatedBodyPartOnPanel.GetComponentsInChildren<TMP_Text>())
+        foreach (var tmpText in bodyPartToMerge_Instantiated.GetComponentsInChildren<TMP_Text>())
         {
             tmpText.GetComponent<Renderer>().sortingLayerName = "Panel";
             tmpText.GetComponent<Renderer>().sortingOrder += 4;  // (panel上 bodypart 的 slot sorting order 为 2)
@@ -792,26 +918,31 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         
         // 调整 panel 上生成 body part 卡牌的 位置，到 slot X 的位置
             
-        instantiatedBodyPartOnPanel.transform.localPosition = 
-            GameObject.Find("Body_Part_Slot_" + slotNumber).transform.localPosition;  
-        
+        bodyPartToMerge_Instantiated.transform.localPosition = 
+            GameObject.Find("Body_Part_Slot_" + slotNumber).transform.localPosition;   
+            
+            
         // 将新生成的 body part GameObject 记录进 absorbed Body Part 字典
             
-        absorbedBodyPartGameObjects.Add(slotNumber, instantiatedBodyPartOnPanel);
-        
+        absorbedBodyPartGameObjects.Add(slotNumber, bodyPartToMerge_Instantiated);
+            
+            
         // 设置 currentlyAbsorbedBodyPartSlots 字典中相应的槽位为 “被占据 ” ，即将值设置为 true
             
         currentlyAbosorbedBodyPartSlots[slotNumber] = true;
-
+        
+        
         // board 上的 body part 减少
 
-        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(selected_body_part);      // 最后销毁
-
+        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(bodyPartToMerge_Original);      // 最后销毁
+        
     }
-    
-    // return body part，从 slot 返回桌面
-    
 
+    
+    
+    
+    
+    // return Resources，从 panel 返回桌面
     
     public void Return_Resource()              // 关闭 panel 时，返还所有资源，执行逻辑，被 Panel_Manager 在关闭 panel 时调用
     {
@@ -888,6 +1019,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
         
     }
+    
+    
+    // return body part，从 panel slot 返回桌面
 
     public void Return_Body_Part()
     {

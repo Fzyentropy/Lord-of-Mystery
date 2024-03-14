@@ -17,7 +17,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
     public SpriteRenderer body_part_shadow;     // Body part shadow 卡牌阴影
 
     // Important Marking Variable
-    public GameObject overlapped_card_location; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
+    public GameObject overlapped_card_location_or_panel_slot; // 用于记录，当前这个 body part 跟哪张卡是重合的，用于被吸收，且用此参数判定可保证重叠的卡唯一
     public Vector3 lastPosition;        // 用于记录拖拽时最后停下的 location
  
     // Mis Variables
@@ -42,7 +42,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     private void Update()
     {
-        // Debug.Log(overlapped_card_location);
+        Debug.Log(overlapped_card_location_or_panel_slot);
     }
 
 
@@ -63,48 +63,41 @@ public class Card_Body_Part_Feature : MonoBehaviour
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         // 高亮
-        if (GameManager.GM.InputManager.Dragging_Object == null 
-            && GameManager.GM.InputManager.raycast_top_object == gameObject)    //只有当射线检测的 top GameObject 是这张卡时
+        if(GameManager.GM.InputManager.Dragging_Object == null)
             Highlight_Collider();
     }
 
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
     {
-        if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
-        {
-            // 记录鼠标位置
-            click_mouse_position = Input.mousePosition;
-            lastMousePosition = Input.mousePosition;
+        
+        // 记录鼠标位置
+        click_mouse_position = Input.mousePosition;
+        lastMousePosition = Input.mousePosition;
 
-            // 取消高亮
-
-            
-        }
+        // 取消高亮
+        
         
     }
 
     private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
-        if (GameManager.GM.InputManager.raycast_top_object == gameObject) //只有当射线检测的 top GameObject 是这张卡时
 
-        {
-            // 调整卡牌的渲染 layer，让其到最上面
-        
-            gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-            IncreaseSortingLayer();     // 增加渲染的 order in layer，将物体渲染在最前面
-        
-            // 如果鼠标移动，卡牌随之移动
+        // 调整卡牌的渲染 layer，让其到最上面
+    
+        gameObject.layer = LayerMask.NameToLayer("DraggingLayer");  // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        IncreaseSortingLayer();     // 增加渲染的 order in layer，将物体渲染在最前面
+    
+        // 如果鼠标移动，卡牌随之移动
 
-            GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
-            Clear_Highlight_Collider();                             // 取消高亮
-        
-            // float mouse_drag_sensitivity = 0.05f;
-            Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
-            delta.z = 0;
-            gameObject.transform.position += delta;
-            lastMousePosition = Input.mousePosition;
+        GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+        Clear_Highlight_Collider();                             // 取消高亮
+    
+        // float mouse_drag_sensitivity = 0.05f;
+        Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
+        delta.z = 0;
+        gameObject.transform.position += delta;
+        lastMousePosition = Input.mousePosition;
             
-        }
         
     }
 
@@ -125,13 +118,29 @@ public class Card_Body_Part_Feature : MonoBehaviour
         
         // 如果在一个 card location 上面, 触发对应 card location 中的方法，来打开panel，然后将这张卡 merge 到其中一个 slot 上
         // 判定是否能吸收
-        // TODO 要加上 是否重叠的判定
-        if (overlapped_card_location != null && 
-            overlapped_card_location.GetComponent<Card_Location_Feature>().Check_If_Dragging_BodyPart_Is_Need(gameObject))     
+
+        if (overlapped_card_location_or_panel_slot != null)     // 如果 overlap 了一个东西
         {
-            StartCoroutine(overlapped_card_location.GetComponent<Card_Location_Feature>().Absorb_Dragging_Body_Parts(gameObject));
+            
+            if (overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Feature>() != null)   // 如果 overlap 的是 card location 卡牌
+            {
+                if (overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Feature>()
+                    .Check_If_Dragging_BodyPart_Is_Need(gameObject))                                // 判断是否需要这个 body part
+                {
+                    StartCoroutine(overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Feature>().Absorb_Dragging_Body_Parts(gameObject));
+                }
+            }
+            
+            else if (overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Panel_Body_Part_Slot>() != null)    // 如果 overlap 的是 panel 上的 body part slot
+            {
+                // body part slot 处理
+                Debug.Log("Start Absorb Body Part Based On TYPE and SLOT");
+                overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Panel_Body_Part_Slot>().
+                    attached_card_location_panel_feature.Absorb_Body_Part_Based_On_Type_And_Slot(
+                        gameObject, overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Panel_Body_Part_Slot>().slot_number_in_panel);
+            }
         }
-        else
+        else   // 没 overlap 东西
         {
             lastPosition = transform.position;
         }
@@ -178,6 +187,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     public void Clear_Highlight_Collider()
     {
+        
         LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
         if (lineRenderer != null)
         {

@@ -39,7 +39,7 @@ public class Input_Manager : MonoBehaviour
     {
         MouseScroll();
         MouseLogic();
-        CheckRayCast();
+        // CheckRayCast();
     }
 
     /////////////////////////////////////////////////////////////////////////

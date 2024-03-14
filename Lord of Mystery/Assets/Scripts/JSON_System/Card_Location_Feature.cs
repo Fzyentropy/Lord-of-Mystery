@@ -203,8 +203,7 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         // 高亮
-        // if (GameManager.GM.InputManager.Dragging_Object == null         // 鼠标悬停时，如果没拖拽着其他卡牌，
-        //     && GameManager.GM.InputManager.raycast_top_object == gameObject)     // 且此卡在 射线检测最上层，则高亮
+        if (GameManager.GM.InputManager.Dragging_Object == null)         // 鼠标悬停时，如果没拖拽着其他卡牌，
         {
             isHighlight = true;
         }
@@ -276,15 +275,15 @@ public class Card_Location_Feature : MonoBehaviour
 
     }
 
-    private void OnTriggerStay2D(Collider2D other)      // 当有卡牌悬停时
+    private void OnTriggerStay2D(Collider2D other)      // 当有 Collider2D 悬停时
     {
-        if (other.CompareTag("Body_Parts"))
+        if (other.GetComponent<Card_Body_Part_Feature>() != null)   // 如果该 Collider2D 是 body part
         {
-            if (GameManager.GM.InputManager.Dragging_Object == other.gameObject)
+            if (GameManager.GM.InputManager.Dragging_Object == other.gameObject)    // 而且正在拖拽那张 body part
             {
-                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = gameObject;    // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
+                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = gameObject;    // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
 
-                if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location == gameObject)
+                if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot == gameObject)
                 {
                     isHighlightYellow = true;   // 将高亮改为黄色
                 }
@@ -302,13 +301,13 @@ public class Card_Location_Feature : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)      // 当悬停的卡牌离开时
     {
         
-        if (other.gameObject.CompareTag("Body_Parts"))
+        if (other.GetComponent<Card_Body_Part_Feature>() != null)
         {
             // 取消黄色 Highlight
             isHighlightYellow = false;
 
             // “ 取出 ” body part 重叠物体
-            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location = null;
+            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = null;
 
         }
     }
@@ -540,7 +539,7 @@ public class Card_Location_Feature : MonoBehaviour
                 {
                     return true;
                 }
-                else
+                else        // 如果 panel 没打开，则直接检测 dictionary 是否标记了需要这个 type 的 body part
                 {
                     foreach (var bodyPart in required_body_parts)
                     {
