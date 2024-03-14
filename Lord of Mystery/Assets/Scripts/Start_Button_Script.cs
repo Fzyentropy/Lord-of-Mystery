@@ -110,7 +110,7 @@ public class Start_Button_Script : MonoBehaviour
     {
         if (is_button_available)
         {
-            if ((Input.mousePosition - mouse_click_position).magnitude < 0.1)
+            if ((Input.mousePosition - mouse_click_position).magnitude < 0.3)
             {
             
                 // 点击后的执行逻辑

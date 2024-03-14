@@ -203,8 +203,8 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         // 高亮
-        if (GameManager.GM.InputManager.Dragging_Object == null         // 鼠标悬停时，如果没拖拽着其他卡牌，
-            && GameManager.GM.InputManager.raycast_top_object == gameObject)     // 且此卡在 射线检测最上层，则高亮
+        // if (GameManager.GM.InputManager.Dragging_Object == null         // 鼠标悬停时，如果没拖拽着其他卡牌，
+        //     && GameManager.GM.InputManager.raycast_top_object == gameObject)     // 且此卡在 射线检测最上层，则高亮
         {
             isHighlight = true;
         }
@@ -212,7 +212,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
     {
-        if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        // if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
         {
             // 记录鼠标位置
             click_mouse_position = Input.mousePosition;
@@ -228,7 +228,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnMouseDrag() // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
-        if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        // if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
         {
 
             GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
@@ -364,7 +364,12 @@ public class Card_Location_Feature : MonoBehaviour
                 GameManager.GM.PanelManager.Close_Current_Panel();              // 有打开的 panel 则关闭 panel
             
             // 生成新的 panel
-            GameObject panel = Instantiate(_card_location_panel, gameObject.transform.position, Quaternion.identity);  // 实例化 panel
+            GameObject panel = Instantiate(_card_location_panel,        // 实例化 panel
+                new Vector3(
+                    gameObject.transform.position.x,
+                    gameObject.transform.position.y,
+                    gameObject.transform.position.z - 1), Quaternion.identity);  
+            
             Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
 
             panel_feature.Set_Attached_Card(gameObject);        // 将生成的 panel 中的对于生成卡牌的指代设置为此卡
@@ -587,8 +592,8 @@ public class Card_Location_Feature : MonoBehaviour
         card_image_mask.sortingLayerName = "Dragging";
         card_shadow.sortingLayerName = "Dragging";
 
-        float x_movement = -0.3f;
-        float y_movement = 0.3f;
+        float x_movement = -0.1f;
+        float y_movement = 0.1f;
 
         if (!dragging_shadow_effect_if_transformed)
         {
@@ -631,8 +636,8 @@ public class Card_Location_Feature : MonoBehaviour
         card_image_mask.sortingLayerName = "Cards";
         card_shadow.sortingLayerName = "Cards";
         
-        float x_movement = 0.3f;
-        float y_movement = -0.3f;
+        float x_movement = 0.1f;
+        float y_movement = -0.1f;
 
         if (dragging_shadow_effect_if_transformed)
         {

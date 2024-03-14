@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5722414193232788550}
   - component: {fileID: 5722414193232788537}
   - component: {fileID: 345305086203160261}
+  - component: {fileID: 7149446461664887670}
   - component: {fileID: 9190072544439478019}
   m_Layer: 0
   m_Name: Death_Button
@@ -188,6 +189,18 @@ MonoBehaviour:
   attached_panel: {fileID: 0}
   panel_resource_slot_number: 0
   highlightSprite: {fileID: 9172099916493364664}
+--- !u!114 &7149446461664887670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5722414193232788536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98685b70bd3451244af26366e92704a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!58 &9190072544439478019
 CircleCollider2D:
   m_ObjectHideFlags: 0

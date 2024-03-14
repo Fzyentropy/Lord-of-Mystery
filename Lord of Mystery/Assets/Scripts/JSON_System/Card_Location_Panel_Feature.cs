@@ -13,8 +13,6 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject attached_card;     // 用于指代生成此 panel 的卡牌
     public Card_Location_Feature attached_card_location_feature;   // 生成此 panel 的卡牌的 card_location_feature 脚本
     
-
-    public bool is_mouse_hover_on_panel;
     
     // panel section
     [Header("Panel Section")]
@@ -447,12 +445,10 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     
     
     
-    ///////////////////////////////////////////////////     On 事件函数
-
-    private void OnMouseOver()
+    ///////////////////////////////////////////////////     On 事件函数 写在了另外的 component上
+    /*private void OnMouseOver()
     {
-        // Debug.Log("is over the LOCATION PANEL");
-        is_mouse_hover_on_panel = true;
+
     }
 
     private void OnMouseDown()
@@ -490,9 +486,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     {
         // Debug.Log("panel 销毁了");
         // Return_Resource();
-    }
-    
-    
+    }*/
     ///////////////////////////////////////////////////     On 事件函数结束
     
     

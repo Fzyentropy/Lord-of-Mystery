@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1890403138225199377}
   - component: {fileID: 6296047636526665652}
   - component: {fileID: 3408194771045974095}
+  - component: {fileID: 4168227019230541056}
   - component: {fileID: 2912312086745497470}
   m_Layer: 0
   m_Name: Body Part Slot Psyche
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 412510705
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 93a6e672abf29464fa6162b98cfe17a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -103,6 +104,18 @@ MonoBehaviour:
   attached_card_location_panel_feature: {fileID: 0}
   slot_number_in_panel: 0
   highlightSprite: {fileID: 9141201498100974655}
+--- !u!114 &4168227019230541056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193762022093621914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98685b70bd3451244af26366e92704a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &2912312086745497470
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -200,7 +213,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 412510705
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}

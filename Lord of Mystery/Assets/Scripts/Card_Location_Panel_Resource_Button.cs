@@ -293,6 +293,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
     private void OnMouseDown()
     {
         click_mouse_position = Input.mousePosition;
+        
     }
 
     private void OnMouseUp()
