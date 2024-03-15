@@ -55,12 +55,18 @@ public class Start_Button_Script : MonoBehaviour
             button_sprite_renderer.color = button_unavailable_color;
         }
 
-        if (is_button_available != lastButtonStatus)    // 如果 Button 从 不 available 变成了 available，则改为 idle 颜色
+        // 原 代码
+        /*if (is_button_available != lastButtonStatus)    // 如果 Button 从 不 available 变成了 available，则改为 idle 颜色
         {
             if (is_button_available)
             {
                 button_sprite_renderer.color = button_idle_color;
             }
+        }*/
+
+        if (is_button_available)
+        {
+            button_sprite_renderer.color = button_idle_color;
         }
 
         

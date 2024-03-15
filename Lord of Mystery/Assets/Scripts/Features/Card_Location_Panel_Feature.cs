@@ -20,6 +20,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject panel_section_body_part;      // panel body part section 指代，手动拖拽
     public GameObject panel_section_without_body_part;      // 没有 body part 的 section，手动拖拽
     public GameObject start_button;      // 此 panel 上的 start button   
+    
 
     [Space(5)] 
     public TMP_Text resource_1_amount_text;         // 场景中各资源对应的 TMP_text 数量文本
@@ -94,6 +95,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public SpriteRenderer panel_image;   
     public TMP_Text panel_label;
     public TMP_Text panel_description;
+    public TMP_Text panel_effect_description;
     
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
@@ -219,6 +221,24 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         {
             Set_Body_Part_Slots();       
         }
+
+        
+        /*if (attached_card_location_feature.produce_resources.Count > 0)        // 显示 Effect Description，生产多少资源
+        {
+            string effect_text = "";
+            
+            foreach (var resource in attached_card_location_feature.produce_resources)
+            {
+                if (resource.Value != 0)
+                {
+                    effect_text += resource.Key + " x " + resource.Value + " ";
+                }
+            }
+            
+            if (effect_text != "")
+                panel_effect_description.text = "Produce: " + effect_text;
+        }*/
+        
 
         isPanelWellSet = true;
     }
