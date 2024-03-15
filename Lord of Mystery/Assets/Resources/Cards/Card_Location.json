@@ -271,17 +271,20 @@
         },
         {
             "Id": "Flesh_And_Body",
-            "Label": "Flesh and Body",
+            "Label": "Level 10: Flesh Body",
             "Image": "Image_Flesh_And_Body",
-            "Description": "'No live organism can continue for long to exist sanely under conditions of absolute reality.' - Shirley Jackson \n\n [ This Sequence consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
+            "Description": "'No live organism can continue for long to exist sanely under conditions of absolute reality.' - Shirley Jackson \n\n [ This Level consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
 
             "Rank": -1,
             "Occupation": "All",
 
             "Use_Time": -1,
             "Time": 30,
+
             "Auto_Start": true,
             "Repeatable": true,
+            "Stable": true,
+            "isSequence": true,
 
             "Produce_Resource":
             {
@@ -374,6 +377,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
+            "Only": true,
             "Time": 20,
             
             "Produce_Resource":
@@ -391,6 +395,7 @@
             "Occupation": "All",
 
             "Use_Time": 3,
+            "Only": true,
             "Time": 25,
 
             "Require_Resource":
@@ -413,6 +418,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
+            "Only": true,
             "Time": 12,
 
             "Require_Resource":
@@ -427,7 +433,7 @@
             
             "Produce_Resource":
             {
-                "Physical_Energy": 3
+                "Physical_Energy": 4
             }
         },
         {
@@ -463,8 +469,12 @@
 
             "Produce_Card_Location":
             [
-                "Noble_Trade_Fair",
-                "Level_Up_Sequence_10_9"
+                "Noble_Trade_Fair"
+            ],
+
+            "Produce_Special_Effect":
+            [
+                "Get_Level_Up_Sequence_10_9"
             ]
 
         },
@@ -500,7 +510,7 @@
         },
         {
             "Id": "Level_Up_Sequence_10_9",
-            "Label": "?",
+            "Label": " ? ",
             "Image": "Image_Level_Up",
             "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
 
@@ -511,6 +521,8 @@
             "Use_Time": -1,
             "Only": true,
             "Time": 10,
+
+            "Stable": true,
 
             "Require_Body_Part":
             {
@@ -523,9 +535,9 @@
                 "Spirituality_Infused_Material": 2
             },
 
-            "Produce_Card_Location":
+            "Produce_Special_Effect":
             [
-                "Sequence_9_Fortune_Teller"
+                "Level_Up_From_10_To_9"
             ]
 
         },

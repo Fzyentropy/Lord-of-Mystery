@@ -132,6 +132,13 @@ public class GameManager : MonoBehaviour
         return cardBodyPart;
     }
 
+    /*public Sequence Generate_New_Sequence(string id)
+    {
+        Sequence newSequence = Instantiate(Sequence_prefab, sequence_location, Quaternion.identity);
+        newSequence.GetComponent<Sequence_Feature>()._Sequence = CardLoader.Get_Sequence_By_Id(id);
+        return newSequence;
+    }*/
+
 
     
     // 获取 匹配当前 Rank 和 Occupation 的 Card Location 的 Id，返回 Id 的 string list
@@ -157,6 +164,8 @@ public class GameManager : MonoBehaviour
         List<string> list_of_id = Get_Card_Location_Ids_Based_On_Rank_And_Occupation();
         
         int index = random.Range(0, list_of_id.Count - 1);
+
+        int counter = 0;    // 非常蠢的 while 循环计数 counter
         
         
         // 判定新抽的卡牌是不是 已经拥有的并且是 Only 属性的卡牌，是则重新抽取
@@ -170,6 +179,12 @@ public class GameManager : MonoBehaviour
                 {
                     break;
                 }
+
+                if (counter > 5)       // 如果已经循环抽了了 20次卡，说明真的抽不到了，就 break
+                {
+                    return "";
+                }
+                
             
                 while (true)
                 {
@@ -194,7 +209,9 @@ public class GameManager : MonoBehaviour
                     {
                         index = random.Range(0, list_of_id.Count - 1);      // 重新抽一张
                     }
-                
+
+                    counter++;      // 计个数
+
                 }
             
             

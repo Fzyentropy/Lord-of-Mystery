@@ -10,15 +10,13 @@ public class Card_Loader : MonoBehaviour
     public const string PATH_CARD_LOCATION = "Cards/Card_Location";
     public const string PATH_MESSAGE = "Cards/Message";
     public const string PATH_CARD_BODY_PART = "Cards/Card_Body_Part";
+    public const string PATH_SEQUENCE = "Cards/Sequence";
 
-    [SerializeField]
-    public List<Card_Automatic> Automatic_Card_List;
-    [SerializeField]
-    public List<Card_Location> Location_Card_List;
-    [SerializeField]
-    public List<Message> Message_List;
-    [SerializeField]
-    public List<Card_Body_Part> Body_Part_Card_List;
+    [SerializeField] public List<Card_Automatic> Automatic_Card_List;
+    [SerializeField] public List<Card_Location> Location_Card_List;
+    [SerializeField] public List<Message> Message_List;
+    [SerializeField] public List<Card_Body_Part> Body_Part_Card_List;
+    [SerializeField] public List<Sequence> Sequence_List;
 
     void Start()
     {
@@ -26,6 +24,7 @@ public class Card_Loader : MonoBehaviour
         Load_All_Card_Location_From_JSON();
         Load_All_Message_From_JSON();
         Load_All_Card_Body_Part_From_JSON();
+        // Load_All_Sequence_From_JSON();
     }
 
     
@@ -89,6 +88,20 @@ public class Card_Loader : MonoBehaviour
             Body_Part_Card_List.Add(card_body_part);
         }
     }
+
+    /*public void Load_All_Sequence_From_JSON()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_SEQUENCE);    // 从路径读取 JSON 文件
+        string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
+        
+        // 这个步骤可以将 JSON 中 "Card_Location" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Location 类型的 list 里面
+        Sequence_Wrapper sequenceWrapper = JsonUtility.FromJson<Sequence_Wrapper>(jsonData);
+
+        foreach (var sequence in sequenceWrapper.List_Sequence)
+        {
+            Sequence_List.Add(sequence);
+        }
+    }*/
     
     
     ////////////////////////////////////////////////////////////////////     获取 list 中的卡牌对象 by ID
@@ -113,7 +126,11 @@ public class Card_Loader : MonoBehaviour
     {
         return Body_Part_Card_List.Find(card_body_part => card_body_part.Id == id);     // 根据 id 返回 Body_Part 实例
     }
-    
+
+    public Sequence Get_Sequence_By_Id(string id)
+    {
+        return Sequence_List.Find(sequence => sequence.Id == id);
+    }
     
     
     ////////////////////////////////////////////////////////////////////     

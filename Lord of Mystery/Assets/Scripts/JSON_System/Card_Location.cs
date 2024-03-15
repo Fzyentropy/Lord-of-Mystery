@@ -20,9 +20,10 @@ public class Card_Location
     public int Time;
     
     // 临时，用于 prototype，模拟其他卡功能
-    public bool Auto_Start;
-    public bool Moveable;
-    public bool Repeatable;
+    public bool Auto_Start;     // 自动开始倒计时
+    public bool Repeatable;     // 是否重复
+    public bool Stable;       // 是否可以移动
+    public bool isSequence;     // 是否是序列
 
     public Body_Part_Data Require_Body_Part;
     public Resource_Data Require_Resource;

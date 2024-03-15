@@ -23,6 +23,8 @@ public class Card_Location_Feature : MonoBehaviour
     public TMP_Text card_label;                 // 卡牌的 label，名称
     public SpriteRenderer card_image_mask;      // 卡牌的 image mask，遮罩
     public SpriteRenderer card_shadow;          // 卡牌的 shadow 阴影
+
+    public GameObject line_to_next;         // 临时，表示 Sequence 链接下一个 sequence 的线
     
     // Panel 相关
     [Header("panel relevance")]
@@ -149,11 +151,24 @@ public class Card_Location_Feature : MonoBehaviour
     // 初始化卡牌图片和描述，根据 _cardlocation 实例中的数据设置相关参数
     void Initialize_Card()      
     {
+        if (_cardLocation.isSequence)
+        {
+            card_frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/Sequence_Frame");
+        }
         card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
         use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
 
         gameObject.name = _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
+
+        
+        if (_cardLocation.isSequence)    // 临时， 如果是 Sequence，则设置 Sequence 的位置到 Sequence_Location_X, X根据 Game Manager中的 current Rank 设置
+        {
+            gameObject.transform.position =
+                GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position;
+
+            line_to_next.SetActive(true);       // 将 指向下一个 sequence 的线 显示
+        }
     }
 
     void Initialize_Card_Resource()
@@ -230,7 +245,7 @@ public class Card_Location_Feature : MonoBehaviour
         // if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
         {
 
-            GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+            
             // Clear_Highlight_Collider();                             // 取消高亮
             isHighlight = false; // 取消高亮
 
@@ -240,13 +255,18 @@ public class Card_Location_Feature : MonoBehaviour
             IncreaseOrderInLayer();
 
 
-            // 如果鼠标移动，卡牌随之移动
-            // float mouse_drag_sensitivity = 0.05f;
-            Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) -
-                            Camera.main.ScreenToWorldPoint(lastMousePosition);
-            delta.z = 0;
-            gameObject.transform.position += delta;
-            lastMousePosition = Input.mousePosition;
+            // 如果鼠标移动，卡牌随之移动        // 临时，如果 Moveable 才可以移动，为了临时代替 序列 Sequence
+            if (!_cardLocation.Stable)
+            {
+                // float mouse_drag_sensitivity = 0.05f;
+                GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+                Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) -
+                                Camera.main.ScreenToWorldPoint(lastMousePosition);
+                delta.z = 0;
+                gameObject.transform.position += delta;
+                lastMousePosition = Input.mousePosition;
+            }
+            
         }
 }
 
@@ -729,12 +749,12 @@ public class Card_Location_Feature : MonoBehaviour
         {
             // 等待 timeInterval时间长度 - 0.05 秒
             yield return new WaitForSeconds(timeInterval);
-            remainingTime -= timeInterval;
+            remainingTime -= timeInterval * GameManager.GM.InputManager.Time_X_Speed;     // 加入时间加速参数！！
 
             // 更新进度条和时间显示
             float progress = (totalTime - remainingTime) / totalTime;
             progress_bar_root.transform.localScale = new Vector3(progress, originalScale.y, originalScale.z);
-            countdown_text.text = $"{remainingTime:0.0} S";
+            countdown_text.text = $"{remainingTime:0.0} s";
         }
         
         
@@ -877,14 +897,14 @@ public class Card_Location_Feature : MonoBehaviour
                     Draw_New_Card_Location();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Level_Up_From_10_To_9")
                 {
-                    
+                    Level_Up_From_10_To_9();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Get_Level_Up_Sequence_10_9")
                 {
-                    
+                    Get_Level_Up_Sequence_10_9();
                 }
                 
                 if (special_effect == "")
@@ -951,15 +971,31 @@ public class Card_Location_Feature : MonoBehaviour
         {
             //获取一个随机的 且 匹配当前 rank 和 occupation 的 card location 的 id
             string random_card_location_id = GameManager.GM.Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation();
-            
-            GameManager.GM.Generate_Card_Location(random_card_location_id,
-                new Vector3(
-                    gameObject.transform.position.x,
-                    gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
-                    gameObject.transform.position.z));
+
+            if (random_card_location_id != "")
+            {
+                GameManager.GM.Generate_Card_Location(random_card_location_id,
+                    new Vector3(
+                        gameObject.transform.position.x,
+                        gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                        gameObject.transform.position.z));
+            }
             
             GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
         }
+    }
+
+    void Level_Up_From_10_To_9()
+    {
+        GameManager.GM.Generate_Card_Location("Sequence_9_Fortune_Teller", GameObject.Find("Sequence_Location_9").transform.position);
+        GameManager.GM.Current_Rank = 9;
+        Destroy(gameObject);
+    }
+
+    void Get_Level_Up_Sequence_10_9()
+    {
+        GameManager.GM.Generate_Card_Location("Level_Up_Sequence_10_9", GameObject.Find("Sequence_Location_9").transform.position);
+        
     }
     
     

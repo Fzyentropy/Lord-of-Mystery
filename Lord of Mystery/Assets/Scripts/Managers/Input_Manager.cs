@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -15,6 +16,8 @@ public class Input_Manager : MonoBehaviour
 
     public float CameraScrollOffset = 3f;
     public float CameraMoveOffset = 0.05f;
+
+    public float Time_X_Speed = 1f;
 
     // public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
     // public static GameObject panelReference;        // 打开的 Panel 的引用
@@ -40,6 +43,8 @@ public class Input_Manager : MonoBehaviour
         MouseScroll();
         MouseLogic();
         // CheckRayCast();
+        
+        Hold_F_To_Speed_Up();
     }
 
     /////////////////////////////////////////////////////////////////////////
@@ -85,6 +90,19 @@ public class Input_Manager : MonoBehaviour
             raycast_top_object = topGameObject;
             
             Debug.Log("射线检测层级： " + col); // debug
+        }
+    }
+
+
+    void Hold_F_To_Speed_Up()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            Time_X_Speed = 4f;
+        }
+        else
+        {
+            Time_X_Speed = 1f;
         }
     }
 
