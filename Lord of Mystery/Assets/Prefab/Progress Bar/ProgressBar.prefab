@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 1231611315087671105}
   - component: {fileID: 2447981148431979198}
   m_Layer: 0
-  m_Name: prgsBar
+  m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

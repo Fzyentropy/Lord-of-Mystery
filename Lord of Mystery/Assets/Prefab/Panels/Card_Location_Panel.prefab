@@ -1617,7 +1617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3448076680825464197}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: -0.285, z: 0}
+  m_LocalPosition: {x: 0.05, y: -0.445, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2544,6 +2544,37 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 2614282058951909716}
   m_maskType: 0
+--- !u!1 &5770106254709256730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 165869333033479489}
+  m_Layer: 9
+  m_Name: Progress_Bar_Location
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &165869333033479489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5770106254709256730}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.86, y: -0.84, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8120621837250317852}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5853983884714807017
 GameObject:
   m_ObjectHideFlags: 0
@@ -2605,6 +2636,7 @@ Transform:
   m_Children:
   - {fileID: 6860016184881081483}
   - {fileID: 1841019851690737460}
+  - {fileID: 165869333033479489}
   m_Father: {fileID: 8673821900251910867}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4009,6 +4041,11 @@ MonoBehaviour:
   panel_section_body_part: {fileID: 9218694279620875963}
   panel_section_without_body_part: {fileID: 5899824736913069985}
   start_button: {fileID: 5935870856679376324}
+  progress_bar_prefab: {fileID: 6519039351980061584, guid: 492e65e36d4a07446a136084298adca3, type: 3}
+  progress_bar: {fileID: 0}
+  progress_bar_root: {fileID: 0}
+  progress_bar_position: {fileID: 5770106254709256730}
+  countdown_text: {fileID: 0}
   resource_1_amount_text: {fileID: 5714225140950797527}
   resource_2_amount_text: {fileID: 4233934900282109203}
   resource_3_amount_text: {fileID: 4020610378920115196}
@@ -4024,10 +4061,6 @@ MonoBehaviour:
   current_resource_4_amount: 0
   resource_5_amount: -1
   current_resource_5_amount: 0
-  is_body_part_1_filled: 0
-  is_body_part_2_filled: 0
-  is_body_part_3_filled: 0
-  is_body_part_4_filled: 0
   Button_Fund: {fileID: 3953027631342908348, guid: 45eeb0305dc84cc46a5888d81afb402a, type: 3}
   Button_Physical_Energy: {fileID: 8069154514472205973, guid: d30949d4fb6028a48b7366813c3c519c, type: 3}
   Button_Spirit: {fileID: 5722414193232788536, guid: c042d612106de164cbd2b90b9781de5f, type: 3}

@@ -21,8 +21,17 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject panel_section_without_body_part;      // 没有 body part 的 section，手动拖拽
     public GameObject start_button;      // 此 panel 上的 start button   
     
+    // 进度条
+    [Header("Progress Bar")]
+    public GameObject progress_bar_prefab;        // 进度条 prefab
+    [HideInInspector]public GameObject progress_bar;               // 进度条 指代
+    [HideInInspector]public GameObject progress_bar_root;          // 进度条方块的根 指代
+    public GameObject progress_bar_position;      // 进度条位置标记 空物体
+    [HideInInspector]public TMP_Text countdown_text;               // 显示秒数文本
+    
 
     [Space(5)] 
+    [Header("Resource Text")]
     public TMP_Text resource_1_amount_text;         // 场景中各资源对应的 TMP_text 数量文本
     public TMP_Text resource_2_amount_text;
     public TMP_Text resource_3_amount_text;
@@ -42,6 +51,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public Dictionary<int, bool> currentlyAbosorbedBodyPartSlots;       // 用于记录body part的各个slot是否已经吸收, int:槽位编号, bool:是否已经吸收body part (true: 吸收了, false: 没吸收)
     public Dictionary<int, GameObject> absorbedBodyPartGameObjects;     // 用于记录 已经吸收的 body part 的 Game Object，方便访问
 
+    [Header("Resource Amount")]
     public int resource_1_amount = -1;                 // resource_X_amount 用于记录该资源需要消耗的 总数
     public int current_resource_1_amount = 0;          // current_resource_X_amount 用于记录 panel 当前吸收的资源数量
     public int resource_2_amount = -1;
@@ -52,11 +62,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public int current_resource_4_amount = 0;
     public int resource_5_amount = -1;
     public int current_resource_5_amount = 0;
-    
-    public bool is_body_part_1_filled = false;         // 是否用 body part 填充了
-    public bool is_body_part_2_filled = false;
-    public bool is_body_part_3_filled = false;
-    public bool is_body_part_4_filled = false;
+
     
     // Panel Status
     private bool is_resource_ok;
@@ -165,83 +171,125 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             } 
         }
 
-        // 根据上方的检查结果，设置 section 是否出现以及位置
-        
-        if (isRequireBodyParts) // 根据是否需要 body part，设置 start button 所在的 section，粗或细
-        {
-            panel_section_body_part.SetActive(true);
-            start_button.transform.parent = panel_section_body_part.transform;
-            start_button.transform.localPosition =
-                GameObject.Find("Start_Button_Location_With_BodyParts").transform.localPosition;
-        }
-        else
+
+
+        if (attached_card_location_feature.is_counting_down)        // 如果在 Count down，则 显示倒计时
         {
             panel_section_without_body_part.SetActive(true);
             start_button.transform.parent = panel_section_without_body_part.transform;
             start_button.transform.localPosition =
                 GameObject.Find("Start_Button_Location_Without_BodyParts").transform.localPosition;
-        }
-        
-        if (isRequireResource)  // 如果有 required resource, 则需要 resource section，相应地设置 resource section 和 body part section 的位置
-        {
-            panel_section_resource.SetActive(true);
-            panel_section_resource.transform.localPosition = GameObject.Find("Section_Location_Description_End").transform.localPosition;
-            if (isRequireBodyParts)
-            {
-                panel_section_body_part.transform.localPosition =
-                    GameObject.Find("Section_Location_Resource_End").transform.localPosition;
-            }
-            else
-            {
-                panel_section_without_body_part.transform.localPosition =
-                    GameObject.Find("Section_Location_Resource_End").transform.localPosition;
-            }
-        }
-        else    // 如果不需要 required resource, 则设置 body part section 的位置
-        {
-            if (isRequireBodyParts)
-            {
-                panel_section_body_part.transform.localPosition =
-                    GameObject.Find("Section_Location_Description_End").transform.localPosition;
-            }
-            else
-            {
-                panel_section_without_body_part.transform.localPosition =
-                    GameObject.Find("Section_Location_Description_End").transform.localPosition;
-            }
-        }
-        
-
-        if (requiredResourcesThisPanel.Count > 0)   // 如果需要消耗 resource，则根据需要的 resource 生成 resource 按钮
-        {
-            Set_Resource_Button();    
-        }
-
-        if (requiredBodyPartsThisPanel.Count > 0)         // 如果需要消耗 body part，则根据需要的 body part 生成 body part 的槽位
-        {
-            Set_Body_Part_Slots();       
-        }
-
-        
-        /*if (attached_card_location_feature.produce_resources.Count > 0)        // 显示 Effect Description，生产多少资源
-        {
-            string effect_text = "";
             
-            foreach (var resource in attached_card_location_feature.produce_resources)
+            // 实例化 进度条 prefab
+            progress_bar = Instantiate(progress_bar_prefab, transform.position, Quaternion.identity);
+            progress_bar.transform.parent = panel_section_without_body_part.transform;
+            progress_bar.transform.localPosition = progress_bar_position.transform.localPosition;
+            progress_bar_root = progress_bar.transform.Find("Bar_Root").gameObject;
+            countdown_text = progress_bar.GetComponentInChildren<TMP_Text>();
+
+            StartCoroutine(panel_progress_bar_sync());
+
+        }
+        
+        else          // 如果没在 Countdown，则正常设置 panel sections
+        
+        {
+            // 根据上方的检查结果，设置 section 是否出现以及位置
+
+            if (isRequireBodyParts) // 根据是否需要 body part，设置 start button 所在的 section，粗或细
             {
-                if (resource.Value != 0)
+                panel_section_body_part.SetActive(true);
+                start_button.transform.parent = panel_section_body_part.transform;
+                start_button.transform.localPosition =
+                    GameObject.Find("Start_Button_Location_With_BodyParts").transform.localPosition;
+            }
+            else
+            {
+                panel_section_without_body_part.SetActive(true);
+                start_button.transform.parent = panel_section_without_body_part.transform;
+                start_button.transform.localPosition =
+                    GameObject.Find("Start_Button_Location_Without_BodyParts").transform.localPosition;
+            }
+
+            if (isRequireResource) // 如果有 required resource, 则需要 resource section，相应地设置 resource section 和 body part section 的位置
+            {
+                panel_section_resource.SetActive(true);
+                panel_section_resource.transform.localPosition =
+                    GameObject.Find("Section_Location_Description_End").transform.localPosition;
+                if (isRequireBodyParts)
                 {
-                    effect_text += resource.Key + " x " + resource.Value + " ";
+                    panel_section_body_part.transform.localPosition =
+                        GameObject.Find("Section_Location_Resource_End").transform.localPosition;
+                }
+                else
+                {
+                    panel_section_without_body_part.transform.localPosition =
+                        GameObject.Find("Section_Location_Resource_End").transform.localPosition;
                 }
             }
-            
-            if (effect_text != "")
-                panel_effect_description.text = "Produce: " + effect_text;
-        }*/
+            else // 如果不需要 required resource, 则设置 body part section 的位置
+            {
+                if (isRequireBodyParts)
+                {
+                    panel_section_body_part.transform.localPosition =
+                        GameObject.Find("Section_Location_Description_End").transform.localPosition;
+                }
+                else
+                {
+                    panel_section_without_body_part.transform.localPosition =
+                        GameObject.Find("Section_Location_Description_End").transform.localPosition;
+                }
+            }
+
+
+            if (requiredResourcesThisPanel.Count > 0) // 如果需要消耗 resource，则根据需要的 resource 生成 resource 按钮
+            {
+                Set_Resource_Button();
+            }
+
+            if (requiredBodyPartsThisPanel.Count > 0) // 如果需要消耗 body part，则根据需要的 body part 生成 body part 的槽位
+            {
+                Set_Body_Part_Slots();
+            }
+
+
+            /*if (attached_card_location_feature.produce_resources.Count > 0)        // 显示 Effect Description，生产多少资源
+            {
+                string effect_text = "";
+                
+                foreach (var resource in attached_card_location_feature.produce_resources)
+                {
+                    if (resource.Value != 0)
+                    {
+                        effect_text += resource.Key + " x " + resource.Value + " ";
+                    }
+                }
+                
+                if (effect_text != "")
+                    panel_effect_description.text = "Produce: " + effect_text;
+            }*/
+        }
         
 
         isPanelWellSet = true;
     }
+
+    IEnumerator panel_progress_bar_sync()
+    {
+        while (true)
+
+        {
+            if (progress_bar != null)
+            {
+                progress_bar_root.transform.localScale =
+                    attached_card_location_feature.progress_bar_root.transform.localScale;
+                countdown_text.text = attached_card_location_feature.countdown_text.text;
+            }
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+    
 
     public void Set_Resource_Button()       // 具体方法 ：实例化 resource button，并设置 消耗资源的参数
     {

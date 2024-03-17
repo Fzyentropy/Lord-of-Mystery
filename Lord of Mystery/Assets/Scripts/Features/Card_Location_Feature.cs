@@ -41,10 +41,10 @@ public class Card_Location_Feature : MonoBehaviour
     
     // 进度条
     public GameObject progress_bar_prefab;        // 进度条 prefab
-    public GameObject progress_bar;               // 进度条 指代
-    public GameObject progress_bar_root;          // 进度条方块的根 指代
+    [HideInInspector]public GameObject progress_bar;               // 进度条 指代
+    [HideInInspector]public GameObject progress_bar_root;          // 进度条方块的根 指代
     public GameObject progress_bar_position;      // 进度条位置标记 空物体
-    public TMP_Text countdown_text;               // 显示秒数文本
+    [HideInInspector]public TMP_Text countdown_text;               // 显示秒数文本
     
 
     // Requirement 触发条件 字典集 包括 resources 和 body part
@@ -764,6 +764,15 @@ public class Card_Location_Feature : MonoBehaviour
         
         // 如果需要 body part，则吐出用完的 body part
         Return_BodyParts_After_Progress();
+        
+        
+        // 如果倒计时结束时 panel 开着，则也关闭 panel
+        if (GameManager.GM.PanelManager.isPanelOpen
+            && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()
+                .attached_card_location_feature == this)
+        {
+            GameManager.GM.PanelManager.Close_Current_Panel();
+        }
 
         // 触发卡牌效果
         Trigger_Card_Effects();
