@@ -118,10 +118,15 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
 
     private void Update()
-    { 
-        Update_Resource_Number();
-        Check_If_Absorb_All_Resource();
-        Check_If_Absorb_All_BodyParts();
+    {
+        
+        if (!attached_card_location_feature.is_counting_down)    // 如果不在 countdown，则检测
+        {
+            Update_Resource_Number();
+            Check_If_Absorb_All_Resource();
+            Check_If_Absorb_All_BodyParts();
+        }
+        
         Set_Start_Button_Availablitity();
 
     }

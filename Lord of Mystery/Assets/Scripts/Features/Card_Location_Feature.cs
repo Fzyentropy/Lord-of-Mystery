@@ -46,6 +46,8 @@ public class Card_Location_Feature : MonoBehaviour
     public GameObject progress_bar_position;      // 进度条位置标记 空物体
     [HideInInspector]public TMP_Text countdown_text;               // 显示秒数文本
     
+    // 显示 吸收的 body part icon
+    public GameObject root_of_absorbed_body_part_icon;
 
     // Requirement 触发条件 字典集 包括 resources 和 body part
     public Dictionary<string, int> required_resources;      // 要消耗的 resources
@@ -550,15 +552,21 @@ public class Card_Location_Feature : MonoBehaviour
 
             if (bodyPartFeature != null)            // 且如果 dragging Object 是 body part，通过检测是否存在 body part feature 判断
             {
-                
-                if (GameManager.GM.PanelManager.isPanelOpen &&      // 如果 panel 打开着
-                    GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null &&    // 如果打开的 panel 是个 card location panel 
-                    GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject &&  // 如果打开这个 panel 的卡是 这张卡
-                    GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().
-                        Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) > 0)     // 传入当前拖拽的 body part 的类型 string)  
+
+                if (GameManager.GM.PanelManager.isPanelOpen) // 如果 panel 打开着
                 {
-                    return true;
+                    if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() !=
+                        null && // 如果打开的 panel 是个 card location panel 
+                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()
+                            .attached_card == gameObject && // 如果打开这个 panel 的卡是 这张卡
+                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()
+                            .Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) >
+                        0) // 传入当前拖拽的 body part 的类型 string))
+                    {
+                        return true;
+                    }
                 }
+                
                 else        // 如果 panel 没打开，则直接检测 dictionary 是否标记了需要这个 type 的 body part
                 {
                     foreach (var bodyPart in required_body_parts)
@@ -720,6 +728,7 @@ public class Card_Location_Feature : MonoBehaviour
     public void Start_Countdown()
     {
         StartCoroutine(Counting_Down_For_Card_Effect());
+        Show_Absorbed_Body_Part_Icon_On_Side();
     }
     
     
@@ -765,6 +774,8 @@ public class Card_Location_Feature : MonoBehaviour
         // 如果需要 body part，则吐出用完的 body part
         Return_BodyParts_After_Progress();
         
+        // 消除 卡牌右侧的 吸收的 body part icon
+        Hide_Absorbed_Body_Part_Icon_On_Side();
         
         // 如果倒计时结束时 panel 开着，则也关闭 panel
         if (GameManager.GM.PanelManager.isPanelOpen
@@ -784,6 +795,72 @@ public class Card_Location_Feature : MonoBehaviour
         }
     }
 
+
+    void Show_Absorbed_Body_Part_Icon_On_Side()
+    {
+
+        root_of_absorbed_body_part_icon = new GameObject("Root_Of_Body_Part_Icons");
+        root_of_absorbed_body_part_icon.transform.parent = this.transform;
+
+        int icon_counter = 1;
+        float icon_image_scale = 0.33f;
+
+        foreach (var bodyPart in required_body_parts)
+        {
+            if (bodyPart.Value > 0)
+            {
+                // 每一个 value 都生成 icon
+                for (int i = bodyPart.Value; i > 0; i--)
+                {
+                    GameObject icon = new GameObject("Icon"+icon_counter);
+                    icon.AddComponent<SpriteRenderer>();
+                    
+                    
+                    if (bodyPart.Key == "Physical_Body")        // 寻找 Physical Body icon
+                    {
+                        icon.GetComponent<SpriteRenderer>().sprite =
+                            Resources.Load<Sprite>("Image/Image_Physical_Body");
+                    }
+                    if (bodyPart.Key == "Spirit")        // 寻找 Spirit icon
+                    {
+                        icon.GetComponent<SpriteRenderer>().sprite =
+                            Resources.Load<Sprite>("Image/Image_Spirit");
+                    }
+                    if (bodyPart.Key == "Psyche")        // 寻找 Psyche icon
+                    {
+                        icon.GetComponent<SpriteRenderer>().sprite =
+                            Resources.Load<Sprite>("Image/Image_Psyche");
+                    }
+                    
+
+                    icon.transform.localScale = new Vector3(                    // 调整图片 scale
+                        icon_image_scale * icon.transform.localScale.x,
+                        icon_image_scale * icon.transform.localScale.y,
+                        icon.transform.localScale.z);
+
+                    icon.transform.parent = gameObject.transform;       // 变成此卡的子物体
+                    
+                    icon.transform.localPosition =
+                        GameObject.Find("Body_Part_Location_" + icon_counter).transform.localPosition;   // 调整位置
+                    
+                    icon.transform.parent = root_of_absorbed_body_part_icon.transform;      // 变成 root 的子物体
+                    
+                    icon_counter++;     // 计数 +1
+
+
+                }
+            }
+        }
+
+
+    }
+
+
+    void Hide_Absorbed_Body_Part_Icon_On_Side()     
+    {
+        Destroy(root_of_absorbed_body_part_icon);
+
+    }
     
     
     public void Start_Countdown_If_Auto()       // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic

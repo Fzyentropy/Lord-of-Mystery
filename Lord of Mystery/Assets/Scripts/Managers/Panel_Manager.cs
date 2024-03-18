@@ -99,9 +99,10 @@ public class Panel_Manager : MonoBehaviour
         }
         
         Destroy(current_panel);
-        
-        // 在此处添加 任何处理 有关返还资源的
-        
+        GameManager.GM.PanelManager.current_panel = null;
+        GameManager.GM.PanelManager.isPanelOpen = false;        // 重新设置 panel 是否打开 为否
+
+
     }
     
     

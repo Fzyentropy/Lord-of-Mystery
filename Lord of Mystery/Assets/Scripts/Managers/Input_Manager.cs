@@ -156,7 +156,7 @@ public class Input_Manager : MonoBehaviour
                 if (GameManager.GM.PanelManager.current_panel != null)    // 如果已经有 panel 打开，则关闭 panel
                 {
                     GameManager.GM.PanelManager.Close_Current_Panel();      // 调用 panel manager 中的销毁 panel 方法
-                    GameManager.GM.PanelManager.isPanelOpen = false;        // 重新设置 panel 是否打开 为否
+ 
                 }
             }
 
