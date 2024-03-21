@@ -215,6 +215,12 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 start_button.transform.localPosition =
                     GameObject.Find("Start_Button_Location_Without_BodyParts").transform.localPosition;
             }
+            
+            start_button.transform.localPosition = new Vector3(         // 调整 start button z轴坐标 -1
+                start_button.transform.localPosition.x,
+                start_button.transform.localPosition.y,
+            start_button.transform.localPosition.z -1);
+            
 
             if (isRequireResource) // 如果有 required resource, 则需要 resource section，相应地设置 resource section 和 body part section 的位置
             {

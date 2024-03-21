@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class Message_FadeInFadeOut : MonoBehaviour
+public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
 {
     public float fadeInDuration = 1.0f;
     public float fadeOutDuration = 1.0f;
@@ -12,6 +14,9 @@ public class Message_FadeInFadeOut : MonoBehaviour
     private CanvasGroup canvasGroup;
     
     private bool ableToClick = false;  // 防止点击一下 panel 生成后直接消失
+    
+    // Mis
+    
  
     void Start()
     {
@@ -22,15 +27,29 @@ public class Message_FadeInFadeOut : MonoBehaviour
         }
 
         originalPosition = transform.localPosition;
+        
+        
+        
+
         StartCoroutine(FadeIn());
     }
+    
+    
 
     IEnumerator FadeIn()
     {
+        
+        if (GameManager.GM.PanelManager.current_message != null)
+        {
+            StartCoroutine(GameManager.GM.PanelManager.current_message.FadeOut());
+        }
+
         // Move the object to the right
         Vector3 startPosition = originalPosition + Vector3.right * moveDistance;
         transform.localPosition = startPosition;
         float elapsedTime = 0;
+
+        // yield return new WaitUntil(() => GameManager.GM.PanelManager.current_message == null);
 
         while (elapsedTime < fadeInDuration)
         {
@@ -45,18 +64,16 @@ public class Message_FadeInFadeOut : MonoBehaviour
         transform.localPosition = originalPosition;
 
         ableToClick = true;
+
+        GameManager.GM.PanelManager.current_message = this;
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0) && ableToClick) // Left mouse button
-        {
-            StartCoroutine(FadeOut());
-        }
-    }
+    
 
     IEnumerator FadeOut()
     {
+        GameManager.GM.PanelManager.current_message = null;
+        
         Vector3 endPosition = originalPosition - Vector3.right * moveDistance;
         float elapsedTime = 0;
 
@@ -68,7 +85,15 @@ public class Message_FadeInFadeOut : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
+        
         Destroy(gameObject);
+        
+    }
+
+
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        StartCoroutine(FadeOut());
     }
 }

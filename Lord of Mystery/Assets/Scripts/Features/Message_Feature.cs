@@ -22,10 +22,16 @@ public class Message_Feature : MonoBehaviour
             throw new NotImplementedException();
         }
 
+        Set_Message();
+
+    }
+
+    void Set_Message()
+    {
         message_label.text = _message.Label;
         message_image.sprite = Resources.Load<Sprite>("Image/" + _message.Image);
         message_content.text = _message.Message_Content;
-
+        
     }
     
 }

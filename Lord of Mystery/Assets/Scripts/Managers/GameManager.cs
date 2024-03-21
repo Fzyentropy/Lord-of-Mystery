@@ -54,8 +54,16 @@ public class GameManager : MonoBehaviour
         Set_Player_Owned_Cards();           // 设置玩家当前拥有的卡牌
         Set_Counters();                 // 设置各种计数器
     }
-    
-    
+
+    private void Update()
+    {
+        foreach (var car in Get_Card_Location_Ids_Based_On_Rank_And_Occupation())
+        {
+            Debug.Log(car + "\n");
+        }
+    }
+
+
     /////////////////////////////////////////////////////////////////////////////////////////   Initial Set up
     
     // 设置 GM 为 static 唯一 GameManager
@@ -110,13 +118,15 @@ public class GameManager : MonoBehaviour
     
 
 
-    public void Generate_Card_Location(string id, Vector3 position)   // 实例化 Card_Location， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
+    public GameObject Generate_Card_Location(string id, Vector3 position)   // 实例化 Card_Location， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
     {
         GameObject cardLocation = Instantiate(Card_Location_Prefab, position, Quaternion.identity);    
         cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id); 
         
         // 将添加的 card location 的 Id string 记录到 Player Owned Card list 里面
         Player_Owned_Card_Location_List.Add(id);
+
+        return cardLocation;
     }
     
     public void Generate_Message(string id)     // 实例化 message，根据 id 从 Card_Loader 中的 message list 中找到 message 实例，并赋予生成的 message prefab
@@ -163,9 +173,16 @@ public class GameManager : MonoBehaviour
     {
         List<string> list_of_id = Get_Card_Location_Ids_Based_On_Rank_And_Occupation();
         
-        int index = random.Range(0, list_of_id.Count - 1);
+        // 检查是否所有卡牌都不可抽取
+        if (All_Cards_Owned_And_Only(list_of_id))
+        {
+            Debug.Log("所有卡牌都已被拥有且为'Only'，无法抽取新卡牌。");
+            return ""; // 没有可抽取的卡牌
+        }
+        
+        int index = random.Range(0, list_of_id.Count);
 
-        int counter = 0;    // 非常蠢的 while 循环计数 counter
+        // int counter = 0;    // 非常蠢的 while 循环计数 counter
         
         
         // 判定新抽的卡牌是不是 已经拥有的并且是 Only 属性的卡牌，是则重新抽取
@@ -180,10 +197,10 @@ public class GameManager : MonoBehaviour
                     break;
                 }
 
-                if (counter > 5)       // 如果已经循环抽了了 20次卡，说明真的抽不到了，就 break
+                /*if (counter > 5)       // 如果已经循环抽了了 20次卡，说明真的抽不到了，就 break
                 {
                     return "";
-                }
+                }*/
                 
             
                 while (true)
@@ -207,10 +224,10 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        index = random.Range(0, list_of_id.Count - 1);      // 重新抽一张
+                        index = random.Range(0, list_of_id.Count);      // 重新抽一张
                     }
 
-                    counter++;      // 计个数
+                    // counter++;      // 计个数
 
                 }
             
@@ -222,6 +239,22 @@ public class GameManager : MonoBehaviour
         return list_of_id[index];
 
     }
+    
+    bool All_Cards_Owned_And_Only(List<string> list_of_id)
+    {
+        foreach (var id in list_of_id)
+        {
+            var card = CardLoader.Get_Card_Location_By_Id(id);
+            if (!Player_Owned_Card_Location_List.Contains(id) || !card.Only)
+            {
+                // 找到了至少一个卡牌不是已拥有的Only卡牌
+                return false;
+            }
+        }
+        // 所有卡牌都已被拥有且为Only
+        return true;
+    }
+
 
 
 

@@ -79,6 +79,13 @@
             "Message_Content": "In the allure of the night, I arrived in the Kingdom of Loen. There, I encountered a seer who claimed I was one of destiny's chosen. She expressed a desire to divine my future, shrouded in the mystique of the unknown."
 
         },
+        {
+            "Id": "Death",
+            "Label": "Death",
+            "Image": "Image_Death",
+            "Message_Content": "A shadow creeps over my thoughts, whispering of realms beyond mortal comprehension. I feel a specter veiled in mystery, beckons with its ethereal touch. \n \n [ If Death reaches its maximum, the game will be over. ] "
+
+        },
 
 
 

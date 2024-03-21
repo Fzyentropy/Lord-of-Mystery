@@ -350,6 +350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4087611380995272863}
   - component: {fileID: 1829982624761540592}
+  - component: {fileID: 4780091209478492306}
   m_Layer: 0
   m_Name: Death_Bar
   m_TagString: Untagged
@@ -393,6 +394,32 @@ MonoBehaviour:
   death_number_text: {fileID: 3442654136576247932}
   empty_position_y: -7.75
   full_position_y: 3.63
+--- !u!61 &4780091209478492306
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087611380995272862}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.010275602, y: 5.017236}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.4315753, y: 11.459243}
+  m_EdgeRadius: 0
 --- !u!1 &8368413753845631085
 GameObject:
   m_ObjectHideFlags: 0

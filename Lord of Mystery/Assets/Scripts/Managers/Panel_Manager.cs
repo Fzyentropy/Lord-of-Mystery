@@ -24,7 +24,7 @@ public class Panel_Manager : MonoBehaviour
     public GameObject current_panel;
 
     // message 指代
-    
+    public Message_FadeInFadeOut current_message;
     
     // 数值参数
     public Vector3 panel_original_scale = Vector3.one;

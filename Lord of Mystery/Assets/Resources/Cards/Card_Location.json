@@ -113,11 +113,6 @@
             {
                 "Physical_Energy": 3
             },
-
-            "Produce_Message":
-            [
-                "Born"
-            ],
             
             "Produce_Card_Location":
             [
@@ -409,9 +404,9 @@
             }
         },
         {
-            "Id": "Buy_A_Piece_Of_White_Bread",
-            "Label": "Buy a Piece of White Bread",
-            "Image": "Image_Buy_A_Piece_Of_White_Bread",
+            "Id": "White_Bread",
+            "Label": "White Bread",
+            "Image": "Image_White_Bread",
             "Description": "\"Time for some better food,\" I decide. A simple change, aiming for a bit of comfort in my routine.",
 
             "Rank": 10,

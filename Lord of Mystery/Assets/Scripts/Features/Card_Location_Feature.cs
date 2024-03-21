@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI; 
@@ -71,7 +72,7 @@ public class Card_Location_Feature : MonoBehaviour
     private bool yellow_highlight_bodypart_variable_switch = true;     // 用于让当前 card location 被 body part 重叠时，只在第一次重叠时传入此 card location feature 实例到 body part feature 的参数里
 
     float newCardLocationPositionXOffset = 8f;      // 生成新的 card location 的时候的 X Offset
-    float newCardLocationPositionYOffset = -8f;      // 生成新的 card location 的时候的 Y Offset
+    float newCardLocationPositionYOffset = 0;      // 生成新的 card location 的时候的 Y Offset
 
     private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
      
@@ -253,7 +254,7 @@ public class Card_Location_Feature : MonoBehaviour
 
 
             // 调整卡牌的渲染 layer，让其到最上面
-            gameObject.layer = LayerMask.NameToLayer("DraggingLayer"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+            
             IncreaseOrderInLayer();
 
 
@@ -612,6 +613,8 @@ public class Card_Location_Feature : MonoBehaviour
     
     public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
+        gameObject.layer = LayerMask.NameToLayer("DraggingLayer"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        
         card_frame.sortingLayerName = "Dragging";
         card_name_tag.sortingLayerName = "Dragging";
         card_image.sortingLayerName = "Dragging";
@@ -656,6 +659,8 @@ public class Card_Location_Feature : MonoBehaviour
     }
     public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
     {
+        gameObject.layer = LayerMask.NameToLayer("Card Location"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        
         card_frame.sortingLayerName = "Cards";
         card_name_tag.sortingLayerName = "Cards";
         card_image.sortingLayerName = "Cards";
@@ -831,7 +836,8 @@ public class Card_Location_Feature : MonoBehaviour
                         icon.GetComponent<SpriteRenderer>().sprite =
                             Resources.Load<Sprite>("Image/Image_Psyche");
                     }
-                    
+
+                    icon.GetComponent<SpriteRenderer>().sortingLayerName = "Cards";     // 调整 Sorting Layer
 
                     icon.transform.localScale = new Vector3(                    // 调整图片 scale
                         icon_image_scale * icon.transform.localScale.x,
@@ -951,14 +957,20 @@ public class Card_Location_Feature : MonoBehaviour
         {
             float XOffset = newCardLocationPositionXOffset;
 
+            float duration = 0.6f;
+
             foreach (var cardLocationString in _cardLocation.Produce_Card_Location)
             {
 
-                GameManager.GM.Generate_Card_Location(cardLocationString, 
-                    new Vector3(
+                GameObject card_location = GameManager.GM.Generate_Card_Location(cardLocationString, transform.position);
+
+                if (!GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).isSequence)
+                {
+                    card_location.transform.DOMove(new Vector3(
                         gameObject.transform.position.x + XOffset,
                         gameObject.transform.position.y + newCardLocationPositionYOffset,
-                        gameObject.transform.position.z));
+                        gameObject.transform.position.z), duration);
+                }
 
                 XOffset += newCardLocationPositionXOffset;
 
@@ -1041,13 +1053,15 @@ public class Card_Location_Feature : MonoBehaviour
     {
         if (GameManager.GM.Draw_New_Card_Location_Times == 0)   // 如果之前没抽过 card location，则抽取 A Menial Job
         {
-            GameManager.GM.Generate_Card_Location("A_Menial_Job", 
+            GameObject new_card_location = GameManager.GM.Generate_Card_Location("A_Menial_Job", 
                 new Vector3(
                     gameObject.transform.position.x,
                     gameObject.transform.position.y + newCardLocationPositionYOffset,      // 在下方 Y offset 的位置
                     gameObject.transform.position.z));
 
             GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+            
+            new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
         }
 
 
@@ -1065,9 +1079,15 @@ public class Card_Location_Feature : MonoBehaviour
                         gameObject.transform.position.x,
                         gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
                         gameObject.transform.position.z));
+                
+                GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+            }
+            else
+            {
+                Debug.Log("hi");
             }
             
-            GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+            
         }
     }
 

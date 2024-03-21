@@ -5066,6 +5066,7 @@ MonoBehaviour:
   infoPanelPrefab: {fileID: 8673821900251910866, guid: 8d7437142244d1a489ff64f75d994fac, type: 3}
   CameraScrollOffset: 3
   CameraMoveOffset: 0.05
+  Time_X_Speed: 1
   isClickOnObjects: 1
   Dragging_Object: {fileID: 0}
   raycast_top_object: {fileID: 0}
@@ -26468,7 +26469,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 18
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
