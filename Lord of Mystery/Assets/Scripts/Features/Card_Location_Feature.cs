@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 using random = UnityEngine.Random;
 // using UnityEngine.UIElements;
 
@@ -93,10 +94,9 @@ public class Card_Location_Feature : MonoBehaviour
         Initialize_Card();      // 设置卡牌 label，image，初始化卡牌使用次数，等设置
         Initialize_Card_Resource();     // 根据 Card_Location 实例设置 3个字典 - 消耗的resource，消耗的body part，生产的resource
 
-        
         StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
-
-        Start_Countdown_If_Auto();
+        
+        Trigger_Any_Start_Effects();        // 如果有任何生成时就要发动的效果，就集成在这里
     }
 
     
@@ -165,12 +165,19 @@ public class Card_Location_Feature : MonoBehaviour
         gameObject.name = _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
 
         
+        
         if (_cardLocation.isSequence)    // 临时， 如果是 Sequence，则设置 Sequence 的位置到 Sequence_Location_X, X根据 Game Manager中的 current Rank 设置
         {
-            gameObject.transform.position =
-                GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position;
+            // gameObject.transform.position =
+            //     GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position;
 
-            line_to_next.SetActive(true);       // 将 指向下一个 sequence 的线 显示
+            gameObject.transform.DOMove(
+                GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position, 0.5f);
+
+            if (_cardLocation.Id != "Flesh_And_Body")
+            {
+                line_to_next.SetActive(true);        // 将 指向下一个 sequence 的线 显示
+            } 
         }
     }
 
@@ -716,6 +723,13 @@ public class Card_Location_Feature : MonoBehaviour
         showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Body_Part_Based_On_Type(bodyPartToAbsorb);        // 调用 panel 中的方法
 
     }
+
+    public void Mother_Start()
+    {
+        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
+        Start_Countdown();
+    }
+    
     
     
 
@@ -869,10 +883,33 @@ public class Card_Location_Feature : MonoBehaviour
     }
     
     
-    public void Start_Countdown_If_Auto()       // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic
+    public void Trigger_Any_Start_Effects()       // 如果有任何生成时就要发动的效果，就集成在这里
     {
+        // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic
         if (_cardLocation.Auto_Start)       
             Start_Countdown();
+        
+        // 
+        if (_cardLocation.Start_Effect.Count > 0)
+        {
+            foreach (var start_effect in _cardLocation.Start_Effect)
+            {
+                if (start_effect == "Mother_Start")
+                {
+                    Mother_Start();
+                }
+                
+
+
+
+
+
+
+
+
+
+            }
+        }
     }
     
     

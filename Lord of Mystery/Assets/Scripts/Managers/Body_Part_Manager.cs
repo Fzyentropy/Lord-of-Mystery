@@ -32,6 +32,21 @@ public class Body_Part_Manager : MonoBehaviour
 
     /////////////////////////       Body Part 操作函数
 
+    public List<GameObject> Find_All_Body_Parts_On_Board()       // 找到 板子上所有的 body part，返回 它们的 Game Object
+    {
+        List<GameObject> bodyPartGameObject = new List<GameObject>() { };
+        
+        Card_Body_Part_Feature[] bodyParts = FindObjectsOfType<Card_Body_Part_Feature>();
+        
+        foreach (var body_part_feature in bodyParts)
+        {
+            bodyPartGameObject.Add(body_part_feature.gameObject);
+        }
+
+        return bodyPartGameObject;
+    }
+    
+    
     public void Generate_Body_Part_To_Board(string bodyPartString, Vector3 from, Vector3 To) // 生成 1个 对应类型的 body part，并运动
     {
         GameObject generatedBodyPart = null;

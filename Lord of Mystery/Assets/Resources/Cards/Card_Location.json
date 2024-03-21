@@ -9,7 +9,7 @@
             "Description": "card_description",
 
             "Rank": 9,
-            "Occupation": "Fortune_Teller",
+            "Occupation": "All",
 
             "Burn": false,
             "Use_Time": 2,
@@ -85,65 +85,6 @@
             "Produce_Special_Effect":
             [
                 "Realize_Flesh_And_Body"
-            ]
-
-        },
-        
-        {
-            "Id": "Loen",
-            "Label": "Loen",
-            "Image": "Image_Loen",
-            "Description": "The Kingdom of Loen, nestled in the northern reaches of the continent, where the people believe the Goddess of Night",
-
-            "Rank": -1,
-            "Occupation": "All",
-
-            "Burn": false,
-            "Use_Time": 1,
-            "Counter": -1,
-            "Only": true,
-            "Time": 10,
-
-            "Require_Body_Part":
-            {
-                "Physical_Body": 1
-            },
-
-            "Produce_Resource":
-            {
-                "Physical_Energy": 3
-            },
-            
-            "Produce_Card_Location":
-            [
-                "Mother",
-                "Flesh_And_Body"
-            ]
-
-        },
-        {
-            "Id": "The_Fortune_Teller",
-            "Label": "The Fortune Teller",
-            "Image": "Image_The_Fortune_Teller",
-            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
-
-            "Rank": 9,
-            "Occupation": "Fortune_Teller",
-
-            "Burn": false,
-            "Use_Time": -1,
-            "Counter": 1,
-            "Only": true,
-            "Time": 3,
-
-            "Require_Resource":
-            {
-                "Fund": 1
-            },
-
-            "Produce_Special_Effect":
-            [
-                "Draw_A_Tarot_Card"
             ]
 
         },
@@ -241,6 +182,65 @@
             }
         },
         {
+            "Id": "Loen",
+            "Label": "Loen",
+            "Image": "Image_Loen",
+            "Description": "The Kingdom of Loen, nestled in the northern reaches of the continent, where the people believe the Goddess of Night",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Counter": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": 3
+            },
+            
+            "Produce_Card_Location":
+            [
+                "Mother",
+                "Flesh_And_Body"
+            ]
+
+        },
+        {
+            "Id": "The_Fortune_Teller",
+            "Label": "The Fortune Teller",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+
+            "Rank": 9,
+            "Occupation": "Fortune_Teller",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Counter": 1,
+            "Only": true,
+            "Time": 3,
+
+            "Require_Resource":
+            {
+                "Fund": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+
+        },
+       
+        {
             "Id": "Mother",
             "Label": "Mother",
             "Image": "Image_Mother",
@@ -250,13 +250,22 @@
             "Occupation": "All",
 
             "Use_Time": 1,
-            "Time": 10,
-            "Auto_Start": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
 
             "Produce_Resource":
             {
                 "Fund": 5
             },
+
+            "Start_Effect":
+            [
+                "Mother_Start"
+            ],
 
             "Produce_Card_Location":
             [
@@ -268,7 +277,7 @@
             "Id": "Flesh_And_Body",
             "Label": "Level 10: Flesh Body",
             "Image": "Image_Flesh_And_Body",
-            "Description": "'No live organism can continue for long to exist sanely under conditions of absolute reality.' - Shirley Jackson \n\n [ This Level consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
+            "Description": "Within the confines of flesh and bone, no body can endure the unyielding force of realities without succumbing to the encroaching shadows of madness. \n\n [ This Level consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
 
             "Rank": -1,
             "Occupation": "All",

@@ -922,17 +922,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     public void Absorb_Body_Part_Based_On_Slot(int slot_number)
     {
-        
-        // 从板子上找到一个该 slot 对应类型的 body part卡，销毁它
-        Card_Body_Part_Feature[] bodyParts = FindObjectsOfType<Card_Body_Part_Feature>();
-        List<GameObject> bodyPartGameObject = new List<GameObject>() { };
-        foreach (var body_part_feature in bodyParts)
-        {
-            bodyPartGameObject.Add(body_part_feature.gameObject);
-        }
 
-        GameObject selected_body_part = bodyPartGameObject.Find(
-            game_object => game_object.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == requiredBodyPartsThisPanel[slot_number]);
+        GameObject selected_body_part = GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board().
+            Find(game_object => game_object.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == requiredBodyPartsThisPanel[slot_number]);
         
         
         // 调用 Merge 方法进行 merge 细节操作

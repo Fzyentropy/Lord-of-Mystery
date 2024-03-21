@@ -36,7 +36,7 @@ public class Event_Manager : MonoBehaviour
         while (true)
         {
             // 当 Fund 数量大于 10 的时候，触发 Private Soiree
-            if(GameManager.GM.ResourceManager.Fund >= 7   && !Event_Private_Soiree)  { Trigger_Private_Soiree(); }
+            if(GameManager.GM.ResourceManager.Fund >= 6   && !Event_Private_Soiree)  { Trigger_Private_Soiree(); }
 
 
 

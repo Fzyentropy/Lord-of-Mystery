@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2531330386329721010}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.27, y: 0, z: 0}
+  m_LocalPosition: {x: -4.18, y: 0, z: 0}
   m_LocalScale: {x: 3.0214062, y: 0.087501, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -401,6 +401,7 @@ MonoBehaviour:
   progress_bar_root: {fileID: 0}
   progress_bar_position: {fileID: 194552405214738341}
   countdown_text: {fileID: 0}
+  root_of_absorbed_body_part_icon: {fileID: 0}
   use_time_counter: 0
   LayerIndex: 0
   isHighlightYellow: 0

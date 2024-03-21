@@ -35,6 +35,7 @@ public class Card_Location
     public List<string> Produce_Card_Event;
     public List<string> Produce_Card_Location;
     public List<string> Produce_Special_Effect;
+    public List<string> Start_Effect;       // 刚生成时就发动的效果
 }
 
 
