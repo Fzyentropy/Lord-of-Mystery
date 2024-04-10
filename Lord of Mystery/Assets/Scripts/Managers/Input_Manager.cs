@@ -61,7 +61,9 @@ public class Input_Manager : MonoBehaviour
         }
     }
 
-    void CheckRayCast()
+    
+    // 用于检测是不是“第一个”被raycast到的方法，过时了，直接改 z轴
+    /*void CheckRayCast()           
     {
         Vector3 offsetVector = new Vector3(0, 0, 20);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -91,14 +93,14 @@ public class Input_Manager : MonoBehaviour
             
             Debug.Log("射线检测层级： " + col); // debug
         }
-    }
+    }*/
 
 
     void Hold_F_To_Speed_Up()
     {
         if (Input.GetKey(KeyCode.F))
         {
-            Time_X_Speed = 4f;
+            Time_X_Speed = 5f;
         }
         else
         {
@@ -150,7 +152,7 @@ public class Input_Manager : MonoBehaviour
             // 如果鼠标指针位置几乎没变，则可以视为点击，触发点击功能
             
             // 如果已经有 panel 打开，则关闭 panel
-            if ((Input.mousePosition - click_mouse_position).magnitude < 0.1 && !isClickOnObjects)
+            if ((Input.mousePosition - click_mouse_position).magnitude < 0.5 && !isClickOnObjects)
             {
                 // 点击
                 if (GameManager.GM.PanelManager.current_panel != null)    // 如果已经有 panel 打开，则关闭 panel

@@ -74,7 +74,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     [Header("Resource Button Prefab")] 
     public GameObject Button_Fund;
     public GameObject Button_Physical_Energy;
-    public GameObject Button_Spirit;
+    public GameObject Button_Spiritual_Energy;
     public GameObject Button_Soul;
     public GameObject Button_Spirituality_Infused_Material;
     public GameObject Button_Knowledge;
@@ -317,7 +317,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         foreach (var resource in requiredResourcesThisPanel)
         {
             GameObject resource_button = null;
-            
+
             if (resource.Key == "Fund")
             {
                 resource_button = Instantiate(Button_Fund, panel_section_resource.transform);    // 实例化 button
@@ -328,9 +328,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 resource_button = Instantiate(Button_Physical_Energy, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Physical_Energy");  //设置按钮操纵的资源为Physical_Energy
             }
-            else if (resource.Key == "Spirit")
+            else if (resource.Key == "Spiritual_Energy")
             {
-                resource_button = Instantiate(Button_Spirit, panel_section_resource.transform);    // 实例化 button
+                resource_button = Instantiate(Button_Spiritual_Energy, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Spirit");  //设置按钮操纵的资源为 Spirit
             }
             else if (resource.Key == "Soul")
@@ -391,6 +391,12 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             {
                 availableResourceSlot[i] = false;
                 button.transform.localPosition = GameObject.Find("Resource_"+i).transform.localPosition;   // 放置到 available slot 的空物体位置
+
+                button.transform.localPosition = new Vector3(           // 设置 Z轴坐标为 -1
+                    button.transform.localPosition.x,
+                    button.transform.localPosition.y,
+                    button.transform.localPosition.z - 1);
+                
                 
                 // 根据 slot 的编号，设置对应 资源总数 参数的值, 并调用 resource button 中的方法，设置 resource button 中对应在此 panel 上资源编号的参数
                 if (i == 1)

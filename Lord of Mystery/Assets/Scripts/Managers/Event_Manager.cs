@@ -36,7 +36,7 @@ public class Event_Manager : MonoBehaviour
         while (true)
         {
             // 当 Fund 数量大于 10 的时候，触发 Private Soiree
-            if(GameManager.GM.ResourceManager.Fund >= 6   && !Event_Private_Soiree)  { Trigger_Private_Soiree(); }
+            if(GameManager.GM.Player_Owned_Card_Location_List.Count >= 6   && !Event_Private_Soiree)  { StartCoroutine(Trigger_Private_Soiree()); }
 
 
 
@@ -62,10 +62,11 @@ public class Event_Manager : MonoBehaviour
 
     ////////////////////////////////////       Event 具体执行
 
-
-    public void Trigger_Private_Soiree()
+    IEnumerator Trigger_Private_Soiree()
     {
         Event_Private_Soiree = true;
+        
+        yield return new WaitForSeconds(7f);
 
         GameManager.GM.Generate_Card_Location("Private_Soiree",
             new Vector3(

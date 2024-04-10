@@ -10,7 +10,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
     {
         Fund,
         Physical_Energy,
-        Spirit,
+        Spiritual_Energy,
         Soul,
         Spirituality_Infused_Material,
         Knowledge,
@@ -73,9 +73,9 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
             Current_Resource = Resources.Physical_Energy;
             is_resource_set = true;
         }
-        if (resource == "Spirit")
+        if (resource == "Spiritual_Energy")
         {
-            Current_Resource = Resources.Spirit;
+            Current_Resource = Resources.Spiritual_Energy;
             is_resource_set = true;
         }
         if (resource == "Soul")
@@ -212,11 +212,11 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
                 Add_Panel_Absorb_Amount();
             }
         }
-        if (Current_Resource == Resources.Spirit)     // 如果这个按钮被设置为 Spirit 按钮，则吸收 Spirit
+        if (Current_Resource == Resources.Spiritual_Energy)     // 如果这个按钮被设置为 Spirit 按钮，则吸收 Spirit
         {
-            if (GameManager.GM.ResourceManager.Spirit > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            if (GameManager.GM.ResourceManager.Spiritual_Energy > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
             {
-                GameManager.GM.ResourceManager.Reduce_Spirit(1, gameObject.transform.position);
+                GameManager.GM.ResourceManager.Reduce_Spiritual_Energy(1, gameObject.transform.position);
                 Add_Panel_Absorb_Amount();
             }
         }
@@ -298,7 +298,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.2)  // 鼠标位置基本没变
+        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f)  // 鼠标位置基本没变
         {
             AbsorbResource();
         }

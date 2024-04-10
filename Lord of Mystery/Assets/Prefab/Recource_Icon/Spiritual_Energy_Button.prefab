@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7800388777907052404}
   - component: {fileID: 9190072544439478019}
   m_Layer: 0
-  m_Name: Spirit_Button
+  m_Name: Spiritual_Energy_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

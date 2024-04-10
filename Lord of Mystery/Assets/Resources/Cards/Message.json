@@ -8,6 +8,8 @@
             "Image": "Image_Message_Id",
             "Message_Content": "This is the message you want the player to know. So you are reading it right now."
         },
+
+
         {
             "Id": "Physical_Body",
             "Label": "Physical Body",
@@ -16,9 +18,9 @@
         },
         {
             "Id": "Spirit",
-            "Label": "I start to feel",
-            "Image": "Image_Beginning",
-            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+            "Label": "Spirit",
+            "Image": "Image_Spirit",
+            "Message_Content": "I can feel something spiritual, they are like the glowworm near the physical surface."
         },
         {
             "Id": "Psyche",
@@ -37,10 +39,10 @@
 
         },
         {
-            "Id": "Spirit",
-            "Label": "I start to feel",
-            "Image": "Image_Beginning",
-            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+            "Id": "Spiritual_Energy",
+            "Label": "Spiritual Energy",
+            "Image": "Image_Spiritual_Energy",
+            "Message_Content": "Spiritual energy this is it"
 
         },
         {
@@ -48,6 +50,14 @@
             "Label": "Fund",
             "Image": "Image_Fund",
             "Message_Content": "The coins, tarnished with bronze rust, which felt to me, at first, as if they were the very essence upon which survival in this world depended."
+
+        },
+
+        {
+            "Id": "Spirituality_Infused_Material",
+            "Label": "Spirituality Infused Material",
+            "Image": "Image_Spirituality_Infused_Material",
+            "Message_Content": "They looks very weird, but seem to be filled by an undescribable energy."
 
         },
         {
@@ -87,6 +97,14 @@
             "Message_Content": "A shadow creeps over my thoughts, whispering of realms beyond mortal comprehension. I feel a specter veiled in mystery, beckons with its ethereal touch. \n \n [ If Death reaches its maximum, the game will be over. ] "
 
         },
+
+        {
+            "Id": "Level_Up_To_Seer",
+            "Label": "Seer, the Beyonder",
+            "Image": "Image_The_Seer",
+            "Message_Content": "I drank the potion that is made of Spiritual Infused Materials, and my body experienced an indescribable sense of clarity, I felt my senses were opened, vision was enhanced, as if I had made a connection with some old existance unseen..."
+        },
+
 
 
 

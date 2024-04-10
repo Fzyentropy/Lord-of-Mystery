@@ -102,7 +102,7 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.3         // 鼠标位置基本没变
+        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f         // 鼠标位置基本没变
             && !attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel]   // 且该槽位没吸收 body part
             && attached_card_location_panel_feature.Have_Giving_Type_Of_Body_Part_On_Board(BodyPartSlotType.ToString())    // 且 board 上还有相应类型的 body part
             // && GameManager.GM.InputManager.Dragging_Object == null         // 且没在 drag 东西  // 此判定不能加，因为 Panel Movement 脚本会让 dragging Object = panel

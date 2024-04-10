@@ -28,6 +28,7 @@ public class Card_Location
     public Body_Part_Data Require_Body_Part;
     public Resource_Data Require_Resource;
     public Resource_Data Produce_Resource;
+    public Body_Part_Data Produce_Body_Part;
 
     public List<string> Produce_Message;
     public List<string> Produce_Card_Automatic;

@@ -19,7 +19,7 @@ public class Message_Feature : MonoBehaviour
     {
         if (_message == null)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Message 为空");
         }
 
         Set_Message();

@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47151402455086520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.4, y: -2.19, z: 0}
+  m_LocalPosition: {x: 8.4, y: -2.19, z: -1}
   m_LocalScale: {x: 2.7573044, y: 3.3993752, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463654796986864840}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.2, y: -2.19, z: 0}
+  m_LocalPosition: {x: 5.2, y: -2.19, z: -1}
   m_LocalScale: {x: 2.7573044, y: 3.3993752, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3212,7 +3212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7547972841380041881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -2.19, z: 0}
+  m_LocalPosition: {x: 2, y: -2.19, z: -1}
   m_LocalScale: {x: 2.7573044, y: 3.3993752, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3296,7 +3296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7768875003388754558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.6, y: -2.19, z: 0}
+  m_LocalPosition: {x: 11.6, y: -2.19, z: -1}
   m_LocalScale: {x: 2.7573044, y: 3.3993752, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4063,7 +4063,7 @@ MonoBehaviour:
   current_resource_5_amount: 0
   Button_Fund: {fileID: 3953027631342908348, guid: 45eeb0305dc84cc46a5888d81afb402a, type: 3}
   Button_Physical_Energy: {fileID: 8069154514472205973, guid: d30949d4fb6028a48b7366813c3c519c, type: 3}
-  Button_Spirit: {fileID: 5722414193232788536, guid: c042d612106de164cbd2b90b9781de5f, type: 3}
+  Button_Spiritual_Energy: {fileID: 5722414193232788536, guid: c042d612106de164cbd2b90b9781de5f, type: 3}
   Button_Soul: {fileID: 1236110638116684752, guid: 62f27179895032e43bede80057f3ab07, type: 3}
   Button_Spirituality_Infused_Material: {fileID: 905812207467882474, guid: 91c02012da627a04cb0c00faf6e38ecb, type: 3}
   Button_Knowledge: {fileID: 7458556519118881775, guid: fdd9c796957e8014f96aa23b4aad7eff, type: 3}

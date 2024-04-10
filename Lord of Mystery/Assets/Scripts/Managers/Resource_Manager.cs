@@ -12,7 +12,7 @@ public class Resource_Manager : MonoBehaviour
     [HideInInspector]
     public int Fund;
     public int Physical_Energy;
-    public int Spirit;
+    public int Spiritual_Energy;
     public int Soul;
     public int Spirituality_Infused_Material;
     public int Knowledge;
@@ -27,7 +27,7 @@ public class Resource_Manager : MonoBehaviour
     // 各个资源的数量，用于显示在 UI 上的计数，会有闪烁动画，改变真实数量后，将滞后闪烁至最终值
     public int Fund_UI_Amount;
     public int Physical_Energy_UI_Amount;
-    public int Spirit_UI_Amount;
+    public int Spiritual_Energy_UI_Amount;
     public int Soul_UI_Amount;
     public int Spirituality_Infused_Material_UI_Amount;
     public int Knowledge_UI_Amount;
@@ -48,7 +48,7 @@ public class Resource_Manager : MonoBehaviour
     // 各资源的 icon prefab
     public GameObject fund_icon_pure;   // Fund资源的图标Prefab
     public GameObject physical_energy_icon_pure;    // Physical_Energy资源的图标Prefab
-    public GameObject spirit_icon_pure;     // Spirit资源的图标Prefab
+    public GameObject spiritual_energy_icon_pure;     // Spirit资源的图标Prefab
     public GameObject soul_icon_pure;   // Soul资源的图标Prefab
     public GameObject spirituality_infused_material_icon_pure;  // Spirituality_Infused_Material资源的图标Prefab
     public GameObject knowledge_icon_pure;  // Knowledge资源的图标Prefab
@@ -63,7 +63,7 @@ public class Resource_Manager : MonoBehaviour
     // 判定各资源是否出现过
     private bool is_fund_ever_appears = false;
     private bool is_physical_energy_ever_appears = false; // 检查Physical_Energy资源是否曾出现
-    private bool is_spirit_ever_appears = false; // 检查Spirit资源是否曾出现
+    private bool is_spiritual_energy_ever_appears = false; // 检查Spirit资源是否曾出现
     private bool is_soul_ever_appears = false; // 检查Soul资源是否曾出现
     private bool is_spirituality_infused_material_ever_appears = false; // 检查Spirituality_Infused_Material资源是否曾出现
     private bool is_knowledge_ever_appears = false; // 检查Knowledge资源是否曾出现
@@ -117,7 +117,7 @@ public class Resource_Manager : MonoBehaviour
         {
             {"Fund", -1},
             {"Physical_Energy", -1},
-            {"Spirit", -1},
+            {"Spiritual_Energy", -1},
             {"Soul", -1},
             {"Spirituality_Infused_Material", -1},
             {"Knowledge", -1},
@@ -153,9 +153,9 @@ public class Resource_Manager : MonoBehaviour
         {
             Add_Physical_Energy(amount, position);
         }
-        else if (resource_type == "Spirit")        // 如果输入的是 Spirit，则 Add Spirit
+        else if (resource_type == "Spiritual_Energy")        // 如果输入的是 Spirit，则 Add Spirit
         {
-            Add_Spirit(amount, position);
+            Add_Spiritual_Energy(amount, position);
         }
         else if (resource_type == "Soul")        // 如果输入的是 Soul，则 Add Soul
         {
@@ -203,9 +203,9 @@ public class Resource_Manager : MonoBehaviour
         {
             Reduce_Physical_Energy(amount, position);
         }
-        else if (resource_type == "Spirit")        // 如果输入的是 Spirit，则 Reduce Spirit
+        else if (resource_type == "Spiritual_Energy")        // 如果输入的是 Spirit，则 Reduce Spirit
         {
-            Reduce_Spirit(amount, position);
+            Reduce_Spiritual_Energy(amount, position);
         }
         else if (resource_type == "Soul")        // 如果输入的是 Soul，则 Reduce Soul
         {
@@ -320,26 +320,26 @@ public class Resource_Manager : MonoBehaviour
 
     // 增加Spirit资源，仅在增加资源时调用，因此输入的 amount 需要为正值                    + Spirit
     // 调用需传入当前物体 location，以追踪来源
-        public void Add_Spirit(int amount, Vector3 position)
+        public void Add_Spiritual_Energy(int amount, Vector3 position)
         {
             // Spirit += amount;
             // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
-            Animate_Resource_Change(true, position, "Spirit", amount); // 调用动画效果
+            Animate_Resource_Change(true, position, "Spiritual_Energy", amount); // 调用动画效果
         }
 
     // 减少Spirit资源，仅在减少资源时调用，因此外部需做好 加减判断                    - Spirit
     // 调用需传入当前物体 location，以追踪来源
-        public void Reduce_Spirit(int amount, Vector3 position)
+        public void Reduce_Spiritual_Energy(int amount, Vector3 position)
         {
-            if (Spirit - amount >= 0)
+            if (Spiritual_Energy - amount >= 0)
             {
                 // Spirit -= amount;
                 // 如果是减少资源，则 Animate Resource Change 不会改变资源数量，需要额外调用 Resource Amount Change
                 
-                Resource_Amount_Change("Spirit", -amount);
+                Resource_Amount_Change("Spiritual_Energy", -amount);
                 
-                Animate_Resource_Change(false, position, "Spirit", amount); // 调用动画效果
+                Animate_Resource_Change(false, position, "Spiritual_Energy", amount); // 调用动画效果
             }
             else
             {
@@ -627,14 +627,14 @@ public class Resource_Manager : MonoBehaviour
                 is_physical_energy_ever_appears = true;
             }
         }
-        if (resourceName == "Spirit")
+        if (resourceName == "Spiritual_Energy")
         {
-            iconInstance = Instantiate(spirit_icon_pure, position, Quaternion.identity); // 在调用物体位置生成 icon
+            iconInstance = Instantiate(spiritual_energy_icon_pure, position, Quaternion.identity); // 在调用物体位置生成 icon
             
             if (isAdding)     // 如果是增加资源，则用 First Time Bool Passer 获取布尔值，判断是否是第一次，然后将 ever appears 设为 true（即出现过了）
             {
-                FirstTimeBoolPasser = is_spirit_ever_appears;
-                is_spirit_ever_appears = true;
+                FirstTimeBoolPasser = is_spiritual_energy_ever_appears;
+                is_spiritual_energy_ever_appears = true;
             }
         }
         if (resourceName == "Soul")
@@ -1079,9 +1079,9 @@ public class Resource_Manager : MonoBehaviour
         {
             Physical_Energy += change_amount;
         }
-        if (change_resource == "Spirit")
+        if (change_resource == "Spiritual_Energy")
         {
-            Spirit += change_amount;
+            Spiritual_Energy += change_amount;
         }
         if (change_resource == "Soul")
         {
@@ -1149,10 +1149,10 @@ public class Resource_Manager : MonoBehaviour
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
                     amount_text.text = Physical_Energy_UI_Amount.ToString();
                 }
-                if (resourceName == "Spirit")
+                if (resourceName == "Spiritual_Energy")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Spirit_UI_Amount.ToString();
+                    amount_text.text = Spiritual_Energy_UI_Amount.ToString();
                 }
                 if (resourceName == "Soul")
                 {
@@ -1214,10 +1214,10 @@ public class Resource_Manager : MonoBehaviour
                 int Change = Physical_Energy - Physical_Energy_UI_Amount;
                 Physical_Energy_UI_Amount += flash_amount_each_time * Math.Sign(Change);  
             }
-            if (Spirit_UI_Amount != Spirit)
+            if (Spiritual_Energy_UI_Amount != Spiritual_Energy)
             {
-                int Change = Spirit - Spirit_UI_Amount;
-                Spirit_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
+                int Change = Spiritual_Energy - Spiritual_Energy_UI_Amount;
+                Spiritual_Energy_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
             }
             if (Soul_UI_Amount != Soul) 
             {

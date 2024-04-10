@@ -17,6 +17,11 @@
             "Only": true,
             "Time": 30,
 
+            "Auto_Start": false,
+            "Repeatable": false,
+            "Stable": false,
+            "isSequence": false,
+
             "Require_Body_Part":
             {
                 "Physical_Body": 1,
@@ -24,11 +29,12 @@
                 "Psyche": 1
             },
 
+        
             "Require_Resource":
             {
                 "Fund": 5,
                 "Physical_Energy": 1,
-                "Spirit": 1,
+                "Spiritual_Energy": 1,
                 "Soul": 1,
                 "Spirituality_Infused_Material": 2,
                 "Knowledge": 1,
@@ -42,7 +48,7 @@
             {
                 "Fund": 5,
                 "Physical_Energy": 1,
-                "Spirit": -1,
+                "Spiritual_Energy": -1,
                 "Soul": 1,
                 "Spirituality_Infused_Material": 2,
                 "Knowledge": -1,
@@ -50,6 +56,13 @@
                 "Putrefaction": 1,
                 "Madness": 1,
                 "Godhood": 1
+            },
+
+            "Produce_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 2,
+                "Psyche": 1
             },
 
             "Produce_Message":
@@ -77,11 +90,6 @@
                 "Church_Of_Death"
             ],
 
-            "Produce_Body_Part":
-            [
-                "Physical_Body"
-            ],
-
             "Produce_Special_Effect":
             [
                 "Realize_Flesh_And_Body"
@@ -106,7 +114,7 @@
             {
                 "Fund": 5,
                 "Physical_Energy": 1,
-                "Spirit": 1,
+                "Spiritual_Energy": 1,
                 "Soul": 1
             },
 
@@ -149,7 +157,7 @@
             "Require_Body_Part":
             {
                 "Physical_Body": 2,
-                "Spirit": 1,
+                "Spiritual_Energy": 1,
                 "Psyche": 1
             },
 
@@ -169,14 +177,14 @@
 
             "Require_Body_Part":
             {
-                "Spirit": 1
+                "Spiritual_Energy": 1
             },
 
             "Produce_Resource":
             {
                 "Fund": 5,
                 "Physical_Energy": 1,
-                "Spirit": 1,
+                "Spiritual_Energy": 1,
                 "Soul": 1
                 
             }
@@ -208,8 +216,12 @@
             
             "Produce_Card_Location":
             [
-                "Mother",
-                "Flesh_And_Body"
+                "Mother"
+            ],
+
+            "Produce_Special_Effect":
+            [
+                "Level_10"
             ]
 
         },
@@ -259,7 +271,7 @@
 
             "Produce_Resource":
             {
-                "Fund": 5
+                "Fund": 3
             },
 
             "Start_Effect":
@@ -305,7 +317,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 25,
+            "Time": 20,
 
             "Require_Resource":
             {
@@ -359,12 +371,10 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 15,
+            "Time": 35,
 
-            "Require_Body_Part":
-            {
-                "Physical_Body": 1
-            },
+            "Auto_Start": true,
+            "Repeatable": true,
             
             "Produce_Resource":
             {
@@ -382,7 +392,12 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 20,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
             
             "Produce_Resource":
             {
@@ -400,7 +415,7 @@
 
             "Use_Time": 3,
             "Only": true,
-            "Time": 25,
+            "Time": 20,
 
             "Require_Resource":
             {
@@ -423,7 +438,7 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 12,
+            "Time": 8,
 
             "Require_Resource":
             {
@@ -457,7 +472,7 @@
 
             "Require_Resource":
             {
-                "Fund": 5
+                "Fund": 3
             },
 
             "Require_Body_Part":
@@ -503,7 +518,7 @@
 
             "Require_Resource":
             {
-                "Fund": 5
+                "Fund": 3
             },
 
             "Produce_Resource":
@@ -527,6 +542,7 @@
             "Time": 10,
 
             "Stable": true,
+            "isSequence": true,
 
             "Require_Body_Part":
             {
@@ -539,6 +555,22 @@
                 "Spirituality_Infused_Material": 2
             },
 
+            "Produce_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Message":
+            [
+                "Level_Up_To_Seer"
+            ],
+
+            "Produce_Card_Location":
+            [
+                "In_Sight"
+            ],
+
+            
             "Produce_Special_Effect":
             [
                 "Level_Up_From_10_To_9"
@@ -546,23 +578,109 @@
 
         },
         {
-            "Id": "Sequence_9_Fortune_Teller",
-            "Label": "Sequence 9: The Fortune Teller",
-            "Image": "Image_The_Fortune_Teller",
+            "Id": "Level_9_Seer",
+            "Label": "Level 9: The Seer",
+            "Image": "Image_The_Seer",
             "Description": ".............................",
 
             "Rank": -1,
-            "Occupation": "Fortune_Teller",
+            "Occupation": "Seer",
 
             "Burn": false,
             "Use_Time": -1,
             "Only": true,
             "Time": 10,
 
+            "Stable": true,
+            "isSequence": true,
+
             "Produce_Special_Effect":
             [
                 "Draw_A_Tarot_Card"
             ]
+
+        },
+        {
+            "Id": "Level_Up_Sequence_9_8",
+            "Label": " ? ",
+            "Image": "Image_Level_Up",
+            "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Stable": true,
+            "isSequence": true,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit":1
+            },
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 3,
+                "Spirituality_Infused_Material": 4,
+                "Spirit": 4
+            },
+
+            "Produce_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Message":
+            [
+                ""
+            ],
+
+            "Produce_Card_Location":
+            [
+                ""
+            ],
+
+            
+            "Produce_Special_Effect":
+            [
+                ""
+            ]
+
+        },
+        {
+            "Id": "In_Sight",
+            "Label": "In-sight",
+            "Image": "Image_Psyche",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+
+            "Rank": -1,
+            "Occupation": "Seer",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 2
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 1,
+                "Spirituality_Infused_Material": 1
+            }
 
         }
 

@@ -20,6 +20,7 @@ public class Prototype_EarlyGame_Script : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         
         GameManager.GM.Generate_Message("Born");
+        
 
     }
     

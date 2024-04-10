@@ -945,6 +945,7 @@ MonoBehaviour:
   Panel_Function: {fileID: 0}
   isPanelOpen: 0
   current_panel: {fileID: 0}
+  current_message: {fileID: 0}
   panel_original_scale: {x: 1, y: 1, z: 1}
 --- !u!4 &98605791
 Transform:
@@ -18984,7 +18985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Fund: 0
   Physical_Energy: 0
-  Spirit: 0
+  Spiritual_Energy: 0
   Soul: 0
   Spirituality_Infused_Material: 0
   Knowledge: 0
@@ -18996,7 +18997,7 @@ MonoBehaviour:
   Max_Death: 0
   Fund_UI_Amount: 0
   Physical_Energy_UI_Amount: 0
-  Spirit_UI_Amount: 0
+  Spiritual_Energy_UI_Amount: 0
   Soul_UI_Amount: 0
   Spirituality_Infused_Material_UI_Amount: 0
   Knowledge_UI_Amount: 0
@@ -19008,7 +19009,7 @@ MonoBehaviour:
   Max_Death_UI_Amount: 0
   fund_icon_pure: {fileID: 3953027631342908348, guid: 11b50445992b9b44ab50855d6a37e36d, type: 3}
   physical_energy_icon_pure: {fileID: 8069154514472205973, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
-  spirit_icon_pure: {fileID: 5722414193232788536, guid: 11ed9f3bab976094cbf4a1978359f968, type: 3}
+  spiritual_energy_icon_pure: {fileID: 5722414193232788536, guid: 11ed9f3bab976094cbf4a1978359f968, type: 3}
   soul_icon_pure: {fileID: 1236110638116684752, guid: eaacd88cad63d274a8f24b327eb852c6, type: 3}
   spirituality_infused_material_icon_pure: {fileID: 905812207467882474, guid: 4e90d18c282685e4d8b1124700798b73, type: 3}
   knowledge_icon_pure: {fileID: 7458556519118881775, guid: 4bccaea50ea63c04797bf914fab22d1d, type: 3}

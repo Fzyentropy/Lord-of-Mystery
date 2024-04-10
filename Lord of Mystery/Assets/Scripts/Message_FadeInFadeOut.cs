@@ -16,8 +16,8 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
     private bool ableToClick = false;  // 防止点击一下 panel 生成后直接消失
     
     // Mis
-    
- 
+
+
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -28,15 +28,14 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
 
         originalPosition = transform.localPosition;
         
-        
-        
 
         StartCoroutine(FadeIn());
+        StartCoroutine(Close_If_Not_Click_In_XX_Sec());
     }
     
     
 
-    IEnumerator FadeIn()
+    public IEnumerator FadeIn()
     {
         
         if (GameManager.GM.PanelManager.current_message != null)
@@ -70,7 +69,7 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
 
     
 
-    IEnumerator FadeOut()
+    public IEnumerator FadeOut()
     {
         GameManager.GM.PanelManager.current_message = null;
         
@@ -90,6 +89,15 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
         
     }
 
+
+    public IEnumerator Close_If_Not_Click_In_XX_Sec()
+    {
+        float close_time = 20f;
+
+        yield return new WaitForSeconds(close_time);
+        
+        StartCoroutine(FadeOut());
+    }
 
 
     public void OnPointerDown(PointerEventData eventData)

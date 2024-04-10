@@ -131,8 +131,16 @@ public class GameManager : MonoBehaviour
     
     public void Generate_Message(string id)     // 实例化 message，根据 id 从 Card_Loader 中的 message list 中找到 message 实例，并赋予生成的 message prefab
     {
+
         GameObject messagePanel = Instantiate(message_Panel,GameObject.Find("Canvas").transform);
         messagePanel.GetComponent<Message_Feature>()._message = CardLoader.Get_Message_By_Id(id);
+        
+        /*if (GM.PanelManager.current_message != messagePanel.GetComponent<Message_FadeInFadeOut>())
+        {
+            StartCoroutine(GM.PanelManager.current_message.FadeOut());
+            GM.PanelManager.current_message = messagePanel.GetComponent<Message_FadeInFadeOut>();
+        }*/
+
     }
 
     public GameObject Generate_Card_Body_Part(string id)  // 实例化 Body_Part， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab

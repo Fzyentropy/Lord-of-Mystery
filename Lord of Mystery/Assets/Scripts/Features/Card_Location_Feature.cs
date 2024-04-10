@@ -51,12 +51,11 @@ public class Card_Location_Feature : MonoBehaviour
     // 显示 吸收的 body part icon
     public GameObject root_of_absorbed_body_part_icon;
 
-    // Requirement 触发条件 字典集 包括 resources 和 body part
+    // Requirement / Outcome 触发条件 字典集 包括 resources 和 body part
     public Dictionary<string, int> required_resources;      // 要消耗的 resources
     public Dictionary<string, int> required_body_parts;     // 要消耗的 body part
-
-    // Outcome 触发结果 字典集 resource
     public Dictionary<string, int> produce_resources;
+    public Dictionary<string, int> produce_body_parts;      // 产出的 body part
 
     public int use_time_counter;
     
@@ -74,8 +73,12 @@ public class Card_Location_Feature : MonoBehaviour
 
     float newCardLocationPositionXOffset = 8f;      // 生成新的 card location 的时候的 X Offset
     float newCardLocationPositionYOffset = 0;      // 生成新的 card location 的时候的 Y Offset
+    private float newBodyPartPositionXOffset = 4f;
+    private float newBodyPartPositionYOffset = 8f;
 
     private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
+
+    private float draw_card_animation_duration = 0.4f;
      
     
     
@@ -157,28 +160,34 @@ public class Card_Location_Feature : MonoBehaviour
         if (_cardLocation.isSequence)
         {
             card_frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/Sequence_Frame");
+            
+            if (_cardLocation.Id != "Flesh_And_Body")
+            {
+                line_to_next.SetActive(true);        // 将 指向下一个 sequence 的线 显示
+            } 
         }
         card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
         use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
 
         gameObject.name = _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
-
         
         
-        if (_cardLocation.isSequence)    // 临时， 如果是 Sequence，则设置 Sequence 的位置到 Sequence_Location_X, X根据 Game Manager中的 current Rank 设置
+        if (_cardLocation.isSequence)       // Sequence 的运动
         {
-            // gameObject.transform.position =
-            //     GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position;
-
-            gameObject.transform.DOMove(
-                GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position, 0.5f);
-
-            if (_cardLocation.Id != "Flesh_And_Body")
+            if (_cardLocation.Id == "Flesh_And_Body")
             {
-                line_to_next.SetActive(true);        // 将 指向下一个 sequence 的线 显示
-            } 
+                gameObject.transform.DOMove(
+                    GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position, 0.6f);
+            }
+            else
+            {
+                gameObject.transform.DOMove(
+                    GameObject.Find("Sequence_Location_" + (GameManager.GM.Current_Rank - 1)).transform.position, 0.6f);
+            }
+            
         }
+        
     }
 
     void Initialize_Card_Resource()
@@ -188,7 +197,7 @@ public class Card_Location_Feature : MonoBehaviour
         {
             {"Fund", _cardLocation.Require_Resource.Fund},
             {"Physical_Energy", _cardLocation.Require_Resource.Physical_Energy},
-            {"Spirit", _cardLocation.Require_Resource.Spirit},
+            {"Spiritual_Energy", _cardLocation.Require_Resource.Spiritual_Energy},
             {"Soul", _cardLocation.Require_Resource.Soul},
             {"Spirituality_Infused_Material", _cardLocation.Require_Resource.Spirituality_Infused_Material},
             {"Knowledge", _cardLocation.Require_Resource.Knowledge},
@@ -211,7 +220,7 @@ public class Card_Location_Feature : MonoBehaviour
         {
             {"Fund", _cardLocation.Produce_Resource.Fund},
             {"Physical_Energy", _cardLocation.Produce_Resource.Physical_Energy},
-            {"Spirit", _cardLocation.Produce_Resource.Spirit},
+            {"Spiritual_Energy", _cardLocation.Produce_Resource.Spiritual_Energy},
             {"Soul", _cardLocation.Produce_Resource.Soul},
             {"Spirituality_Infused_Material", _cardLocation.Produce_Resource.Spirituality_Infused_Material},
             {"Knowledge", _cardLocation.Produce_Resource.Knowledge},
@@ -220,6 +229,14 @@ public class Card_Location_Feature : MonoBehaviour
             {"Madness", _cardLocation.Produce_Resource.Madness},
             {"Godhood", _cardLocation.Produce_Resource.Godhood},
             {"Death", _cardLocation.Produce_Resource.Death}     // Death added
+        };
+        
+        produce_body_parts = new Dictionary<string, int>
+        {
+            { "Physical_Body", _cardLocation.Produce_Body_Part.Physical_Body },
+            { "Spirit", _cardLocation.Produce_Body_Part.Spirit },
+            { "Psyche", _cardLocation.Produce_Body_Part.Psyche}
+
         };
         
     }
@@ -283,7 +300,7 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
         
-        if ((Input.mousePosition - click_mouse_position).magnitude < 0.4) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
+        if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
         {
             Open_Panel();   // 打开 panel
         }
@@ -994,14 +1011,14 @@ public class Card_Location_Feature : MonoBehaviour
         {
             float XOffset = newCardLocationPositionXOffset;
 
-            float duration = 0.6f;
+            float duration = 0.4f;
 
             foreach (var cardLocationString in _cardLocation.Produce_Card_Location)
             {
 
                 GameObject card_location = GameManager.GM.Generate_Card_Location(cardLocationString, transform.position);
 
-                if (!GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).isSequence)
+                if (!GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).isSequence)   // Sequence 的 运动
                 {
                     card_location.transform.DOMove(new Vector3(
                         gameObject.transform.position.x + XOffset,
@@ -1012,6 +1029,35 @@ public class Card_Location_Feature : MonoBehaviour
                 XOffset += newCardLocationPositionXOffset;
 
             }
+            
+        }
+        
+        
+        // Produce Body Part
+
+        if (produce_body_parts.Count > 0)
+        {
+            
+            float XOffset = 0;
+
+            float duration = 0.4f;
+
+            foreach (var body_part in produce_body_parts)
+            {
+
+                for (int i = 0; i < body_part.Value; i++)
+                {
+                    GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board(body_part.Key,
+                        transform.position,
+                        new Vector3(transform.position.x + XOffset,
+                            transform.position.y - newBodyPartPositionYOffset,
+                            transform.position.z));
+
+                    XOffset += newBodyPartPositionXOffset;
+                }
+                
+            }
+            
             
         }
         
@@ -1042,9 +1088,9 @@ public class Card_Location_Feature : MonoBehaviour
                     Get_Level_Up_Sequence_10_9();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Level_10")
                 {
-                    
+                    Level_10();
                 }
                 
                 if (special_effect == "")
@@ -1090,19 +1136,17 @@ public class Card_Location_Feature : MonoBehaviour
     {
         if (GameManager.GM.Draw_New_Card_Location_Times == 0)   // 如果之前没抽过 card location，则抽取 A Menial Job
         {
-            GameObject new_card_location = GameManager.GM.Generate_Card_Location("A_Menial_Job", 
-                new Vector3(
-                    gameObject.transform.position.x,
-                    gameObject.transform.position.y + newCardLocationPositionYOffset,      // 在下方 Y offset 的位置
-                    gameObject.transform.position.z));
+            GameObject new_card_location = GameManager.GM.Generate_Card_Location("A_Menial_Job", transform.position);
 
             GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
-            
-            new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
+
+            new_card_location.transform.DOMove(new Vector3(
+                gameObject.transform.position.x + newCardLocationPositionXOffset,
+                gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                gameObject.transform.position.z), draw_card_animation_duration);
+
+            // new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
         }
-
-
-        // else if(GameManager.GM.Draw_New_Card_Location_Times == X)  {}        // TODO 其他抽卡次数的时候触发事件
 
         else
         {
@@ -1111,13 +1155,14 @@ public class Card_Location_Feature : MonoBehaviour
 
             if (random_card_location_id != "")
             {
-                GameManager.GM.Generate_Card_Location(random_card_location_id,
-                    new Vector3(
-                        gameObject.transform.position.x,
-                        gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
-                        gameObject.transform.position.z));
+                GameObject new_card_location = GameManager.GM.Generate_Card_Location(random_card_location_id, transform.position);
                 
                 GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+                
+                new_card_location.transform.DOMove(new Vector3(
+                    gameObject.transform.position.x + newCardLocationPositionXOffset,
+                    gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                    gameObject.transform.position.z), draw_card_animation_duration);
             }
             else
             {
@@ -1128,17 +1173,38 @@ public class Card_Location_Feature : MonoBehaviour
         }
     }
 
-    void Level_Up_From_10_To_9()
+
+    void Level_10()             // 开局，10级，Flesh and Body
     {
-        GameManager.GM.Generate_Card_Location("Sequence_9_Fortune_Teller", GameObject.Find("Sequence_Location_9").transform.position);
+        GameManager.GM.Generate_Card_Location("Flesh_And_Body", transform.position);
+        GameManager.GM.Current_Rank = 10;
+        GameManager.GM.Current_Occupation = "All";
+    }
+    
+    void Level_Up_From_10_To_9()        // 升级 10 -> 9
+    {
+        GameManager.GM.Generate_Card_Location("Level_9_Seer", GameObject.Find("Sequence_Location_9").transform.position);
+        
+        // 修改 等级信息
         GameManager.GM.Current_Rank = 9;
+        GameManager.GM.Current_Occupation = "Seer";
+        
+        // 销毁 ？
         Destroy(gameObject);
+        
+        // 增加死亡值上线
+        GameManager.GM.ResourceManager.Max_Death = 10;
+
     }
 
-    void Get_Level_Up_Sequence_10_9()
+    void Get_Level_Up_Sequence_10_9()       // 生成 ？
     {
         GameManager.GM.Generate_Card_Location("Level_Up_Sequence_10_9", GameObject.Find("Sequence_Location_9").transform.position);
-        
+    }
+    
+    void Get_Level_Up_Sequence_9_8()       // 生成 ？
+    {
+        GameManager.GM.Generate_Card_Location("Level_Up_Sequence_9_8", GameObject.Find("Sequence_Location_8").transform.position);
     }
     
     

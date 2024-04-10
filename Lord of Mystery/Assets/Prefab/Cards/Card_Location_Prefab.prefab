@@ -344,7 +344,7 @@ MonoBehaviour:
     Require_Resource:
       Fund: 0
       Physical_Energy: 0
-      Spirit: 0
+      Spiritual_Energy: 0
       Soul: 0
       Spirituality_Infused_Material: 0
       Knowledge: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
     Produce_Resource:
       Fund: 0
       Physical_Energy: 0
-      Spirit: 0
+      Spiritual_Energy: 0
       Soul: 0
       Spirituality_Infused_Material: 0
       Knowledge: 0
@@ -365,16 +365,21 @@ MonoBehaviour:
       Madness: 0
       Godhood: 0
       Death: 0
+    Produce_Body_Part:
+      Physical_Body: 0
+      Spirit: 0
+      Psyche: 0
     Produce_Message: []
     Produce_Card_Automatic: []
     Produce_Card_Action: []
     Produce_Card_Event: []
     Produce_Card_Location: []
     Produce_Special_Effect: []
+    Start_Effect: []
   _ResourceData:
     Fund: 0
     Physical_Energy: 0
-    Spirit: 0
+    Spiritual_Energy: 0
     Soul: 0
     Spirituality_Infused_Material: 0
     Knowledge: 0
