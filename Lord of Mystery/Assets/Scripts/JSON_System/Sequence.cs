@@ -13,11 +13,12 @@ public class Sequence
     
     public int Rank;
     public string Occupation;
+    
+    public Resource_Data Require_Resource;
 
     public int Time;
     public int Counter;
-    
-    public Resource_Data Require_Resource;
+
     public Resource_Data Produce_Resource;
 
     public List<string> Produce_Card_Location;

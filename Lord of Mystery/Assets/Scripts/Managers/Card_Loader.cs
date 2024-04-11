@@ -24,7 +24,7 @@ public class Card_Loader : MonoBehaviour
         Load_All_Card_Location_From_JSON();
         Load_All_Message_From_JSON();
         Load_All_Card_Body_Part_From_JSON();
-        // Load_All_Sequence_From_JSON();
+        Load_All_Sequence_From_JSON();
     }
 
     
@@ -89,7 +89,7 @@ public class Card_Loader : MonoBehaviour
         }
     }
 
-    /*public void Load_All_Sequence_From_JSON()
+    public void Load_All_Sequence_From_JSON()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>(PATH_SEQUENCE);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
@@ -101,7 +101,7 @@ public class Card_Loader : MonoBehaviour
         {
             Sequence_List.Add(sequence);
         }
-    }*/
+    }
     
     
     ////////////////////////////////////////////////////////////////////     获取 list 中的卡牌对象 by ID

@@ -341,6 +341,7 @@ MonoBehaviour:
       Physical_Body: 0
       Spirit: 0
       Psyche: 0
+      Potion: 0
     Require_Resource:
       Fund: 0
       Physical_Energy: 0
@@ -369,6 +370,7 @@ MonoBehaviour:
       Physical_Body: 0
       Spirit: 0
       Psyche: 0
+      Potion: 0
     Produce_Message: []
     Produce_Card_Automatic: []
     Produce_Card_Action: []
@@ -408,6 +410,7 @@ MonoBehaviour:
   countdown_text: {fileID: 0}
   root_of_absorbed_body_part_icon: {fileID: 0}
   use_time_counter: 0
+  SPcard_Make_Potion_prefab: {fileID: 2650628250851114781, guid: 7254c5e7662210542b08bbaf4e34cf1a, type: 3}
   LayerIndex: 0
   isHighlightYellow: 0
   isHighlight: 0

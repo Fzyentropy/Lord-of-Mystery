@@ -1,0 +1,168 @@
+{
+
+    "List_Sequence":
+    [
+        {
+            "Id": "Sequence_Id",
+            "Label": "Sequence X: Sequence Name",
+            "Image": "Image_Sequence_Id",
+            "Message_Content": "This is the message you want the player to know. So you are reading it right now.",
+            
+            "Rank": 9,
+            "Occupation": "Seer",
+
+            "Required_Resource":
+            {
+                "Fund": 1,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 1,
+                "Soul": 1,
+                "Spirituality_Infused_Material": 1,
+                "Knowledge": 1,
+                "Belief": 1,
+                "Putrefaction": 1,
+                "Madness": 1,
+                "Godhood": 1
+            },
+
+            "Time": 30,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+        
+        {
+            "Id": "Flesh_And_Body",
+            "Label": "Level 10: Flesh Body",
+            "Image": "Image_Flesh_And_Body",
+            "Description": "Within the confines of flesh and bone, no body can endure the unyielding force of realities without succumbing to the encroaching shadows of madness. \n\n [ This Level consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Time": 30,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+
+        {
+            "Id": "Level_9_Seer",
+            "Label": "Level 9: The Seer",
+            "Image": "Image_The_Seer",
+            "Description": ".............................",
+
+            "Rank": 9,
+            "Occupation": "Seer",
+
+            "Required_Resource":
+            {
+                "Physical_Energy": 4,
+                "Spirituality_Infused_Material": 3
+            },
+
+            "Time": 30,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+        {
+            "Id": "Level_9_Warrior",
+            "Label": "Level 9: The Warrior",
+            "Image": "Image_The_Warrior",
+            "Description": ".............................",
+
+            "Rank": 9,
+            "Occupation": "Warrior",
+
+            "Required_Resource":
+            {
+                "Physical_Energy": 7,
+                "Spirituality_Infused_Material": 1
+            },
+
+            "Time": 30,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+        {
+            "Id": "Level_8_Clown",
+            "Label": "Level 9: The Clown",
+            "Image": "Image_The_Clown",
+            "Description": ".............................",
+
+            "Rank": 8,
+            "Occupation": "Seer",
+
+            "Required_Resource":
+            {
+                "Physical_Energy": 6,
+                "Spirituality_Infused_Material": 4,
+                "Spiritual_Energy": 3
+            },
+
+            "Time": 30,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+        {
+            "Id": "Level_8_Fighter",
+            "Label": "Level 9: The Fighter",
+            "Image": "Image_The_Fighter",
+            "Description": ".............................",
+
+            "Rank": 8,
+            "Occupation": "Warrior",
+
+            "Required_Resource":
+            {
+                "Physical_Energy": 12,
+                "Spirituality_Infused_Material": 3
+            },
+
+            "Time": 30,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+    ]
+
+}

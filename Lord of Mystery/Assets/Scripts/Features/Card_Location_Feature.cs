@@ -58,7 +58,9 @@ public class Card_Location_Feature : MonoBehaviour
     public Dictionary<string, int> produce_body_parts;      // 产出的 body part
 
     public int use_time_counter;
-    
+
+    // 其他卡牌相关
+    public GameObject SPcard_Make_Potion_prefab;
     
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
@@ -299,7 +301,7 @@ public class Card_Location_Feature : MonoBehaviour
             }
             
         }
-}
+    }
 
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
@@ -404,11 +406,16 @@ public class Card_Location_Feature : MonoBehaviour
 
     public void Open_Panel()
     {
-        if (GameManager.GM.PanelManager.current_panel == null       // 如果 当前 panel 为空（没有已经打开的 panel）
+        if (GameManager.GM.PanelManager.current_panel == null       // 如果 当前没有打开的 panel
             ||                                                      // 或者
-            GameManager.GM.PanelManager.current_panel != null &&    // 当前 panel 不为空（说明有 panel 已经打开），且打开的 panel 不是此卡打开的
+            GameManager.GM.PanelManager.current_panel != null &&    // 当前有 panel 已经打开，但不是 card location panel (是其他类型 panel）
+            GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() == null 
+            ||                                                      // 或者
+            GameManager.GM.PanelManager.current_panel != null &&    // 当前有 panel 已经打开，且是 card location panel，但不是此卡打开的
+            GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null &&
             GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()   
-                .attached_card_location_feature != this)      
+                .attached_card_location_feature != this
+            )      
         {
             if (GameManager.GM.PanelManager.current_panel != null)
                 GameManager.GM.PanelManager.Close_Current_Panel();              // 有打开的 panel 则关闭 panel
@@ -823,6 +830,7 @@ public class Card_Location_Feature : MonoBehaviour
         
         // 如果倒计时结束时 panel 开着，则也关闭 panel
         if (GameManager.GM.PanelManager.isPanelOpen
+            && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null
             && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()
                 .attached_card_location_feature == this)
         {
@@ -908,34 +916,7 @@ public class Card_Location_Feature : MonoBehaviour
     }
     
     
-    public void Trigger_Any_Start_Effects()       // 如果有任何生成时就要发动的效果，就集成在这里
-    {
-        // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic
-        if (_cardLocation.Auto_Start)       
-            Start_Countdown();
-        
-        // 
-        if (_cardLocation.Start_Effect.Count > 0)
-        {
-            foreach (var start_effect in _cardLocation.Start_Effect)
-            {
-                if (start_effect == "Mother_Start")
-                {
-                    Mother_Start();
-                }
-                
 
-
-
-
-
-
-
-
-
-            }
-        }
-    }
     
     
     
@@ -982,7 +963,40 @@ public class Card_Location_Feature : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
+    
+    public void Trigger_Any_Start_Effects()       // 如果有任何生成时就要发动的效果，就集成在这里
+    {
+        // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic
+        if (_cardLocation.Auto_Start)       
+            Start_Countdown();
+        
+        // 
+        if (_cardLocation.Start_Effect.Count > 0)
+        {
+            foreach (var start_effect in _cardLocation.Start_Effect)
+            {
+                if (start_effect == "Mother_Start")
+                {
+                    Mother_Start();
+                }
+                
+
+
+
+
+
+
+
+
+
+            }
+        }
+    }
+    
+    
+    
     /////////////////     触发卡牌效果
+    
     
     void Trigger_Card_Effects()
     {
@@ -1104,9 +1118,9 @@ public class Card_Location_Feature : MonoBehaviour
                     Level_10();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Get_Make_Potion")
                 {
-                    
+                    Generate_Make_Potion_Card();
                 }
                 
                 if (special_effect == "")
@@ -1182,6 +1196,22 @@ public class Card_Location_Feature : MonoBehaviour
             
             
         }
+    }
+
+
+    void Generate_Make_Potion_Card()
+    {
+        
+        GameObject card_make_potion = Instantiate(SPcard_Make_Potion_prefab, transform.position, Quaternion.identity);
+                
+        GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+                
+        card_make_potion.transform.DOMove(new Vector3(
+            gameObject.transform.position.x + newCardLocationPositionXOffset,
+            gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+            gameObject.transform.position.z), draw_card_animation_duration);
+        
+        
     }
 
 

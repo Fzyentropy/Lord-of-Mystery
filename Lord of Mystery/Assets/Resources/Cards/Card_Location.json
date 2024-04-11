@@ -221,7 +221,8 @@
 
             "Produce_Special_Effect":
             [
-                "Level_10"
+                "Level_10",
+                "Get_Make_Potion"
             ]
 
         },
