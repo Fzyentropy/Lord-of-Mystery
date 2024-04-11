@@ -4078,6 +4078,7 @@ MonoBehaviour:
   Slot_Physical_Body: {fileID: 6193762022093621914, guid: 8d9dca7f72d7d154f8333a3a9a8f8c76, type: 3}
   Slot_Spirit: {fileID: 6193762022093621914, guid: dff80b4e0ea8d2a4c9fc69c36bf721a8, type: 3}
   Slot_Psyche: {fileID: 6193762022093621914, guid: 623482e36310a594b89c18b6e85cd28c, type: 3}
+  Slot_Potion: {fileID: 6193762022093621914, guid: 20cbfee754b630249af748f6c26278eb, type: 3}
   panel_image: {fileID: 4353840571473389007}
   panel_label: {fileID: 9052688202075834355}
   panel_description: {fileID: 2590580191475585822}

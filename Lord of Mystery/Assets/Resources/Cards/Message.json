@@ -24,11 +24,19 @@
         },
         {
             "Id": "Psyche",
-            "Label": "I start to feel",
-            "Image": "Image_Beginning",
+            "Label": "Psyche",
+            "Image": "Image_Psyche",
             "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
 
         },
+        {
+            "Id": "Potion",
+            "Label": "Potion",
+            "Image": "Image_Potion",
+            "Message_Content": "The Potion of CUSTOMIZE_POTION_NAME"
+
+        },
+
 
 
         {
@@ -104,6 +112,36 @@
             "Image": "Image_The_Seer",
             "Message_Content": "I drank the potion that is made of Spiritual Infused Materials, and my body experienced an indescribable sense of clarity, I felt my senses were opened, vision was enhanced, as if I had made a connection with some old existance unseen..."
         },
+
+
+        
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Physical_Body",
+            "Label": "Slot: Physical Body",
+            "Image": "Image_Slot_Physical_Body",
+            "Message_Content": " [ This slot requires a Physical Body ]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Spirit",
+            "Label": "Slot: Spirit",
+            "Image": "Image_Slot_Spirit",
+            "Message_Content": " [ This slot requires a Spirit ]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Psyche",
+            "Label": "Slot: Psyche",
+            "Image": "Image_Slot_Psyche",
+            "Message_Content": " [ This slot requires a Psyche ]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Potion",
+            "Label": "Slot: Potion",
+            "Image": "Image_Slot_Potion",
+            "Message_Content": " [ This slot requires a specific type of Potion, you should only consume Potion that is exactly 1 rank above ]"
+        },
+
+
+
 
 
 

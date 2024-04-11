@@ -21,6 +21,12 @@
             "Image": "Image_Psyche",
             "Produce_Message":"Psyche"
         },
+        {
+            "Id": "Potion",
+            "Label": "Potion: XXX",
+            "Image": "Image_Potion",
+            "Produce_Message":"Potion"
+        },
 
 
 

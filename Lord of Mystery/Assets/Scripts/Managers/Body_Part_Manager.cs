@@ -11,6 +11,8 @@ public class Body_Part_Manager : MonoBehaviour
     public int Body_Part_Physical_Body;
     public int Body_Part_Spirit;
     public int Body_Part_Psyche;
+    public int Body_Part_Potion;
+    
 
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class Body_Part_Manager : MonoBehaviour
         Body_Part_Physical_Body = 0;
         Body_Part_Spirit = 0;
         Body_Part_Psyche = 0;
+        Body_Part_Potion = 0;
     }
 
     /////////////////////////       设置函数  结束
@@ -75,7 +78,21 @@ public class Body_Part_Manager : MonoBehaviour
             
             // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Psyche);
         }
+        
+        
+        
+        
+        if (bodyPartString == "Potion")             // Potion body Part TODO 或许添加任何 额外设置
+        {
+            Body_Part_Potion++;
 
+            generatedBodyPart = GameManager.GM.Generate_Card_Body_Part("Potion");
+            
+            // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Potion);
+        }
+
+        
+        
         if (generatedBodyPart != null)
             Animate_Body_Part_Movement(generatedBodyPart, from, To);
     }
@@ -104,6 +121,13 @@ public class Body_Part_Manager : MonoBehaviour
             Destroy(bodyPartGameObject);
             Body_Part_Psyche--;
             Debug.Log("Body Part Psyche Destroyed");
+        }
+        
+        if (bodyPartGameObject.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == "Potion" && Body_Part_Potion > 0)     // Potion TODO
+        { 
+            Destroy(bodyPartGameObject);
+            Body_Part_Potion--;
+            Debug.Log("Body Part Potion Destroyed");
         }
         
             // TODO 销毁 body part 的炫酷动画

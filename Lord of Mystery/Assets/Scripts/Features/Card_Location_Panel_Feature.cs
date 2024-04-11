@@ -95,6 +95,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Slot_Physical_Body;
     public GameObject Slot_Spirit;
     public GameObject Slot_Psyche;
+    public GameObject Slot_Potion;
 
     // panel 外观设置
     [Header("Panel Appearance")]
@@ -481,6 +482,16 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().slot_number_in_panel = body_part.Key;
                 bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().BodyPartSlotType =
                     Card_Location_Panel_Body_Part_Slot.Body_Part_Slot_Type.Psyche;
+            }
+            if (body_part.Value == "Potion")
+            {
+                bodyPartSlot = Instantiate(Slot_Potion, panel_section_body_part.transform);
+                
+                // 设置 Body Part slot 脚本的各参数
+                bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().attached_card_location_panel_feature = this;
+                bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().slot_number_in_panel = body_part.Key;
+                bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().BodyPartSlotType =
+                    Card_Location_Panel_Body_Part_Slot.Body_Part_Slot_Type.Potion;
             }
             
             // TODO 设置 body part slot 的 panel 指代为此 panel
@@ -1110,6 +1121,13 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                     requiredBodyPartsThisPanel[slot.Key],
                     absorbedBodyPartGameObjects[slot.Key].transform.position,
                     absorbedBodyPartGameObjects[slot.Key].GetComponent<Card_Body_Part_Feature>().lastPosition);
+
+                
+                if (requiredBodyPartsThisPanel[slot.Key] == "Potion")       // TODO 添加 Potion 情况的特殊处理           POTION
+                {
+                    
+                }
+                
             }
         }
         

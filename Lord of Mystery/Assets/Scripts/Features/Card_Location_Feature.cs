@@ -95,7 +95,7 @@ public class Card_Location_Feature : MonoBehaviour
         Set_Layer_Index();          // 设置 layer 的 index
 
         Initialize_Card();      // 设置卡牌 label，image，初始化卡牌使用次数，等设置
-        Initialize_Card_Resource();     // 根据 Card_Location 实例设置 3个字典 - 消耗的resource，消耗的body part，生产的resource
+        Initialize_Card_Resource_And_Body_Part();     // 根据 Card_Location 实例设置 3个字典 - 消耗的 resource，消耗的 body part，生产的 resource，生产的 body part
 
         StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
         
@@ -190,7 +190,7 @@ public class Card_Location_Feature : MonoBehaviour
         
     }
 
-    void Initialize_Card_Resource()
+    void Initialize_Card_Resource_And_Body_Part()
     {
         
         required_resources = new Dictionary<string, int>
@@ -212,7 +212,9 @@ public class Card_Location_Feature : MonoBehaviour
         {
             { "Physical_Body", _cardLocation.Require_Body_Part.Physical_Body },
             { "Spirit", _cardLocation.Require_Body_Part.Spirit },
-            { "Psyche", _cardLocation.Require_Body_Part.Psyche}
+            { "Psyche", _cardLocation.Require_Body_Part.Psyche},
+            
+            {"Potion", _cardLocation.Require_Body_Part.Potion}
 
         };
         
@@ -235,7 +237,9 @@ public class Card_Location_Feature : MonoBehaviour
         {
             { "Physical_Body", _cardLocation.Produce_Body_Part.Physical_Body },
             { "Spirit", _cardLocation.Produce_Body_Part.Spirit },
-            { "Psyche", _cardLocation.Produce_Body_Part.Psyche}
+            { "Psyche", _cardLocation.Produce_Body_Part.Psyche},
+            
+            {"Potion", _cardLocation.Produce_Body_Part.Potion}
 
         };
         
@@ -578,19 +582,21 @@ public class Card_Location_Feature : MonoBehaviour
             if (bodyPartFeature != null)            // 且如果 dragging Object 是 body part，通过检测是否存在 body part feature 判断
             {
 
+
+                // TODO if (bodyPartFeature._CardBodyPart.Id == "Potion")           // 加入 Potion 的特别通过判定
+                
+                
+                
                 if (GameManager.GM.PanelManager.isPanelOpen) // 如果 panel 打开着
                 {
-                    if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() !=
-                        null && // 如果打开的 panel 是个 card location panel 
-                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()
-                            .attached_card == gameObject && // 如果打开这个 panel 的卡是 这张卡
-                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>()
-                            .Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) >
-                        0) // 传入当前拖拽的 body part 的类型 string))
+                    if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null && // 如果打开的 panel 是个 card location panel 
+                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject && // 如果打开这个 panel 的卡是 这张卡
+                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) > 0) // 传入当前拖拽的 body part 的类型 string))
                     {
                         return true;
                     }
                 }
+                
                 
                 else        // 如果 panel 没打开，则直接检测 dictionary 是否标记了需要这个 type 的 body part
                 {
@@ -603,6 +609,8 @@ public class Card_Location_Feature : MonoBehaviour
                     }
                 }
 
+                
+                
             }
             
         }
@@ -940,8 +948,11 @@ public class Card_Location_Feature : MonoBehaviour
         
         foreach (var body_part in required_body_parts)
         {
-            if (body_part.Value > 0)
+
+            if (body_part.Value > 0 &&        // 如果是需要的 Body Part
+                body_part.Key != "Potion")      // 且 不是 Potion (Potion 不会被返还)
             {
+
                 for (int i = 1; i <= body_part.Value; i++)
                 {
                     GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board(

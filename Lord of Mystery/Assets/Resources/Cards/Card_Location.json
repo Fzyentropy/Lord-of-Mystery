@@ -365,7 +365,7 @@
             "Id": "A_Menial_Job",
             "Label": "A Menial Job",
             "Image": "Image_A_Menial_Job",
-            "Description": "By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Description": "I need a job to servive. By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
 
             "Rank": -1,
             "Occupation": "All",
@@ -493,7 +493,8 @@
 
             "Produce_Special_Effect":
             [
-                "Get_Level_Up_Sequence_10_9"
+                "Get_Level_Up_Sequence_10_9",
+                "Get_Make_Potion"
             ]
 
         },
@@ -546,13 +547,11 @@
 
             "Require_Body_Part":
             {
-                "Physical_Body": 1
+                "Potion": 1
             },
 
             "Require_Resource":
             {
-                "Physical_Energy": 5,
-                "Spirituality_Infused_Material": 2
             },
 
             "Produce_Body_Part":

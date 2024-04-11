@@ -8,4 +8,6 @@ public class Body_Part_Data
     public int Physical_Body;
     public int Spirit;
     public int Psyche;
+
+    public int Potion;
 }

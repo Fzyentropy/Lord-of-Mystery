@@ -12,7 +12,9 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
     {
         Physical_Body,
         Spirit,
-        Psyche
+        Psyche,
+        
+        Potion
     }
     public Body_Part_Slot_Type BodyPartSlotType;
     public Card_Location_Panel_Feature attached_card_location_panel_feature;
@@ -44,6 +46,11 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
         if (attached_card_location_panel_feature == null || slot_number_in_panel == null || BodyPartSlotType == null)
         {
             throw new NullReferenceException("slot 生成 panel 丢失 || slot number 丢失 || body part 类型未设置");
+        }
+
+        if (BodyPartSlotType == Body_Part_Slot_Type.Potion)     // 添加 Potion 相关设置的判定
+        {
+            
         }
     }
 
@@ -102,14 +109,22 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f         // 鼠标位置基本没变
+        
+        // 弹出一个 Message 来告诉玩家需要 某个类型的 Body Part
+        if (BodyPartSlotType == Body_Part_Slot_Type.Physical_Body)
+        {
+            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Physical_Body");
+        }
+        
+        // 原代码：点击 Slot 时会从 board 上吸收一个相应的 Body Part
+        /*if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f         // 鼠标位置基本没变
             && !attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel]   // 且该槽位没吸收 body part
             && attached_card_location_panel_feature.Have_Giving_Type_Of_Body_Part_On_Board(BodyPartSlotType.ToString())    // 且 board 上还有相应类型的 body part
             // && GameManager.GM.InputManager.Dragging_Object == null         // 且没在 drag 东西  // 此判定不能加，因为 Panel Movement 脚本会让 dragging Object = panel
-            )
+           )
         {
             attached_card_location_panel_feature.Absorb_Body_Part_Based_On_Slot(slot_number_in_panel);
-        }
+        }*/
     }
     
     
