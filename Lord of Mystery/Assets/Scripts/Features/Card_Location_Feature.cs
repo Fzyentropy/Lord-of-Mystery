@@ -42,6 +42,7 @@ public class Card_Location_Feature : MonoBehaviour
     public bool is_counting_down = false;     // panel 是否在倒计时生产中
     
     // 进度条
+    [Header("Progress Bar")]
     public GameObject progress_bar_prefab;        // 进度条 prefab
     [HideInInspector]public GameObject progress_bar;               // 进度条 指代
     [HideInInspector]public GameObject progress_bar_root;          // 进度条方块的根 指代
@@ -1203,9 +1204,7 @@ public class Card_Location_Feature : MonoBehaviour
     {
         
         GameObject card_make_potion = Instantiate(SPcard_Make_Potion_prefab, transform.position, Quaternion.identity);
-                
-        GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
-                
+
         card_make_potion.transform.DOMove(new Vector3(
             gameObject.transform.position.x + newCardLocationPositionXOffset,
             gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置

@@ -84,6 +84,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1688836702767459936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4865169764382202614}
+  m_Layer: 7
+  m_Name: ProgressBar Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4865169764382202614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688836702767459936}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.83, y: -4.76, z: -0.18772446}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5192219712967150763}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2650628250851114781
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +153,7 @@ Transform:
   - {fileID: 8801959446227739087}
   - {fileID: 8263778985454435803}
   - {fileID: 6520250155182050372}
+  - {fileID: 4865169764382202614}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,6 +177,12 @@ MonoBehaviour:
   card_label: {fileID: 2328481247986825465}
   card_image_mask: {fileID: 3602805576023204968}
   card_shadow: {fileID: 8429035146368408124}
+  is_counting_down: 0
+  progress_bar_prefab: {fileID: 6519039351980061584, guid: 1dbcd721cc66ecb41b58bc9dad46383f, type: 3}
+  progress_bar: {fileID: 0}
+  progress_bar_root: {fileID: 0}
+  progress_bar_position: {fileID: 1688836702767459936}
+  countdown_text: {fileID: 0}
   LayerIndex: 0
   isHighlightYellow: 0
   isHighlight: 0

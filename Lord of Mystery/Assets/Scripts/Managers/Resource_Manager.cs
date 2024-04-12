@@ -61,17 +61,17 @@ public class Resource_Manager : MonoBehaviour
     public GameObject death_bar_prefab;     // Death 进度条 prefab！！
     
     // 判定各资源是否出现过
-    private bool is_fund_ever_appears = false;
-    private bool is_physical_energy_ever_appears = false; // 检查Physical_Energy资源是否曾出现
-    private bool is_spiritual_energy_ever_appears = false; // 检查Spirit资源是否曾出现
-    private bool is_soul_ever_appears = false; // 检查Soul资源是否曾出现
-    private bool is_spirituality_infused_material_ever_appears = false; // 检查Spirituality_Infused_Material资源是否曾出现
-    private bool is_knowledge_ever_appears = false; // 检查Knowledge资源是否曾出现
-    private bool is_belief_ever_appears = false; // 检查Belief资源是否曾出现
-    private bool is_putrefaction_ever_appears = false; // 检查Putrefaction资源是否曾出现
-    private bool is_madness_ever_appears = false; // 检查Madness资源是否曾出现
-    private bool is_godhood_ever_appears = false; // 检查Godhood资源是否曾出现
-    private bool is_death_ever_appears = false;     // 检查Death资源是否曾出现
+    [HideInInspector] public bool is_fund_ever_appears = false;
+    [HideInInspector] public bool is_physical_energy_ever_appears = false; // 检查Physical_Energy资源是否曾出现
+    [HideInInspector] public bool is_spiritual_energy_ever_appears = false; // 检查Spirit资源是否曾出现
+    [HideInInspector] public bool is_soul_ever_appears = false; // 检查Soul资源是否曾出现
+    [HideInInspector] public bool is_spirituality_infused_material_ever_appears = false; // 检查Spirituality_Infused_Material资源是否曾出现
+    [HideInInspector] public bool is_knowledge_ever_appears = false; // 检查Knowledge资源是否曾出现
+    [HideInInspector] public bool is_belief_ever_appears = false; // 检查Belief资源是否曾出现
+    [HideInInspector] public bool is_putrefaction_ever_appears = false; // 检查Putrefaction资源是否曾出现
+    [HideInInspector] public bool is_madness_ever_appears = false; // 检查Madness资源是否曾出现
+    [HideInInspector] public bool is_godhood_ever_appears = false; // 检查Godhood资源是否曾出现
+    [HideInInspector] public bool is_death_ever_appears = false;     // 检查Death资源是否曾出现
     
 
     // Mis

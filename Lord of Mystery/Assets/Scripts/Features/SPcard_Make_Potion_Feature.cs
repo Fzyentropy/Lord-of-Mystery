@@ -25,6 +25,19 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
     public SpriteRenderer card_shadow;          // 卡牌的 shadow 阴影
     
     
+    // 进度
+    [HideInInspector]public bool is_counting_down = false;     // panel 是否在倒计时生产中
+    private float make_potion_time = 15f;
+    
+    // 进度条
+    [Header("Progress Bar")]
+    public GameObject progress_bar_prefab;        // 进度条 prefab
+    [HideInInspector]public GameObject progress_bar;               // 进度条 指代
+    [HideInInspector]public GameObject progress_bar_root;          // 进度条方块的根 指代
+    public GameObject progress_bar_position;      // 进度条位置标记 空物体
+    [HideInInspector]public TMP_Text countdown_text;               // 显示秒数文本
+    
+    
     // Movement Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
@@ -366,6 +379,87 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
         
         
     }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////      开始倒计时 方法
+    
+    public void Start_Make_Potion()
+    {
+        StartCoroutine(Counting_Down_For_Make_Potion());
+    }
+    
+    
+    // 倒计时协程，包括进度条的功能
+    
+    IEnumerator Counting_Down_For_Make_Potion()
+    {
+        is_counting_down = true;   // 设置 "正在倒计时" 为是
+        
+        float totalTime = make_potion_time;   // 配置魔药计时
+        float remainingTime = totalTime;        // 设置倒计时参数
+        float timeInterval = 0.05f;              // 设置进度条更新的时间间隔
+
+        // 实例化 进度条 prefab
+        progress_bar = Instantiate(progress_bar_prefab, transform.position, Quaternion.identity);
+        progress_bar.transform.localPosition = progress_bar_position.transform.position;
+        progress_bar.transform.parent = transform;
+        progress_bar_root = progress_bar.transform.Find("Bar_Root").gameObject;
+        countdown_text = progress_bar.GetComponentInChildren<TMP_Text>();
+        
+        // 初始化进度条和时间显示
+        Vector3 originalScale = progress_bar_root.transform.localScale;      // 记录 original scale 设置为 1
+        progress_bar_root.transform.localScale = new Vector3(0, originalScale.y, originalScale.z);  // 进度条 scale 设置为 0
+        countdown_text.text = $"{remainingTime:0.0} S";                   // 将 剩余时间 用 小数点后 1位 格式来显示
+
+        while (remainingTime > 0)
+        {
+            // 等待 timeInterval时间长度 - 0.05 秒
+            yield return new WaitForSeconds(timeInterval);
+            remainingTime -= timeInterval * GameManager.GM.InputManager.Time_X_Speed;     // 加入时间加速参数！！
+
+            // 更新进度条和时间显示
+            float progress = (totalTime - remainingTime) / totalTime;
+            progress_bar_root.transform.localScale = new Vector3(progress, originalScale.y, originalScale.z);
+            countdown_text.text = $"{remainingTime:0.0} s";
+        }
+        
+        
+        // 销毁 进度条 prefab
+        Destroy(progress_bar);
+        is_counting_down = false;   // 设置 "正在倒计时" 为否
+        
+
+        // 如果倒计时结束时 panel 开着，则也关闭 panel
+        if (GameManager.GM.PanelManager.isPanelOpen
+            && GameManager.GM.PanelManager.current_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>() != null)
+        {
+            GameManager.GM.PanelManager.Close_Current_Panel();
+        }
+
+        // 触发卡牌效果
+        Make_The_Potion();
+        
+    }
+
+
+    void Make_The_Potion()
+    {
+        
+        // 生成 Potion Body Part，设置 该 Potion 特殊标签
+
+        GameObject new_potion = GameManager.GM.Generate_Card_Body_Part("Potion");
+
+        new_potion.AddComponent<Potion_Info>();
+
+        new_potion.GetComponent<Potion_Info>().potion_sequence = 
+            GameManager.GM.CardLoader.Get_Sequence_By_Id(showed_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>().matched_sequence);
+
+
+
+
+
+    }
+
 
 
 }

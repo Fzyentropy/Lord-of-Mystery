@@ -42,6 +42,11 @@
             "Rank": 10,
             "Occupation": "All",
 
+            "Required_Resource":
+            {
+                "Physical_Energy": 100
+            },
+
             "Time": 30,
 
             "Produce_Resource":
