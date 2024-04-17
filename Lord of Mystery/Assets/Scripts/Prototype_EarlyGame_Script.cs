@@ -21,10 +21,6 @@ public class Prototype_EarlyGame_Script : MonoBehaviour
         
         GameManager.GM.Generate_Message("Born");
         
-        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Potion", new Vector3(20,-8,0), new Vector3(20,-8,0));
-        
-        
-        
 
     }
     

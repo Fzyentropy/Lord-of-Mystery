@@ -12,7 +12,6 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     
     // 记录是否匹配的参数
     [HideInInspector] public bool is_matching_sequence;
-    [HideInInspector] public string matched_sequence;
 
     // 各资源 button prefab
     [Header("Resource Button Prefab")]
@@ -58,6 +57,7 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     {
         Check_If_Absorbed_Resource_Meet_Any_Sequence_Requirements();        // 时刻检测 吸收的资源是否满足 序列需要
         Set_Make_Potion_Start_Button_Availability();        // 动态设置 start 按钮是否可点击
+        Update_Resource_Amount_Text();              // 更新 panel 上吸收的 各 resource 的数量，到 TMP text 上
         
     }
 
@@ -154,15 +154,15 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
             {
                 // 成功
                 is_matching_sequence = true;
-                matched_sequence = sequence.Id;
+                GameManager.GM.BodyPartManager.matched_sequence = sequence.Id;
                 return true;
             }
             
         }
 
         // 失败
-        is_matching_sequence = true;
-        matched_sequence = "";
+        is_matching_sequence = false;
+        GameManager.GM.BodyPartManager.matched_sequence = "";
         return false;
 
     }
@@ -201,44 +201,144 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         foreach (var resource in absorbedResourceThisPanel)
         {
 
-            if (resource.Key == "Physical_Energy")
+            if (resource.Key == "Physical_Energy" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Physical_Energy(resource.Value, transform.position);
             }
-            if (resource.Key == "Spiritual_Energy")
+            if (resource.Key == "Spiritual_Energy" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Spiritual_Energy(resource.Value, transform.position);
             }
-            if (resource.Key == "Soul")
+            if (resource.Key == "Soul" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Soul(resource.Value, transform.position);
             }
-            if (resource.Key == "Spirituality_Infused_Material")
+            if (resource.Key == "Spirituality_Infused_Material" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Spirituality_Infused_Material(resource.Value, transform.position);
             }
-            if (resource.Key == "Knowledge")
+            if (resource.Key == "Knowledge" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Knowledge(resource.Value, transform.position);
             }
-            if (resource.Key == "Belief")
+            if (resource.Key == "Belief" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Belief(resource.Value, transform.position);
             }
-            if (resource.Key == "Putrefaction")
+            if (resource.Key == "Putrefaction" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Putrefaction(resource.Value, transform.position);
             }
-            if (resource.Key == "Madness")
+            if (resource.Key == "Madness" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Madness(resource.Value, transform.position);
             }
-            if (resource.Key == "Godhood")
+            if (resource.Key == "Godhood" && resource.Value > 0)
             {
                 GameManager.GM.ResourceManager.Add_Godhood(resource.Value, transform.position);
             }
 
         }
+        
+        
+    }
+    
+
+    // 更新 panel 上吸收的 各 resource 的数量，到 TMP text 上
+    void Update_Resource_Amount_Text()
+    {
+
+        // Physical_Energy
+        if (absorbedResourceThisPanel["Physical_Energy"] == 0)
+        {
+            absorbed_amount_text_physical_energy.text = "";
+        }
+        else if (absorbedResourceThisPanel["Physical_Energy"] > 0)
+        {
+            absorbed_amount_text_physical_energy.text = absorbedResourceThisPanel["Physical_Energy"].ToString();
+        }
+        
+        // Spiritual_Energy
+        if (absorbedResourceThisPanel["Spiritual_Energy"] == 0)
+        {
+            absorbed_amount_text_spiritual_energy.text = "";
+        }
+        else if (absorbedResourceThisPanel["Spiritual_Energy"] > 0)
+        {
+            absorbed_amount_text_spiritual_energy.text = absorbedResourceThisPanel["Spiritual_Energy"].ToString();
+        }
+        
+        // Soul
+        if (absorbedResourceThisPanel["Soul"] == 0)
+        {
+            absorbed_amount_text_soul.text = "";
+        }
+        else if (absorbedResourceThisPanel["Soul"] > 0)
+        {
+            absorbed_amount_text_soul.text = absorbedResourceThisPanel["Soul"].ToString();
+        }
+        
+        // Spirituality_Infused_Material
+        if (absorbedResourceThisPanel["Spirituality_Infused_Material"] == 0)
+        {
+            absorbed_amount_text_spirituality_infused_material.text = "";
+        }
+        else if (absorbedResourceThisPanel["Spirituality_Infused_Material"] > 0)
+        {
+            absorbed_amount_text_spirituality_infused_material.text = absorbedResourceThisPanel["Spirituality_Infused_Material"].ToString();
+        }
+        
+        // Knowledge
+        if (absorbedResourceThisPanel["Knowledge"] == 0)
+        {
+            absorbed_amount_text_knowledge.text = "";
+        }
+        else if (absorbedResourceThisPanel["Knowledge"] > 0)
+        {
+            absorbed_amount_text_knowledge.text = absorbedResourceThisPanel["Knowledge"].ToString();
+        }
+        
+        // Belief
+        if (absorbedResourceThisPanel["Belief"] == 0)
+        {
+            absorbed_amount_text_belief.text = "";
+        }
+        else if (absorbedResourceThisPanel["Belief"] > 0)
+        {
+            absorbed_amount_text_belief.text = absorbedResourceThisPanel["Belief"].ToString();
+        }
+        
+        // Putrefaction
+        if (absorbedResourceThisPanel["Putrefaction"] == 0)
+        {
+            absorbed_amount_text_putrefaction.text = "";
+        }
+        else if (absorbedResourceThisPanel["Putrefaction"] > 0)
+        {
+            absorbed_amount_text_putrefaction.text = absorbedResourceThisPanel["Putrefaction"].ToString();
+        }
+        
+        // Madness
+        if (absorbedResourceThisPanel["Madness"] == 0)
+        {
+            absorbed_amount_text_madness.text = "";
+        }
+        else if (absorbedResourceThisPanel["Madness"] > 0)
+        {
+            absorbed_amount_text_madness.text = absorbedResourceThisPanel["Madness"].ToString();
+        }
+        
+        // Godhood
+        if (absorbedResourceThisPanel["Godhood"] == 0)
+        {
+            absorbed_amount_text_godhood.text = "";
+        }
+        else if (absorbedResourceThisPanel["Godhood"] > 0)
+        {
+            absorbed_amount_text_godhood.text = absorbedResourceThisPanel["Godhood"].ToString();
+        }
+        
+        
         
         
     }

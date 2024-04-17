@@ -13,6 +13,8 @@ public class Body_Part_Manager : MonoBehaviour
     public int Body_Part_Psyche;
     public int Body_Part_Potion;
     
+    // 如果 Make Potion 时给的资源 match，记录 matched 的 sequence Id
+    [HideInInspector] public string matched_sequence = "";       // 记录 matched 的 sequence Id
 
     private void Awake()
     {
@@ -50,7 +52,7 @@ public class Body_Part_Manager : MonoBehaviour
     }
     
     
-    public void Generate_Body_Part_To_Board(string bodyPartString, Vector3 from, Vector3 To) // 生成 1个 对应类型的 body part，并运动
+    public GameObject Generate_Body_Part_To_Board(string bodyPartString, Vector3 from, Vector3 To) // 生成 1个 对应类型的 body part，并运动
     {
         GameObject generatedBodyPart = null;
 
@@ -89,12 +91,26 @@ public class Body_Part_Manager : MonoBehaviour
             generatedBodyPart = GameManager.GM.Generate_Card_Body_Part("Potion");
             
             // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Potion);
+            
+            generatedBodyPart.AddComponent<Potion_Info>();
+
+            generatedBodyPart.GetComponent<Potion_Info>().potion_sequence = 
+                GameManager.GM.CardLoader.Get_Sequence_By_Id(matched_sequence);
         }
 
-        
-        
+
+
         if (generatedBodyPart != null)
+        {
             Animate_Body_Part_Movement(generatedBodyPart, from, To);
+            return generatedBodyPart;
+        }
+        else
+        {
+            return null;
+        }   
+        
+        
     }
 
     public void Take_Body_Part_Away_From_Board(GameObject bodyPartGameObject)

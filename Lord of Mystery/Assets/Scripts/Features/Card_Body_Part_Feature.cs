@@ -134,7 +134,6 @@ public class Card_Body_Part_Feature : MonoBehaviour
             else if (overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Panel_Body_Part_Slot>() != null)    // 如果 overlap 的是 panel 上的 body part slot
             {
                 // body part slot 处理
-                Debug.Log("Start Absorb Body Part Based On TYPE and SLOT");
                 overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Panel_Body_Part_Slot>().
                     attached_card_location_panel_feature.Absorb_Body_Part_Based_On_Type_And_Slot(
                         gameObject, overlapped_card_location_or_panel_slot.GetComponent<Card_Location_Panel_Body_Part_Slot>().slot_number_in_panel);

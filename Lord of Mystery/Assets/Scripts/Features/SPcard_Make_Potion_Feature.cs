@@ -25,6 +25,7 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
     public SpriteRenderer card_shadow;          // 卡牌的 shadow 阴影
     
     
+    
     // 进度
     [HideInInspector]public bool is_counting_down = false;     // panel 是否在倒计时生产中
     private float make_potion_time = 15f;
@@ -447,15 +448,15 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
         
         // 生成 Potion Body Part，设置 该 Potion 特殊标签
 
-        GameObject new_potion = GameManager.GM.Generate_Card_Body_Part("Potion");
+        float newPotionPositionYOffset = 8f;
+        
+        GameObject new_potion = GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Potion",
+            transform.position,
+            new Vector3(transform.position.x,
+                transform.position.y - newPotionPositionYOffset,
+                transform.position.z));
 
-        new_potion.AddComponent<Potion_Info>();
-
-        new_potion.GetComponent<Potion_Info>().potion_sequence = 
-            GameManager.GM.CardLoader.Get_Sequence_By_Id(showed_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>().matched_sequence);
-
-
-
+        
 
 
     }

@@ -127,10 +127,10 @@ public class Start_Button_Script : MonoBehaviour
                         GetComponent<Card_Location_Feature>().
                             Start_Countdown();
             
-            Destroy(attached_panel);
-
             GameManager.GM.PanelManager.isPanelOpen = false;
             GameManager.GM.PanelManager.current_panel = null;
+            
+            Destroy(attached_panel);
 
         }
         

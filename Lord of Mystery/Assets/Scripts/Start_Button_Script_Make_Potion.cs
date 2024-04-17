@@ -11,7 +11,7 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
     [HideInInspector]public GameObject attached_make_potion_panel;         // 对于这个按钮所在的 panel 的指代，可通过此 panel 指代找到相应的卡牌，并触发countdown功能
     // public Card_Location_Panel_Feature attached_panel_feature;    // 对所在 panel 上的 panel_feature 进行指代
     
-    [HideInInspector]public SpriteRenderer button_sprite_renderer;       // Button 的 SpriteRenderer 指代，方便调用以调整颜色
+    public SpriteRenderer button_sprite_renderer;       // Button 的 SpriteRenderer 指代，方便调用以调整颜色
     private bool is_button_available;                      // Button 是否能够点击，当条件满足时，可以点击
     private bool is_button_hover;
     private bool is_button_clicking;
@@ -23,7 +23,7 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
     public Color button_unavailable_color;
     
     // Mis
-    public Vector3 mouse_click_position;                  // 点击时记录鼠标位置，方便判定点击还是拖拽
+    private Vector3 mouse_click_position;                  // 点击时记录鼠标位置，方便判定点击还是拖拽
 
 
     private void Awake()
@@ -46,13 +46,13 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
     
     private void Set_Button_Renderer()
     {
-        button_sprite_renderer = GetComponent<SpriteRenderer>();
+        if (button_sprite_renderer == null)
+            button_sprite_renderer = GetComponent<SpriteRenderer>();
     }
     
-    public void Set_Button_Availability(bool availability)    //  设置 button 是否 available 的方法，从外部设置，顺带设置颜色
+    public void Set_Button_Availability(bool availability)    //  设置 button 是否 available 的方法，从外部设置
     {
         is_button_available = availability;
-        
     }
     
 
@@ -127,10 +127,10 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
                         GetComponent<SPcard_Make_Potion_Feature>().
                             Start_Make_Potion();
             
-            Destroy(attached_make_potion_panel);
-
             GameManager.GM.PanelManager.isPanelOpen = false;
             GameManager.GM.PanelManager.current_panel = null;
+            
+            Destroy(attached_make_potion_panel);
 
         }
         

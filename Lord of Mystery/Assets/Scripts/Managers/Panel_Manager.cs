@@ -97,6 +97,11 @@ public class Panel_Manager : MonoBehaviour
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Resource();
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Body_Part();
         }
+
+        if (current_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>() != null)
+        {
+            current_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>().Return_Absorbed_Resource();
+        }
         
         Destroy(current_panel);
         GameManager.GM.PanelManager.current_panel = null;

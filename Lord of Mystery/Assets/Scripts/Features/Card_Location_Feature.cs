@@ -167,8 +167,12 @@ public class Card_Location_Feature : MonoBehaviour
             if (_cardLocation.Id != "Flesh_And_Body")
             {
                 line_to_next.SetActive(true);        // 将 指向下一个 sequence 的线 显示
-            } 
+            }
+
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);     // 设置 Z轴坐标
         }
+        
+        
         card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
         use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
@@ -591,28 +595,73 @@ public class Card_Location_Feature : MonoBehaviour
             {
 
 
-                // TODO if (bodyPartFeature._CardBodyPart.Id == "Potion")           // 加入 Potion 的特别通过判定
-                
-                
-                
-                if (GameManager.GM.PanelManager.isPanelOpen) // 如果 panel 打开着
+                if (GameManager.GM.PanelManager.isPanelOpen)   //  情况 1/2 ： 如果 panel 打开着
                 {
-                    if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null && // 如果打开的 panel 是个 card location panel 
-                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject && // 如果打开这个 panel 的卡是 这张卡
-                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) > 0) // 传入当前拖拽的 body part 的类型 string))
+                    if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null  // 如果打开的 panel 是个 card location panel 
+                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject  // 如果打开这个 panel 的卡是 这张卡
+                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().
+                            Find_First_Empty_Body_Part_Type_In_Slots(bodyPartFeature._CardBodyPart.Id) > 0)   // 如果在 panel 上能找到 空的，同类型的 Body Part Slot
+                        
                     {
-                        return true;
+                        
+                        
+                        if (bodyPartFeature._CardBodyPart.Id == "Potion")       // 如果是 Potion，额外判定等级 （TODO 加上职业判定）
+                        {
+                                
+                            if (bodyPartFeature.gameObject.GetComponent<Potion_Info>() != null &&        // 如果能 检测到 Potion Info
+                                bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence.Rank     // 如果 Potion 升级的等级 刚好比当前 序列等级高1级
+                                == GameManager.GM.Current_Rank - 1)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                                
+                        }
+                            
+                            
+                        else       // 如果不是 Potion，就可以过了
+                        {
+                            return true;
+                        }
+                        
                     }
                 }
                 
                 
-                else        // 如果 panel 没打开，则直接检测 dictionary 是否标记了需要这个 type 的 body part
+                else        // 情况 2/2 ： 如果 panel 没打开，则直接检测 dictionary 是否标记了需要这个 type 的 body part
                 {
                     foreach (var bodyPart in required_body_parts)
                     {
                         if (bodyPartFeature._CardBodyPart.Id == bodyPart.Key && bodyPart.Value > 0)     // 检测当前拖拽的 body part 的 id 是否跟需要的 body part 中的一样
-                        {                                                          
-                            return true;
+                        {
+                            
+                            
+                            if (bodyPart.Key == "Potion")       // 如果是 Potion，额外判定等级 （TODO 加上职业判定）
+                            {
+                                
+                                if (bodyPartFeature.gameObject.GetComponent<Potion_Info>() != null &&        // 如果能 检测到 Potion Info
+                                    bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence.Rank     // 如果 Potion 升级的等级 刚好比当前 序列等级高1级
+                                    == GameManager.GM.Current_Rank - 1)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    return false;
+                                }
+                                
+                            }
+                            
+                            
+                            else       // 如果不是 Potion，就可以过了
+                            {
+                                return true;
+                            }
+                            
+                            
                         }
                     }
                 }

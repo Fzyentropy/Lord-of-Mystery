@@ -19019,6 +19019,17 @@ MonoBehaviour:
   godhood_icon_pure: {fileID: 870034428689274399, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
   death_icon_pure: {fileID: 3953027631342908348, guid: d53d63d36f0964d4390b4fd00326ff62, type: 3}
   death_bar_prefab: {fileID: 4087611380995272862, guid: 5d2de1e8fcf020d49a01a92398fce67b, type: 3}
+  is_fund_ever_appears: 0
+  is_physical_energy_ever_appears: 0
+  is_spiritual_energy_ever_appears: 0
+  is_soul_ever_appears: 0
+  is_spirituality_infused_material_ever_appears: 0
+  is_knowledge_ever_appears: 0
+  is_belief_ever_appears: 0
+  is_putrefaction_ever_appears: 0
+  is_madness_ever_appears: 0
+  is_godhood_ever_appears: 0
+  is_death_ever_appears: 0
 --- !u!4 &1642947924
 Transform:
   m_ObjectHideFlags: 0
@@ -27297,6 +27308,7 @@ MonoBehaviour:
   Body_Part_Physical_Body: 0
   Body_Part_Spirit: 0
   Body_Part_Psyche: 0
+  Body_Part_Potion: 0
 --- !u!4 &2118591453
 Transform:
   m_ObjectHideFlags: 0

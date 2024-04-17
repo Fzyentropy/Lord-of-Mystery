@@ -11,9 +11,8 @@
             "Rank": 9,
             "Occupation": "Seer",
 
-            "Required_Resource":
+            "Require_Resource":
             {
-                "Fund": 1,
                 "Physical_Energy": 1,
                 "Spiritual_Energy": 1,
                 "Soul": 1,
@@ -42,7 +41,7 @@
             "Rank": 10,
             "Occupation": "All",
 
-            "Required_Resource":
+            "Require_Resource":
             {
                 "Physical_Energy": 100
             },
@@ -64,7 +63,7 @@
             "Rank": 9,
             "Occupation": "Seer",
 
-            "Required_Resource":
+            "Require_Resource":
             {
                 "Physical_Energy": 4,
                 "Spirituality_Infused_Material": 3
@@ -86,7 +85,7 @@
             "Rank": 9,
             "Occupation": "Warrior",
 
-            "Required_Resource":
+            "Require_Resource":
             {
                 "Physical_Energy": 7,
                 "Spirituality_Infused_Material": 1
@@ -108,7 +107,7 @@
             "Rank": 8,
             "Occupation": "Seer",
 
-            "Required_Resource":
+            "Require_Resource":
             {
                 "Physical_Energy": 6,
                 "Spirituality_Infused_Material": 4,
@@ -131,7 +130,7 @@
             "Rank": 8,
             "Occupation": "Warrior",
 
-            "Required_Resource":
+            "Require_Resource":
             {
                 "Physical_Energy": 12,
                 "Spirituality_Infused_Material": 3
