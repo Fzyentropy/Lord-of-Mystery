@@ -118,9 +118,12 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
         if (is_button_available && (Input.mousePosition - mouse_click_position).magnitude < 0.6f)
         {
             // 点击后的执行逻辑
-        
+
+            attached_make_potion_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>()
+                .Pass_Matched_Sequence_To_Manager();
+            
             // Randomly_Generate_A_Body_Part();
-        
+
             attached_make_potion_panel.
                 GetComponent<SPcard_Make_Potion_Panel_Feature>().
                     attached_make_potion_card.

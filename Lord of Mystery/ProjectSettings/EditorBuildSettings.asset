@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/CardBoard_Overview.unity
     guid: 683100a9d5344e540be9fd43f42306b7
   - enabled: 1
-    path: Assets/Scenes/Prototype_EarlyGame.unity
+    path: Assets/Scenes/Lord_of_Mystery.unity
     guid: 970693162f022ca459335ef1feb799bb
   m_configObjects: {}

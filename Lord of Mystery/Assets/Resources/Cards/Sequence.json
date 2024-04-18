@@ -71,6 +71,8 @@
 
             "Time": 30,
 
+            "Death_Expansion_Amount": 4,
+
             "Produce_Resource":
             {
                 "Physical_Energy": -1
@@ -92,6 +94,8 @@
             },
 
             "Time": 30,
+
+            "Death_Expansion_Amount": 6,
 
             "Produce_Resource":
             {
@@ -116,6 +120,8 @@
 
             "Time": 30,
 
+            "Death_Expansion_Amount": 4,
+
             "Produce_Resource":
             {
                 "Physical_Energy": -1
@@ -123,7 +129,7 @@
         },
         {
             "Id": "Level_8_Fighter",
-            "Label": "Level 9: The Fighter",
+            "Label": "Level 8: The Fighter",
             "Image": "Image_The_Fighter",
             "Description": ".............................",
 
@@ -137,6 +143,8 @@
             },
 
             "Time": 30,
+
+            "Death_Expansion_Amount": 6,
 
             "Produce_Resource":
             {

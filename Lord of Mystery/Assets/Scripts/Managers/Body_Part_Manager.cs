@@ -14,7 +14,7 @@ public class Body_Part_Manager : MonoBehaviour
     public int Body_Part_Potion;
     
     // 如果 Make Potion 时给的资源 match，记录 matched 的 sequence Id
-    [HideInInspector] public string matched_sequence = "";       // 记录 matched 的 sequence Id
+    [HideInInspector] public Sequence matched_sequence;       // 记录 matched 的 sequence 实例
 
     private void Awake()
     {
@@ -92,10 +92,8 @@ public class Body_Part_Manager : MonoBehaviour
             
             // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Potion);
             
-            generatedBodyPart.AddComponent<Potion_Info>();
-
-            generatedBodyPart.GetComponent<Potion_Info>().potion_sequence = 
-                GameManager.GM.CardLoader.Get_Sequence_By_Id(matched_sequence);
+            generatedBodyPart.AddComponent<Potion_Info>().potion_sequence = matched_sequence;
+            
         }
 
 

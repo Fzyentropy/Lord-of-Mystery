@@ -42,7 +42,8 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(overlapped_card_location_or_panel_slot);
+        // Debug to check what's overlapped 
+        // Debug.Log(overlapped_card_location_or_panel_slot);
     }
 
 

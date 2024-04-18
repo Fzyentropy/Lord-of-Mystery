@@ -17,6 +17,9 @@ public class Sequence
     public Resource_Data Require_Resource;
 
     public int Time;
+
+    public int Death_Expansion_Amount;
+    
     public int Counter;
 
     public Resource_Data Produce_Resource;

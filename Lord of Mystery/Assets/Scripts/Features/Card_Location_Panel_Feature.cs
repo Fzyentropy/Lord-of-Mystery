@@ -976,6 +976,20 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             bodyPartToMerge_Original.GetComponent<Card_Body_Part_Feature>().lastPosition;
         
         
+        // 如果是 Potion，传递 Potion_Info 里的 potion sequence 实例到 card location feature 上的一个存储参数上
+        // 为了吸收 Potion 的时候，能够清楚这个 Potion 是哪个序列的 Potion，方便 1) Return 的时候重新赋予新生成的 Potion Body Part， 2) 
+        
+        if (bodyPartToMerge_Original.GetComponent<Potion_Info>() != null)
+        {
+            attached_card_location_feature.current_potion_card_sequence =
+                bodyPartToMerge_Original.GetComponent<Potion_Info>().potion_sequence;   // 将 potion sequence 实例记录到 card location feature 上的存储参数
+            
+            
+            bodyPartToMerge_Instantiated.AddComponent<Potion_Info>().potion_sequence = 
+                    bodyPartToMerge_Original.GetComponent<Potion_Info>().potion_sequence;   // 将 potion sequence 实例 赋予 新生成的 panel 上的 potion card
+        }
+
+
         // 调整 panel 上生成 body part 卡牌的 缩放 Adjust Scale of Instantiate card
 
         float scaleOffset = 0.8f;
@@ -1117,15 +1131,18 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         {
             if (slot.Value)
             {
-                GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board(
+                GameObject returned_body_part = GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board(
                     requiredBodyPartsThisPanel[slot.Key],
                     absorbedBodyPartGameObjects[slot.Key].transform.position,
                     absorbedBodyPartGameObjects[slot.Key].GetComponent<Card_Body_Part_Feature>().lastPosition);
 
                 
-                if (requiredBodyPartsThisPanel[slot.Key] == "Potion")       // TODO 添加 Potion 情况的特殊处理           POTION
+                if (requiredBodyPartsThisPanel[slot.Key] == "Potion")       // 如果 return 的是 Potion，则加上记录的 potion sequence 实例
                 {
+                    returned_body_part.AddComponent<Potion_Info>().potion_sequence =
+                        attached_card_location_feature.current_potion_card_sequence;    // 塞入存储的 sequence 实例
                     
+                    attached_card_location_feature.current_potion_card_sequence = null;   // 清空 sequence 实例
                 }
                 
             }

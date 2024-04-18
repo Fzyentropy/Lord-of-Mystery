@@ -15,9 +15,8 @@ public class Card_Location_Feature : MonoBehaviour
     
     // 卡牌数据
     public Card_Location _cardLocation;         // Card_Location 的卡牌实例
-    public Resource_Data _ResourceData;         // 用于跟 资源管理脚本实例 传值
-    
-    // 卡牌 prefab 各元素指代
+
+    // 卡牌外观 prefab 各元素指代
     [Header("prefab elements")]
     public SpriteRenderer card_frame;           // 卡牌的 frame，边框
     public SpriteRenderer card_name_tag;        // 卡牌的 name tag，名字栏
@@ -34,11 +33,12 @@ public class Card_Location_Feature : MonoBehaviour
     public GameObject  showed_panel;             // 打开这张卡对应的 panel 时，记录 打开的 panel 到此参数
     
     public List<Button> resource_buttons;       
-    public List<TMP_Text> resource_number;
+    public List<TMP_Text> resource_number; 
     public List<GameObject> body_part_slots;
     // public Button start_button;
     
-    // 进度
+    // 是否 Available 相关参数
+    public bool card_location_availability = true;     // 此 card location 是否 available
     public bool is_counting_down = false;     // panel 是否在倒计时生产中
     
     // 进度条
@@ -60,8 +60,9 @@ public class Card_Location_Feature : MonoBehaviour
 
     public int use_time_counter;
 
-    // 其他卡牌相关
+    // Potion 相关
     public GameObject SPcard_Make_Potion_prefab;
+    public Sequence current_potion_card_sequence;        // 用于记录吸收的 Body Part 如果是 Potion 时的 match sequence
     
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
@@ -102,7 +103,7 @@ public class Card_Location_Feature : MonoBehaviour
 
         StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
         
-        Trigger_Any_Start_Effects();        // 如果有任何生成时就要发动的效果，就集成在这里
+        StartCoroutine(Trigger_Any_Start_Effects());        // 如果有任何生成时就要发动的效果，就集成在这里
     }
 
     
@@ -169,7 +170,7 @@ public class Card_Location_Feature : MonoBehaviour
                 line_to_next.SetActive(true);        // 将 指向下一个 sequence 的线 显示
             }
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);     // 设置 Z轴坐标
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 2);     // 设置 Z轴坐标
         }
         
         
@@ -180,7 +181,8 @@ public class Card_Location_Feature : MonoBehaviour
         gameObject.name = _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
         
         
-        if (_cardLocation.isSequence)       // Sequence 的运动
+        // 如果是 Sequence，则运动到 Sequence 标记的位置
+        /*if (_cardLocation.isSequence)       
         {
             if (_cardLocation.Id == "Flesh_And_Body")
             {
@@ -190,10 +192,9 @@ public class Card_Location_Feature : MonoBehaviour
             else
             {
                 gameObject.transform.DOMove(
-                    GameObject.Find("Sequence_Location_" + (GameManager.GM.Current_Rank - 1)).transform.position, 0.6f);
+                    GameObject.Find("Sequence_Location_" + GameManager.GM.Current_Rank).transform.position, 0.6f);
             }
-            
-        }
+        }*/
         
     }
 
@@ -255,10 +256,10 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
-        // 高亮
-        if (GameManager.GM.InputManager.Dragging_Object == null)         // 鼠标悬停时，如果没拖拽着其他卡牌，
+        if (card_location_availability
+            && GameManager.GM.InputManager.Dragging_Object == null)     // 鼠标悬停时，如果没拖拽着其他卡牌，
         {
-            isHighlight = true;
+            isHighlight = true;     // 高亮
         }
     }
 
@@ -280,9 +281,10 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnMouseDrag() // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
-        // if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        
+        if (card_location_availability)     
+            
         {
-
             
             // Clear_Highlight_Collider();                             // 取消高亮
             isHighlight = false; // 取消高亮
@@ -306,21 +308,32 @@ public class Card_Location_Feature : MonoBehaviour
             }
             
         }
+        
     }
 
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
-        
-        if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
-        {
-            Open_Panel();   // 打开 panel
-        }
 
-        GameManager.GM.InputManager.Dragging_Object = null;     // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
+        if (card_location_availability) // 此卡处于 available 的状态
+        {
+            
+            // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
+            if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f)  
+            {
+                Open_Panel();   // 打开 panel
+            }
+
+            // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
+            GameManager.GM.InputManager.Dragging_Object = null;     
         
-        // 调整 卡牌的渲染 layer 让其回到原位
-        gameObject.layer = LayerIndex; 
-        DecreaseOrderInLayer();     // 设置回 原 Order in Layer
+            // 调整 卡牌的渲染 layer 让其回到原位
+            gameObject.layer = LayerIndex; 
+            
+            // 设置回 原 Order in Layer
+            DecreaseOrderInLayer();     
+            
+        }
+        
     }
 
     private void OnMouseExit()      // 当鼠标离开卡牌上方时，取消高亮
@@ -335,7 +348,9 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)      // 当有 Collider2D 悬停时
     {
-        if (other.GetComponent<Card_Body_Part_Feature>() != null)   // 如果该 Collider2D 是 body part
+        if (card_location_availability          // 如果此卡 available
+            && !is_counting_down                   // 如果没在 倒计时
+            && other.GetComponent<Card_Body_Part_Feature>() != null)   // 且 如果该 Collider2D 是 body part
         {
             if (GameManager.GM.InputManager.Dragging_Object == other.gameObject)    // 而且正在拖拽那张 body part
             {
@@ -359,7 +374,8 @@ public class Card_Location_Feature : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)      // 当悬停的卡牌离开时
     {
         
-        if (other.GetComponent<Card_Body_Part_Feature>() != null)
+        if (card_location_availability
+            && other.GetComponent<Card_Body_Part_Feature>() != null)
         {
             // 取消黄色 Highlight
             isHighlightYellow = false;
@@ -608,8 +624,9 @@ public class Card_Location_Feature : MonoBehaviour
                         if (bodyPartFeature._CardBodyPart.Id == "Potion")       // 如果是 Potion，额外判定等级 （TODO 加上职业判定）
                         {
                                 
-                            if (bodyPartFeature.gameObject.GetComponent<Potion_Info>() != null &&        // 如果能 检测到 Potion Info
-                                bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence.Rank     // 如果 Potion 升级的等级 刚好比当前 序列等级高1级
+                            if (bodyPartFeature.gameObject.GetComponent<Potion_Info>() != null        // 如果能 检测到 Potion Info
+                                && bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence != null     // 如果 Potion 中的 序列实例存在
+                                && bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence.Rank     // 如果 Potion 升级的等级 刚好比当前 序列等级高1级
                                 == GameManager.GM.Current_Rank - 1)
                             {
                                 return true;
@@ -642,8 +659,9 @@ public class Card_Location_Feature : MonoBehaviour
                             if (bodyPart.Key == "Potion")       // 如果是 Potion，额外判定等级 （TODO 加上职业判定）
                             {
                                 
-                                if (bodyPartFeature.gameObject.GetComponent<Potion_Info>() != null &&        // 如果能 检测到 Potion Info
-                                    bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence.Rank     // 如果 Potion 升级的等级 刚好比当前 序列等级高1级
+                                if (bodyPartFeature.gameObject.GetComponent<Potion_Info>() != null        // 如果能 检测到 Potion Info
+                                    && bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence != null     // 如果 Potion 中的 序列实例存在
+                                    && bodyPartFeature.gameObject.GetComponent<Potion_Info>().potion_sequence.Rank     // 如果 Potion 升级的等级 刚好比当前 序列等级高1级
                                     == GameManager.GM.Current_Rank - 1)
                                 {
                                     return true;
@@ -679,21 +697,28 @@ public class Card_Location_Feature : MonoBehaviour
     {
         while (true)
         {
-            if (Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object))   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
+            if (card_location_availability      // 如果此卡 available
+                && !is_counting_down)      // 如果没有在 倒计时
             {
-                if (!isHighlightYellow)
+                
+                if (Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object))   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
+                {
+                    if (!isHighlightYellow)
+                        Highlight_Collider(Color.white);
+                    else
+                        Highlight_Collider(Color.yellow);
+                }
+                else if (isHighlight)       // 如果鼠标悬停让 isHighlight 参数为 true 了，也高亮，高亮白色
+                {
                     Highlight_Collider(Color.white);
+                }
                 else
-                    Highlight_Collider(Color.yellow);
+                {
+                    Clear_Highlight_Collider();
+                }
+                
             }
-            else if (isHighlight)       // 如果鼠标悬停让 isHighlight 参数为 true 了，也高亮，高亮白色
-            {
-                Highlight_Collider(Color.white);
-            }
-            else
-            {
-                Clear_Highlight_Collider();
-            }
+            
             
             yield return null;
         }
@@ -806,30 +831,22 @@ public class Card_Location_Feature : MonoBehaviour
 
     }
 
-    public void Mother_Start()
-    {
-        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
-        Start_Countdown();
-    }
     
     
     
-
-     
-    // 检查 Require_Body_Part 和 Require_Resource 是否满足条件
-    public void CheckAndFulfillConditions()
-    {
-        
-        
-    }
 
     
     ////////////////////////////////////////////////////////////////////////////////      开始倒计时 方法
     
     public void Start_Countdown()
     {
-        StartCoroutine(Counting_Down_For_Card_Effect());
-        Show_Absorbed_Body_Part_Icon_On_Side();
+        if (card_location_availability          // 如果此卡 available，且没在 countdown
+            && !is_counting_down)
+        {
+            StartCoroutine(Counting_Down_For_Card_Effect());
+            Show_Absorbed_Body_Part_Icon_On_Side();
+        }
+        
     }
     
     
@@ -1014,8 +1031,12 @@ public class Card_Location_Feature : MonoBehaviour
     
     
     
-    public void Trigger_Any_Start_Effects()       // 如果有任何生成时就要发动的效果，就集成在这里
+    public IEnumerator Trigger_Any_Start_Effects()       // 如果有任何生成时就要发动的效果，就集成在这里
     {
+
+        // 等待至 card location 变为 available 状态
+        yield return new WaitUntil(() => card_location_availability);
+        
         // 临时，如果是自动开启，则自动开始倒计时，将来将变成一张 card automatic
         if (_cardLocation.Auto_Start)       
             Start_Countdown();
@@ -1153,14 +1174,14 @@ public class Card_Location_Feature : MonoBehaviour
                     Draw_New_Card_Location();
                 }
                 
-                if (special_effect == "Level_Up_From_10_To_9")
+                if (special_effect == "Level_Up_Sequence_Based_On_Potion")
                 {
-                    Level_Up_From_10_To_9();
+                    Level_Up_Sequence_Based_On_Potion();
                 }
                 
-                if (special_effect == "Get_Level_Up_Sequence_10_9")
+                if (special_effect == "Get_Level_Up_Sequence")
                 {
-                    Get_Level_Up_Sequence_10_9();
+                    Get_Level_Up_Sequence(0f);
                 }
                 
                 if (special_effect == "Level_10")
@@ -1180,20 +1201,27 @@ public class Card_Location_Feature : MonoBehaviour
             }
         }
         
-        use_time_counter--;         // 记一次使用次数，假如 use time 有限，则使用一定次数就销毁
+        
         Check_Use_Time();
         
-    } // Trigger_Card_Effect  END
+        
+        
+    }   // Trigger_Card_Effect  END
 
+    
+    
+    
     
     // 检查卡牌效果使用次数 是否超过 限制的次数，超过即销毁（TODO 销毁动画）
     // 需要在 每次使用卡牌效果时 调用
     void Check_Use_Time()
     {
+        use_time_counter--;         // 记一次使用次数，假如 use time 有限，则使用一定次数就销毁
+        
         if (use_time_counter <= 0)
         {
             // TODO 销毁动画，写一个方法，或者做一个特效，或者shader
-            Destroy(gameObject);
+            GameManager.GM.CardManager.Let_Card_Location_Fade_Out(gameObject,0);
         }
     }
 
@@ -1236,7 +1264,7 @@ public class Card_Location_Feature : MonoBehaviour
                 
                 new_card_location.transform.DOMove(new Vector3(
                     gameObject.transform.position.x + newCardLocationPositionXOffset,
-                    gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                    gameObject.transform.position.y + newCardLocationPositionYOffset,  // 在下方 Y offset 的位置
                     gameObject.transform.position.z), draw_card_animation_duration);
             }
             else
@@ -1247,9 +1275,24 @@ public class Card_Location_Feature : MonoBehaviour
             
         }
     }
+    
+    
+    public void Mother_Start()
+    {
+        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
+        Start_Countdown();
+        StartCoroutine(Mother_Produce_Physical_Energy());
+    }
+
+    private IEnumerator Mother_Produce_Physical_Energy()
+    {
+        yield return new WaitForSeconds(4f);
+        
+        GameManager.GM.ResourceManager.Add_Physical_Energy(3, transform.position);
+    }
 
 
-    void Generate_Make_Potion_Card()
+    void Generate_Make_Potion_Card()            // 生成 制作魔药 卡牌
     {
         
         GameObject card_make_potion = Instantiate(SPcard_Make_Potion_prefab, transform.position, Quaternion.identity);
@@ -1265,44 +1308,59 @@ public class Card_Location_Feature : MonoBehaviour
 
     void Level_10()             // 开局，10级，Flesh and Body
     {
-        GameManager.GM.Generate_Card_Location("Flesh_And_Body", transform.position);
         GameManager.GM.Current_Rank = 10;
         GameManager.GM.Current_Occupation = "All";
+        
+        GameObject flesh_and_body = 
+            GameManager.GM.Generate_Card_Location(
+                "Flesh_And_Body", GameObject.Find("Sequence_Location_"+ GameManager.GM.Current_Rank).transform.position);
+
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(flesh_and_body, 6f);
     }
     
-    void Level_Up_From_10_To_9()        // 升级 10 -> 9
+
+    void Get_Level_Up_Sequence(float delay)       // 生成 ？
     {
-        GameManager.GM.Generate_Card_Location("Level_9_Seer", GameObject.Find("Sequence_Location_9").transform.position);
+        GameObject new_question_mark = 
+            GameManager.GM.Generate_Card_Location(
+                "Level_Up_Sequence", GameObject.Find("Sequence_Location_"+ (GameManager.GM.Current_Rank-1)).transform.position);
+
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(new_question_mark, delay);
+    }
+    
+    
+    void Level_Up_Sequence_Based_On_Potion()        // 根据魔药升级
+    {
+        
+        GameManager.GM.CardManager.Let_Card_Location_Fade_Out(gameObject, 0);      // 将 旧的 ？ Fade Out
+        
+
+        GameObject sequence_to_level_up_to =                       // 生成新的 sequence 卡
+            GameManager.GM.Generate_Card_Location(
+                current_potion_card_sequence.Id, 
+                    GameObject.Find("Sequence_Location_"+ (GameManager.GM.Current_Rank-1)).transform.position);
+        
+        
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(sequence_to_level_up_to, 2f);      // 将 新生成的 sequence 卡 Fade In
+        
         
         // 修改 等级信息
-        GameManager.GM.Current_Rank = 9;
-        GameManager.GM.Current_Occupation = "Seer";
-        
-        // 销毁 ？
-        Destroy(gameObject);
-        
-        // 增加死亡值上线
-        GameManager.GM.ResourceManager.Max_Death = 10;
+        GameManager.GM.Current_Rank -= 1;
+        GameManager.GM.Current_Occupation = current_potion_card_sequence.Occupation;
+
+        // 增加死亡值上限
+        GameManager.GM.ResourceManager.Max_Death += current_potion_card_sequence.Death_Expansion_Amount;
+
+        // 生成 新的 ？ , 在 6s 间隔后
+        Get_Level_Up_Sequence(6f);
 
     }
 
-    void Get_Level_Up_Sequence_10_9()       // 生成 ？
-    {
-        GameManager.GM.Generate_Card_Location("Level_Up_Sequence_10_9", GameObject.Find("Sequence_Location_9").transform.position);
-    }
-    
-    void Get_Level_Up_Sequence_9_8()       // 生成 ？
-    {
-        GameManager.GM.Generate_Card_Location("Level_Up_Sequence_9_8", GameObject.Find("Sequence_Location_8").transform.position);
-    }
-    
     
 
     
     
-    
-    
-    
+
     
     
     

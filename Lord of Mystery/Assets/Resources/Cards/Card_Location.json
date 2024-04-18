@@ -211,7 +211,6 @@
 
             "Produce_Resource":
             {
-                "Physical_Energy": 3
             },
             
             "Produce_Card_Location":
@@ -262,7 +261,7 @@
             "Occupation": "All",
 
             "Use_Time": 1,
-            "Time": 15,
+            "Time": 20,
 
             "Require_Body_Part":
             {
@@ -493,7 +492,7 @@
 
             "Produce_Special_Effect":
             [
-                "Get_Level_Up_Sequence_10_9",
+                "Get_Level_Up_Sequence",
                 "Get_Make_Potion"
             ]
 
@@ -528,8 +527,10 @@
             }
 
         },
+
+        
         {
-            "Id": "Level_Up_Sequence_10_9",
+            "Id": "Level_Up_Sequence",
             "Label": " ? ",
             "Image": "Image_Level_Up",
             "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
@@ -549,30 +550,10 @@
             {
                 "Potion": 1
             },
-
-            "Require_Resource":
-            {
-            },
-
-            "Produce_Body_Part":
-            {
-                "Spirit": 1
-            },
-
-            "Produce_Message":
-            [
-                "Level_Up_To_Seer"
-            ],
-
-            "Produce_Card_Location":
-            [
-                "In_Sight"
-            ],
-
             
             "Produce_Special_Effect":
             [
-                "Level_Up_From_10_To_9"
+                "Level_Up_Sequence_Based_On_Potion"
             ]
 
         },
@@ -599,14 +580,15 @@
             ]
 
         },
+
         {
-            "Id": "Level_Up_Sequence_9_8",
-            "Label": " ? ",
-            "Image": "Image_Level_Up",
-            "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
+            "Id": "Level_8_Fighter",
+            "Label": "Level 8: The Fighter",
+            "Image": "Image_The_Fighter",
+            "Description": ".............................",
 
             "Rank": -1,
-            "Occupation": "All",
+            "Occupation": "Fighter",
 
             "Burn": false,
             "Use_Time": -1,
@@ -616,41 +598,13 @@
             "Stable": true,
             "isSequence": true,
 
-            "Require_Body_Part":
-            {
-                "Physical_Body": 1,
-                "Spirit":1
-            },
-
-            "Require_Resource":
-            {
-                "Physical_Energy": 3,
-                "Spirituality_Infused_Material": 4,
-                "Spirit": 4
-            },
-
-            "Produce_Body_Part":
-            {
-                "Physical_Body": 1
-            },
-
-            "Produce_Message":
-            [
-                ""
-            ],
-
-            "Produce_Card_Location":
-            [
-                ""
-            ],
-
-            
             "Produce_Special_Effect":
             [
-                ""
+                "Draw_A_Tarot_Card"
             ]
 
         },
+        
         {
             "Id": "In_Sight",
             "Label": "In-sight",

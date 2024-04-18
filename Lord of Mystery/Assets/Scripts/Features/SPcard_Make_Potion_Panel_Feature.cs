@@ -12,6 +12,7 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     
     // 记录是否匹配的参数
     [HideInInspector] public bool is_matching_sequence;
+    public Sequence matched_sequence_temp_storage;
 
     // 各资源 button prefab
     [Header("Resource Button Prefab")]
@@ -154,17 +155,23 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
             {
                 // 成功
                 is_matching_sequence = true;
-                GameManager.GM.BodyPartManager.matched_sequence = sequence.Id;
+                matched_sequence_temp_storage = GameManager.GM.CardLoader.Get_Sequence_By_Id(sequence.Id);
                 return true;
             }
             
         }
 
         // 失败
-        is_matching_sequence = false;
-        GameManager.GM.BodyPartManager.matched_sequence = "";
+        is_matching_sequence = false;               // (如果 is_match_sequence 为 false，Start 按钮无法点击，所以 matched_sequence_temp_storage 传递时不会是 null)
+        matched_sequence_temp_storage = null;
         return false;
 
+    }
+
+    public Sequence Pass_Matched_Sequence_To_Manager()          // 在点击了 Make Potion panel 的 Start 之后调用，把临时存储的 sequence 实例传递到 manager
+    {
+        GameManager.GM.BodyPartManager.matched_sequence = matched_sequence_temp_storage;
+        return matched_sequence_temp_storage;
     }
     
     
