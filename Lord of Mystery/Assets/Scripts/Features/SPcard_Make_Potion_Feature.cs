@@ -295,9 +295,10 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
         card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
         card_image_mask.sortingLayerName = "Cards";
         card_shadow.sortingLayerName = "Cards";
-        
+
         float x_movement = 0.1f;
         float y_movement = -0.1f;
+        
 
         if (dragging_shadow_effect_if_transformed)
         {
@@ -449,14 +450,14 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
         // 生成 Potion Body Part，设置 该 Potion 特殊标签
 
         float newPotionPositionYOffset = 8f;
-        
+
         GameObject new_potion = GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Potion",
             transform.position,
             new Vector3(transform.position.x,
                 transform.position.y - newPotionPositionYOffset,
-                transform.position.z));
+                transform.position.z - 1));
 
-        
+
 
 
     }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;                   // 方便在其他脚本 调用 Game Manager 中方法和变量的 static 自身指代
     
     // 一些其他 Manager
+    [Header("Manager")]
     public Card_Loader CardLoader;                  // 处理 从 JSON 文件到卡牌类结构的操作的脚本，提供一系列方法来获取卡牌
     public Resource_Manager ResourceManager;        // 资源管理脚本 Resource Manager
     public Card_Manager CardManager;                // 卡牌 manager
@@ -38,10 +39,13 @@ public class GameManager : MonoBehaviour
     public Event_Manager EventManager;              // 事件触发和管理 Manager
 
     // 卡牌 prefab
+    [Header("Card Prefabs")]
     public GameObject message_Panel;                // 左下角 message panel 的 prefab
     public GameObject Card_Location_Prefab;         // Card_Location 的 prefab
     public GameObject Card_Body_Part_Prefab;        // Card_Body_Part 的 prefab
-
+    public GameObject Knowledge_Card_Prefab;        // Knowledge 的卡牌 prefab
+    public GameObject Knowledge_Panel_Prefab;       // Knowledge 在 Canvas 上的 Panel prefab
+    
 
     private void Awake()
     {
@@ -131,6 +135,7 @@ public class GameManager : MonoBehaviour
         return cardLocation;
     }
     
+    
     public void Generate_Message(string id)     // 实例化 message，根据 id 从 Card_Loader 中的 message list 中找到 message 实例，并赋予生成的 message prefab
     {
 
@@ -145,19 +150,37 @@ public class GameManager : MonoBehaviour
 
     }
 
+    
     public GameObject Generate_Card_Body_Part(string id)  // 实例化 Body_Part， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
     {
-        GameObject cardBodyPart = Instantiate(Card_Body_Part_Prefab, new Vector3(random.Range(-3,3),random.Range(-3,3),1), Quaternion.identity);
+        GameObject cardBodyPart = Instantiate(Card_Body_Part_Prefab, new Vector3(random.Range(-3,3),random.Range(-3,3),-1), Quaternion.identity);
         cardBodyPart.GetComponent<Card_Body_Part_Feature>()._CardBodyPart = CardLoader.Get_Card_Body_Part_By_Id(id);
         return cardBodyPart;
     }
 
+    
     /*public Sequence Generate_New_Sequence(string id)
     {
         Sequence newSequence = Instantiate(Sequence_prefab, sequence_location, Quaternion.identity);
         newSequence.GetComponent<Sequence_Feature>()._Sequence = CardLoader.Get_Sequence_By_Id(id);
         return newSequence;
     }*/
+
+
+    public GameObject Generate_Knowledge_Card(string id, Vector3 position)      // 实例化 Knowledge Card
+    {
+        GameObject knowledgeCard = Instantiate(Knowledge_Card_Prefab, position, Quaternion.identity);
+        knowledgeCard.GetComponent<Knowledge_Feature>()._Knowledge = CardLoader.Get_Knowledge_By_Id(id);
+        return knowledgeCard;
+    }
+
+    public void Generate_Knowledge_Panel(string id)
+    {
+        GameObject knowledgePanel = Instantiate(Knowledge_Panel_Prefab, GameObject.Find("Canvas").transform);
+        knowledgePanel.GetComponent<Knowledge_Panel_Feature>()._Knowledge = CardLoader.Get_Knowledge_By_Id(id);
+    }
+    
+    
 
 
     

@@ -493,7 +493,8 @@
             "Produce_Special_Effect":
             [
                 "Get_Level_Up_Sequence",
-                "Get_Make_Potion"
+                "Get_Make_Potion",
+                "Generate_Potion_Seer_Knowledge"
             ]
 
         },

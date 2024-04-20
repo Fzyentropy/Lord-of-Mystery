@@ -1,0 +1,46 @@
+{
+
+    "List_Knowledge":
+    [
+        {
+            "Id": "Knowledge_Id",
+            "Label": "Knowledge Title",
+            "Short_Label": "Title",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "This is the knowledge you want the player to know. So you are reading it right now."
+        },
+        {
+            "Id": "Potion_Seer",
+            "Label": "Potion Formula: Seer",
+            "Short_Label": "Potion",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "Potion Formula : Seer. \n\n Rank : 9 \n Occupation : The Fool \n Formula : 4 Physical Energy, 3 Spirituality Infused Material."
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+    ]
+
+}

@@ -17,14 +17,19 @@ public class Message_Feature : MonoBehaviour
 
     private void Start()
     {
+        Check_If_Message_Set_Well();
+        Set_Message();
+    }
+    
+
+    void Check_If_Message_Set_Well()
+    {
         if (_message == null)
         {
             throw new NotImplementedException("Message 为空");
         }
-
-        Set_Message();
-
     }
+    
 
     void Set_Message()
     {
@@ -33,5 +38,6 @@ public class Message_Feature : MonoBehaviour
         message_content.text = _message.Message_Content;
         
     }
+    
     
 }

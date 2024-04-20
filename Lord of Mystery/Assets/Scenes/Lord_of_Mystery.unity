@@ -6815,6 +6815,7 @@ MonoBehaviour:
   Message_List: []
   Body_Part_Card_List: []
   Sequence_List: []
+  Knowledge_List: []
 --- !u!1 &634363475
 GameObject:
   m_ObjectHideFlags: 0
@@ -9231,7 +9232,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 830873630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.43, y: 0.37, z: 0}
+  m_LocalPosition: {x: 10.43, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17296,6 +17297,8 @@ MonoBehaviour:
   message_Panel: {fileID: 4127473093681423652, guid: 846aef75ddf6e89479cc0b50abb53adc, type: 3}
   Card_Location_Prefab: {fileID: 2650628250851114781, guid: 6b511319fbf9aeb45977d3529cbd3c76, type: 3}
   Card_Body_Part_Prefab: {fileID: 5566216679495704457, guid: c647c69d122fbb54bb994f8e243df365, type: 3}
+  Knowledge_Card_Prefab: {fileID: 2650628250851114781, guid: 8d8fa4bda9cf619459c78bed2ff80762, type: 3}
+  Knowledge_Panel_Prefab: {fileID: 4127473093681423652, guid: 007296c06340c8849a5592f40b13be10, type: 3}
 --- !u!4 &1472352532
 Transform:
   m_ObjectHideFlags: 0
@@ -22605,7 +22608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807510334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0.37, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23800,7 +23803,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1879487009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.72, y: 0, z: 0}
+  m_LocalPosition: {x: 35.72, y: 0.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

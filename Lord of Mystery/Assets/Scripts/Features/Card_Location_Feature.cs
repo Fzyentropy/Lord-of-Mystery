@@ -781,7 +781,7 @@ public class Card_Location_Feature : MonoBehaviour
         card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
         card_image_mask.sortingLayerName = "Cards";
         card_shadow.sortingLayerName = "Cards";
-        
+
         float x_movement = 0.1f;
         float y_movement = -0.1f;
 
@@ -1009,7 +1009,7 @@ public class Card_Location_Feature : MonoBehaviour
                         new Vector3(
                             gameObject.transform.position.x + bodyPartReturnNumberCount * bodyPartReturnXOffset, 
                             gameObject.transform.position.y + bodyPartReturnYOffset,
-                            gameObject.transform.position.z
+                            gameObject.transform.position.z - 1 
                             )
                         );
 
@@ -1147,7 +1147,7 @@ public class Card_Location_Feature : MonoBehaviour
                         transform.position,
                         new Vector3(transform.position.x + XOffset,
                             transform.position.y - newBodyPartPositionYOffset,
-                            transform.position.z));
+                            transform.position.z - 1));
 
                     XOffset += newBodyPartPositionXOffset;
                 }
@@ -1192,6 +1192,31 @@ public class Card_Location_Feature : MonoBehaviour
                 if (special_effect == "Get_Make_Potion")
                 {
                     Generate_Make_Potion_Card();
+                }
+                
+                if (special_effect == "Generate_Potion_Seer_Knowledge")
+                {
+                    Generate_Potion_Seer_Knowledge();
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
                 }
                 
                 if (special_effect == "")
@@ -1356,7 +1381,17 @@ public class Card_Location_Feature : MonoBehaviour
 
     }
 
-    
+
+    void Generate_Potion_Seer_Knowledge() // 临时， 用于测试生成 Knowledge 的方式
+    {
+
+        GameManager.GM.Generate_Knowledge_Card("Potion_Seer", new Vector3(
+            transform.position.x + 4f,
+            transform.position.y - 4f,
+            transform.position.z));
+
+
+    } 
 
     
     

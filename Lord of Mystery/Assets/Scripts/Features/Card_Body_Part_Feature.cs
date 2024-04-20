@@ -10,7 +10,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     public Card_Body_Part _CardBodyPart;
 
-    // 卡牌 prefab 各元素指代
+    // 卡牌外观 prefab 各元素指代
     public SpriteRenderer body_part_image;      // Body part Image 图像
     public TMP_Text body_part_label;            // Body part name 名称
     public SpriteRenderer body_part_label_cover;                    // Body Part 卡牌名称的区域
@@ -233,7 +233,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
         body_part_image.sortingLayerName = OriginalSortingLayer;
         body_part_label_cover.sortingLayerName = OriginalSortingLayer;
         body_part_shadow.sortingLayerName = OriginalSortingLayer;
-        
+
         float x_movement = 0.2f;
         float y_movement = -0.2f;
 

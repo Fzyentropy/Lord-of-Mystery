@@ -11,12 +11,14 @@ public class Card_Loader : MonoBehaviour
     public const string PATH_MESSAGE = "Cards/Message";
     public const string PATH_CARD_BODY_PART = "Cards/Card_Body_Part";
     public const string PATH_SEQUENCE = "Cards/Sequence";
+    public const string PATH_KNOWLEDGE = "Cards/Knowledge";
 
     [SerializeField] public List<Card_Automatic> Automatic_Card_List;
     [SerializeField] public List<Card_Location> Location_Card_List;
     [SerializeField] public List<Message> Message_List;
     [SerializeField] public List<Card_Body_Part> Body_Part_Card_List;
     [SerializeField] public List<Sequence> Sequence_List;
+    [SerializeField] public List<Knowledge> Knowledge_List;
 
     void Start()
     {
@@ -25,6 +27,8 @@ public class Card_Loader : MonoBehaviour
         Load_All_Message_From_JSON();
         Load_All_Card_Body_Part_From_JSON();
         Load_All_Sequence_From_JSON();
+        Load_All_Knowledge_From_JSON();
+        
     }
 
     
@@ -66,7 +70,7 @@ public class Card_Loader : MonoBehaviour
         TextAsset jsonFile = Resources.Load<TextAsset>(PATH_MESSAGE);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
 
-        // 这个步骤可以将 JSON 中 "Card_Location" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Location 类型的 list 里面
+        // 这个步骤可以将 JSON 中 "Message" 对应的数组中的每张卡的数据放进 Wrapper中的 Message 类型的 list 里面
         Message_Wrapper messageWrapper = JsonUtility.FromJson<Message_Wrapper>(jsonData);
 
         foreach (var message in messageWrapper.List_Message)
@@ -80,7 +84,7 @@ public class Card_Loader : MonoBehaviour
         TextAsset jsonFile = Resources.Load<TextAsset>(PATH_CARD_BODY_PART);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
         
-        // 这个步骤可以将 JSON 中 "Card_Location" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Location 类型的 list 里面
+        // 这个步骤可以将 JSON 中 "Body_Part" 对应的数组中的每张卡的数据放进 Wrapper中的 Body_Part 类型的 list 里面
         Card_Body_Part_Wrapper bodyPartWrapper = JsonUtility.FromJson<Card_Body_Part_Wrapper>(jsonData);
         
         foreach (var card_body_part in bodyPartWrapper.List_Card_Body_Part)
@@ -94,7 +98,7 @@ public class Card_Loader : MonoBehaviour
         TextAsset jsonFile = Resources.Load<TextAsset>(PATH_SEQUENCE);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
         
-        // 这个步骤可以将 JSON 中 "Card_Location" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Location 类型的 list 里面
+        // 这个步骤可以将 JSON 中 "Sequence" 对应的数组中的每张卡的数据放进 Wrapper中的 Sequence 类型的 list 里面
         Sequence_Wrapper sequenceWrapper = JsonUtility.FromJson<Sequence_Wrapper>(jsonData);
 
         foreach (var sequence in sequenceWrapper.List_Sequence)
@@ -102,6 +106,21 @@ public class Card_Loader : MonoBehaviour
             Sequence_List.Add(sequence);
         }
     }
+    
+    public void Load_All_Knowledge_From_JSON()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_KNOWLEDGE);    // 从路径读取 JSON 文件
+        string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
+        
+        // 这个步骤可以将 JSON 中 "Knowledge" 对应的数组中的每张卡的数据放进 Wrapper中的 Knowledge 类型的 list 里面
+        Knowledge_Wrapper knowledgeWrapper = JsonUtility.FromJson<Knowledge_Wrapper>(jsonData);
+
+        foreach (var knowledge in knowledgeWrapper.List_Knowledge)
+        { 
+            Knowledge_List.Add(knowledge);
+        }
+    }
+    
     
     
     ////////////////////////////////////////////////////////////////////     获取 list 中的卡牌对象 by ID
@@ -130,6 +149,11 @@ public class Card_Loader : MonoBehaviour
     public Sequence Get_Sequence_By_Id(string id)
     {
         return Sequence_List.Find(sequence => sequence.Id == id);
+    }
+
+    public Knowledge Get_Knowledge_By_Id(string id)
+    {
+        return Knowledge_List.Find(knowledge => knowledge.Id == id);
     }
     
     

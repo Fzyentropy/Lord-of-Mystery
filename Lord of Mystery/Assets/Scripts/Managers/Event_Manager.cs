@@ -70,9 +70,9 @@ public class Event_Manager : MonoBehaviour
 
         GameManager.GM.Generate_Card_Location("Private_Soiree",
             new Vector3(
-                Random.Range(0,30),
-                Random.Range(0,-15),
-                1));
+                Random.Range(10,30),
+                Random.Range(-5,-15),
+                0));
 
     }
 
