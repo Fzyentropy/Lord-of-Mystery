@@ -64,6 +64,8 @@ public class Card_Location_Feature : MonoBehaviour
     public GameObject SPcard_Make_Potion_prefab;
     public Sequence current_potion_card_sequence;        // 用于记录吸收的 Body Part 如果是 Potion 时的 match sequence
     
+    // 特殊卡牌相关
+
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
@@ -161,7 +163,7 @@ public class Card_Location_Feature : MonoBehaviour
     // 初始化卡牌图片和描述，根据 _cardlocation 实例中的数据设置相关参数
     void Initialize_Card()      
     {
-        if (_cardLocation.isSequence)
+        if (_cardLocation.Card_Type == "Sequence")
         {
             card_frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/Sequence_Frame");
             
@@ -840,10 +842,46 @@ public class Card_Location_Feature : MonoBehaviour
     
     public void Start_Countdown()
     {
-        if (card_location_availability          // 如果此卡 available，且没在 countdown
+        if (card_location_availability          // 如果此卡 available，且没在 countdown，则开始倒计时
             && !is_counting_down)
         {
+
+            // 先发动任何 Start Countdown Effect，即倒计时刚开始时 触发的效果
+            if (_cardLocation.Start_Countdown_Effect.Count > 0)
+            {
+                foreach (var effect in _cardLocation.Start_Countdown_Effect)
+                {
+                    if (effect == "Sleep__Pause_Flesh_Body")
+                    {
+                        Sleep__Pause_Flesh_Body();
+                    }
+                    
+                    if (effect == "")
+                    {
+                        
+                    }
+                    
+                    if (effect == "")
+                    {
+                        
+                    }
+                    
+                    if (effect == "")
+                    {
+                        
+                    }
+                    
+                    if (effect == "")
+                    {
+                        
+                    }
+                }
+            }
+            
+            // 开始倒计时
             StartCoroutine(Counting_Down_For_Card_Effect());
+            
+            // 将吸收的 Body Part 展示在侧边
             Show_Absorbed_Body_Part_Icon_On_Side();
         }
         
@@ -876,8 +914,16 @@ public class Card_Location_Feature : MonoBehaviour
         {
             // 等待 timeInterval时间长度 - 0.05 秒
             yield return new WaitForSeconds(timeInterval);
-            remainingTime -= timeInterval * GameManager.GM.InputManager.Time_X_Speed;     // 加入时间加速参数！！
-
+            
+            // 一系列 Buff 判定后，实际倒计时 progress
+            if (
+                (_cardLocation.Id != "Flesh_And_Body" || (_cardLocation.Id == "Flesh_And_Body" && !GameManager.GM.is_sleeping))   // 如果此卡是 Flesh Body，则判定在不在 Sleep
+                && (_cardLocation.Id != "A_Menial_Job" || (_cardLocation.Id == "A_Menial_Job" && !GameManager.GM.is_sleeping))   // 如果此卡是 Menial Job，则判定在不在 Sleep
+                )
+            {
+                remainingTime -= timeInterval * GameManager.GM.InputManager.Time_X_Speed;     // 加入时间加速参数！！
+            }
+            
             // 更新进度条和时间显示
             float progress = (totalTime - remainingTime) / totalTime;
             progress_bar_root.transform.localScale = new Vector3(progress, originalScale.y, originalScale.z);
@@ -1114,7 +1160,7 @@ public class Card_Location_Feature : MonoBehaviour
 
                 GameObject card_location = GameManager.GM.Generate_Card_Location(cardLocationString, transform.position);
 
-                if (!GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).isSequence)   // Sequence 的 运动
+                if (GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).Card_Type != "Sequence")   // Sequence 的 运动
                 {
                     card_location.transform.DOMove(new Vector3(
                         gameObject.transform.position.x + XOffset,
@@ -1199,14 +1245,14 @@ public class Card_Location_Feature : MonoBehaviour
                     Generate_Potion_Seer_Knowledge();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Get_The_Nighthawk")
                 {
-                    
+                    Get_The_Nighthawk();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Sleep__Resume_Flesh_Body")
                 {
-                    
+                    Sleep__Resume_Flesh_Body();
                 }
                 
                 if (special_effect == "")
@@ -1279,7 +1325,7 @@ public class Card_Location_Feature : MonoBehaviour
         else
         {
             //获取一个随机的 且 匹配当前 rank 和 occupation 的 card location 的 id
-            string random_card_location_id = GameManager.GM.Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation();
+            string random_card_location_id = GameManager.GM.Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation_And_Type("Function");  // 抽一张功能牌
 
             if (random_card_location_id != "")
             {
@@ -1340,7 +1386,7 @@ public class Card_Location_Feature : MonoBehaviour
             GameManager.GM.Generate_Card_Location(
                 "Flesh_And_Body", GameObject.Find("Sequence_Location_"+ GameManager.GM.Current_Rank).transform.position);
 
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(flesh_and_body, 6f);
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(flesh_and_body, 6f, 3f);
     }
     
 
@@ -1350,7 +1396,7 @@ public class Card_Location_Feature : MonoBehaviour
             GameManager.GM.Generate_Card_Location(
                 "Level_Up_Sequence", GameObject.Find("Sequence_Location_"+ (GameManager.GM.Current_Rank-1)).transform.position);
 
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(new_question_mark, delay);
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(new_question_mark, delay, 2f);
     }
     
     
@@ -1366,7 +1412,7 @@ public class Card_Location_Feature : MonoBehaviour
                     GameObject.Find("Sequence_Location_"+ (GameManager.GM.Current_Rank-1)).transform.position);
         
         
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(sequence_to_level_up_to, 2f);      // 将 新生成的 sequence 卡 Fade In
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(sequence_to_level_up_to, 2f, 3f);      // 将 新生成的 sequence 卡 Fade In
         
         
         // 修改 等级信息
@@ -1391,7 +1437,38 @@ public class Card_Location_Feature : MonoBehaviour
             transform.position.z));
 
 
-    } 
+    }
+
+    void Get_The_Nighthawk()
+    {
+        GameObject menial_job = GameObject.Find("A_Menial_Job");
+
+        if (menial_job != null)
+        {
+            // StopCoroutine(menial_job.GetComponent<Card_Location_Feature>().Counting_Down_For_Card_Effect());
+            // Destroy(menial_job.GetComponent<Card_Location_Feature>().progress_bar);
+            
+            GameManager.GM.CardManager.Let_Card_Location_Fade_Out(menial_job, 1f);
+        }
+
+        GameObject nighthawk = GameManager.GM.Generate_Card_Location("The_Nighthawk", new Vector3(
+            transform.position.x + newCardLocationPositionXOffset,
+            transform.position.y + newCardLocationPositionYOffset,
+            transform.position.z));
+        
+        GameManager.GM.CardManager.Let_Card_Location_Fade_In(nighthawk, 0,2f);
+
+    }
+
+    void Sleep__Pause_Flesh_Body()
+    {
+        GameManager.GM.is_sleeping = true;
+    }
+
+    void Sleep__Resume_Flesh_Body()
+    {
+        GameManager.GM.is_sleeping = false;
+    }
 
     
     

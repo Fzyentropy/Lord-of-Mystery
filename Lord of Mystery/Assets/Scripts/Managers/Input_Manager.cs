@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using DG.Tweening;
 
 
 public class Input_Manager : MonoBehaviour
@@ -30,6 +30,8 @@ public class Input_Manager : MonoBehaviour
     public GameObject Dragging_Object;      // 当前拖拽的 卡牌 / body part 等物体的 GameObject
     
     public GameObject raycast_top_object;       // 射线检测最顶层的 GameObject
+    
+    public bool able_to_move_camera = true;        // 用于 限制移动 camera
 
 
     private void Start()
@@ -135,7 +137,8 @@ public class Input_Manager : MonoBehaviour
         {
             
             // 如果没有点到任何带 collider 的物体，则拖拽 board
-            if (!isClickOnObjects)
+            if (!isClickOnObjects 
+                && able_to_move_camera)
             {
                 Vector3 delta = Input.mousePosition - lastMousePosition;        // 拖拽 board 逻辑
                 Vector3 worldDelta = mainCamera.ScreenToWorldPoint(
@@ -302,8 +305,39 @@ public class Input_Manager : MonoBehaviour
     
     void MouseScroll()
     {
-        mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;    // 滚轮 改变视角大小
+        // if (mainCamera.orthographicSize > 15 && mainCamera.orthographicSize < 30)
+        //     mainCamera.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;    // 滚轮 改变视角大小
+        
+        
+        // 计算预期变化后的大小
+        float delta = Input.GetAxis("Mouse ScrollWheel") * CameraScrollOffset;
+        float newSize = mainCamera.orthographicSize - delta;
 
+        // 如果新大小小于最小值15，并且尝试缩小，就不执行缩小
+        if (newSize < 15f && delta > 0)
+        {
+            return;
+        }
+        // 如果新大小大于最大值30，并且尝试放大，就不执行放大
+        if (newSize > 30f && delta < 0)
+        {
+            return;
+        }
+
+        // 应用新的大小
+        mainCamera.orthographicSize = newSize;
+
+    }
+
+    public void Move_Camera_To(Vector2 targetPosition, float duration = .5f)
+    {
+        able_to_move_camera = false;
+        
+        mainCamera.transform.DOMove(new Vector3(targetPosition.x, targetPosition.y, mainCamera.transform.position.z), duration)
+        .OnComplete(() =>
+        {
+            able_to_move_camera = true;
+        });
     }
     
     

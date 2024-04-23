@@ -9,6 +9,7 @@ public class Card_Location
     public string Label;
     public string Image;
     public string Description;
+    public string Card_Type;
 
     public int Rank;
     public string Occupation;
@@ -23,20 +24,21 @@ public class Card_Location
     public bool Auto_Start;     // 自动开始倒计时
     public bool Repeatable;     // 是否重复
     public bool Stable;       // 是否可以移动
-    public bool isSequence;     // 是否是序列
 
     public Body_Part_Data Require_Body_Part;
     public Resource_Data Require_Resource;
     public Resource_Data Produce_Resource;
     public Body_Part_Data Produce_Body_Part;
 
+    public List<string> Start_Effect;       // 刚生成时就发动的效果
+    public List<string> Start_Countdown_Effect;  // 刚开始倒计时时，触发的效果
     public List<string> Produce_Message;
     public List<string> Produce_Card_Automatic;
     public List<string> Produce_Card_Action;
     public List<string> Produce_Card_Event;
     public List<string> Produce_Card_Location;
     public List<string> Produce_Special_Effect;
-    public List<string> Start_Effect;       // 刚生成时就发动的效果
+
 }
 
 

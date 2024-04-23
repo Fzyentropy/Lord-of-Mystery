@@ -8,17 +8,25 @@ using random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     
-    // 玩家状态 Player Status
+    // 玩家状态(大局) Player Status (Overall)
     public int Current_Rank;            // 玩家当前处于序列几 Sequence X
     public string Current_Occupation;       // 玩家当前的职业名称 Occupation
     
     
     // 玩家拥有的卡牌 Player's Cards
     public List<string> Player_Owned_Card_Location_List;
-
+    
+    // 玩家状态(细节) Player Status (Detail)
+    public bool is_sleeping;                // 是否正在 sleep (使用 sleep 卡的功能)
+    public bool is_dreaming;                // 是否正在 dream (使用 dream 卡的功能)
 
     // 一些计数器 Counters
     public int Draw_New_Card_Location_Times;     // 抽取新 Card Location 卡的次数，用于 Lens 的计数
+    
+    
+    // Mis
+    
+    
     
     
 
@@ -184,15 +192,16 @@ public class GameManager : MonoBehaviour
 
 
     
-    // 获取 匹配当前 Rank 和 Occupation 的 Card Location 的 Id，返回 Id 的 string list
-    public List<string> Get_Card_Location_Ids_Based_On_Rank_And_Occupation()        
+    // 获取 匹配当前 Rank (当前+低1级) 和 Occupation (当前职业+All) 的 Card Location 的 Id，返回 Id 的 string list
+    public List<string> Get_Card_Location_Ids_Based_On_Rank_And_Occupation_And_Type(string card_type)        
     {
         List<string> Ids = new List<string>() { };
 
         foreach (var card_location_instance in CardLoader.Location_Card_List)
         {
-            if(card_location_instance.Rank == Current_Rank &&               // 若 card location 实例的 rank 与 当前rank 相等
-               card_location_instance.Occupation == Current_Occupation)     // 若 card location 实例的 occupation 与当前 occupation 相等
+            if( (card_location_instance.Rank == Current_Rank || card_location_instance.Rank == Current_Rank + 1)          // 若 card location 实例的 rank 等于当前 Rank 或低一级
+               && (card_location_instance.Occupation == Current_Occupation || card_location_instance.Occupation == "All" )    // 若 card location 实例的 occupation 是当前 occupation 或是 All
+               && card_location_instance.Card_Type == card_type)          // 
             {
                 Ids.Add(card_location_instance.Id);
             }
@@ -202,9 +211,9 @@ public class GameManager : MonoBehaviour
     }
 
     // 获取 匹配当前 Rank 和 Occupation 的 随机一张 Card Location， 调用 Ids 方法，（有唯一性判定）
-    public string Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation()
+    public string Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation_And_Type(string card_type)
     {
-        List<string> list_of_id = Get_Card_Location_Ids_Based_On_Rank_And_Occupation();
+        List<string> list_of_id = Get_Card_Location_Ids_Based_On_Rank_And_Occupation_And_Type(card_type);
         
         // 检查是否所有卡牌都不可抽取
         if (All_Cards_Owned_And_Only(list_of_id))

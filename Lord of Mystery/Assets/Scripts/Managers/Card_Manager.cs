@@ -13,9 +13,9 @@ public class Card_Manager : MonoBehaviour
     
     
 
-    public void Let_Card_Location_Fade_In(GameObject card_location, float delay)
+    public void Let_Card_Location_Fade_In(GameObject card_location, float delay, float duration)
     {
-        StartCoroutine(Card_Location_Fade_In(card_location, delay));
+        StartCoroutine(Card_Location_Fade_In(card_location, delay, duration));
     }
     
     public void Let_Card_Location_Fade_Out(GameObject card_location, float delay)
@@ -24,7 +24,7 @@ public class Card_Manager : MonoBehaviour
     }
     
     
-    private IEnumerator Card_Location_Fade_In(GameObject card_location, float delay)      // 生成 Sequence 卡 的时候，Fade In
+    private IEnumerator Card_Location_Fade_In(GameObject card_location, float delay, float duration)      // 生成 Sequence 卡 的时候，Fade In
     {
         
         
@@ -62,7 +62,6 @@ public class Card_Manager : MonoBehaviour
         
         ///// Fade in
         
-        float duration = 3f;     // 设置 总时长 
         float timeInterval = 0.05f;  // 设置每步渐变的时间间隔
 
         float remainingTime = duration;

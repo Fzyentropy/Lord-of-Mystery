@@ -68,11 +68,12 @@ public class Event_Manager : MonoBehaviour
         
         yield return new WaitForSeconds(7f);
 
-        GameManager.GM.Generate_Card_Location("Private_Soiree",
-            new Vector3(
-                Random.Range(10,30),
-                Random.Range(-5,-15),
-                0));
+        Vector2 soiree_pos = new Vector3(Random.Range(10, 30), Random.Range(-5, -15));
+
+        GameManager.GM.Generate_Card_Location("Private_Soiree", 
+            new Vector3(soiree_pos.x, soiree_pos.y, 0));
+        
+        GameManager.GM.InputManager.Move_Camera_To(soiree_pos);
 
     }
 
