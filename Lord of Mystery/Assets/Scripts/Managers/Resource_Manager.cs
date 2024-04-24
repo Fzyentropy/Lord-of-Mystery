@@ -409,6 +409,8 @@ public class Resource_Manager : MonoBehaviour
             }
         }
         
+        
+        
     // 增加Knowledge资源，仅在增加资源时调用，因此外部需做好 加减判断                 + Knowledge
     // 调用需传入当前物体 location，以追踪来源
         public void Add_Knowledge(int amount, Vector3 position)
@@ -438,6 +440,8 @@ public class Resource_Manager : MonoBehaviour
                 // TODO: 特殊效果的实现
             }
         }
+        
+        
 
     // 增加Belief资源，仅在增加资源时调用，因此外部需做好 加减判断                + Belief
     // 调用需传入当前物体 location，以追踪来源
@@ -657,6 +661,7 @@ public class Resource_Manager : MonoBehaviour
                 is_spirituality_infused_material_ever_appears = true;
             }
         }
+        
         if (resourceName == "Knowledge")
         {
             iconInstance = Instantiate(knowledge_icon_pure, position, Quaternion.identity); // 在调用物体位置生成 icon
@@ -667,6 +672,8 @@ public class Resource_Manager : MonoBehaviour
                 is_knowledge_ever_appears = true;
             }
         }
+        
+        
         if (resourceName == "Belief")
         {
             iconInstance = Instantiate(belief_icon_pure, position, Quaternion.identity); // 在调用物体位置生成 icon

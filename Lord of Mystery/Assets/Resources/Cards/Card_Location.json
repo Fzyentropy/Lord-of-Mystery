@@ -410,7 +410,7 @@
             "Id": "Invitation_Nighthawk",
             "Label": "Invitation to Nighthawk",
             "Image": "Image_Invitation_Nighthawk",
-            "Description": "I remember now, a few days ago I found myself caught up in a supernatural insident, my life hanging by a thread. It was then that Dunn Smith of the Nighthawk team intervened, offering me protection. He sensed something ethereal about me, foretelling frequent brushes with the things beyond. He then asked me to join the Nighthawk, where offers protection and some handy jobs. It seems like a promising offer, but why couldn't I remember it before? ",
+            "Description": "I remember now, a few days ago I got caught up in a supernatural insident, my life hanging by a thread. It was then that Dunn Smith of the Nighthawk team intervened, offering me protection. He sensed something ethereal about me, foretelling frequent brushes with the things beyond. He then asked me to join the Nighthawk, where offers protection and some handy jobs. It seems like a promising offer, but why couldn't I remember it before? ",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -575,11 +575,11 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 15,
+            "Time": 20,
 
             "Require_Resource":
             {
-                "Fund": 4
+                "Physical_Energy": 2
             },
 
             "Require_Body_Part":
@@ -589,7 +589,7 @@
             
             "Produce_Resource":
             {
-                "Physical_Energy": 6
+                "Spiritual_Energy": 2
             }
         },
         {
@@ -828,9 +828,73 @@
 
         },
         {
-            "Id": "Convert",
-            "Label": "Convert",
-            "Image": "Image_Psyche",
+            "Id": "Confront_The_Whisper",
+            "Label": "Confront the Whisper",
+            "Image": "Image_Confront_The_Whisper",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 2
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+
+        },
+        {
+            "Id": "Sacrificial_Ritual",
+            "Label": "Sacrificial Ritual",
+            "Image": "Image_Sacrificial_Ritual",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Spiritual_Energy": 1,
+                "Spirituality_Infused_Material": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+
+        },
+        {
+            "Id": "Manifestation",
+            "Label": "Manifestation",
+            "Image": "Image_Manifestation",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "Function",
 
@@ -859,9 +923,164 @@
 
         },
         {
-            "Id": "Spiritual_World",
-            "Label": "Spiritual World",
-            "Image": "Image_Spiritual_World",
+            "Id": "Transmutation",
+            "Label": "Transmutation",
+            "Image": "Image_Transmutation",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": 5
+            }
+
+        },
+        {
+            "Id": "Make_Up_Some_Stories",
+            "Label": "Make Up Some Stories",
+            "Image": "Image_Make_Up_Some_Stories",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 6
+            }
+
+        },
+        {
+            "Id": "Spiritual_World_Glimpse",
+            "Label": "Spiritual World (Glimpse)",
+            "Image": "Image_Spiritual_World_Glimpse",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 30,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 2
+            },
+
+            "Produce_Card_Location":
+            [
+            ],
+
+            "Produce_Special_Effect":
+            [
+            ]
+
+        },
+        {
+            "Id": "Pray_To_XXX",
+            "Label": "Pray to @#$%^&*( ",
+            "Image": "Image_Pray_To_XXX",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 3
+            }
+
+        },
+        {
+            "Id": "Dream",
+            "Label": "Dream",
+            "Image": "Image_Dream",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 1
+            }
+
+        },
+
+
+        {
+            "Id": "Spiritual_World_Explore",
+            "Label": "Spiritual World (Explore)",
+            "Image": "Image_Spiritual_World_Explore",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "Function",
 
@@ -882,7 +1101,7 @@
             {
                 "Physical_Energy": 1,
                 "Spiritual_Energy": 3,
-                "Knowledge": 1
+                "Knowledge": 2
             },
 
             "Produce_Card_Location":
