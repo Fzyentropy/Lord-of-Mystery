@@ -354,9 +354,10 @@
             
             "Produce_Special_Effect":
             [
-                "Draw_New_Card_Location"
+                "Draw_New_Card_Location__Function"
             ]
         },
+        
         {
             "Id": "Coarse_Bread",
             "Label": "Coase Bread",
@@ -661,16 +662,45 @@
 
             "Produce_Card_Location":
             [
-                "Noble_Trade_Fair"
+                "A_Mysterious_Noble"
             ],
 
             "Produce_Special_Effect":
             [
-                "Get_Level_Up_Sequence",
+                "Get_Level_Up_Sequence"
+            ]
+
+        },
+        {
+            "Id": "A_Mysterious_Noble",
+            "Label": "A Mysterious Noble",
+            "Image": "Image_A_Mysterious_Noble",
+            "Description": "",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": 1,
+            "Only": true,
+            "Time": 20,
+
+            "Start_Effect":
+            [
+                "Mysterious_Noble_Start"
+            ],
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Special_Effect":
+            [
                 "Get_Make_Potion",
                 "Generate_Potion_Seer_Knowledge"
             ]
-
+            
         },
         {
             "Id": "Noble_Trade_Fair",
@@ -715,7 +745,7 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 30,
+            "Time": 20,
 
             "Require_Body_Part":
             {
@@ -733,6 +763,38 @@
                 "Draw_New_Card_Location__Location_Tingen"
             ]
         },
+        {
+            "Id": "fjk",
+            "Label": "非凡杂货铺",
+            "Image": "Image_Noble_Trade_Fair",
+            "Description": "A trade fair I've heard whispered about in the hushed halls of noble soirees. They say it's where one can obtain spirituality-infused material, rumored to have connections to the \"Beyonders\".",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 4
+            },
+
+            "Produce_Resource":
+            {
+                "Spirituality_Infused_Material": 1
+            }
+
+        },
+        
 
 
 
@@ -817,15 +879,53 @@
             "Burn": false,
             "Use_Time": -1,
             "Only": true,
-            "Time": 10,
+            "Time": 30,
 
+            "Start_Effect":
+            [
+                "Get_3_Spiritual_Energy",
+                "Get_In_Sight"
+            ],
+
+            "Auto_Start": true,
+            "Repeatable": true,
             "Stable": true,
 
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1,
+                "Spiritual_Energy": -1
+            }
+
+        },
+        {
+            "Id": "Lens_Knowledge_A",
+            "Label": "Lens: Omniscience, Lv1",
+            "Image": "Image_Lens",
+            "Description": "Peer through the lens and witness clarity emerge, yet remember, it reflects only what you know. Your perception shapes reality, bound by the confines of your understanding.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "Knowledge",
+
+            "Use_Time": -1,
+            "Time": 20,
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 2,
+                "Knowledge": 1
+            },
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+            
             "Produce_Special_Effect":
             [
-                "Draw_A_Tarot_Card"
+                "Draw_New_Card_Location__Function"
             ]
-
         },
         {
             "Id": "Confront_The_Whisper",
@@ -1170,7 +1270,7 @@
             "Burn": false,
             "Use_Time": -1,
             "Only": true,
-            "Time": 10,
+            "Time": 20,
 
             "Require_Body_Part":
             {
@@ -1179,13 +1279,12 @@
 
             "Require_Resource":
             {
-                "Fund": 2
+                "Fund": 3
             },
 
             "Produce_Resource":
             {
-                "Spiritual_Energy": 1,
-                "Spirituality_Infused_Material": 1
+                "Spiritual_Energy": 2
             }
 
         },

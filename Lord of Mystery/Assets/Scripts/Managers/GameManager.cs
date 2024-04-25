@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     public bool is_dreaming;                // 是否正在 dream (使用 dream 卡的功能)
 
     // 一些计数器 Counters
-    public int Draw_New_Card_Location_Times;     // 抽取新 Card Location 卡的次数，用于 Lens 的计数
+    public int Draw_New_Card_Location_Times__Fuction;     // 抽取新 Card Location 卡的次数，用于 Lens 的计数
+    public int Draw_New_Card_Location_Times__Location;    // 抽取新 Card Location 卡的次数，用于 抽 Location 的计数
     
     
     // Mis
@@ -119,7 +120,8 @@ public class GameManager : MonoBehaviour
     // 设置各种计数器 Set Counters
     void Set_Counters()         
     {
-        Draw_New_Card_Location_Times = 0;       // 临时
+        Draw_New_Card_Location_Times__Fuction = 0;       // 临时
+        Draw_New_Card_Location_Times__Location = 0;       // 临时
 
 
 

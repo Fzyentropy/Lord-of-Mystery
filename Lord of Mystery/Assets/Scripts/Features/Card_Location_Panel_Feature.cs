@@ -116,6 +116,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     {
         Set_Panel_Section();
         Set_Start_Button();
+        
+        // StartCoroutine(Shift_Label_And_Description_If_Absorbed());    // 切换 Label 和 Description， 如果吸收满了  // 此方法目前会导致无限循环，卡死，先注掉
     }
 
     private void Update()
@@ -694,7 +696,36 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         return true;
 
     }
-    
+
+
+    public bool Check_If_Start_Absorb_Any_Resource_Or_BodyParts()
+    {
+
+        bool startAbsorbResource = false;
+        bool startAbsorbBodyPart = false;
+
+        // 检测是否吸收 any Body Part
+        foreach (var slot in currentlyAbosorbedBodyPartSlots)
+        {
+            if (slot.Value)
+            {
+                startAbsorbBodyPart = true;
+            }
+        }
+
+        // 检测是否吸收 any Resource
+        if (
+            current_resource_1_amount > 0
+            || current_resource_2_amount > 0
+            || current_resource_3_amount > 0
+            || current_resource_4_amount > 0
+            || current_resource_5_amount > 0)
+        {
+            startAbsorbResource = true;
+        }
+
+        return startAbsorbResource || startAbsorbBodyPart;
+    }
     
     // 给定一个 body part，判定 board 上是否有该类型的 body part 卡牌存在
     public bool Have_Giving_Type_Of_Body_Part_On_Board(string bodyPartType)
@@ -1191,7 +1222,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             if (attached_card_location_feature.is_counting_down)    // 如果正在倒计时
             {
                 start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("....");
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Running..");
             }
             else      // 如果没在倒计时  
             {
@@ -1204,6 +1235,48 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
             start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
         }
+    }
+    
+    
+    // 切换 Label 和 Description
+    public IEnumerator Shift_Label_And_Description_If_Absorbed()        // 此方法目前会导致无限循环，卡死，先注掉
+    {
+        bool lastStatusIdle = true;     // 硬币参数
+        bool isShifting = false;
+        
+        while (true)
+        {
+            
+            if (Check_If_Start_Absorb_Any_Resource_Or_BodyParts() && lastStatusIdle)    // Idle -> Absorb
+            {
+                lastStatusIdle = false;     // 翻硬币
+
+                panel_label.text = attached_card_location_feature._cardLocation.Absorbed_Label;     // 改变 Label
+                panel_description.text = attached_card_location_feature._cardLocation.Absorbed_Description;     // 改变 Description
+
+                /*if (isShifting)               // TODO 后面再加 Fade In 动画
+                {
+                    // 如果正在变换时的处理
+                }
+                else
+                {
+                    // 直接开始变换 Description
+                    isShifting = true;
+                    
+                }*/
+            }
+
+            else if (!Check_If_Start_Absorb_Any_Resource_Or_BodyParts() && !lastStatusIdle)
+            {
+                lastStatusIdle = true;
+                
+                panel_label.text = attached_card_location_feature._cardLocation.Label;     // 改变 Label
+                panel_description.text = attached_card_location_feature._cardLocation.Description;     // 改变 Description
+            }
+
+
+        }
+        
     }
     
     

@@ -9,6 +9,8 @@ public class Card_Location
     public string Label;
     public string Image;
     public string Description;
+    public string Absorbed_Label;       // 吸收满后替换的标题
+    public string Absorbed_Description;     // 吸收满后替换的描述
     public string Card_Type;
 
     public int Rank;

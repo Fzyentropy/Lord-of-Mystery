@@ -54,6 +54,24 @@
             }
         },
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
             "Id": "Level_9_Seer",
             "Label": "Level 9: The Seer",
@@ -72,30 +90,6 @@
             "Time": 30,
 
             "Death_Expansion_Amount": 4,
-
-            "Produce_Resource":
-            {
-                "Physical_Energy": -1
-            }
-        },
-        {
-            "Id": "Level_9_Warrior",
-            "Label": "Level 9: The Warrior",
-            "Image": "Image_The_Warrior",
-            "Description": ".............................",
-
-            "Rank": 9,
-            "Occupation": "Warrior",
-
-            "Require_Resource":
-            {
-                "Physical_Energy": 7,
-                "Spirituality_Infused_Material": 1
-            },
-
-            "Time": 30,
-
-            "Death_Expansion_Amount": 6,
 
             "Produce_Resource":
             {
@@ -127,6 +121,49 @@
                 "Physical_Energy": -1
             }
         },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Level_9_Warrior",
+            "Label": "Level 9: The Warrior",
+            "Image": "Image_The_Warrior",
+            "Description": ".............................",
+
+            "Rank": 9,
+            "Occupation": "Warrior",
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 7,
+                "Spirituality_Infused_Material": 1
+            },
+
+            "Time": 30,
+
+            "Death_Expansion_Amount": 6,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+        
         {
             "Id": "Level_8_Fighter",
             "Label": "Level 8: The Fighter",
@@ -149,6 +186,49 @@
             "Produce_Resource":
             {
                 "Physical_Energy": -1
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Level_9_Apprentice_Of_The_Whisper",
+            "Label": "Level 9: Apprentice of the Whisper",
+            "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
+            "Description": ".............................",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 5,
+                "Spirituality_Infused_Material": 2
+            },
+
+            "Time": 30,
+
+            "Death_Expansion_Amount": 4,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1,
+                "Spirit": -1
             }
         }
         

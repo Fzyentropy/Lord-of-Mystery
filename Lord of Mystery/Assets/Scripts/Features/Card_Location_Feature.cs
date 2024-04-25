@@ -104,7 +104,7 @@ public class Card_Location_Feature : MonoBehaviour
         Initialize_Card_Resource_And_Body_Part();     // 根据 Card_Location 实例设置 3个字典 - 消耗的 resource，消耗的 body part，生产的 resource，生产的 body part
 
         StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
-        
+
         StartCoroutine(Trigger_Any_Start_Effects());        // 如果有任何生成时就要发动的效果，就集成在这里
     }
 
@@ -695,6 +695,7 @@ public class Card_Location_Feature : MonoBehaviour
         return false;
     }
 
+    // 如果 drag 的是需要的 Body Part，则卡牌高亮
     public IEnumerator Highlight_If_Dragging_Needed_BodyPart()
     {
         while (true)
@@ -725,6 +726,7 @@ public class Card_Location_Feature : MonoBehaviour
             yield return null;
         }
     }
+    
     
     
     public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
@@ -1077,6 +1079,8 @@ public class Card_Location_Feature : MonoBehaviour
     
     
     
+    /// 开始效果，Start Effect
+
     public IEnumerator Trigger_Any_Start_Effects()       // 如果有任何生成时就要发动的效果，就集成在这里
     {
 
@@ -1096,12 +1100,36 @@ public class Card_Location_Feature : MonoBehaviour
                 {
                     Mother_Start();
                 }
+
+                if (start_effect == "Get_3_Spiritual_Energy")
+                {
+                    GameManager.GM.ResourceManager.Add_Spiritual_Energy(3, transform.position);
+                }
                 
-
-
-
-
-
+                if (start_effect == "Mysterious_Noble_Start")
+                {
+                    Mysterious_Noble_Start();
+                }
+                
+                if (start_effect == "Get_In_Sight")
+                {
+                    
+                }
+                
+                if (start_effect == "")
+                {
+                    
+                }
+                
+                if (start_effect == "")
+                {
+                    
+                }
+                
+                if (start_effect == "")
+                {
+                    
+                }
 
 
 
@@ -1111,8 +1139,30 @@ public class Card_Location_Feature : MonoBehaviour
     }
     
     
+    public void Mother_Start()
+    {
+        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
+        Start_Countdown();
+        StartCoroutine(Mother_Produce_Physical_Energy());
+    }
+
+    private IEnumerator Mother_Produce_Physical_Energy()
+    {
+        yield return new WaitForSeconds(4f);
+        
+        GameManager.GM.ResourceManager.Add_Physical_Energy(3, transform.position);
+    }
+
+    public void Mysterious_Noble_Start()
+    {
+        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
+        Start_Countdown();
+    }
     
-    /////////////////     触发卡牌效果
+    
+    
+    
+    /////////////////     倒计时结束后，触发卡牌效果
     
     
     void Trigger_Card_Effects()
@@ -1215,9 +1265,9 @@ public class Card_Location_Feature : MonoBehaviour
                     Draw_A_Tarot_Card();
                 }
 
-                if (special_effect == "Draw_New_Card_Location")
+                if (special_effect == "Draw_New_Card_Location__Function")
                 {
-                    Draw_New_Card_Location();
+                    Draw_New_Card_Location("Function");
                 }
                 
                 if (special_effect == "Level_Up_Sequence_Based_On_Potion")
@@ -1255,9 +1305,9 @@ public class Card_Location_Feature : MonoBehaviour
                     Sleep__Resume_Flesh_Body();
                 }
                 
-                if (special_effect == "")
+                if (special_effect == "Draw_New_Card_Location__Location_Tingen")
                 {
-                    
+                    Draw_New_Card_Location("Location");
                 }
                 
                 if (special_effect == "")
@@ -1306,13 +1356,27 @@ public class Card_Location_Feature : MonoBehaviour
     
     
     // 抽一张匹配当前序列等级 Rank 和职业 Occupation 的 Card Location
-    void Draw_New_Card_Location()
+    void Draw_New_Card_Location(string card_location_type)
     {
-        if (GameManager.GM.Draw_New_Card_Location_Times == 0)   // 如果之前没抽过 card location，则抽取 A Menial Job
+        if (card_location_type == "Function"        // 要抽 Function 
+            && GameManager.GM.Draw_New_Card_Location_Times__Fuction == 0)   // 如果之前没抽过 card location Function，则抽取 A Menial Job
         {
             GameObject new_card_location = GameManager.GM.Generate_Card_Location("A_Menial_Job", transform.position);
+            GameManager.GM.Draw_New_Card_Location_Times__Fuction++;      // 抽卡计数 +1
 
-            GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+            new_card_location.transform.DOMove(new Vector3(
+                gameObject.transform.position.x + newCardLocationPositionXOffset,
+                gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                gameObject.transform.position.z), draw_card_animation_duration);
+
+            // new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
+        }
+        
+        if (card_location_type == "Location"        // 要抽 Location 
+            && GameManager.GM.Draw_New_Card_Location_Times__Location == 0)   // 如果之前没抽过 card location Location，则抽取 非凡杂货铺
+        {
+            GameObject new_card_location = GameManager.GM.Generate_Card_Location("非凡杂货铺", transform.position);
+            GameManager.GM.Draw_New_Card_Location_Times__Location++;      // 抽卡计数 +1
 
             new_card_location.transform.DOMove(new Vector3(
                 gameObject.transform.position.x + newCardLocationPositionXOffset,
@@ -1325,13 +1389,16 @@ public class Card_Location_Feature : MonoBehaviour
         else
         {
             //获取一个随机的 且 匹配当前 rank 和 occupation 的 card location 的 id
-            string random_card_location_id = GameManager.GM.Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation_And_Type("Function");  // 抽一张功能牌
+            string random_card_location_id = GameManager.GM.Get_Random_Card_Location_Id_Based_On_Rank_And_Occupation_And_Type(card_location_type);  // 根据类型抽一张牌
 
             if (random_card_location_id != "")
             {
                 GameObject new_card_location = GameManager.GM.Generate_Card_Location(random_card_location_id, transform.position);
                 
-                GameManager.GM.Draw_New_Card_Location_Times++;      // 抽卡计数 +1
+                if (card_location_type == "Function")
+                    GameManager.GM.Draw_New_Card_Location_Times__Fuction++;      // 抽卡计数 +1
+                if (card_location_type == "Location")
+                    GameManager.GM.Draw_New_Card_Location_Times__Location++;
                 
                 new_card_location.transform.DOMove(new Vector3(
                     gameObject.transform.position.x + newCardLocationPositionXOffset,
@@ -1347,20 +1414,6 @@ public class Card_Location_Feature : MonoBehaviour
         }
     }
     
-    
-    public void Mother_Start()
-    {
-        GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
-        Start_Countdown();
-        StartCoroutine(Mother_Produce_Physical_Energy());
-    }
-
-    private IEnumerator Mother_Produce_Physical_Energy()
-    {
-        yield return new WaitForSeconds(4f);
-        
-        GameManager.GM.ResourceManager.Add_Physical_Energy(3, transform.position);
-    }
 
 
     void Generate_Make_Potion_Card()            // 生成 制作魔药 卡牌
