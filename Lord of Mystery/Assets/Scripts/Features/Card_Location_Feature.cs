@@ -77,8 +77,8 @@ public class Card_Location_Feature : MonoBehaviour
     
     private bool yellow_highlight_bodypart_variable_switch = true;     // 用于让当前 card location 被 body part 重叠时，只在第一次重叠时传入此 card location feature 实例到 body part feature 的参数里
 
-    float newCardLocationPositionXOffset = 8f;      // 生成新的 card location 的时候的 X Offset
-    float newCardLocationPositionYOffset = 0;      // 生成新的 card location 的时候的 Y Offset
+    float newCardLocationPositionXOffset = 7f;      // 生成新的 card location 的时候的 X Offset
+    float newCardLocationPositionYOffset = -5f;      // 生成新的 card location 的时候的 Y Offset
     private float newBodyPartPositionXOffset = 4f;
     private float newBodyPartPositionYOffset = 8f;
 
@@ -180,7 +180,7 @@ public class Card_Location_Feature : MonoBehaviour
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
         use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
 
-        gameObject.name = _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
+        gameObject.name = "Card_" + _cardLocation.Card_Type + "__" +  _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
         
         
         // 如果是 Sequence，则运动到 Sequence 标记的位置
@@ -721,6 +721,10 @@ public class Card_Location_Feature : MonoBehaviour
                 }
                 
             }
+            else
+            {
+                Clear_Highlight_Collider();
+            }
             
             
             yield return null;
@@ -919,8 +923,9 @@ public class Card_Location_Feature : MonoBehaviour
             
             // 一系列 Buff 判定后，实际倒计时 progress
             if (
-                (_cardLocation.Id != "Flesh_And_Body" || (_cardLocation.Id == "Flesh_And_Body" && !GameManager.GM.is_sleeping))   // 如果此卡是 Flesh Body，则判定在不在 Sleep
-                && (_cardLocation.Id != "A_Menial_Job" || (_cardLocation.Id == "A_Menial_Job" && !GameManager.GM.is_sleeping))   // 如果此卡是 Menial Job，则判定在不在 Sleep
+                // (_cardLocation.Id != "Flesh_And_Body" || (_cardLocation.Id == "Flesh_And_Body" && !GameManager.GM.is_sleeping)) &&   // 如果此卡是 Flesh Body，则判定在不在 Sleep，注掉，太inba
+                (_cardLocation.Id != "A_Menial_Job" || (_cardLocation.Id == "A_Menial_Job" && !GameManager.GM.is_sleeping)) &&  // 如果此卡是 Menial Job，则判定在不在 Sleep
+                (_cardLocation.Id != "The_Nighthawk" || (_cardLocation.Id == "The_Nighthawk" && !GameManager.GM.is_sleeping))   // 如果此卡是 Nighthawk，则判定在不在 Sleep
                 )
             {
                 remainingTime -= timeInterval * GameManager.GM.InputManager.Time_X_Speed;     // 加入时间加速参数！！
@@ -1113,6 +1118,31 @@ public class Card_Location_Feature : MonoBehaviour
                 
                 if (start_effect == "Get_In_Sight")
                 {
+                    Get_Insight();
+                }
+                
+                if (start_effect == "Get_A_Spirit")
+                {
+                    Get_A_Spirit();
+                }
+                
+                if (start_effect == "Get_Level_Up_To_Level_9_Apprentice_Of_The_Whisper")
+                {
+                    Get_Level_Up_To_Level_9_Apprentice_Of_The_Whisper();
+                }
+                
+                if (start_effect == "")
+                {
+                    
+                }
+                
+                if (start_effect == "")
+                {
+                    
+                }
+                
+                if (start_effect == "")
+                {
                     
                 }
                 
@@ -1157,6 +1187,23 @@ public class Card_Location_Feature : MonoBehaviour
     {
         GameManager.GM.BodyPartManager.Take_Body_Part_Away_From_Board(GameManager.GM.BodyPartManager.Find_All_Body_Parts_On_Board()[0]);
         Start_Countdown();
+    }
+
+    public void Get_Insight()
+    {
+        GameObject inSight = GameManager.GM.Generate_Card_Location("In_Sight", new Vector3(
+            transform.position.x + newCardLocationPositionXOffset,
+            transform.position.y + newCardLocationPositionYOffset,
+            transform.position.z));
+    }
+
+    public void Get_A_Spirit()
+    {
+        GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Spirit",
+            transform.position,
+            new Vector3(transform.position.x,
+                transform.position.y - newBodyPartPositionYOffset,
+                transform.position.z - 1));
     }
     
     
@@ -1319,6 +1366,36 @@ public class Card_Location_Feature : MonoBehaviour
                 {
                     
                 }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
+                
+                if (special_effect == "")
+                {
+                    
+                }
             }
         }
         
@@ -1372,10 +1449,24 @@ public class Card_Location_Feature : MonoBehaviour
             // new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
         }
         
-        if (card_location_type == "Location"        // 要抽 Location 
+        else if (card_location_type == "Function"        // 要抽 Function 
+                 && GameManager.GM.Draw_New_Card_Location_Times__Fuction == 3)   // 如果抽到 第3张牌了，则抽取 Tingen
+        {
+            GameObject new_card_location = GameManager.GM.Generate_Card_Location("Tingen", transform.position);
+            GameManager.GM.Draw_New_Card_Location_Times__Fuction++;      // 抽卡计数 +1
+
+            new_card_location.transform.DOMove(new Vector3(
+                gameObject.transform.position.x + newCardLocationPositionXOffset,
+                gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+                gameObject.transform.position.z), draw_card_animation_duration);
+
+            // new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
+        }
+        
+        else if (card_location_type == "Location"        // 要抽 Location 
             && GameManager.GM.Draw_New_Card_Location_Times__Location == 0)   // 如果之前没抽过 card location Location，则抽取 非凡杂货铺
         {
-            GameObject new_card_location = GameManager.GM.Generate_Card_Location("非凡杂货铺", transform.position);
+            GameObject new_card_location = GameManager.GM.Generate_Card_Location("Explorer_Shop", transform.position);
             GameManager.GM.Draw_New_Card_Location_Times__Location++;      // 抽卡计数 +1
 
             new_card_location.transform.DOMove(new Vector3(
@@ -1385,6 +1476,8 @@ public class Card_Location_Feature : MonoBehaviour
 
             // new_card_location.GetComponent<Card_Location_Feature>().IncreaseOrderInLayer();
         }
+        
+        
 
         else
         {
@@ -1475,8 +1568,20 @@ public class Card_Location_Feature : MonoBehaviour
         // 增加死亡值上限
         GameManager.GM.ResourceManager.Max_Death += current_potion_card_sequence.Death_Expansion_Amount;
 
-        // 生成 新的 ？ , 在 6s 间隔后
-        Get_Level_Up_Sequence(6f);
+        // 生成 新的 ？ , 在 6s 间隔后       // 注掉，让？弹出的时机暂时先放在 升级后弹出的 用于过渡的Level up卡后面
+        // Get_Level_Up_Sequence(6f);
+
+    }
+
+    void Get_Level_Up_To_Level_9_Apprentice_Of_The_Whisper()
+    {
+        GameObject level_up_card = 
+            GameManager.GM.Generate_Card_Location("Level_Up_To_Level_9_Apprentice_Of_The_Whisper", transform.position);
+        
+        level_up_card.transform.DOMove(new Vector3(
+            gameObject.transform.position.x + newCardLocationPositionXOffset,
+            gameObject.transform.position.y + newCardLocationPositionYOffset, // 在下方 Y offset 的位置
+            gameObject.transform.position.z), draw_card_animation_duration);
 
     }
 
@@ -1494,7 +1599,7 @@ public class Card_Location_Feature : MonoBehaviour
 
     void Get_The_Nighthawk()
     {
-        GameObject menial_job = GameObject.Find("A_Menial_Job");
+        GameObject menial_job = GameObject.Find("Card___A_Menial_Job");
 
         if (menial_job != null)
         {

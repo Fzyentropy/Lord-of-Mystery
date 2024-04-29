@@ -7,7 +7,7 @@
             "Label": "card_lable",
             "Image": "image_id",
             "Description": "card_description",
-            "Card_Type": "Location",
+            "Card_Type": "",
 
             "Rank": 9,
             "Occupation": "All",
@@ -298,7 +298,7 @@
 
             "Produce_Resource":
             {
-                "Fund": 3
+                "Fund": 5
             },
 
             "Produce_Card_Location":
@@ -397,7 +397,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 60,
+            "Time": 50,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -418,6 +418,7 @@
             "Occupation": "All",
 
             "Use_Time": 1,
+            "Only": true,
             "Time": 15,
 
             "Require_Body_Part":
@@ -453,7 +454,7 @@
 
             "Produce_Resource":
             {
-                "Fund": 1
+                "Fund": 2
             }
         },
         {
@@ -580,7 +581,7 @@
 
             "Require_Resource":
             {
-                "Physical_Energy": 2
+                "Physical_Energy": 1
             },
 
             "Require_Body_Part":
@@ -619,7 +620,7 @@
             
             "Produce_Resource":
             {
-                "Physical_Energy": 1
+                "Physical_Energy": 3
             },
 
             "Produce_Special_Effect":
@@ -707,7 +708,7 @@
             "Label": "Noble Trade Fair",
             "Image": "Image_Noble_Trade_Fair",
             "Description": "A trade fair I've heard whispered about in the hushed halls of noble soirees. They say it's where one can obtain spirituality-infused material, rumored to have connections to the \"Beyonders\".",
-            "Card_Type": "",
+            "Card_Type": "Location",
 
             "Rank": -1,
             "Occupation": "All",
@@ -740,7 +741,7 @@
             "Description": "The city I live in, in the northern Kingdom of Loen. Perhaps I should explore the city once again with my new perspective. I've been here for years, yet many corners of the city remain mysterious.",
             "Card_Type": "Function",
 
-            "Rank": 10,
+            "Rank": -1,
             "Occupation": "All",
 
             "Use_Time": -1,
@@ -764,10 +765,10 @@
             ]
         },
         {
-            "Id": "fjk",
-            "Label": "非凡杂货铺",
-            "Image": "Image_Noble_Trade_Fair",
-            "Description": "A trade fair I've heard whispered about in the hushed halls of noble soirees. They say it's where one can obtain spirituality-infused material, rumored to have connections to the \"Beyonders\".",
+            "Id": "Explorer_Shop",
+            "Label": "Explorer's Shop",
+            "Image": "Image_Explorer_Shop",
+            "Description": "A shop",
             "Card_Type": "",
 
             "Rank": -1,
@@ -793,6 +794,31 @@
                 "Spirituality_Infused_Material": 1
             }
 
+        },
+        {
+            "Id": "The_Fortune_Telling_Club",
+            "Label": "The Fortune Telling Club",
+            "Image": "Image_The_Fortune_Telling_Club",
+            "Description": "A place you can visit a Fortune Telling to see your future.",
+            "Card_Type": "Location",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 2
+            }
         },
         
 
@@ -865,7 +891,7 @@
 
 
 
-
+        
         {
             "Id": "Level_9_Apprentice_Of_The_Whisper",
             "Label": "Level 9: Apprentice of the Whisper",
@@ -884,7 +910,7 @@
             "Start_Effect":
             [
                 "Get_3_Spiritual_Energy",
-                "Get_In_Sight"
+                "Get_Level_Up_To_Level_9_Apprentice_Of_The_Whisper"
             ],
 
             "Auto_Start": true,
@@ -896,6 +922,40 @@
                 "Physical_Energy": -1,
                 "Spiritual_Energy": -1
             }
+
+        },
+        {
+            "Id": "Level_Up_To_Level_9_Apprentice_Of_The_Whisper",
+            "Label": "Level up to: Apprentice of the Whisper",
+            "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
+            "Description": ".............................",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Only": true,
+            "Time": 8,
+
+            "Auto_Start": true,
+
+            "Produce_Card_Location":
+            [
+                "Voice_From_The_Void",
+                "In_Sight"
+            ],
+
+            "Produce_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Get_Level_Up_Sequence"
+            ]
 
         },
         {
@@ -926,6 +986,96 @@
             [
                 "Draw_New_Card_Location__Function"
             ]
+        },
+        {
+            "Id": "Voice_From_The_Void",
+            "Label": "Voice from the Void",
+            "Image": "Image_Voice_From_The_Void",
+            "Description": "After I drank the Potion of Apprentice of the Whisper, I feel I've been connected to a concept in the void, who is constantly whispering and passing information to my mind, this makes me feel uncomfortable, but now I am able to know more about the world under the surface.",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 60,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+        },
+        {
+            "Id": "A_Beyonders_Gather",
+            "Label": "A Beyonder's Gather",
+            "Image": "Image_A_Beyonders_Gather",
+            "Description": "A place where beyonders gather and trade",
+            "Card_Type": "Location",
+
+            "Rank": 9,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 30,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 3,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1,
+                "Spirituality_Infused_Material": 1
+            }
+        },
+        {
+            "Id": "Church_Of_The_Night_Goddess",
+            "Label": "Church of the Night Goddess",
+            "Image": "Image_Church_Of_The_Night_Goddess",
+            "Description": "The church of the Night Goddess,",
+            "Card_Type": "Location",
+
+            "Rank": 9,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 3
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 3
+            }
         },
         {
             "Id": "Confront_The_Whisper",
@@ -1089,7 +1239,7 @@
             "Label": "Spiritual World (Glimpse)",
             "Image": "Image_Spiritual_World_Glimpse",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
-            "Card_Type": "Function",
+            "Card_Type": "",
 
             "Rank": 9,
             "Occupation": "Knowledge",
@@ -1166,16 +1316,16 @@
 
             "Require_Body_Part":
             {
-                "Physical_Body": 1
+                "Physical_Body": 1,
+                "Spirit": 1
             },
 
             "Produce_Resource":
             {
-                "Spiritual_Energy": 1
+                "Knowledge": 1
             }
 
         },
-
 
         {
             "Id": "Spiritual_World_Explore",
@@ -1260,8 +1410,8 @@
         {
             "Id": "In_Sight",
             "Label": "In-sight",
-            "Image": "Image_Psyche",
-            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Image": "Image_In_Sight",
+            "Description": "I can see through the .... there's something spiritual ...",
             "Card_Type": "",
 
             "Rank": -1,
@@ -1270,16 +1420,11 @@
             "Burn": false,
             "Use_Time": -1,
             "Only": true,
-            "Time": 20,
+            "Time": 25,
 
             "Require_Body_Part":
             {
                 "Spirit": 1
-            },
-
-            "Require_Resource":
-            {
-                "Fund": 3
             },
 
             "Produce_Resource":

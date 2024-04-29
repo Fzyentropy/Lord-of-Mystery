@@ -1230,10 +1230,20 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
             }
         }
+        
         else  // 如果没吸收够 所有需要的资源
+
         {
-            start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
-            start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
+            if (attached_card_location_feature.is_counting_down) // 如果正在倒计时
+            {
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Running..");
+            }
+            else
+            {
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
+            }
         }
     }
     

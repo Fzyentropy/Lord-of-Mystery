@@ -768,6 +768,7 @@ public class Resource_Manager : MonoBehaviour
                     iconInstance.transform.DOMove(targetPosition, first_time_adding_time).OnComplete(() => // 移动完成后，添加 collider 和脚本组件
                         {
                             // 添加脚本组件和 collider
+                            iconInstance.name = "Resource_Icon_" + resourceName;
                             iconInstance.AddComponent<Resource_Click_Message>();
                             iconInstance.GetComponent<Resource_Click_Message>().messageId = resourceName;
                             CircleCollider2D circleCollider = iconInstance.AddComponent<CircleCollider2D>();

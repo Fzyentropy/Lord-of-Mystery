@@ -289,7 +289,8 @@ public class GameManager : MonoBehaviour
         foreach (var id in list_of_id)
         {
             var card = CardLoader.Get_Card_Location_By_Id(id);
-            if (!Player_Owned_Card_Location_List.Contains(id) || !card.Only)
+            if (!Player_Owned_Card_Location_List.Contains(id) || 
+                (Player_Owned_Card_Location_List.Contains(id) && !card.Only))
             {
                 // 找到了至少一个卡牌不是已拥有的Only卡牌
                 return false;

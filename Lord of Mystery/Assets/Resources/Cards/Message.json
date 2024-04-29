@@ -10,6 +10,19 @@
         },
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
         {
             "Id": "Physical_Body",
             "Label": "Physical Body",
@@ -36,6 +49,18 @@
             "Message_Content": "The Potion of CUSTOMIZE_POTION_NAME"
 
         },
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -70,11 +95,29 @@
         },
         {
             "Id": "Soul",
-            "Label": "I start to feel",
+            "Label": "Soul",
             "Image": "Image_Beginning",
             "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
 
         },
+        {
+            "Id": "Knowledge",
+            "Label": "Knowledge",
+            "Image": "Image_Beginning",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+
+
+
+
+
+
+
+
+
+
+
 
 
         {
@@ -137,7 +180,7 @@
             "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Potion",
             "Label": "Slot: Potion",
             "Image": "Image_Slot_Potion",
-            "Message_Content": " [ This slot requires a specific type of Potion, you should only consume Potion that is exactly 1 rank above ]"
+            "Message_Content": " [ This slot requires a specific type of Potion, you could only consume Potion that is exactly 1 rank above ]"
         },
 
 

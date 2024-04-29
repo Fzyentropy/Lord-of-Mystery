@@ -15,11 +15,23 @@ public class Death_Bar : MonoBehaviour
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
 
-    
+
+    private void Start()
+    {
+        Set_Death_Bar();
+    }
+
+
     void Update()
     {
         UpdateDeathBar();
         UpdateDeathText();
+    }
+
+
+    void Set_Death_Bar()
+    {
+        gameObject.name = "Death_Bar";
     }
 
     void UpdateDeathBar()

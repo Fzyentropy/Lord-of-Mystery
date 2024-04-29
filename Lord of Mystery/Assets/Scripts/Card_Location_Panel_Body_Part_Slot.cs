@@ -115,6 +115,20 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
         {
             GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Physical_Body");
         }
+        if (BodyPartSlotType == Body_Part_Slot_Type.Spirit)
+        {
+            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Spirit");
+        }
+        if (BodyPartSlotType == Body_Part_Slot_Type.Psyche)
+        {
+            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Psyche");
+        }
+        if (BodyPartSlotType == Body_Part_Slot_Type.Potion)
+        {
+            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Potion");
+        }
+        
+        
         
         // 原代码：点击 Slot 时会从 board 上吸收一个相应的 Body Part
         /*if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f         // 鼠标位置基本没变

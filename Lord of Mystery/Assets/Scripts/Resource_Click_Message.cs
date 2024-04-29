@@ -43,7 +43,7 @@ public class Resource_Click_Message : MonoBehaviour
     private void OnMouseUp() // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
 
-        if ((Input.mousePosition - click_mouse_position).magnitude < 0.2) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
+        if ((Input.mousePosition - click_mouse_position).magnitude < 0.5f) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
         {
             GameManager.GM.Generate_Message(messageId);
         }
