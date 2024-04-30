@@ -350,24 +350,55 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)      // 当有 Collider2D 悬停时
     {
+        
         if (card_location_availability          // 如果此卡 available
-            && !is_counting_down                   // 如果没在 倒计时
-            && other.GetComponent<Card_Body_Part_Feature>() != null)   // 且 如果该 Collider2D 是 body part
+            && !is_counting_down)                   // 如果没在 倒计时
         {
-            if (GameManager.GM.InputManager.Dragging_Object == other.gameObject)    // 而且正在拖拽那张 body part
+            
+            if (other.GetComponent<Card_Body_Part_Feature>() != null)   // 如果该 Collider2D 是 body part
             {
-                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = gameObject;    // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
-
-                if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot == gameObject)
-                {
-                    isHighlightYellow = true;   // 将高亮改为黄色
-                }
-                else
-                {
-                    isHighlightYellow = false;
-                }
                 
+                if (GameManager.GM.InputManager.Dragging_Object == other.gameObject // 如果正在拖拽那张 body part
+                    && Check_If_Dragging_Knowledge_Is_Need(other.gameObject)) // 且拖拽的那张 Body part 是需要的 Body part
+                {
+                    other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = gameObject; // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
+
+                    if (other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot == gameObject)
+                    {
+                        isHighlightYellow = true; // 将高亮改为黄色
+                    }
+                    else
+                    {
+                        isHighlightYellow = false;
+                    }
+
+                }
+
             }
+
+            if (other.GetComponent<Knowledge_Feature>() != null)    // 如果该 Collider 2D 是 Knowledge Card
+            {
+
+                if (GameManager.GM.InputManager.Dragging_Object == other.gameObject // 如果正在拖拽那张 Knowledge Card
+                    && Check_If_Dragging_Knowledge_Is_Need(other.gameObject)) // 且拖拽的那张 Knowledge Card 是需要的 Knowledge Card
+                {
+                    other.GetComponent<Knowledge_Feature>().overlapped_card_location_or_knowledge_slot = gameObject; // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
+
+                    if (other.GetComponent<Knowledge_Feature>().overlapped_card_location_or_knowledge_slot ==
+                        gameObject)
+                    {
+                        isHighlightYellow = true;
+                    }
+                    else
+                    {
+                        isHighlightYellow = false;
+                    }
+                    
+                }
+
+            }
+            
+            
             
         }
         
@@ -650,7 +681,7 @@ public class Card_Location_Feature : MonoBehaviour
                 }
                 
                 
-                else        // 情况 2/2 ： 如果 panel 没打开，则直接检测 dictionary 是否标记了需要这个 type 的 body part
+                else        // 情况 2/2 ： 如果 panel 没打开，则直接检测 Card_Location_Feature 的 dictionary 是否标记了需要这个 type 的 body part
                 {
                     foreach (var bodyPart in required_body_parts)
                     {
@@ -695,6 +726,41 @@ public class Card_Location_Feature : MonoBehaviour
         return false;
     }
 
+    // 检测 当前拖拽的卡牌是否是这张卡能吸收的 Knowledge
+    public bool Check_If_Dragging_Knowledge_Is_Need(GameObject draggingObject)
+    {
+        if (draggingObject != null)     // 如果正在 dragging Object
+        {
+            Knowledge_Feature knowledgeFeature =
+                draggingObject.GetComponent<Knowledge_Feature>();    // 尝试获取 Knowledge Feature
+
+            if (knowledgeFeature != null)       // 如果 dragging Object 是 Knowledge Card
+            {
+
+                if (GameManager.GM.PanelManager.isPanelOpen)    //  情况 1/2 ： 如果 panel 打开着
+                {
+
+                    if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null // 如果打开的 panel 是个 card location panel 
+                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject // 如果打开这个 panel 的卡是 这张卡
+                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().requiredResourcesThisPanel["Knowledge"] 
+                        > GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().absorbed_knowledge_list.Count) // 如果 panel 上需要的 Knowledge 比当前吸收的 Knowledge 多
+                    {
+                        return true;
+                    }
+
+                }
+
+                else if (required_resources["Knowledge"] > 0)     // 情况 2/2 ： 如果 panel 没打开，则直接检测 Card_Location_Feature 的 dictionary 是否标记了需要 Knowledge
+                {
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
+    }
+
     // 如果 drag 的是需要的 Body Part，则卡牌高亮
     public IEnumerator Highlight_If_Dragging_Needed_BodyPart()
     {
@@ -704,7 +770,8 @@ public class Card_Location_Feature : MonoBehaviour
                 && !is_counting_down)      // 如果没有在 倒计时
             {
                 
-                if (Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object))   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
+                if (Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object)   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
+                    || Check_If_Dragging_Knowledge_Is_Need(GameManager.GM.InputManager.Dragging_Object))    // 或者拖拽的是需要的 Knowledge，则高亮，根据是否跟 card location 重叠来判断是否是黄色
                 {
                     if (!isHighlightYellow)
                         Highlight_Collider(Color.white);
@@ -836,6 +903,16 @@ public class Card_Location_Feature : MonoBehaviour
         yield return new WaitUntil(() => showed_panel.GetComponent<Card_Location_Panel_Feature>().isPanelWellSet);  // 等到 panel well set 了
         
         showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Body_Part_Based_On_Type(bodyPartToAbsorb);        // 调用 panel 中的方法
+
+    }
+    
+    public IEnumerator Absorb_Dragging_Knowledge(GameObject knowledgeToAbsorb)         // 被 knowledge feature 调用的 吸收 knowledge 方法
+    {
+        Open_Panel();   // 自带是否打开的检测
+
+        yield return new WaitUntil(() => showed_panel.GetComponent<Card_Location_Panel_Feature>().isPanelWellSet);  // 等到 panel well set 了
+        
+        showed_panel.GetComponent<Card_Location_Panel_Feature>().Absorb_Knowledge(knowledgeToAbsorb);        // 调用 panel 中的方法
 
     }
 

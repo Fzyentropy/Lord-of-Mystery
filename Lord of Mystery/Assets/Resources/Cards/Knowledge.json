@@ -4,18 +4,53 @@
     [
         {
             "Id": "Knowledge_Id",
+            "Rarity": "",
             "Label": "Knowledge Title",
             "Short_Label": "Title",
             "Image": "Image_Knowledge_Id",
             "Knowledge_Content": "This is the knowledge you want the player to know. So you are reading it right now."
         },
+        
+        {
+            "Id": "Potion_Formula_Level_9_Apprentice_Of_The_Whisper",
+            "Rarity": "",
+            "Label": "Potion Formula: Apprentice of the Whisper",
+            "Short_Label": "Formula",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "Potion Formula : Apprentice of the Whisper. \n\n Rank : 9 \n Occupation : The God of Knowledge \n Formula : 5 Physical Energy, 2 Spirituality Infused Material."
+        },
         {
             "Id": "Potion_Seer",
+            "Rarity": "Rare",
             "Label": "Potion Formula: Seer",
-            "Short_Label": "Potion",
+            "Short_Label": "Formula",
             "Image": "Image_Knowledge_Id",
             "Knowledge_Content": "Potion Formula : Seer. \n\n Rank : 9 \n Occupation : The Fool \n Formula : 4 Physical Energy, 3 Spirituality Infused Material."
-
+        },
+        {
+            "Id": "Knowledge_The_Beyonder",
+            "Rarity": "Common",
+            "Label": "Knowledge: The Beyonder",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "Beyonders are "
+        },
+        {
+            "Id": "Knowledge_Potion",
+            "Rarity": "Common",
+            "Label": "Knowledge: Potion",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "The Potion, or the \"Beyonder's Potion\", is made of spirituality infused materials that have connection with the Elder Ones and their spiritual energy. Drinking potion is the only way any given creative can become a beyonder or level up their status to get closer to the Elder Ones. Potion usually grants power and special abilities to its container, and as they absorb more proportion the more powerful their abilities are. "
+        },
+        
+        {
+            "Id": "Myth_The_Eight_Angels",
+            "Rarity": "Mythic",
+            "Label": "Myth: The 8 Angels of the God",
+            "Short_Label": "Myth",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "The old frescoes in the God's Forbidden Land shows the Ancient God of Sun has 8 angels originally. Since the fall of the God of Sun, his 8 angels have shared his authority and become eight independent true gods, seven of which are the seven orthodox gods today. "
         }
         
         

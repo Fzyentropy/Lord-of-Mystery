@@ -6,6 +6,7 @@ using UnityEngine;
 public class Knowledge
 {
     public string Id;
+    public string Rarity;           // 稀有度
     public string Short_Label;
     public string Label;
     public string Image;

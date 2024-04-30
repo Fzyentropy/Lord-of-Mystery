@@ -236,14 +236,14 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
                 Add_Panel_Absorb_Amount();
             }
         }
-        if (Current_Resource == Resources.Knowledge)     // 如果这个按钮被设置为 Knowledge 按钮，则吸收 Knowledge
+        /*if (Current_Resource == Resources.Knowledge)     // 如果这个按钮被设置为 Knowledge 按钮，则吸收 Knowledge
         {
             if (GameManager.GM.ResourceManager.Knowledge > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
             {
                 GameManager.GM.ResourceManager.Reduce_Knowledge(1, gameObject.transform.position);
                 Add_Panel_Absorb_Amount();
             }
-        }
+        }*/
         if (Current_Resource == Resources.Belief)     // 如果这个按钮被设置为 Belief 按钮，则吸收 Belief
         {
             if (GameManager.GM.ResourceManager.Belief > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发

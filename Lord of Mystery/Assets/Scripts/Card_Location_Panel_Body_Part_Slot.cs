@@ -91,7 +91,8 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
     
     private void OnMouseOver()
     {
-        if (!attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel]) // 如果该槽位还没吸收
+        if (GameManager.GM.InputManager.Dragging_Object == null         // 如果 没在 drag 东西
+            && !attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel]) // 如果该槽位还没吸收
         {
             isHighlight = true;        // 没吸收满，则高亮
         }  

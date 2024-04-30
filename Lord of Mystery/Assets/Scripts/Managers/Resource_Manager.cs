@@ -5,6 +5,8 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.U2D.Path;
+using Random = UnityEngine.Random;
 
 public class Resource_Manager : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class Resource_Manager : MonoBehaviour
     public int Spiritual_Energy;
     public int Soul;
     public int Spirituality_Infused_Material;
-    public int Knowledge;
+    // public int Knowledge;        // Knowledge 的计数通过 List 的 Count 实现
     public int Belief;
     public int Putrefaction;
     public int Madness;
@@ -30,7 +32,7 @@ public class Resource_Manager : MonoBehaviour
     public int Spiritual_Energy_UI_Amount;
     public int Soul_UI_Amount;
     public int Spirituality_Infused_Material_UI_Amount;
-    public int Knowledge_UI_Amount;
+    // public int Knowledge_UI_Amount;      // Knowledge 的计数通过 List 的 Count 实现
     public int Belief_UI_Amount;
     public int Putrefaction_UI_Amount;
     public int Madness_UI_Amount;
@@ -44,6 +46,12 @@ public class Resource_Manager : MonoBehaviour
     private Dictionary<int, bool> resourceLocationsOccupied = new Dictionary<int, bool>();      // int : 资源槽位的编号    bool : 是否被占用, true:占用，false:没占用
     private Dictionary<string, int> resourceLocationIndex = new Dictionary<string, int>();      // string : 资源名称    int : 资源占用的槽位编号
     private Dictionary<int, bool> slotAbleToShowText = new Dictionary<int, bool>();      // int : 资源槽位的编号    bool : 是否可以被update资源数量text了，字典用于开锁：是否可以显示资源数量
+    
+    
+    // Knowledge 资源相关
+    public List<string> Player_Owned_Current_Knowledge_List;
+
+
 
     // 各资源的 icon prefab
     public GameObject fund_icon_pure;   // Fund资源的图标Prefab
@@ -102,6 +110,7 @@ public class Resource_Manager : MonoBehaviour
     private void Update()
     {
         Update_Resource_Amount_In_Slots();
+        Check_If_Knowledge_Appears();
     }
 
     
@@ -143,101 +152,101 @@ public class Resource_Manager : MonoBehaviour
     
 
     // 增加资源的集成方法，输入资源名称，来调用下面增加特定资源的方法
-    public void Add_Resource(string resource_type, int amount, Vector3 position)
+    public void Add_Resource(string resource_type, int amount, Vector3 sourcePosition)
     {
         if (resource_type == "Fund")        // 如果输入的是 Fund，则 Add Fund
         {
-            Add_Fund(amount, position);
+            Add_Fund(amount, sourcePosition);
         }
         else if (resource_type == "Physical_Energy")        // 如果输入的是 Physical_Energy，则 Add Physical_Energy
         {
-            Add_Physical_Energy(amount, position);
+            Add_Physical_Energy(amount, sourcePosition);
         }
         else if (resource_type == "Spiritual_Energy")        // 如果输入的是 Spirit，则 Add Spirit
         {
-            Add_Spiritual_Energy(amount, position);
+            Add_Spiritual_Energy(amount, sourcePosition);
         }
         else if (resource_type == "Soul")        // 如果输入的是 Soul，则 Add Soul
         {
-            Add_Soul(amount, position);
+            Add_Soul(amount, sourcePosition);
         }
         else if (resource_type == "Spirituality_Infused_Material")      // 如果输入的是 Spirituality，则 Add Spirituality
         {
-            Add_Spirituality_Infused_Material(amount, position);
+            Add_Spirituality_Infused_Material(amount, sourcePosition);
         }
         else if (resource_type == "Knowledge")        // 如果输入的是 Knowledge，则 Add Knowledge
         {
-            Add_Knowledge(amount, position);
+            Add_Knowledge(amount, sourcePosition);
         }
         else if (resource_type == "Belief")        // 如果输入的是 Belief，则 Add Belief
         {
-            Add_Belief(amount, position);
+            Add_Belief(amount, sourcePosition);
         }
         else if (resource_type == "Putrefaction")        // 如果输入的是 Putrefaction，则 Add Putrefaction
         {
-            Add_Putrefaction(amount, position);
+            Add_Putrefaction(amount, sourcePosition);
         }
         else if (resource_type == "Madness")        // 如果输入的是 Madness，则 Add Madness
         {
-            Add_Madness(amount, position);
+            Add_Madness(amount, sourcePosition);
         }
         else if (resource_type == "Godhood")        // 如果输入的是 Godhood，则 Add Godhood
         {
-            Add_Godhood(amount, position);
+            Add_Godhood(amount, sourcePosition);
         }
         else if (resource_type == "Death")      // Death
         {
-            Add_Death(amount, position);
+            Add_Death(amount, sourcePosition);
         }
         
     }
     
     // 减少资源的集成方法，输入资源名称，来调用下面减少特定资源的方法
-    public void Reduce_Resource(string resource_type, int amount, Vector3 position)
+    public void Reduce_Resource(string resource_type, int amount, Vector3 sourcePosition)
     {
         if (resource_type == "Fund")        // 如果输入的是 Fund，则 Reduce Fund
         {
-            Reduce_Fund(amount, position);
+            Reduce_Fund(amount, sourcePosition);
         }
         else if (resource_type == "Physical_Energy")        // 如果输入的是 Physical_Energy，则 Reduce Physical_Energy
         {
-            Reduce_Physical_Energy(amount, position);
+            Reduce_Physical_Energy(amount, sourcePosition);
         }
         else if (resource_type == "Spiritual_Energy")        // 如果输入的是 Spirit，则 Reduce Spirit
         {
-            Reduce_Spiritual_Energy(amount, position);
+            Reduce_Spiritual_Energy(amount, sourcePosition);
         }
         else if (resource_type == "Soul")        // 如果输入的是 Soul，则 Reduce Soul
         {
-            Reduce_Soul(amount, position);
+            Reduce_Soul(amount, sourcePosition);
         }
         else if (resource_type == "Spirituality_Infused_Material")      // 如果输入的是 Spirituality，则 Reduce Spirituality
         {
-            Reduce_Spirituality_Infused_Material(amount, position);
+            Reduce_Spirituality_Infused_Material(amount, sourcePosition);
         }
-        else if (resource_type == "Knowledge")        // 如果输入的是 Knowledge，则 Reduce Knowledge
+        /*else if (resource_type == "Knowledge")        // 如果输入的是 Knowledge，则 Reduce Knowledge
         {
-            Reduce_Knowledge(amount, position);
-        }
+            Reduce_Knowledge(amount, sourcePosition);
+        }*/
         else if (resource_type == "Belief")        // 如果输入的是 Belief，则 Reduce Belief
         {
-            Reduce_Belief(amount, position);
+            Reduce_Belief(amount, sourcePosition);
         }
         else if (resource_type == "Putrefaction")        // 如果输入的是 Putrefaction，则 Reduce Putrefaction
         {
-            Reduce_Putrefaction(amount, position);
+            Reduce_Putrefaction(amount, sourcePosition);
         }
         else if (resource_type == "Madness")        // 如果输入的是 Madness，则 Reduce Madness
         {
-            Reduce_Madness(amount, position);
+            Reduce_Madness(amount, sourcePosition);
         }
         else if (resource_type == "Godhood")        // 如果输入的是 Godhood，则 Reduce Godhood
         {
-            Reduce_Godhood(amount, position);
+            Reduce_Godhood(amount, sourcePosition);
         }
         else if (resource_type == "Death")        // Death
         {
-            Reduce_Death(amount, position); 
+            Reduce_Death(amount, sourcePosition); 
         }
 
     }
@@ -411,19 +420,21 @@ public class Resource_Manager : MonoBehaviour
         
         
         
+        
     // 增加Knowledge资源，仅在增加资源时调用，因此外部需做好 加减判断                 + Knowledge
     // 调用需传入当前物体 location，以追踪来源
-        public void Add_Knowledge(int amount, Vector3 position)
+        /*public void Add_Knowledge(int amount, Vector3 position)
         {
             // Knowledge += amount;
             // 如果是增加资源，则在 Animate Resource Change 结束后，该方法会自己调用函数 Resource Amount Change 增加资源，无须再添加
             
             Animate_Resource_Change(true, position, "Knowledge", amount); // 调用动画效果
-        }
+        }*/
 
-    // 减少Knowledge资源，仅在减少资源时调用，因此外部需做好 加减判断                     - Knowledge
+        // 减少Knowledge资源，仅在减少资源时调用，因此外部需做好 加减判断                     - Knowledge
     // 调用需传入当前物体 location，以追踪来源
-        public void Reduce_Knowledge(int amount, Vector3 position)
+    
+        /*public void Reduce_Knowledge(int amount, Vector3 position)
         {
             if (Knowledge - amount >= 0)
             {
@@ -439,7 +450,29 @@ public class Resource_Manager : MonoBehaviour
                 // 资源不足，特殊效果触发
                 // TODO: 特殊效果的实现
             }
+        }*/
+        
+        ///////////////////////////////////////////////////////////////////               Knowledge 的更新方法
+        
+        public void Add_Knowledge(int amount, Vector3 position)     // 添加 Knowledge （抽取 Knowledge 卡）
+        {
+            float newKnowledgeCard_XPos = 3f;
+            float newKnowledgeCard_YPos = -4f;
+
+            for (int i = amount; i > 0; i--)
+            {
+                Draw_A_Knowledge_With_Rarity_Involved(position, position + new Vector3(newKnowledgeCard_XPos,newKnowledgeCard_YPos,0));
+                newKnowledgeCard_YPos -= 3f;
+            }
         }
+        
+        public void Reduce_Knowledge(GameObject knowledge_card)
+        {
+
+            Player_Owned_Current_Knowledge_List.Remove(knowledge_card.GetComponent<Knowledge_Feature>()._Knowledge.Id);      // 从 Owned Knowledge 里移除
+
+        }
+        
         
         
 
@@ -662,7 +695,7 @@ public class Resource_Manager : MonoBehaviour
             }
         }
         
-        if (resourceName == "Knowledge")
+        /*if (resourceName == "Knowledge")
         {
             iconInstance = Instantiate(knowledge_icon_pure, position, Quaternion.identity); // 在调用物体位置生成 icon
             
@@ -671,7 +704,7 @@ public class Resource_Manager : MonoBehaviour
                 FirstTimeBoolPasser = is_knowledge_ever_appears;
                 is_knowledge_ever_appears = true;
             }
-        }
+        }*/
         
         
         if (resourceName == "Belief")
@@ -857,6 +890,143 @@ public class Resource_Manager : MonoBehaviour
     }
     
     
+    
+    
+    ///////////////////////////////////////////////      Knowledge，相关系列方法
+    
+    public void Draw_A_Knowledge_With_Rarity_Involved(Vector3 sourcePosition, Vector3 targetPosition)      // 抽一张 Knowledge，based on 稀有度
+    {
+        // 根据稀有度 抽卡
+        
+        // 概率
+        // Common : 6 / 10
+        // Rare : 3 / 10
+        // Mythic : 1 / 10
+
+        List<string> rarity_draw_list = new List<string>()
+        {
+            "Common",
+            "Common",
+            "Common",
+            "Common",
+            "Common",
+            "Common",
+            "Rare",
+            "Rare",
+            "Rare",
+            "Mythic"
+        };
+
+        int index = Random.Range(0, rarity_draw_list.Count);
+        
+        Draw_A_Knowledge("", rarity_draw_list[index], sourcePosition, targetPosition);
+
+    }
+
+    public void Draw_A_Knowledge_Of_Certain_Rarity(string rarity, Vector3 sourcePosition, Vector3 targetPosition)          // 抽一张 特定稀有度的 Knowledge
+    {
+        Draw_A_Knowledge("", rarity, sourcePosition, targetPosition);
+    }
+
+    public void Draw_A_Knowledge_By_Name(string Knowledge_Name, Vector3 sourcePosition, Vector3 targetPosition)    // 抽一张 特定的 Knowledge
+    {
+        Draw_A_Knowledge(Knowledge_Name,"", sourcePosition, targetPosition);
+    }
+    
+    
+    public void Draw_A_Knowledge(string Name, string Rarity, Vector3 sourcePosition, Vector3 targetPosition)
+    {
+        if (Name != "")      // 如果有具体指名，则直接抽取
+        {
+            GameManager.GM.Generate_Knowledge_Card(Name, targetPosition);
+            
+            Player_Owned_Current_Knowledge_List.Add(Name);
+        }
+
+        else if (Rarity != "")      // 如果没有指名，但有稀有度输入，则抽取一张相应稀有度的 Knowledge
+
+        {
+
+            List<string> filtered_knowledge_list_of_certain_rarity = Get_All_Knowledge_Of_Certain_Rarity(Rarity);       // Get ALL 方法过滤了曾经拥有过的 Knowledge
+
+            int index = Random.Range(0, filtered_knowledge_list_of_certain_rarity.Count);           // 从这个 过滤的 list 中抽一张
+            
+            GameManager.GM.Generate_Knowledge_Card(filtered_knowledge_list_of_certain_rarity[index], targetPosition);       // 根据 index 找到 string 元素并生成卡
+            
+            Player_Owned_Current_Knowledge_List.Add(filtered_knowledge_list_of_certain_rarity[index]);   // 将抽到的 Knowledge 记录到当前拥有的 Knowledge list，全局的在 Generate_Knowledge 方法里已经加了
+        }
+    
+        else    // Name 和 Rarity 都为空时的特殊处理
+        
+        {
+            
+        }
+        
+    }
+
+    public List<string> Get_All_Knowledge_Of_Certain_Rarity(string Rarity)
+    {
+        List<string> list_of_knowledge_of_certain_rarity = new List<string>() { };
+
+        foreach (var knowledge_instance in GameManager.GM.CardLoader.Knowledge_List)
+        {
+            if (
+                knowledge_instance.Rarity == Rarity // 如果 稀有度 匹配
+                && !GameManager.GM.Player_Owned_All_Knowledge.Contains(knowledge_instance.Id) // 且不曾拥有过 这个 Knowledge
+            )
+            {
+                list_of_knowledge_of_certain_rarity.Add(knowledge_instance.Id);
+            }
+        }
+
+        return list_of_knowledge_of_certain_rarity;
+    }
+
+
+
+    void Check_If_Knowledge_Appears()
+    {
+        if (Player_Owned_Current_Knowledge_List.Count > 0 && !is_knowledge_ever_appears)
+        {
+            is_knowledge_ever_appears = true;
+            
+            // Knowledge Icon 的出现
+            int locationIndex = FindAvailableResourceLocation();      // 找到空的 resource_location_X 的 slot，获取到空 slot 的序号 X
+            resourceLocationsOccupied[locationIndex] = true;        // 相应的 resource_location_X slot 被占领
+            resourceLocationIndex["Knowledge"] = locationIndex;    // 记录资源对应的 resource_location_X 的 X 序号
+                
+            Vector3 targetPosition = GetResourceLocationPosition(locationIndex);    // 获取到 resource_location_X 的位置
+            
+            // Knowledge Icon 出现的炫酷动画
+            
+            GameObject iconInstance = Instantiate(knowledge_icon_pure, targetPosition, Quaternion.identity);
+            
+            // 添加脚本组件和 collider
+            iconInstance.name = "Resource_Icon_Knowledge";
+            iconInstance.AddComponent<Resource_Click_Message>();
+            iconInstance.GetComponent<Resource_Click_Message>().messageId = "Knowledge";
+            BoxCollider2D circleCollider = iconInstance.AddComponent<BoxCollider2D>();
+            iconInstance.GetComponent<SpriteRenderer>().sortingLayerName = "OnBoards";
+            slotAbleToShowText[locationIndex] = true;       // 开锁，编号为 X 的槽位可以开始显示 资源数量的 text 了
+        }
+    }
+
+
+    // 当玩家点击 Panel 上的 Knowledge icon 时， 吸收一个 Knowledge，按照 Rarity 优先级 来先吸收低级的
+    void Remove_Knowledge_Based_On_Rarity()
+    {
+        
+        
+    }
+    
+
+
+
+    ///////////////////////////////////////////////      Knowledge，相关系列方法  END
+
+
+
+
 
     // 寻找可用的资源位置
     private int FindAvailableResourceLocation()
@@ -1099,10 +1269,10 @@ public class Resource_Manager : MonoBehaviour
         {
             Spirituality_Infused_Material += change_amount;
         }
-        if (change_resource == "Knowledge")
+        /*if (change_resource == "Knowledge")       // Knowledge 用数 List 的 Count 的方式来更新数量
         {
             Knowledge += change_amount;
-        }
+        }*/
         if (change_resource == "Belief")
         {
             Belief += change_amount;
@@ -1175,7 +1345,7 @@ public class Resource_Manager : MonoBehaviour
                 if (resourceName == "Knowledge")
                 {
                     TMP_Text amount_text = GameObject.Find("Resource_Amount_Text_" + slot.Key).GetComponent<TMP_Text>();
-                    amount_text.text = Knowledge_UI_Amount.ToString();
+                    amount_text.text = Player_Owned_Current_Knowledge_List.Count.ToString();       // Knowledge 的数量直接 数 Knowledge List 的 Count
                 }
                 if (resourceName == "Belief")
                 {
@@ -1237,11 +1407,9 @@ public class Resource_Manager : MonoBehaviour
                 int Change = Spirituality_Infused_Material - Spirituality_Infused_Material_UI_Amount;
                 Spirituality_Infused_Material_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
             }
-            if (Knowledge_UI_Amount != Knowledge) 
-            {
-                int Change = Knowledge - Knowledge_UI_Amount;
-                Knowledge_UI_Amount += flash_amount_each_time * Math.Sign(Change); 
-            }
+            
+            // Knowledge 的 UI 数量通过变更 Knowledge List 并识别 Count 来实现，不在此处写
+            
             if (Belief_UI_Amount != Belief) 
             {
                 int Change = Belief - Belief_UI_Amount;

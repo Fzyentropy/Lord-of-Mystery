@@ -42,8 +42,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     // Resource 相关的 Dictionary
     [Header("Dictionary")]
     public Dictionary<int, bool> availableResourceSlot;     // 用于记录 resource section 上 available 的 button slot
-    public Dictionary<string, int> requiredResourcesThisPanel;  // 用于记录 required resource 及对应数量的 字典
-    public Dictionary<string, int> resourceSlotNumber = new Dictionary<string, int>() {};    // 用于记录 required resource 及对应的 slot 编号
+    public Dictionary<string, int> requiredResourcesThisPanel;  // 用于记录 required resource 及对应数量的 字典    string: 资源名称， int: 资源需要的数量
+    public Dictionary<string, int> resourceSlotNumber = new Dictionary<string, int>() {};    // 用于记录 required resource 及对应的 slot 编号,  string: 资源名称， int: 资源按钮的 slot 的编号/位置
     
     // Body Part 相关的 Dictionary
     public Dictionary<int, string> requiredBodyPartsThisPanel;         // 用于记录需要的 body part 的 Dictionary, int:槽位编号, string:Body Part类型的string
@@ -63,7 +63,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public int resource_5_amount = -1;
     public int current_resource_5_amount = 0;
 
-    
+    // Knowledge 资源相关
+    public List<string> absorbed_knowledge_list; 
+
     // Panel Status
     private bool is_resource_ok;
     private bool is_bodypart_ok;
@@ -77,7 +79,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Button_Spiritual_Energy;
     public GameObject Button_Soul;
     public GameObject Button_Spirituality_Infused_Material;
-    public GameObject Button_Knowledge;
+    // public GameObject Button_Knowledge;
     public GameObject Button_Belief;
     public GameObject Button_Putrefaction;
     public GameObject Button_Madness;
@@ -153,7 +155,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         requiredBodyPartsThisPanel = new Dictionary<int, string>() { };
         currentlyAbosorbedBodyPartSlots = new Dictionary<int, bool>() { };
         absorbedBodyPartGameObjects = new Dictionary<int, GameObject>() {};
+        absorbed_knowledge_list = new List<string>() { };
         int temporaryBodyPartSlotNumber = 1;            // 用于初始化 Body Part 槽位 Dictionary<int, string> 中的 int 参数
+        
         
         // 检查所有的 required_resource 值是否大于0，如果有大于0的则说明此 panel 对应的卡牌需要消耗资源，则需要 resource section 
         foreach (KeyValuePair<string,int> required_resource in attached_card_location_feature.required_resources)
@@ -198,6 +202,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             StartCoroutine(panel_progress_bar_sync());
 
         }
+        
         
         else          // 如果没在 Countdown，则正常设置 panel sections
         
@@ -346,11 +351,11 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 resource_button = Instantiate(Button_Spirituality_Infused_Material, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Spirituality_Infused_Material");  //设置按钮操纵的资源为
             }
-            else if (resource.Key == "Knowledge")
+            /*else if (resource.Key == "Knowledge")
             {
                 resource_button = Instantiate(Button_Knowledge, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Knowledge");  //设置按钮操纵的资源为 Knowledge
-            }
+            }*/
             else if (resource.Key == "Belief")
             {
                 resource_button = Instantiate(Button_Belief, panel_section_resource.transform);    // 实例化 button
@@ -1073,6 +1078,26 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     
     
+    // Knowledge 的 吸收
+
+    public void Absorb_Knowledge(GameObject knowledgeToAbsorb)      // 仅吸收操作，判定要在外部写
+    {
+        
+        GameManager.GM.ResourceManager.Reduce_Knowledge(knowledgeToAbsorb);     // 将 knowledge 的 ID 从 Resource Manager 中的 Owned Knowledge list 中移除
+        
+        absorbed_knowledge_list.Add(knowledgeToAbsorb.GetComponent<Knowledge_Feature>()._Knowledge.Id);     // Panel 上的 List 添加 这个 Knowledge 的 ID
+
+        // 炫酷的 吸收动画
+        
+        Destroy(knowledgeToAbsorb);
+        
+    }
+    
+    
+    
+    
+    
+    
     
     
     // return Resources，从 panel 返回桌面
@@ -1152,8 +1177,29 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
         
     }
+
     
+    // return Knowledge，从 panel 返回桌面
     
+    public void Return_Knowledge()
+    {
+        float newKnowledge_XOffset = 3f;
+        float newKnowledge_YOffset = -3f;
+        
+        foreach (var knowledge_string in absorbed_knowledge_list)
+        {
+            GameManager.GM.ResourceManager.Draw_A_Knowledge_By_Name(knowledge_string, transform.position, 
+                new Vector3(
+                    transform.position.x + newKnowledge_XOffset,
+                    transform.position.y + newKnowledge_YOffset,
+                    transform.position.z + 1));
+
+            newKnowledge_YOffset -= 2f;
+        }
+
+    }
+
+
     // return body part，从 panel slot 返回桌面
 
     public void Return_Body_Part()

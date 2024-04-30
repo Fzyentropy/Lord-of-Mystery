@@ -16,7 +16,8 @@ public class Knowledge_Feature : MonoBehaviour
     public TMP_Text knowledge_short_label;       // short label
     public SpriteRenderer knowledge_shadow;     // shadow 阴影
     
-    // Marks
+    // Important Marks
+    public GameObject overlapped_card_location_or_knowledge_slot;   // 与此 Knowledge 重叠的 Card Location 或者 Knowledge Slot，重叠时由 Card Location 或 Knowledge Slot 传递设置
     public Vector3 lastPosition;        // // 用于记录拖拽时最后停下的 location
     
     // Mis Variables
@@ -82,7 +83,6 @@ public class Knowledge_Feature : MonoBehaviour
 
         GameManager.GM.InputManager.Dragging_Object = gameObject;      // 将 Input Manager 中的 正在拖拽物体 记录为此物体
         Clear_Highlight_Collider();                             // 取消高亮
-    
         // float mouse_drag_sensitivity = 0.05f;
         Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
         delta.z = 0;
@@ -113,7 +113,37 @@ public class Knowledge_Feature : MonoBehaviour
         DecreaseSortingLayer();     // 设置回 原 Order in Layer
         
         
-        lastPosition = transform.position;
+        // 松开时 吸收 Knowledge
+        if (overlapped_card_location_or_knowledge_slot != null)     // 如果 overlap 了一个东西
+        {
+
+            if (overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Feature>() != null)     // overlap 的是 Card Location
+            {
+                if (overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Feature>()
+                    .Check_If_Dragging_Knowledge_Is_Need(gameObject))
+                {
+                    StartCoroutine(overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Feature>()
+                        .Absorb_Dragging_Knowledge(gameObject));
+                }
+                
+            }
+            
+            else if (overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>() != null)     // overlap 的是 Knowledge Slot
+            {
+                // knowledge slot 处理
+                overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>().
+                    attached_card_location_panel_feature.Absorb_Knowledge(gameObject);
+                
+            }
+            
+            
+        }
+        else   // 没 overlap 东西
+        {
+            lastPosition = transform.position;
+        }
+        
+        
         
     }
 

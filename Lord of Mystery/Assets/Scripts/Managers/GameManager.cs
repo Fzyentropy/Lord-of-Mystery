@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     
     // 玩家拥有的卡牌 Player's Cards
     public List<string> Player_Owned_Card_Location_List;
-    
+    public List<string> Player_Owned_All_Knowledge;             // 玩家拥有过的 Knowledge，无论是否还在，只要拥有过就记录
+
     // 玩家状态(细节) Player Status (Detail)
     public bool is_sleeping;                // 是否正在 sleep (使用 sleep 卡的功能)
     public bool is_dreaming;                // 是否正在 dream (使用 dream 卡的功能)
@@ -140,7 +141,10 @@ public class GameManager : MonoBehaviour
         cardLocation.GetComponent<Card_Location_Feature>()._cardLocation = CardLoader.Get_Card_Location_By_Id(id); 
         
         // 将添加的 card location 的 Id string 记录到 Player Owned Card list 里面
-        Player_Owned_Card_Location_List.Add(id);
+        if (!Player_Owned_Card_Location_List.Contains(id))
+        {
+            Player_Owned_Card_Location_List.Add(id);
+        }
 
         return cardLocation;
     }
@@ -181,6 +185,11 @@ public class GameManager : MonoBehaviour
     {
         GameObject knowledgeCard = Instantiate(Knowledge_Card_Prefab, position, Quaternion.identity);
         knowledgeCard.GetComponent<Knowledge_Feature>()._Knowledge = CardLoader.Get_Knowledge_By_Id(id);
+        
+        if (!Player_Owned_All_Knowledge.Contains(id))
+        {
+            Player_Owned_All_Knowledge.Add(id);
+        }
         return knowledgeCard;
     }
 

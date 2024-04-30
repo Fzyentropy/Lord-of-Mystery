@@ -497,7 +497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.010055974, y: -0.11}
+  m_AnchoredPosition: {x: 0.010055974, y: -0.03}
   m_SizeDelta: {x: 4.9811, y: 1.5819}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6018408892092244273
@@ -571,8 +571,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291577344
-  m_fontColor: {r: 0, g: 0.27472058, b: 0.8018868, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -707,7 +707,7 @@ SpriteRenderer:
   m_SortingLayerID: -1866592771
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 879d7373fd38d5249835e4ba62c2b7a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dbae3dd6b95133742b53ea0e5fb0a78b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

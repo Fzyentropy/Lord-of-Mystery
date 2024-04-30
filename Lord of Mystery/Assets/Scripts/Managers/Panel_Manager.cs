@@ -95,6 +95,7 @@ public class Panel_Manager : MonoBehaviour
         if (current_panel.GetComponent<Card_Location_Panel_Feature>() != null)
         {
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Resource();
+            current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Knowledge();
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Body_Part();
         }
 

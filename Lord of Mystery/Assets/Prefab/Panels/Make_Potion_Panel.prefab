@@ -2475,7 +2475,7 @@ Transform:
   m_GameObject: {fileID: 5595464790584848942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.82, y: -3.96, z: 0}
-  m_LocalScale: {x: 1.472382, y: 1.4330693, z: 1.472382}
+  m_LocalScale: {x: 1.08, y: 1.08, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
@@ -2522,7 +2522,7 @@ SpriteRenderer:
   m_SortingLayerID: 412510705
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b94ae8795806b294bb34722c3f5631fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0ad918e5818c634e9af3e89f870cb68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3859,7 +3859,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_matching_sequence: 0
-  matched_sequence: 
+  matched_sequence_temp_storage:
+    Id: 
+    Label: 
+    Image: 
+    Description: 
+    Rank: 0
+    Occupation: 
+    Require_Resource:
+      Fund: 0
+      Physical_Energy: 0
+      Spiritual_Energy: 0
+      Soul: 0
+      Spirituality_Infused_Material: 0
+      Knowledge: 0
+      Belief: 0
+      Putrefaction: 0
+      Madness: 0
+      Godhood: 0
+      Death: 0
+    Time: 0
+    Death_Expansion_Amount: 0
+    Counter: 0
+    Produce_Resource:
+      Fund: 0
+      Physical_Energy: 0
+      Spiritual_Energy: 0
+      Soul: 0
+      Spirituality_Infused_Material: 0
+      Knowledge: 0
+      Belief: 0
+      Putrefaction: 0
+      Madness: 0
+      Godhood: 0
+      Death: 0
+    Produce_Card_Location: []
+    Produce_Special_Effect: []
   make_potion_button_physical_energy: {fileID: 3870767552616416136}
   make_potion_button_spiritual_energy: {fileID: 5652028357630061442}
   make_potion_button_soul: {fileID: 541523660242480443}
