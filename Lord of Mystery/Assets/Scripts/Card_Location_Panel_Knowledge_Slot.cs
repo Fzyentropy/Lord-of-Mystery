@@ -6,8 +6,13 @@ using UnityEngine;
 public class Card_Location_Panel_Knowledge_Slot : MonoBehaviour
 {
     
+    // 附着的 Panel指代，以及 Panel Feature 脚本指代 
+    [HideInInspector] public GameObject attached_panel;       // 用于指代这个 button 附着的 panel 的 GameObject
+    [HideInInspector] public Card_Location_Panel_Feature attached_card_location_panel_feature;     // 这个 button 附着的 panel 的 panel_feature 脚本
     
-    public Card_Location_Panel_Feature attached_card_location_panel_feature;
+    // 记录
+    [HideInInspector] public int panel_resource_slot_number_knowledge = -1;   // 记录 Knowledge 资源在 Panel 上的 slot 编号
+    
 
     // 高亮边缘相关
     public SpriteRenderer highlightSprite;
@@ -32,7 +37,22 @@ public class Card_Location_Panel_Knowledge_Slot : MonoBehaviour
         StartCoroutine(Highlight_If_Dragging_Needed_Knowledge());
     }
 
-    
+    private void Update()
+    {
+        Update_Knowledge_Amount_In_Attached_Panel();
+    }
+
+
+    public void Set_Attached_Panel(GameObject panel)    // 设置这个 button 附着的 panel 和其 panel_feature 脚本指代， 外部设置
+    {
+        attached_panel = panel;
+        attached_card_location_panel_feature = attached_panel.GetComponent<Card_Location_Panel_Feature>();
+    }
+
+    public void Set_Resource_Slot_Number_Knowledge(int number)
+    {
+        panel_resource_slot_number_knowledge = number;
+    }
     
     
     void Check_If_Set_Well()      // 检查 _cardLocation 卡牌实例是否为空，如果 _cardlocation 卡牌实例为空，则报错
@@ -80,7 +100,42 @@ public class Card_Location_Panel_Knowledge_Slot : MonoBehaviour
         }
     }
 
-    
+
+    void Update_Knowledge_Amount_In_Attached_Panel()     // 如果需要 Knowledge 资源，则将 Card Location Panel 上 Knowledge 对应编号的资源数量更新为 吸收的 Knowledge 数量
+    {
+
+        if (panel_resource_slot_number_knowledge == 1)      // 如果 slot 编号是 1，则将 current resource 1 的数量更新为 吸收的 Knowledge 数量
+        {
+            attached_card_location_panel_feature.current_resource_1_amount =
+                attached_card_location_panel_feature.absorbed_knowledge_list.Count;
+        }
+        if (panel_resource_slot_number_knowledge == 2)      // 如果 slot 编号是 2，则将 current resource 2 的数量更新为 吸收的 Knowledge 数量
+        {
+            attached_card_location_panel_feature.current_resource_2_amount =
+                attached_card_location_panel_feature.absorbed_knowledge_list.Count;
+        }
+        if (panel_resource_slot_number_knowledge == 3)      // 如果 slot 编号是 3，则将 current resource 3 的数量更新为 吸收的 Knowledge 数量
+        {
+            attached_card_location_panel_feature.current_resource_3_amount =
+                attached_card_location_panel_feature.absorbed_knowledge_list.Count;
+        }
+        if (panel_resource_slot_number_knowledge == 4)      // 如果 slot 编号是 4，则将 current resource 4 的数量更新为 吸收的 Knowledge 数量
+        {
+            attached_card_location_panel_feature.current_resource_4_amount =
+                attached_card_location_panel_feature.absorbed_knowledge_list.Count;
+        }
+        if (panel_resource_slot_number_knowledge == 5)      // 如果 slot 编号是 5，则将 current resource 5 的数量更新为 吸收的 Knowledge 数量
+        {
+            attached_card_location_panel_feature.current_resource_5_amount =
+                attached_card_location_panel_feature.absorbed_knowledge_list.Count;
+        }
+        
+        // 如果后续有更多 资源按钮 slot，在此处添加
+        
+    }
+
+
+
     private void OnMouseOver()
     {
         if (GameManager.GM.InputManager.Dragging_Object == null     // 如果 没在 drag 东西
@@ -137,7 +192,6 @@ public class Card_Location_Panel_Knowledge_Slot : MonoBehaviour
             }
             
         }
-            
         
         
     }

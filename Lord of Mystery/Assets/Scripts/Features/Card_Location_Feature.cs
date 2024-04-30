@@ -359,7 +359,7 @@ public class Card_Location_Feature : MonoBehaviour
             {
                 
                 if (GameManager.GM.InputManager.Dragging_Object == other.gameObject // 如果正在拖拽那张 body part
-                    && Check_If_Dragging_Knowledge_Is_Need(other.gameObject)) // 且拖拽的那张 Body part 是需要的 Body part
+                    && Check_If_Dragging_BodyPart_Is_Need(other.gameObject)) // 且拖拽的那张 Body part 是需要的 Body part
                 {
                     other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = gameObject; // 向与此卡重叠的 body part 传入此 card location feature, 确保当前卡被吸收时的唯一性
 
@@ -406,16 +406,28 @@ public class Card_Location_Feature : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)      // 当悬停的卡牌离开时
     {
-        
-        if (card_location_availability
-            && other.GetComponent<Card_Body_Part_Feature>() != null)
+
+        if (card_location_availability)
         {
-            // 取消黄色 Highlight
-            isHighlightYellow = false;
+            if (other.GetComponent<Card_Body_Part_Feature>() != null)
+            {
+                // 取消黄色 Highlight
+                isHighlightYellow = false;
 
-            // “ 取出 ” body part 重叠物体
-            other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = null;
+                // “ 取出 ” body part 重叠物体
+                other.GetComponent<Card_Body_Part_Feature>().overlapped_card_location_or_panel_slot = null;
 
+            }
+            
+            if (other.GetComponent<Knowledge_Feature>() != null)
+            {
+                // 取消黄色 Highlight
+                isHighlightYellow = false;
+
+                // “ 取出 ” body part 重叠物体
+                other.GetComponent<Knowledge_Feature>().overlapped_card_location_or_knowledge_slot = null;
+
+            }
         }
     }
     
@@ -742,8 +754,8 @@ public class Card_Location_Feature : MonoBehaviour
 
                     if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null // 如果打开的 panel 是个 card location panel 
                         && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject // 如果打开这个 panel 的卡是 这张卡
-                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().requiredResourcesThisPanel["Knowledge"] 
-                        > GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().absorbed_knowledge_list.Count) // 如果 panel 上需要的 Knowledge 比当前吸收的 Knowledge 多
+                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().requiredResourcesThisPanel["Knowledge"] > 
+                        GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().absorbed_knowledge_list.Count) // 如果 panel 上需要的 Knowledge 比当前吸收的 Knowledge 多
                     {
                         return true;
                     }

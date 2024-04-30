@@ -79,7 +79,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Button_Spiritual_Energy;
     public GameObject Button_Soul;
     public GameObject Button_Spirituality_Infused_Material;
-    // public GameObject Button_Knowledge;
+    public GameObject Button_Knowledge;
     public GameObject Button_Belief;
     public GameObject Button_Putrefaction;
     public GameObject Button_Madness;
@@ -351,11 +351,11 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 resource_button = Instantiate(Button_Spirituality_Infused_Material, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Spirituality_Infused_Material");  //设置按钮操纵的资源为
             }
-            /*else if (resource.Key == "Knowledge")
+            else if (resource.Key == "Knowledge")
             {
                 resource_button = Instantiate(Button_Knowledge, panel_section_resource.transform);    // 实例化 button
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Knowledge");  //设置按钮操纵的资源为 Knowledge
-            }*/
+            }
             else if (resource.Key == "Belief")
             {
                 resource_button = Instantiate(Button_Belief, panel_section_resource.transform);    // 实例化 button
@@ -382,7 +382,17 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 // resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Current_Resource("Godhood");  //设置按钮操纵的资源为 Godhood
             }
             
-            resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Attached_Panel(gameObject); // 设置 resource button 的 panel 指代为此
+            
+
+            if (resource.Key == "Knowledge")
+            {
+                resource_button.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Attached_Panel(gameObject);  // 设置 knowledge slot 的 panel 指代为此
+            }
+            else
+            {
+                resource_button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Attached_Panel(gameObject); // 设置 resource button 的 panel 指代为此
+            }
+            
             Find_Resource_Available_Slot_And_Set_Value(resource_button, resource.Key, resource.Value);   // 调用方法：寻找 available 的 slot 并将按钮放置在相应的位置，设置字典
         }
         
@@ -399,6 +409,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             {
                 availableResourceSlot[i] = false;
                 button.transform.localPosition = GameObject.Find("Resource_"+i).transform.localPosition;   // 放置到 available slot 的空物体位置
+                
 
                 button.transform.localPosition = new Vector3(           // 设置 Z轴坐标为 -1
                     button.transform.localPosition.x,
@@ -406,41 +417,72 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                     button.transform.localPosition.z - 1);
                 
                 
+                // TODO 在这里添加 Knowledge 的特殊挪移
+                
+                
                 // 根据 slot 的编号，设置对应 资源总数 参数的值, 并调用 resource button 中的方法，设置 resource button 中对应在此 panel 上资源编号的参数
                 if (i == 1)
                 {
                     resource_1_amount = value;      // 设置 resource 1 的数量为 目前引用的资源数量
-                    button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(1);   // 设置 resource Button 对应的资源 slot 为 1
+                    
+                    if (resourceName == "Knowledge")
+                        button.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Resource_Slot_Number_Knowledge(1);
+                    else
+                        button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(1);    // 设置 resource Button 对应的资源 slot 为 1
+
                     resourceSlotNumber.Add(resourceName,1);     // 记录 当前资源对应的 slot 编号 1，到字典 resourceSlotNumber
                 }
 
                 if (i == 2)
                 {
                     resource_2_amount = value; 
-                    button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(2);
+                    
+                    if (resourceName == "Knowledge")
+                        button.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Resource_Slot_Number_Knowledge(2);
+                    else
+                        button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(2);
+
                     resourceSlotNumber.Add(resourceName,2);
                 }
 
                 if (i == 3)
                 {
                     resource_3_amount = value; 
-                    button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(3);
+                    
+                    if (resourceName == "Knowledge")
+                        button.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Resource_Slot_Number_Knowledge(3);
+                    else
+                        button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(3);
+                    
                     resourceSlotNumber.Add(resourceName,3);
                 }
 
                 if (i == 4)
                 {
                     resource_4_amount = value; 
-                    button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(4);
+                    
+                    if (resourceName == "Knowledge")
+                        button.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Resource_Slot_Number_Knowledge(4);
+                    else
+                        button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(4);
+                    
                     resourceSlotNumber.Add(resourceName,4);
                 }
 
                 if (i == 5)
                 {
                     resource_5_amount = value; 
-                    button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(5);
+                    
+                    if (resourceName == "Knowledge")
+                        button.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Resource_Slot_Number_Knowledge(5);
+                    else
+                        button.GetComponent<Card_Location_Panel_Resource_Button>().Set_Resource_Slot_Number(5);
+                    
                     resourceSlotNumber.Add(resourceName,5);
                 }
+                
+                // 如果将来需要更多的 Slot，则在这里添加
+                
                 break;
             }
         }
@@ -1107,6 +1149,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         
         if (current_resource_1_amount > 0)
         {
+            // 对于每一个 slot，获取到 slot 上对应的 资源名称   
             string resource_name = "";
             foreach (var resource_slot in resourceSlotNumber)
             {
@@ -1116,11 +1159,19 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 }
             }
 
-            GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_1_amount, gameObject.transform.position);
+            // 再根据资源名称，以及 slot 上记录的吸收数量，加回相应数量的相应资源
+            if (resource_name == "Knowledge")
+                Return_Knowledge();
+            else
+                GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_1_amount, gameObject.transform.position);
+            
             current_resource_1_amount = 0;
         }
+        
+        
         if (current_resource_2_amount > 0)
         {
+            // 对于每一个 slot，获取到 slot 上对应的 资源名称   
             string resource_name = "";
             foreach (var resource_slot in resourceSlotNumber)
             {
@@ -1130,11 +1181,19 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 }
             }
 
-            GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_2_amount, gameObject.transform.position);
+            // 再根据资源名称，以及 slot 上记录的吸收数量，加回相应数量的相应资源
+            if (resource_name == "Knowledge")
+                Return_Knowledge();
+            else
+                GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_2_amount, gameObject.transform.position);
+            
             current_resource_2_amount = 0;
         }
+        
+        
         if (current_resource_3_amount > 0)
         {
+            // 对于每一个 slot，获取到 slot 上对应的 资源名称   
             string resource_name = "";
             foreach (var resource_slot in resourceSlotNumber)
             {
@@ -1144,11 +1203,19 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 }
             }
 
-            GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_3_amount, gameObject.transform.position);
+            // 再根据资源名称，以及 slot 上记录的吸收数量，加回相应数量的相应资源
+            if (resource_name == "Knowledge")
+                Return_Knowledge();
+            else
+                GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_3_amount, gameObject.transform.position);
+            
             current_resource_3_amount = 0;
         }
+        
+        
         if (current_resource_4_amount > 0)
         {
+            // 对于每一个 slot，获取到 slot 上对应的 资源名称   
             string resource_name = "";
             foreach (var resource_slot in resourceSlotNumber)
             {
@@ -1158,11 +1225,19 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 }
             }
 
-            GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_4_amount, gameObject.transform.position);
+            // 再根据资源名称，以及 slot 上记录的吸收数量，加回相应数量的相应资源
+            if (resource_name == "Knowledge")
+                Return_Knowledge();
+            else
+                GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_4_amount, gameObject.transform.position);
+            
             current_resource_4_amount = 0;
         }
+        
+        
         if (current_resource_5_amount > 0)
         {
+            // 对于每一个 slot，获取到 slot 上对应的 资源名称   
             string resource_name = "";
             foreach (var resource_slot in resourceSlotNumber)
             {
@@ -1172,7 +1247,12 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 }
             }
 
-            GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_5_amount, gameObject.transform.position);
+            // 再根据资源名称，以及 slot 上记录的吸收数量，加回相应数量的相应资源
+            if (resource_name == "Knowledge")
+                Return_Knowledge();
+            else
+                GameManager.GM.ResourceManager.Add_Resource(resource_name, current_resource_5_amount, gameObject.transform.position);
+            
             current_resource_5_amount = 0;
         }
         

@@ -61,7 +61,8 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
         panel_resource_slot_number = number;
     }
 
-    public void Set_Current_Resource(string resource)   // 设置这个 button 涉及的 resource 类型，实例化此按钮时，从外部设置
+    // 设置这个 button 涉及的 resource 类型，实例化此按钮时，从外部设置       注掉，因为好像从来没用过
+    /*public void Set_Current_Resource(string resource)   
     {
         if (resource == "Fund")
         {
@@ -121,7 +122,7 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
         
         ////////////////////// TODO 其他资源扩展，如有
 
-    }
+    }*/
 
     private void Check_If_Initialized_Well()
     {
