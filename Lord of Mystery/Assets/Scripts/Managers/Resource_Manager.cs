@@ -994,6 +994,10 @@ public class Resource_Manager : MonoBehaviour
             int locationIndex = FindAvailableResourceLocation();      // 找到空的 resource_location_X 的 slot，获取到空 slot 的序号 X
             resourceLocationsOccupied[locationIndex] = true;        // 相应的 resource_location_X slot 被占领
             resourceLocationIndex["Knowledge"] = locationIndex;    // 记录资源对应的 resource_location_X 的 X 序号
+            
+            
+            Move_Resource_Markers_OnBoard_For_Knowledge(locationIndex);     // 移动 Board 上的 资源位置 Marker
+            
                 
             Vector3 targetPosition = GetResourceLocationPosition(locationIndex);    // 获取到 resource_location_X 的位置
             
@@ -1018,7 +1022,39 @@ public class Resource_Manager : MonoBehaviour
         
         
     }
-    
+
+
+    void Move_Resource_Markers_OnBoard_For_Knowledge(int knowledge_slot_X)
+    {
+
+        float knowledge_icon_move_distance = 0.4f;
+        float knowledge_text_move_distance = 1.6f;
+        float other_markers_move_distance = 1.25f;
+
+        GameObject.Find($"Resource_Location_{knowledge_slot_X}").
+                transform.position += new Vector3(knowledge_icon_move_distance, 0, 0);
+
+        GameObject.Find($"Resource_Amount_Text_{knowledge_slot_X}").
+                transform.position += new Vector3(knowledge_text_move_distance, 0, 0);
+
+        int index = knowledge_slot_X + 1;
+
+        while (true)
+        {
+            if (GameObject.Find($"Resource_Location_{index}") == null)
+                break;
+            
+            GameObject.Find($"Resource_Location_{index}").
+                transform.position += new Vector3(other_markers_move_distance, 0, 0);
+            GameObject.Find($"Resource_Amount_Text_{index}").
+                transform.position += new Vector3(other_markers_move_distance, 0, 0);
+
+            index++;
+        }
+
+    }
+
+
 
 
 

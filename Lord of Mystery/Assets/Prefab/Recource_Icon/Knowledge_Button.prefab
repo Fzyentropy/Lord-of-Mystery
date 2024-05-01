@@ -113,8 +113,8 @@ Transform:
   m_GameObject: {fileID: 7458556519118881775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6530857, y: 1.51, z: 1.51}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 3.409127, y: 1.51, z: 1.51}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6318401607592529831}
   m_Father: {fileID: 0}
@@ -184,7 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19e88951ff87b746af77bae95fe0183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attached_panel: {fileID: 0}
   attached_card_location_panel_feature: {fileID: 0}
+  panel_resource_slot_number_knowledge: -1
   highlightSprite: {fileID: 139337452210262188}
 --- !u!114 &196849847637248039
 MonoBehaviour:

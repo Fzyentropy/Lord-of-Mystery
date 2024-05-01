@@ -20,7 +20,7 @@
             "Knowledge_Content": "Potion Formula : Apprentice of the Whisper. \n\n Rank : 9 \n Occupation : The God of Knowledge \n Formula : 5 Physical Energy, 2 Spirituality Infused Material."
         },
         {
-            "Id": "Potion_Seer",
+            "Id": "Potion_Formula_Level_9_Seer",
             "Rarity": "Rare",
             "Label": "Potion Formula: Seer",
             "Short_Label": "Formula",
@@ -51,7 +51,187 @@
             "Short_Label": "Myth",
             "Image": "Image_Knowledge_Id",
             "Knowledge_Content": "The old frescoes in the God's Forbidden Land shows the Ancient God of Sun has 8 angels originally. Since the fall of the God of Sun, his 8 angels have shared his authority and become eight independent true gods, seven of which are the seven orthodox gods today. "
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            "Id": "Potion_Guardian_Secrets",
+            "Rarity": "Uncommon",
+            "Label": "Potion Formula: Guardian of Secrets",
+            "Short_Label": "Formula",
+            "Image": "Image_Guardian_Secrets",
+            "Knowledge_Content": "This potion grants the ability to shield and decrypt secrets. Rank: 7, Ingredients: 3 Mental Clarity, 2 Secret Essence."
+        },
+        {
+            "Id": "Knowledge_Pathways",
+            "Rarity": "Common",
+            "Label": "Knowledge: Pathways",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Pathways",
+            "Knowledge_Content": "Pathways refer to the distinct routes taken by Beyonders to enhance their powers and transform their souls."
+        },
+        {
+            "Id": "Myth_Crimson_Moon",
+            "Rarity": "Mythic",
+            "Label": "Myth: The Crimson Moon",
+            "Short_Label": "Myth",
+            "Image": "Image_Crimson_Moon",
+            "Knowledge_Content": "Legend speaks of a Crimson Moon that appears to herald the awakening of ancient beings and untold chaos."
+        },
+        {
+            "Id": "Potion_Dreamer",
+            "Rarity": "Rare",
+            "Label": "Potion Formula: Dreamer",
+            "Short_Label": "Formula",
+            "Image": "Image_Dreamer",
+            "Knowledge_Content": "Enables profound connection to the dream world. Rank: 8, Ingredients: 4 Dream Dust, 1 Nightmare Essence."
+        },
+        {
+            "Id": "Knowledge_Elder_Ones",
+            "Rarity": "Common",
+            "Label": "Knowledge: Elder Ones",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Elder_Ones",
+            "Knowledge_Content": "The Elder Ones are ancient entities possessing vast knowledge and mysterious powers, often worshipped or feared."
+        },
+        {
+            "Id": "Potion_Nightwalker",
+            "Rarity": "Uncommon",
+            "Label": "Potion Formula: Nightwalker",
+            "Short_Label": "Formula",
+            "Image": "Image_Nightwalker",
+            "Knowledge_Content": "Grants enhanced abilities to operate under the cover of darkness. Rank: 6, Ingredients: 3 Shadow Essence, 2 Moonlight Dew."
+        },
+        {
+            "Id": "Knowledge_Sacred_Grounds",
+            "Rarity": "Rare",
+            "Label": "Knowledge: Sacred Grounds",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Sacred_Grounds",
+            "Knowledge_Content": "Sacred Grounds are locations charged with spiritual energy, often sites of major historical or mystical events."
+        },
+        {
+            "Id": "Myth_Seven_Seas",
+            "Rarity": "Mythic",
+            "Label": "Myth: The Seven Seas",
+            "Short_Label": "Myth",
+            "Image": "Image_Seven_Seas",
+            "Knowledge_Content": "The Seven Seas are said to be pathways to hidden truths and are guarded by sea monsters and old gods."
+        },
+        {
+            "Id": "Potion_True_Sight",
+            "Rarity": "Rare",
+            "Label": "Potion Formula: True Sight",
+            "Short_Label": "Formula",
+            "Image": "Image_True_Sight",
+            "Knowledge_Content": "Provides the drinker with the ability to see the true nature of things. Rank: 7, Ingredients: 5 Visionary Leaves, 1 Eye of Newt."
+        },
+        {
+            "Id": "Knowledge_Ancient_Contracts",
+            "Rarity": "Common",
+            "Label": "Knowledge: Ancient Contracts",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Ancient_Contracts",
+            "Knowledge_Content": "Ancient Contracts are pacts made between humans and supernatural beings, often involving complex rituals and steep prices."
+        },
+        
+        {
+            "Id": "Potion_Voiceless_Bard",
+            "Rarity": "Uncommon",
+            "Label": "Potion Formula: Voiceless Bard",
+            "Short_Label": "Formula",
+            "Image": "Image_Voiceless_Bard",
+            "Knowledge_Content": "Grants the ability to influence emotions silently. Rank: 6, Ingredients: 3 Bard's Tears, 2 Silent Whispers."
+        },
+        {
+            "Id": "Knowledge_Forbidden_Scripts",
+            "Rarity": "Rare",
+            "Label": "Knowledge: Forbidden Scripts",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Forbidden_Scripts",
+            "Knowledge_Content": "Forbidden Scripts contain spells and knowledge that have been sealed away due to their dangerous nature."
+        },
+        {
+            "Id": "Myth_Forgotten_King",
+            "Rarity": "Mythic",
+            "Label": "Myth: The Forgotten King",
+            "Short_Label": "Myth",
+            "Image": "Image_Forgotten_King",
+            "Knowledge_Content": "The Forgotten King was a ruler whose kingdom was lost to time, rumored to be buried under the sea."
+        },
+        {
+            "Id": "Potion_Star_Gazer",
+            "Rarity": "Rare",
+            "Label": "Potion Formula: Star Gazer",
+            "Short_Label": "Formula",
+            "Image": "Image_Star_Gazer",
+            "Knowledge_Content": "Enables the user to read fortunes in the stars. Rank: 8, Ingredients: 4 Starlight, 1 Mystic Orb."
+        },
+        {
+            "Id": "Knowledge_Ancient_Runes",
+            "Rarity": "Common",
+            "Label": "Knowledge: Ancient Runes",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Ancient_Runes",
+            "Knowledge_Content": "Ancient Runes are symbols from old civilizations, holding power and secrets of old magics."
+        },
+        {
+            "Id": "Potion_Shadow_Mender",
+            "Rarity": "Uncommon",
+            "Label": "Potion Formula: Shadow Mender",
+            "Short_Label": "Formula",
+            "Image": "Image_Shadow_Mender",
+            "Knowledge_Content": "Heals wounds in shadows and darkness. Rank: 5, Ingredients: 2 Shadow Herb, 3 Moonlight Dew."
+        },
+        {
+            "Id": "Knowledge_Lost_Cities",
+            "Rarity": "Rare",
+            "Label": "Knowledge: Lost Cities",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Lost_Cities",
+            "Knowledge_Content": "Lost Cities are ancient metropolises that vanished without a trace, often spoken of in myths and legends."
+        },
+        {
+            "Id": "Myth_Silent_Watchers",
+            "Rarity": "Mythic",
+            "Label": "Myth: The Silent Watchers",
+            "Short_Label": "Myth",
+            "Image": "Image_Silent_Watchers",
+            "Knowledge_Content": "The Silent Watchers are spectral figures that guard forbidden knowledge and realms."
+        },
+        {
+            "Id": "Potion_Lightweaver",
+            "Rarity": "Rare",
+            "Label": "Potion Formula: Lightweaver",
+            "Short_Label": "Formula",
+            "Image": "Image_Lightweaver",
+            "Knowledge_Content": "Manipulates light to create illusions. Rank: 7, Ingredients: 5 Photon Particles, 2 Illusion Webs."
+        },
+        {
+            "Id": "Knowledge_Time_Fragments",
+            "Rarity": "Common",
+            "Label": "Knowledge: Time Fragments",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Time_Fragments",
+            "Knowledge_Content": "Time Fragments are remnants of past or future events, capable of revealing history or possibilities."
         }
+        
+        
+        
+        
         
         
         

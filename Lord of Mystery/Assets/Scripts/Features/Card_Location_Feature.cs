@@ -85,6 +85,9 @@ public class Card_Location_Feature : MonoBehaviour
     private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
 
     private float draw_card_animation_duration = 0.4f;
+    
+    [HideInInspector] public Color highlight_color_common = Color.white;
+    [HideInInspector] public Color highlight_color_yellow = Color.yellow;
      
     
     
@@ -166,6 +169,7 @@ public class Card_Location_Feature : MonoBehaviour
         if (_cardLocation.Card_Type == "Sequence")
         {
             card_frame.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Image/Sequence_Frame");
+            highlight_color_common = Color.red;
             
             if (_cardLocation.Id != "Flesh_And_Body")
             {
@@ -786,13 +790,13 @@ public class Card_Location_Feature : MonoBehaviour
                     || Check_If_Dragging_Knowledge_Is_Need(GameManager.GM.InputManager.Dragging_Object))    // 或者拖拽的是需要的 Knowledge，则高亮，根据是否跟 card location 重叠来判断是否是黄色
                 {
                     if (!isHighlightYellow)
-                        Highlight_Collider(Color.white);
+                        Highlight_Collider(highlight_color_common);
                     else
-                        Highlight_Collider(Color.yellow);
+                        Highlight_Collider(highlight_color_yellow);
                 }
                 else if (isHighlight)       // 如果鼠标悬停让 isHighlight 参数为 true 了，也高亮，高亮白色
                 {
-                    Highlight_Collider(Color.white);
+                    Highlight_Collider(highlight_color_common);
                 }
                 else
                 {
@@ -1428,9 +1432,14 @@ public class Card_Location_Feature : MonoBehaviour
                 
                 if (special_effect == "Generate_Potion_Seer_Knowledge")
                 {
-                    Generate_Potion_Seer_Knowledge();
+                    Generate_Potion_Knowledge("Potion_Formula_Level_9_Seer");
                 }
                 
+                if (special_effect == "Generate_Potion_Knowledge_Apprentice_Of_The_Whisper")
+                {
+                    Generate_Potion_Knowledge("Potion_Formula_Level_9_Apprentice_Of_The_Whisper");
+                }
+
                 if (special_effect == "Get_The_Nighthawk")
                 {
                     Get_The_Nighthawk();
@@ -1675,16 +1684,18 @@ public class Card_Location_Feature : MonoBehaviour
     }
 
 
-    void Generate_Potion_Seer_Knowledge() // 临时， 用于测试生成 Knowledge 的方式
+    void Generate_Potion_Knowledge(string potion_id)     
     {
-
-        GameManager.GM.Generate_Knowledge_Card("Potion_Seer", new Vector3(
-            transform.position.x + 4f,
-            transform.position.y - 4f,
-            transform.position.z));
-
-
+        
+        GameManager.GM.ResourceManager.Draw_A_Knowledge_By_Name(potion_id,
+            transform.position,
+            new Vector3(
+                transform.position.x + 4f,
+                transform.position.y - 4f,
+                transform.position.z));
+        
     }
+    
 
     void Get_The_Nighthawk()
     {

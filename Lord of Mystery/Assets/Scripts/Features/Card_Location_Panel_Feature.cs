@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class Card_Location_Panel_Feature : MonoBehaviour
 {
@@ -183,6 +184,26 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             } 
         }
 
+        
+        // 显示 这张卡的效果，生产多少资源，生产卡牌或者特殊效果，未知效果
+
+        /*if (attached_card_location_feature.produce_resources.Count > 0)        
+            {
+                string effect_text = "";
+                
+                foreach (var resource in attached_card_location_feature.produce_resources)
+                {
+                    if (resource.Value != 0)
+                    {
+                        effect_text += resource.Key + " x " + resource.Value + " ";
+                    }
+                }
+                
+                if (effect_text != "")
+                    panel_effect_description.text = "Produce: " + effect_text;
+            }*/
+        
+        
 
 
         if (attached_card_location_feature.is_counting_down)        // 如果在 Count down，则 显示倒计时
@@ -207,9 +228,12 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         else          // 如果没在 Countdown，则正常设置 panel sections
         
         {
-            // 根据上方的检查结果，设置 section 是否出现以及位置
 
-            if (isRequireBodyParts) // 根据是否需要 body part，设置 start button 所在的 section，粗或细
+            // 根据上方的检查结果，设置 section 是否出现以及位置
+            
+            // 根据是否需要 body part，设置 start button 所在的 section，粗或细
+            
+            if (isRequireBodyParts) 
             {
                 panel_section_body_part.SetActive(true);
                 start_button.transform.parent = panel_section_body_part.transform;
@@ -229,8 +253,11 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 start_button.transform.localPosition.y,
             start_button.transform.localPosition.z -1);
             
+            
+            
+            // 如果有 required resource, 则需要 resource section，相应地设置 resource section 和 body part section 的位置
 
-            if (isRequireResource) // 如果有 required resource, 则需要 resource section，相应地设置 resource section 和 body part section 的位置
+            if (isRequireResource) 
             {
                 panel_section_resource.SetActive(true);
                 panel_section_resource.transform.localPosition =
@@ -260,6 +287,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 }
             }
 
+            
 
             if (requiredResourcesThisPanel.Count > 0) // 如果需要消耗 resource，则根据需要的 resource 生成 resource 按钮
             {
@@ -270,23 +298,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             {
                 Set_Body_Part_Slots();
             }
-
-
-            /*if (attached_card_location_feature.produce_resources.Count > 0)        // 显示 Effect Description，生产多少资源
-            {
-                string effect_text = "";
-                
-                foreach (var resource in attached_card_location_feature.produce_resources)
-                {
-                    if (resource.Value != 0)
-                    {
-                        effect_text += resource.Key + " x " + resource.Value + " ";
-                    }
-                }
-                
-                if (effect_text != "")
-                    panel_effect_description.text = "Produce: " + effect_text;
-            }*/
+            
         }
         
 
@@ -408,16 +420,17 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             if (availableResourceSlot[i])
             {
                 availableResourceSlot[i] = false;
-                button.transform.localPosition = GameObject.Find("Resource_"+i).transform.localPosition;   // 放置到 available slot 的空物体位置
-                
 
+                if (resourceName == "Knowledge")
+                {
+                    Move_Resource_Button_Markers_InPanel_For_Knowledge(i);      // 如果是 Knowledge，则移动 Marker 位置
+                }
+                
+                button.transform.localPosition = GameObject.Find("Resource_"+i).transform.localPosition;   // 放置到 available slot 的空物体位置
                 button.transform.localPosition = new Vector3(           // 设置 Z轴坐标为 -1
                     button.transform.localPosition.x,
                     button.transform.localPosition.y,
                     button.transform.localPosition.z - 1);
-                
-                
-                // TODO 在这里添加 Knowledge 的特殊挪移
                 
                 
                 // 根据 slot 的编号，设置对应 资源总数 参数的值, 并调用 resource button 中的方法，设置 resource button 中对应在此 panel 上资源编号的参数
@@ -486,6 +499,37 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 break;
             }
         }
+    }
+    
+    
+    void Move_Resource_Button_Markers_InPanel_For_Knowledge(int knowledge_button_X)
+    {
+
+        float knowledge_icon_move_distance = 1f;
+        float knowledge_text_move_distance = 2f;
+        float other_markers_move_distance = 2.28f;
+
+        GameObject.Find($"Resource_{knowledge_button_X}").
+            transform.localPosition += new Vector3(knowledge_icon_move_distance, 0, 0);
+
+        GameObject.Find($"Resource_Text_{knowledge_button_X}").
+            transform.localPosition += new Vector3(knowledge_text_move_distance, 0, 0);
+
+        int index = knowledge_button_X + 1;
+
+        while (true)
+        {
+            if (GameObject.Find($"Resource_{index}") == null)
+                break;
+            
+            GameObject.Find($"Resource_{index}").
+                transform.localPosition += new Vector3(other_markers_move_distance, 0, 0);
+            GameObject.Find($"Resource_Text_{index}").
+                transform.localPosition += new Vector3(other_markers_move_distance, 0, 0);
+
+            index++;
+        }
+
     }
 
     public void Set_Body_Part_Slots()           // 根据 这张卡需要的 body part 设置 body part slot   // TODO 有 bug ： 打开 panel 的时候 null reference
