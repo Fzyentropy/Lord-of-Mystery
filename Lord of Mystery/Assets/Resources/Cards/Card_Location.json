@@ -225,6 +225,9 @@
             "Only": true,
             "Time": 10,
 
+            "Invisible_Description": true,
+
+
             "Require_Body_Part":
             {
                 "Physical_Body": 1
@@ -285,6 +288,8 @@
 
             "Use_Time": 1,
             "Time": 20,
+
+            "Invisible_Description": true,
 
             "Start_Effect":
             [
@@ -351,11 +356,12 @@
             {
                 "Physical_Body": 1
             },
-            
-            "Produce_Special_Effect":
+
+            "Produce_Card_Location":
             [
-                "Draw_New_Card_Location__Function"
+                "Random_New_Card_Location__Function"
             ]
+    
         },
         
         {
@@ -758,11 +764,12 @@
                 "Fund": 2,
                 "Physical_Energy": 1
             },
-            
-            "Produce_Special_Effect":
+
+            "Produce_Card_Location":
             [
-                "Draw_New_Card_Location__Location_Tingen"
+                "Random_New_Card_Location__Location"
             ]
+        
         },
         {
             "Id": "Explorer_Shop",

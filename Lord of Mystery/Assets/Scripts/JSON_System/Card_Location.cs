@@ -26,6 +26,7 @@ public class Card_Location
     public bool Auto_Start;     // 自动开始倒计时
     public bool Repeatable;     // 是否重复
     public bool Stable;       // 是否可以移动
+    public bool Invisible_Description;     // 卡牌的效果是否显示，不显示则为 ? 。 false：正常显示， true：不显示，默认为 false正常显示
 
     public Body_Part_Data Require_Body_Part;
     public Resource_Data Require_Resource;

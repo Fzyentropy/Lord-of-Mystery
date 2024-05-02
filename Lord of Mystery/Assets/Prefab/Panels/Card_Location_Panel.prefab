@@ -1297,6 +1297,7 @@ Transform:
   - {fileID: 5959526967883203974}
   - {fileID: 4547667226252011080}
   - {fileID: 6181399920436314863}
+  - {fileID: 659840403487716705}
   - {fileID: 3307615327483566674}
   - {fileID: 3805037272692098445}
   - {fileID: 245556268527188046}
@@ -1612,7 +1613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7348922803999082888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1626,7 +1627,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2049,7 +2050,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1283879549372711702
 SpriteRenderer:
@@ -2103,6 +2104,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4506177819315430578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 659840403487716705}
+  m_Layer: 0
+  m_Name: Effect_Description_Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &659840403487716705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4506177819315430578}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 20.63, y: -6.91, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4868924193114746119}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4517709631480628591
 GameObject:
   m_ObjectHideFlags: 0
@@ -2818,7 +2850,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4539167989686174202
 SpriteRenderer:
@@ -3105,7 +3137,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1374545331509609825
 SpriteRenderer:
@@ -3514,7 +3546,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3703,7 +3735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &245556268527188046
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3717,7 +3749,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4868924193114746119}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4212,6 +4244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attached_card: {fileID: 0}
   attached_card_location_feature: {fileID: 0}
+  panel_section_description: {fileID: 2497925559189485608}
   panel_section_resource: {fileID: 4836992904368272514}
   panel_section_body_part: {fileID: 9218694279620875963}
   panel_section_without_body_part: {fileID: 5899824736913069985}
@@ -4248,6 +4281,20 @@ MonoBehaviour:
   Button_Madness: {fileID: 3219249540205346602, guid: 6cfba02e0b6db344fb94c8a9e6b5288e, type: 3}
   Button_Godhood: {fileID: 870034428689274399, guid: c29c7249b2387bf46ae191549949a246, type: 3}
   Button_Death: {fileID: 5722414193232788536, guid: 06b7103c19c536f49a958f461b002786, type: 3}
+  Icon_Fund: {fileID: 3953027631342908348, guid: 11b50445992b9b44ab50855d6a37e36d, type: 3}
+  Icon_Physical_Energy: {fileID: 8069154514472205973, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
+  Icon_Spiritual_Energy: {fileID: 5722414193232788536, guid: 11ed9f3bab976094cbf4a1978359f968, type: 3}
+  Icon_Soul: {fileID: 1236110638116684752, guid: eaacd88cad63d274a8f24b327eb852c6, type: 3}
+  Icon_Spirituality_Infused_Material: {fileID: 905812207467882474, guid: 4e90d18c282685e4d8b1124700798b73, type: 3}
+  Icon_Knowledge: {fileID: 7458556519118881775, guid: 4bccaea50ea63c04797bf914fab22d1d, type: 3}
+  Icon_Belief: {fileID: 2050570527201517508, guid: 59b27ad155fd6e34785aa762f66bda06, type: 3}
+  Icon_Putrefaction: {fileID: 4877695618378898901, guid: 60fd3eebd62852c4fb2a43a6f2fb30b9, type: 3}
+  Icon_Madness: {fileID: 3219249540205346602, guid: 00368c0acd188ad44805ee3be6123d49, type: 3}
+  Icon_Godhood: {fileID: 870034428689274399, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
+  Icon_Death: {fileID: 3953027631342908348, guid: d53d63d36f0964d4390b4fd00326ff62, type: 3}
+  question_mark: {fileID: 2050570527201517508, guid: 5823d081284980e4f96dcbf59ea312dc, type: 3}
+  special_effect_icon: {fileID: 2050570527201517508, guid: b14249a20067d914184e730411aaa354, type: 3}
+  draw_card_icon: {fileID: 2050570527201517508, guid: c48b090806218d744ad935f0fff6f121, type: 3}
   Body_Part_Prefab_Physical_Body: {fileID: 0}
   Body_Part_Prefab_Spirit: {fileID: 0}
   Body_Part_Prefab_Psyche: {fileID: 0}
@@ -4337,7 +4384,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 870034428689274393, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 870034428689274393, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
       propertyPath: m_LocalScale.x
@@ -4407,6 +4454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Godhood_Icon
       objectReference: {fileID: 0}
+    - target: {fileID: 870034428689274399, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 404a29746fb2cc84a92fada09f9ad5a9, type: 3}
 --- !u!4 &3307615327483566674 stripped
@@ -4435,7 +4486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8069154514472205971, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8069154514472205971, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
       propertyPath: m_LocalScale.x
@@ -4496,6 +4547,10 @@ PrefabInstance:
     - target: {fileID: 8069154514472205973, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
       propertyPath: m_Name
       value: Physical_Strength_Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8069154514472205973, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}

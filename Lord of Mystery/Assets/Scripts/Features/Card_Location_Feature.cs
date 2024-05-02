@@ -58,6 +58,10 @@ public class Card_Location_Feature : MonoBehaviour
     public Dictionary<string, int> produce_resources;
     public Dictionary<string, int> produce_body_parts;      // 产出的 body part
 
+    public List<string> start_effect;       // 卡牌刚生成时的 Effect
+    public List<string> start_countdown_effect;     // 卡牌开始 Countdown 时触发的 Effect
+    public List<string> special_effect;     // 卡牌 Countdown 结束时触发的 所有 Special Effect
+
     public int use_time_counter;
 
     // Potion 相关
@@ -104,8 +108,9 @@ public class Card_Location_Feature : MonoBehaviour
         Set_Layer_Index();          // 设置 layer 的 index
 
         Initialize_Card();      // 设置卡牌 label，image，初始化卡牌使用次数，等设置
-        Initialize_Card_Resource_And_Body_Part();     // 根据 Card_Location 实例设置 3个字典 - 消耗的 resource，消耗的 body part，生产的 resource，生产的 body part
-
+        Initialize_Card_Resource_And_Body_Part();     // 根据 _cardLocation 实例设置 3个字典 - 消耗的 resource，消耗的 body part，生产的 resource，生产的 body part
+        Initialize_Start_Countdown_And_Special_Effect();      // Start Effect，Start Countdown Effect，Special Effect 的初始化
+        
         StartCoroutine(Highlight_If_Dragging_Needed_BodyPart());    // 如果拖拽了需要的 body part，则高亮
 
         StartCoroutine(Trigger_Any_Start_Effects());        // 如果有任何生成时就要发动的效果，就集成在这里
@@ -258,6 +263,36 @@ public class Card_Location_Feature : MonoBehaviour
         };
         
     }
+
+
+    void Initialize_Start_Countdown_And_Special_Effect()
+    {
+        start_effect = new List<string>() { };
+        start_countdown_effect = new List<string>() { };
+        special_effect = new List<string>() { };
+
+        foreach (var effect in _cardLocation.Start_Effect)
+        {
+            start_effect.Add(effect);
+        }
+
+        foreach (var countdown_effect in _cardLocation.Start_Countdown_Effect)
+        {
+            start_countdown_effect.Add(countdown_effect);
+        }
+
+        foreach (var sp_effect in _cardLocation.Produce_Special_Effect)
+        {
+            special_effect.Add(sp_effect);
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
 
 
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
@@ -946,9 +981,9 @@ public class Card_Location_Feature : MonoBehaviour
         {
 
             // 先发动任何 Start Countdown Effect，即倒计时刚开始时 触发的效果
-            if (_cardLocation.Start_Countdown_Effect.Count > 0)
+            if (start_countdown_effect.Count > 0)
             {
-                foreach (var effect in _cardLocation.Start_Countdown_Effect)
+                foreach (var effect in start_countdown_effect)
                 {
                     if (effect == "Sleep__Pause_Flesh_Body")
                     {
@@ -1348,17 +1383,31 @@ public class Card_Location_Feature : MonoBehaviour
             foreach (var cardLocationString in _cardLocation.Produce_Card_Location)
             {
 
-                GameObject card_location = GameManager.GM.Generate_Card_Location(cardLocationString, transform.position);
-
-                if (GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).Card_Type != "Sequence")   // Sequence 的 运动
+                if (cardLocationString == "Random_New_Card_Location__Function")
                 {
-                    card_location.transform.DOMove(new Vector3(
-                        gameObject.transform.position.x + XOffset,
-                        gameObject.transform.position.y + newCardLocationPositionYOffset,
-                        gameObject.transform.position.z), duration);
+                    Draw_New_Card_Location("Function");
+                }
+                
+                else if (cardLocationString == "Random_New_Card_Location__Location")
+                {
+                    Draw_New_Card_Location("Location");
                 }
 
-                XOffset += newCardLocationPositionXOffset;
+                else
+                {
+                    GameObject card_location = GameManager.GM.Generate_Card_Location(cardLocationString, transform.position);
+
+                    if (GameManager.GM.CardLoader.Get_Card_Location_By_Id(cardLocationString).Card_Type != "Sequence")   // Sequence 的 运动
+                    {
+                        card_location.transform.DOMove(new Vector3(
+                            gameObject.transform.position.x + XOffset,
+                            gameObject.transform.position.y + newCardLocationPositionYOffset,
+                            gameObject.transform.position.z), duration);
+                    }
+
+                    XOffset += newCardLocationPositionXOffset;
+                }
+                
 
             }
             
@@ -1396,20 +1445,15 @@ public class Card_Location_Feature : MonoBehaviour
         
         // Special Effect
         
-        if (_cardLocation.Produce_Special_Effect.Count > 0)       // 简单写的，根据 Special Effect 的 list 触发 Special Effect 
+        if (special_effect.Count > 0)       // 简单写的，根据 Special Effect 的 list 触发 Special Effect 
         {
-            foreach (var special_effect in _cardLocation.Produce_Special_Effect)
+            foreach (var special_effect in special_effect)
             {
                 if (special_effect == "Draw_A_Tarot_Card")
                 {
                     Draw_A_Tarot_Card();
                 }
 
-                if (special_effect == "Draw_New_Card_Location__Function")
-                {
-                    Draw_New_Card_Location("Function");
-                }
-                
                 if (special_effect == "Level_Up_Sequence_Based_On_Potion")
                 {
                     Level_Up_Sequence_Based_On_Potion();
@@ -1449,12 +1493,7 @@ public class Card_Location_Feature : MonoBehaviour
                 {
                     Sleep__Resume_Flesh_Body();
                 }
-                
-                if (special_effect == "Draw_New_Card_Location__Location_Tingen")
-                {
-                    Draw_New_Card_Location("Location");
-                }
-                
+
                 if (special_effect == "")
                 {
                     

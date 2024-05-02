@@ -16,7 +16,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     
     
     // panel section
-    [Header("Panel Section")]
+    [Header("Panel Section")] 
+    public GameObject panel_section_description;    // panel Description 板块的指代
     public GameObject panel_section_resource;       // panel resource section 指代，手动拖拽
     public GameObject panel_section_body_part;      // panel body part section 指代，手动拖拽
     public GameObject panel_section_without_body_part;      // 没有 body part 的 section，手动拖拽
@@ -86,6 +87,24 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Button_Madness;
     public GameObject Button_Godhood;
     public GameObject Button_Death;     // Death button added
+    
+    [Header("Panel Effect Description Resource Icon Prefab")] 
+    public GameObject Icon_Fund;
+    public GameObject Icon_Physical_Energy;
+    public GameObject Icon_Spiritual_Energy;
+    public GameObject Icon_Soul;
+    public GameObject Icon_Spirituality_Infused_Material;
+    public GameObject Icon_Knowledge;
+    public GameObject Icon_Belief;
+    public GameObject Icon_Putrefaction;
+    public GameObject Icon_Madness;
+    public GameObject Icon_Godhood;
+    public GameObject Icon_Death;     // Death button added
+
+    [Header("Other Prefab")] 
+    public GameObject question_mark;    // 用于 Effect Description，描述未知效果
+    public GameObject special_effect_icon;    // 用于 Effect Description，描述 special effect
+    public GameObject draw_card_icon;   // 用于 Effect Description，描述抽新卡的效果
     
     // Body Part prefab, Body part 的 Card prefab
     [Header("Body Part Prefab")]
@@ -202,7 +221,122 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 if (effect_text != "")
                     panel_effect_description.text = "Produce: " + effect_text;
             }*/
+
         
+        // 显示 这张卡的效果，生产多少资源，生产卡牌或者特殊效果，未知效果
+        {
+
+            Vector3 description_position = GameObject.Find("Effect_Description_Root").transform.localPosition;
+            GameObject icon = null;
+            List<GameObject> icon_to_generate = new List<GameObject>() { };
+
+            
+            if (attached_card_location_feature._cardLocation.Invisible_Description)     // 如果是 Invisible，则生成 ？
+            {
+                icon = Instantiate(question_mark, panel_section_description.transform);
+                icon.transform.localPosition = description_position;
+                icon_to_generate.Add(icon);
+            }
+            
+            else    // 如果不 Invisible，则根据 produce 的东西生成 icon
+            {
+                
+                // 生成 resource icon
+                foreach (var resource in attached_card_location_feature.produce_resources)
+                {
+                    if (resource.Value != 0)
+                    {
+                    
+                        if (resource.Key == "Physical_Energy")
+                        {
+                            icon = Instantiate(Icon_Physical_Energy, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Fund")
+                        {
+                            icon = Instantiate(Icon_Fund, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Spiritual_Energy")
+                        {
+                            icon = Instantiate(Icon_Spiritual_Energy, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Soul")
+                        {
+                            icon = Instantiate(Icon_Soul, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Spirituality_Infused_Material")
+                        {
+                            icon = Instantiate(Icon_Spirituality_Infused_Material, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Knowledge")
+                        {
+                            icon = Instantiate(Icon_Knowledge, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Belief")
+                        {
+                            icon = Instantiate(Icon_Belief, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Putrefaction")
+                        {
+                            icon = Instantiate(Icon_Putrefaction, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Madness")
+                        {
+                            icon = Instantiate(Icon_Madness, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Godhood")
+                        {
+                            icon = Instantiate(Icon_Godhood, panel_section_description.transform);
+                        }
+                        if (resource.Key == "Death")
+                        {
+                            icon = Instantiate(Icon_Death, panel_section_description.transform);
+                        }
+                        // ...
+
+                        icon.transform.localPosition = description_position;
+
+                        // 加 Text 标明数量
+                        
+                        icon_to_generate.Add(icon);
+
+                    }
+                }
+
+                if (attached_card_location_feature._cardLocation.Produce_Card_Location.Count > 0)
+                {
+                    icon = Instantiate(draw_card_icon, panel_section_description.transform);
+                    icon.transform.localPosition = description_position;
+                    icon_to_generate.Add(icon);
+                }
+
+                if (attached_card_location_feature.special_effect.Count > 0)
+                {
+                    icon = Instantiate(special_effect_icon, panel_section_description.transform);
+                    icon.transform.localPosition = description_position;
+                    icon_to_generate.Add(icon);
+                }
+            }
+
+
+            if (icon_to_generate.Count > 0)
+            {
+                Vector3 icon_position_offset = new Vector3(0, 0, 0);
+                Vector3 icon_position_interval = new Vector3(-1.68f, 0, 0);
+
+                for (int i = icon_to_generate.Count - 1; i >= 0; i--)
+                {
+                    icon_to_generate[i].transform.localPosition += icon_position_offset;
+                    icon_position_offset += icon_position_interval;
+
+                    icon_to_generate[i].GetComponent<SpriteRenderer>().sortingLayerName = "Panel";
+                    icon_to_generate[i].GetComponent<SpriteRenderer>().sortingOrder = 1;
+                }
+                
+            }
+            
+            
+            
+        }
         
 
 
