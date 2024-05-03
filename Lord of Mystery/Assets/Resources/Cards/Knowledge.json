@@ -17,7 +17,7 @@
             "Label": "Potion Formula: Apprentice of the Whisper",
             "Short_Label": "Formula",
             "Image": "Image_Knowledge_Id",
-            "Knowledge_Content": "Potion Formula : Apprentice of the Whisper. \n\n Rank : 9 \n Occupation : The God of Knowledge \n Formula : 5 Physical Energy, 2 Spirituality Infused Material."
+            "Knowledge_Content": "Potion Formula : Apprentice of the Whisper. \n\n Rank : 9 \n Occupation : The God of Knowledge \n Formula : 5 Physical_Energy, 2 Spirituality_Infused_Material."
         },
         {
             "Id": "Potion_Formula_Level_9_Seer",

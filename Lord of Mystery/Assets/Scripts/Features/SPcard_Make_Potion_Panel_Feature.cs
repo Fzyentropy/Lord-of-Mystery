@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.Cecil;
 using TMPro;
 using UnityEngine;
 
@@ -9,10 +10,15 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     
     // 此 panel 吸收的各资源计数
     public Dictionary<string, int> absorbedResourceThisPanel;
-    
+    public List<string> absorbedKnowledgeThisPanel;
+
     // 记录是否匹配的参数
     [HideInInspector] public bool is_matching_sequence;
     public Sequence matched_sequence_temp_storage;
+
+    [Header("Sections")] 
+    public GameObject Resource_Section;
+    public GameObject ProgressBar_Section;
 
     // 各资源 button prefab
     [Header("Resource Button Prefab")]
@@ -45,13 +51,23 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     // Start Button
     [Header("Make Potion Start Button")]
     public GameObject make_potion_start_button;
+    
+    // 进度条
+    [Header("Progress Bar")]
+    public GameObject progress_bar_prefab;        // 进度条 prefab
+    [HideInInspector]public GameObject progress_bar;               // 进度条 指代
+    [HideInInspector]public GameObject progress_bar_root;          // 进度条方块的根 指代
+    public GameObject progress_bar_position;      // 进度条位置标记 空物体
+    [HideInInspector]public TMP_Text countdown_text;               // 显示秒数文本
 
 
     private void Start()
     {
         Set_Absorbed_Resource_Dictionary();     // 初始化这个 panel 上吸收的 resource 的 Dictionary
-        Set_Make_Potion_Panel_Resource_Button();
         Set_Make_Potion_Start_Button();
+        
+        Set_Make_Potion_Panel_Resource_Button_Or_ProgressBar();
+        
     }
 
     private void Update()
@@ -92,28 +108,63 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     }
 
     
-    void Set_Make_Potion_Panel_Resource_Button()        // 根据 board 上已经获得的资源来设置 资源按钮的出现
+    void Set_Make_Potion_Panel_Resource_Button_Or_ProgressBar()        // 根据 board 上已经获得的资源来设置 资源按钮的出现
     {
         
-        make_potion_button_physical_energy.SetActive(GameManager.GM.ResourceManager.is_physical_energy_ever_appears);
-        make_potion_button_spiritual_energy.SetActive(GameManager.GM.ResourceManager.is_spiritual_energy_ever_appears);
-        make_potion_button_soul.SetActive(GameManager.GM.ResourceManager.is_soul_ever_appears);
-        make_potion_button_spirituality_infused_material.SetActive(GameManager.GM.ResourceManager.is_spirituality_infused_material_ever_appears);
-        make_potion_button_knowledge.SetActive(GameManager.GM.ResourceManager.is_knowledge_ever_appears);
-        make_potion_button_belief.SetActive(GameManager.GM.ResourceManager.is_belief_ever_appears);
-        make_potion_button_putrefaction.SetActive(GameManager.GM.ResourceManager.is_putrefaction_ever_appears);
-        make_potion_button_madness.SetActive(GameManager.GM.ResourceManager.is_madness_ever_appears);
-        make_potion_button_godhood.SetActive(GameManager.GM.ResourceManager.is_godhood_ever_appears);
+        if (attached_make_potion_card_feature.is_counting_down)
+        {
 
-        make_potion_button_physical_energy.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_spiritual_energy.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_soul.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_spirituality_infused_material.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_knowledge.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_belief.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_putrefaction.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_madness.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
-        make_potion_button_godhood.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            Resource_Section.SetActive(false);
+            ProgressBar_Section.SetActive(true);
+            
+            make_potion_start_button.transform.localPosition =
+                GameObject.Find("Start_Button_Location_Without_BodyParts").transform.localPosition;
+        
+            // 实例化 进度条 prefab
+            progress_bar = Instantiate(progress_bar_prefab, transform.position, Quaternion.identity);
+            progress_bar.transform.parent = transform;
+            progress_bar.transform.localPosition = progress_bar_position.transform.localPosition;
+            progress_bar_root = progress_bar.transform.Find("Bar_Root").gameObject;
+            countdown_text = progress_bar.GetComponentInChildren<TMP_Text>();
+
+            StartCoroutine(panel_progress_bar_sync());
+            
+        }
+
+        else
+        {
+            Resource_Section.SetActive(true);
+            ProgressBar_Section.SetActive(false);
+            
+            make_potion_start_button.transform.localPosition =
+                GameObject.Find("Start_Button_Location_Resource").transform.localPosition;
+            
+            // 都得改
+            make_potion_button_physical_energy.SetActive(GameManager.GM.ResourceManager.is_physical_energy_ever_appears);
+            make_potion_button_spiritual_energy.SetActive(GameManager.GM.ResourceManager.is_spiritual_energy_ever_appears);
+            make_potion_button_soul.SetActive(GameManager.GM.ResourceManager.is_soul_ever_appears);
+            make_potion_button_spirituality_infused_material.SetActive(GameManager.GM.ResourceManager.is_spirituality_infused_material_ever_appears);
+            // make_potion_button_knowledge.SetActive(GameManager.GM.ResourceManager.is_knowledge_ever_appears);
+            make_potion_button_knowledge.SetActive(false);
+            make_potion_button_belief.SetActive(GameManager.GM.ResourceManager.is_belief_ever_appears);
+            make_potion_button_putrefaction.SetActive(GameManager.GM.ResourceManager.is_putrefaction_ever_appears);
+            make_potion_button_madness.SetActive(GameManager.GM.ResourceManager.is_madness_ever_appears);
+            make_potion_button_godhood.SetActive(GameManager.GM.ResourceManager.is_godhood_ever_appears);
+            //
+
+            make_potion_button_physical_energy.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_spiritual_energy.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_soul.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_spirituality_infused_material.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_belief.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_putrefaction.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_madness.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            make_potion_button_godhood.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
+            
+            make_potion_button_knowledge.GetComponent<Card_Location_Panel_Knowledge_Slot>().Set_Attached_Panel(gameObject);
+        }
+        
+        
 
     }
     
@@ -133,6 +184,22 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         // start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(true); // 让按钮可点击，test用
     }
 
+    
+    IEnumerator panel_progress_bar_sync()
+    {
+        while (true)
+
+        {
+            if (progress_bar != null)
+            {
+                progress_bar_root.transform.localScale =
+                    attached_make_potion_card_feature.progress_bar_root.transform.localScale;
+                countdown_text.text = attached_make_potion_card_feature.countdown_text.text;
+            }
+
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 
 
     bool Check_If_Absorbed_Resource_Meet_Any_Sequence_Requirements()
@@ -185,6 +252,22 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         
     }
 
+    
+    // Knowledge 的 吸收
+
+    public void Absorb_Knowledge_Make_Potion(GameObject knowledgeToAbsorb)      // 仅吸收操作，判定要在外部写
+    {
+        
+        GameManager.GM.ResourceManager.Reduce_Knowledge(knowledgeToAbsorb);     // 将 knowledge 的 ID 从 Resource Manager 中的 Owned Knowledge list 中移除
+        
+        absorbedKnowledgeThisPanel.Add(knowledgeToAbsorb.GetComponent<Knowledge_Feature>()._Knowledge.Id);     // Panel 上的 List 添加 这个 Knowledge 的 ID
+
+        // 炫酷的 吸收动画
+        
+        Destroy(knowledgeToAbsorb);
+        
+    }
+    
 
     public void Absorb_Resource_To_This_Panel(string resource_type, int amount)         // 用于 吸收，返还 资源的方法
     {
@@ -226,7 +309,7 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
             }
             if (resource.Key == "Knowledge" && resource.Value > 0)
             {
-                GameManager.GM.ResourceManager.Add_Knowledge(resource.Value, transform.position);
+                Return_Knowledge_Make_Potion();
             }
             if (resource.Key == "Belief" && resource.Value > 0)
             {
@@ -249,6 +332,28 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         
         
     }
+
+
+    void Return_Knowledge_Make_Potion()
+    {
+
+        float newKnowledge_XOffset = 3f;
+        float newKnowledge_YOffset = -3f;
+    
+        foreach (var knowledge_string in absorbedKnowledgeThisPanel)
+        {
+            GameManager.GM.ResourceManager.Draw_A_Knowledge_By_Name(knowledge_string, transform.position, 
+                new Vector3(
+                    transform.position.x + newKnowledge_XOffset,
+                    transform.position.y + newKnowledge_YOffset,
+                    transform.position.z + 1));
+
+            newKnowledge_YOffset -= 2f;
+        }
+
+        
+    }
+    
     
 
     // 更新 panel 上吸收的 各 resource 的数量，到 TMP text 上

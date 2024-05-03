@@ -793,6 +793,7 @@ public class Card_Location_Feature : MonoBehaviour
 
                     if (GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>() != null // 如果打开的 panel 是个 card location panel 
                         && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().attached_card == gameObject // 如果打开这个 panel 的卡是 这张卡
+                        && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().requiredResourcesThisPanel.ContainsKey("Knowledge")
                         && GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().requiredResourcesThisPanel["Knowledge"] > 
                         GameManager.GM.PanelManager.current_panel.GetComponent<Card_Location_Panel_Feature>().absorbed_knowledge_list.Count) // 如果 panel 上需要的 Knowledge 比当前吸收的 Knowledge 多
                     {

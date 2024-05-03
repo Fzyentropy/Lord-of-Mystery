@@ -5071,6 +5071,7 @@ MonoBehaviour:
   isClickOnObjects: 1
   Dragging_Object: {fileID: 0}
   raycast_top_object: {fileID: 0}
+  able_to_move_camera: 1
 --- !u!4 &531238711
 Transform:
   m_ObjectHideFlags: 0
@@ -11945,6 +11946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1020650233}
   - component: {fileID: 1020650234}
+  - component: {fileID: 1020650235}
   m_Layer: 0
   m_Name: Lord_of_Mystery_Scene_Script
   m_TagString: Untagged
@@ -11979,6 +11981,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151123a856ddd514990055bce70f41a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1020650235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020650231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd0a0f957e6e9b4ca9c942011f9593d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  make_potion_card: {fileID: 2650628250851114781, guid: 7254c5e7662210542b08bbaf4e34cf1a, type: 3}
 --- !u!1 &1030403138
 GameObject:
   m_ObjectHideFlags: 0
@@ -17285,7 +17300,11 @@ MonoBehaviour:
   Current_Rank: 0
   Current_Occupation: 
   Player_Owned_Card_Location_List: []
-  Draw_New_Card_Location_Times: 0
+  Player_Owned_All_Knowledge: []
+  is_sleeping: 0
+  is_dreaming: 0
+  Draw_New_Card_Location_Times__Fuction: 0
+  Draw_New_Card_Location_Times__Location: 0
   CardLoader: {fileID: 619533614}
   ResourceManager: {fileID: 1642947923}
   CardManager: {fileID: 1558427090}
@@ -19036,7 +19055,6 @@ MonoBehaviour:
   Spiritual_Energy: 0
   Soul: 0
   Spirituality_Infused_Material: 0
-  Knowledge: 0
   Belief: 0
   Putrefaction: 0
   Madness: 0
@@ -19048,13 +19066,13 @@ MonoBehaviour:
   Spiritual_Energy_UI_Amount: 0
   Soul_UI_Amount: 0
   Spirituality_Infused_Material_UI_Amount: 0
-  Knowledge_UI_Amount: 0
   Belief_UI_Amount: 0
   Putrefaction_UI_Amount: 0
   Madness_UI_Amount: 0
   Godhood_UI_Amount: 0
   Death_UI_Amount: 0
   Max_Death_UI_Amount: 0
+  Player_Owned_Current_Knowledge_List: []
   fund_icon_pure: {fileID: 3953027631342908348, guid: 11b50445992b9b44ab50855d6a37e36d, type: 3}
   physical_energy_icon_pure: {fileID: 8069154514472205973, guid: 04cee9a77f243b24a924dc397bd4c525, type: 3}
   spiritual_energy_icon_pure: {fileID: 5722414193232788536, guid: 11ed9f3bab976094cbf4a1978359f968, type: 3}

@@ -184,10 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b26c8089acae9a4ab340b8e084e3116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Current_Resource: 4
+  Current_Resource: 2
   is_resource_set: 1
-  attached_panel: {fileID: 0}
-  attached_panel_feature: {fileID: 0}
+  attached_make_potion_panel: {fileID: 0}
+  attached_make_potion_panel_feature: {fileID: 0}
   panel_resource_slot_number: 0
   highlightSprite: {fileID: 9172099916493364664}
 --- !u!114 &7800388777907052404

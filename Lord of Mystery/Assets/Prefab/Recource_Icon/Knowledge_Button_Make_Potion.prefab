@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3955283450506139661}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0728477, y: 1.0728477, z: 0.7152317}
+  m_LocalPosition: {x: -0.0012, y: 0, z: 0}
+  m_LocalScale: {x: 1.0324103, y: 1.0728477, z: 0.7152317}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7458556519118881769}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1877140517
   m_SortingLayer: 6
   m_SortingOrder: -1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
@@ -94,9 +94,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7458556519118881769}
   - component: {fileID: 7458556519118881768}
-  - component: {fileID: 2319155519318401967}
   - component: {fileID: 196849847637248039}
-  - component: {fileID: 2417683907315728416}
+  - component: {fileID: 279561078022417133}
+  - component: {fileID: 9034762451327643023}
   m_Layer: 0
   m_Name: Knowledge_Button_Make_Potion
   m_TagString: Untagged
@@ -113,8 +113,8 @@ Transform:
   m_GameObject: {fileID: 7458556519118881775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.51, y: 1.51, z: 1.51}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 3.409127, y: 1.51, z: 1.51}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6318401607592529831}
   m_Father: {fileID: 0}
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_SortingLayerID: -1877140517
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0.12893075, g: 0.40965307, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,24 +172,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2319155519318401967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7458556519118881775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b26c8089acae9a4ab340b8e084e3116, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Current_Resource: 5
-  is_resource_set: 1
-  attached_panel: {fileID: 0}
-  attached_panel_feature: {fileID: 0}
-  panel_resource_slot_number: 0
-  highlightSprite: {fileID: 139337452210262188}
 --- !u!114 &196849847637248039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,8 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98685b70bd3451244af26366e92704a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &2417683907315728416
-CircleCollider2D:
+--- !u!61 &279561078022417133
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -216,5 +198,33 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &9034762451327643023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458556519118881775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19e88951ff87b746af77bae95fe0183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attached_panel: {fileID: 0}
+  is_make_potion_panel: 0
+  attached_card_location_panel_feature: {fileID: 0}
+  attached_make_potion_card_panel_feature: {fileID: 0}
+  panel_resource_slot_number_knowledge: -1
+  highlightSprite: {fileID: 139337452210262188}

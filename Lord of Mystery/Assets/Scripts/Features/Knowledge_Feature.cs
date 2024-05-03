@@ -131,11 +131,23 @@ public class Knowledge_Feature : MonoBehaviour
             
             else if (overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>() != null)     // overlap 的是 Knowledge Slot
             {
-                // knowledge slot 处理
-                overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>().
-                    attached_card_location_panel_feature.Absorb_Knowledge(gameObject);
+
+                if (overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>()
+                    .is_make_potion_panel)  // 如果是 make potion panel
+                {
+                    overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>()
+                        .attached_make_potion_card_panel_feature.Absorb_Knowledge_Make_Potion(gameObject);
+                }
+                else   // 如果是 正常 Card Location Panel
+                {
+                    // knowledge slot 处理
+                    overlapped_card_location_or_knowledge_slot.GetComponent<Card_Location_Panel_Knowledge_Slot>().
+                        attached_card_location_panel_feature.Absorb_Knowledge(gameObject);
+                }
+                
                 
             }
+            
             
             
         }

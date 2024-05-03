@@ -96,16 +96,22 @@
         {
             "Id": "Soul",
             "Label": "Soul",
-            "Image": "Image_Beginning",
-            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+            "Image": "Image_Soul",
+            "Message_Content": "Soul"
 
         },
         {
             "Id": "Knowledge",
             "Label": "Knowledge",
-            "Image": "Image_Beginning",
-            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+            "Image": "Image_Knowledge",
+            "Message_Content": "A piece of information I learned about this world. However, usually part of the origin will be lost under the filter of language. I can't guess how narrow the original world has become in our perception."
 
+        },
+        {
+            "Id": "Putrefaction",
+            "Label": "Putrefaction",
+            "Image": "Image_Putrefaction",
+            "Message_Content": "Putrefaction"
         },
 
 
@@ -182,8 +188,13 @@
             "Image": "Image_Slot_Potion",
             "Message_Content": " [ This slot requires a specific type of Potion, you could only consume Potion that is exactly 1 rank above ]"
         },
-
-
+        {
+            "Id": "Panel_Knowledge_Slot_Click_Show_Requirement",
+            "Label": "Slot: Potion",
+            "Image": "Image_Knowledge",
+            "Message_Content": " [ This slot requires a piece of Knowledge, instead of clicking, drag the Knowledge piece to this slot. ]"
+        },
+        
 
 
 

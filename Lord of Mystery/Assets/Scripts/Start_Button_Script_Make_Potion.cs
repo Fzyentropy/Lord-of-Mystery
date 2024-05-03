@@ -35,6 +35,7 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
     private void Update()
     {
         Update_Button_Color();
+        Update_Button_Text();
     }
 
 
@@ -88,7 +89,19 @@ public class Start_Button_Script_Make_Potion : MonoBehaviour
         }
         
     }
-    
+
+    void Update_Button_Text()
+    {
+        if (attached_make_potion_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>().
+            attached_make_potion_card.GetComponent<SPcard_Make_Potion_Feature>().is_counting_down)
+        {
+            Set_Button_Text("Running..");
+        }
+        else
+        {
+            Set_Button_Text("Start");
+        }
+    }
 
     
     //////////    Mouse 点击相关方法
