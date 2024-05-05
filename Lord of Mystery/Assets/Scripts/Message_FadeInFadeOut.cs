@@ -44,8 +44,10 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
         
         if (GameManager.GM.PanelManager.current_message != null)
         {
-            StartCoroutine(GameManager.GM.PanelManager.current_message.FadeOut());
+            Message_FadeInFadeOut msg = GameManager.GM.PanelManager.current_message;
+            StartCoroutine(msg.FadeOut());
         }
+        GameManager.GM.PanelManager.current_message = this;
 
         // Move the object to the right
         Vector3 startPosition = originalPosition + Vector3.right * moveDistance;
@@ -68,7 +70,6 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
 
         ableToClick = true;
 
-        GameManager.GM.PanelManager.current_message = this;
     }
 
     
