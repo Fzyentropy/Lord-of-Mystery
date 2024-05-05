@@ -4306,6 +4306,8 @@ MonoBehaviour:
   panel_label: {fileID: 9052688202075834355}
   panel_description: {fileID: 2590580191475585822}
   panel_effect_description: {fileID: 0}
+  panel_showup_audio: {fileID: 0}
+  panel_close_audio: {fileID: 0}
   isPanelWellSet: 0
 --- !u!1 &9059548303594369175
 GameObject:

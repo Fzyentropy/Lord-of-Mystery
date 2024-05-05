@@ -40,8 +40,8 @@ public class Knowledge_Panel_Feature : MonoBehaviour
         knowledge_image.sprite = Resources.Load<Sprite>("Image/" + _Knowledge.Image);
         knowledge_content.text = _Knowledge.Knowledge_Content;
         
-        ReplaceKeywordWithIcon(knowledge_content,"Physical_Energy", physicalEnergyIconPrefab);
-        ReplaceKeywordWithIcon(knowledge_content,"Spirituality_Infused_Material", spiritualityInfusedMaterialIconPrefab);
+        ReplaceKeywordWithIcon(knowledge_content,"P_E_0", physicalEnergyIconPrefab);
+        ReplaceKeywordWithIcon(knowledge_content,"S_I_M", spiritualityInfusedMaterialIconPrefab);
     }
     
     
@@ -76,84 +76,6 @@ public class Knowledge_Panel_Feature : MonoBehaviour
     }
     
 
-    /*void InstantiateIcons(string keyword, GameObject iconPrefab)
-    {
-        // Update the TMP text to ensure we have the latest info.
-        knowledge_content.ForceMeshUpdate();
-        TMP_TextInfo textInfo = knowledge_content.textInfo;
-
-        int index = knowledge_content.text.IndexOf(keyword);
-        while (index != -1)
-        {
-            
-            // Calculate the position to place the icon.
-            int charIndex = textInfo.characterInfo[index].index;
-            Vector3 iconPosition = CalculateIconPosition(textInfo, charIndex, keyword.Length);
-
-            // Instantiate the icon prefab at the calculated position
-            Instantiate(iconPrefab, iconPosition, Quaternion.identity, knowledge_content.transform);
-
-            // Move to the next occurrence
-            index = knowledge_content.text.IndexOf(keyword, index + keyword.Length);
-        }
-    }*/
-    
-    void InstantiateIcons(string keyword, GameObject iconPrefab)
-    {
-        knowledge_content.ForceMeshUpdate();
-        TMP_TextInfo textInfo = knowledge_content.textInfo;
-
-        int index = knowledge_content.text.IndexOf(keyword);
-        while (index != -1)
-        {
-            if (index < textInfo.characterCount)
-            {
-                // Calculate the icon's position based on the midpoint of the keyword
-                TMP_CharacterInfo charInfo = textInfo.characterInfo[index];
-                Vector3 charMidBaseLine = (charInfo.bottomLeft + charInfo.topRight) / 2;
-                charMidBaseLine = knowledge_content.transform.TransformPoint(charMidBaseLine);
-
-                Vector2 anchoredPosition;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                    knowledge_content.rectTransform, 
-                    charMidBaseLine, 
-                    knowledge_content.canvas.worldCamera, 
-                    out anchoredPosition);
-
-                // Instantiate the icon prefab at the calculated position
-                GameObject icon = Instantiate(iconPrefab, knowledge_content.transform);
-                // Transform iconRT = icon.GetComponent<Transform>();
-                // iconRT.anchoredPosition = anchoredPosition;
-                // iconRT.localRotation = Quaternion.identity;
-                // iconRT.localScale = Vector3.one; // Adjust scale as needed
-            }
-
-            // Move to the next occurrence
-            index = knowledge_content.text.IndexOf(keyword, index + keyword.Length);
-        }
-    }
-
-
-    Vector3 CalculateIconPosition(TMP_TextInfo textInfo, int charIndex, int keywordLength)
-    {
-        
-        
-        // This example uses the midpoint of the keyword for icon placement.
-        int midPoint = charIndex + keywordLength / 2;
-        if (midPoint >= textInfo.characterCount)
-            midPoint = textInfo.characterCount - 1;
-
-        var charInfo = textInfo.characterInfo[midPoint];
-        Vector3 charMidBaseLine = (charInfo.bottomLeft + charInfo.bottomRight) / 2;
-        Vector3 iconPosition = knowledge_content.transform.TransformPoint(charMidBaseLine);
-
-        // Optionally adjust the Y-position or other aspects of the icon placement
-        iconPosition.y += charInfo.ascender / 2;  // Adjust vertically to center the icon with the text line
-        return iconPosition;
-    }
-
-
-    
     
 
 

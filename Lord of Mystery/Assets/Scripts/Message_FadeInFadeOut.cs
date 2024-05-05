@@ -38,6 +38,10 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
     public IEnumerator FadeIn()
     {
         
+        // 音效
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Message_Showup);
+        
+        
         if (GameManager.GM.PanelManager.current_message != null)
         {
             StartCoroutine(GameManager.GM.PanelManager.current_message.FadeOut());
@@ -71,6 +75,11 @@ public class Message_FadeInFadeOut : MonoBehaviour,IPointerDownHandler
 
     public IEnumerator FadeOut()
     {
+        
+        // 音效
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Message_Fadeout);
+        
+        
         GameManager.GM.PanelManager.current_message = null;
         
         Vector3 endPosition = originalPosition - Vector3.right * moveDistance;

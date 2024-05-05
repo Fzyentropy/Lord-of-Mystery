@@ -32,6 +32,8 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     private bool dragging_shadow_effect_if_transformed = false;
     
+    private bool is_playing_dragging_SFX;       // 是否在播放 drag 音效
+    
     
 
     void Start()
@@ -82,6 +84,13 @@ public class Card_Body_Part_Feature : MonoBehaviour
 
     private void OnMouseDrag()      // 当按住鼠标左键的时候，如果移动鼠标（即拖拽），则卡牌随之移动
     {
+        
+        // 拿起 卡牌 音效
+        if (!is_playing_dragging_SFX)
+        {
+            is_playing_dragging_SFX = true;
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Click);
+        }
 
         // 调整卡牌的渲染 layer，让其到最上面
     
@@ -108,12 +117,20 @@ public class Card_Body_Part_Feature : MonoBehaviour
         {
             Card_Body_Part_Mouse_Click_Function();                      // 点击功能的封装
         }
+        else
+        {
+            // 放下音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
+        }
         
         GameManager.GM.InputManager.Dragging_Object = null;      // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
         
         // 调整 卡牌的渲染 layer 让其回到原位
         gameObject.layer = LayerIndex; 
         DecreaseSortingLayer();     // 设置回 原 Order in Layer
+        
+        // 拖拽音效 开关参数 设置回 false
+        is_playing_dragging_SFX = false;
         
         
         // 如果在一个 card location 上面, 触发对应 card location 中的方法，来打开panel，然后将这张卡 merge 到其中一个 slot 上

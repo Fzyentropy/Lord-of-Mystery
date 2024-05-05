@@ -125,14 +125,15 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public TMP_Text panel_label;
     public TMP_Text panel_description;
     public TMP_Text panel_effect_description;
-    
+
+
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
     public bool isPanelWellSet = false;     // 用于判定这个 panel 是否已经初始化完全，用以调用 Find_First_Empty_Body_Part_Type_In_Slots 方法
 
     
-    
+
 
     private void Start()
     {
@@ -140,6 +141,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         Set_Start_Button();
         
         // StartCoroutine(Shift_Label_And_Description_If_Absorbed());    // 切换 Label 和 Description， 如果吸收满了  // 此方法目前会导致无限循环，卡死，先注掉
+        
     }
 
     private void Update()
@@ -1219,6 +1221,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     // 给定一个body part的GameObject (此GameObject为生成的空壳)，和 Slot number，将 body part 卡牌 Merge 上去
     public void Merge_Body_Part_To_Slot(GameObject bodyPartToMerge_Original, int slotNumber)    
     {
+        
+        // 播放 merge slot 音效
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Body_Part_Merge_Slot);
 
         // 生成一个新的 body part 实例
         
@@ -1594,8 +1599,34 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     }
     
     
-    ///////////////////////////////////////////////////     更新 panel 状态 结束
+    ///////////////////////////////////////////////////     更新 panel 状态     END
     
+    
+    
+    /////////////////////////////////////////////////         Audio 相关函数
+
+
+    public void Play_Panel_Show_Up_Audio()
+    {
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Showup);
+    }
+
+    public void Play_Panel_Close_Audio()
+    {
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Close);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /////////////////////////////////////////////////         Audio 相关函数    END
     
     
     ///////////////////////////////////////////////////     其他函数

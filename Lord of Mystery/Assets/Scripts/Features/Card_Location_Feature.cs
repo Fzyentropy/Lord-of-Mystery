@@ -89,11 +89,11 @@ public class Card_Location_Feature : MonoBehaviour
     private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
 
     private float draw_card_animation_duration = 0.4f;
-    
+
     [HideInInspector] public Color highlight_color_common = Color.white;
     [HideInInspector] public Color highlight_color_yellow = Color.yellow;
-     
-    
+
+    private bool is_playing_dragging_SFX;       // 是否在播放 drag 音效
     
     
     
@@ -307,14 +307,15 @@ public class Card_Location_Feature : MonoBehaviour
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
     {
         // if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+        if (card_location_availability)
         {
             // 记录鼠标位置
             click_mouse_position = Input.mousePosition;
             lastMousePosition = Input.mousePosition;
 
             // 取消高亮
-
             
+
             
         }
         
@@ -329,6 +330,10 @@ public class Card_Location_Feature : MonoBehaviour
             
             // Clear_Highlight_Collider();                             // 取消高亮
             isHighlight = false; // 取消高亮
+
+            
+            
+            
 
 
             // 调整卡牌的渲染 layer，让其到最上面
@@ -346,6 +351,16 @@ public class Card_Location_Feature : MonoBehaviour
                 delta.z = 0;
                 gameObject.transform.position += delta;
                 lastMousePosition = Input.mousePosition;
+
+                if ((Input.mousePosition - click_mouse_position).magnitude > 0.5f)
+                {
+                    // 播放，卡牌点击 音效
+                    if (!is_playing_dragging_SFX)
+                    {
+                        is_playing_dragging_SFX = true;
+                        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Click);
+                    }
+                }
             }
             
         }
@@ -359,9 +374,14 @@ public class Card_Location_Feature : MonoBehaviour
         {
             
             // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
-            if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f)  
+            if ((Input.mousePosition - click_mouse_position).magnitude < 0.2f)  
             {
                 Open_Panel();   // 打开 panel
+            }
+            else
+            {
+                // 放下音效
+                GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
             }
 
             // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
@@ -373,6 +393,11 @@ public class Card_Location_Feature : MonoBehaviour
             // 设置回 原 Order in Layer
             DecreaseOrderInLayer();     
             
+            // 拖拽音效 开关参数 设置回 false
+            is_playing_dragging_SFX = false;
+            
+            
+
         }
         
     }
@@ -522,6 +547,7 @@ public class Card_Location_Feature : MonoBehaviour
                 .attached_card_location_feature != this
             )      
         {
+
             if (GameManager.GM.PanelManager.current_panel != null)
                 GameManager.GM.PanelManager.Close_Current_Panel();              // 有打开的 panel 则关闭 panel
             
@@ -533,6 +559,9 @@ public class Card_Location_Feature : MonoBehaviour
                     gameObject.transform.position.z - 1), Quaternion.identity);  
             
             Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
+            
+            // 播放 Panel 打开 音效
+            panel_feature.Play_Panel_Show_Up_Audio();
 
             panel_feature.Set_Attached_Card(gameObject);        // 将生成的 panel 中的对于生成卡牌的指代设置为此卡
             panel_feature.Set_Sprite(Resources.Load<Sprite>("Image/" + _cardLocation.Image));   // 设置图片
@@ -544,6 +573,7 @@ public class Card_Location_Feature : MonoBehaviour
             // GameManager.GM.PanelManager.current_panel = panel;      // 将 "打开的 panel" 设置为刚打开的 panel
             GameManager.GM.PanelManager.Set_Panel_Reference_And_Scale_Up(panel);
             GameManager.GM.PanelManager.isPanelOpen = true;
+            
             
 
             // panel_feature. Set Resource Buttons
@@ -1028,7 +1058,8 @@ public class Card_Location_Feature : MonoBehaviour
     IEnumerator Counting_Down_For_Card_Effect()
     {
         is_counting_down = true;   // 设置 "正在倒计时" 为是
-        
+
+
         float totalTime = _cardLocation.Time;   // 从 JSON 获取总计时
         float remainingTime = totalTime;        // 设置倒计时参数
         float timeInterval = 0.05f;              // 设置进度条更新的时间间隔
@@ -1348,6 +1379,8 @@ public class Card_Location_Feature : MonoBehaviour
         // ...
         
         
+        // Card Effect 音效
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Trigger_Card_Effect);
         
         
         // Produce Message

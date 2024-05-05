@@ -301,6 +301,9 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
     {
         if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f)  // 鼠标位置基本没变
         {
+            // 播放 按钮音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Resource_Button);
+            
             AbsorbResource();
         }
     }

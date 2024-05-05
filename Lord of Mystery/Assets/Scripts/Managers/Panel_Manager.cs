@@ -96,6 +96,7 @@ public class Panel_Manager : MonoBehaviour
         {
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Resource();
             current_panel.GetComponent<Card_Location_Panel_Feature>().Return_Body_Part();
+            current_panel.GetComponent<Card_Location_Panel_Feature>().Play_Panel_Close_Audio();
         }
 
         if (current_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>() != null)

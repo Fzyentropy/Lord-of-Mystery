@@ -108,6 +108,9 @@ public class Start_Button_Script : MonoBehaviour
         mouse_click_position = Input.mousePosition;
 
         is_button_clicking = true;
+        
+        // 播放 Start Button 按下 音效
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Start_Button_Click_MouseDown);
 
     }
 
@@ -117,7 +120,10 @@ public class Start_Button_Script : MonoBehaviour
         
         if (is_button_available && (Input.mousePosition - mouse_click_position).magnitude < 0.6f)
         {
-            // 点击后的执行逻辑
+            /////// 点击后的执行逻辑
+            
+            // 播放 按钮抬起 音效 
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Start_Button_Click_MouseUp);
         
             // Randomly_Generate_A_Body_Part();
         
@@ -126,6 +132,9 @@ public class Start_Button_Script : MonoBehaviour
                     attached_card.
                         GetComponent<Card_Location_Feature>().
                             Start_Countdown();
+            
+            // 播放 倒计时 音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Start_Countdown);
             
             GameManager.GM.PanelManager.isPanelOpen = false;
             GameManager.GM.PanelManager.current_panel = null;

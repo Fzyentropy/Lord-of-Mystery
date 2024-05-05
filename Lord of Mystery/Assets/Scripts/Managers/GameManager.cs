@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public Input_Manager InputManager;              // Input Manager
     public Card_Effects CardEffects;                // 卡牌效果 功能集成
     public Event_Manager EventManager;              // 事件触发和管理 Manager
+    public Audio_Manager AudioManager;              // 音效 音乐 Manager
 
     // 卡牌 prefab
     [Header("Card Prefabs")]
