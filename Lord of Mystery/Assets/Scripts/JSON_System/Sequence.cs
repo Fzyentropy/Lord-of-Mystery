@@ -10,6 +10,8 @@ public class Sequence
     public string Label;
     public string Image;
     public string Description;
+
+    public string Corresponding_Potion_Message_Id;      // 对应的 Potion card 点击生成的 message 的 id
     
     public int Rank;
     public string Occupation;

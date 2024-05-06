@@ -949,11 +949,20 @@ public class Resource_Manager : MonoBehaviour
 
             List<string> filtered_knowledge_list_of_certain_rarity = Get_All_Knowledge_Of_Certain_Rarity(Rarity);       // Get ALL 方法过滤了曾经拥有过的 Knowledge
 
-            int index = Random.Range(0, filtered_knowledge_list_of_certain_rarity.Count);           // 从这个 过滤的 list 中抽一张
             
-            GameManager.GM.Generate_Knowledge_Card(filtered_knowledge_list_of_certain_rarity[index], targetPosition);       // 根据 index 找到 string 元素并生成卡
+            if (filtered_knowledge_list_of_certain_rarity.Count > 0)        // 如果 还有 Knowledge 可以抽
+            {
+                int index = Random.Range(0, filtered_knowledge_list_of_certain_rarity.Count);           // 从这个 过滤的 list 中抽一张
             
-            Player_Owned_Current_Knowledge_List.Add(filtered_knowledge_list_of_certain_rarity[index]);   // 将抽到的 Knowledge 记录到当前拥有的 Knowledge list，全局的在 Generate_Knowledge 方法里已经加了
+                GameManager.GM.Generate_Knowledge_Card(filtered_knowledge_list_of_certain_rarity[index], targetPosition);       // 根据 index 找到 string 元素并生成卡
+            
+                Player_Owned_Current_Knowledge_List.Add(filtered_knowledge_list_of_certain_rarity[index]);   // 将抽到的 Knowledge 记录到当前拥有的 Knowledge list，全局的在 Generate_Knowledge 方法里已经加了
+            }
+            else
+            {
+                Debug.Log("hi -knowledge");
+            }
+            
         }
     
         else    // Name 和 Rarity 都为空时的特殊处理

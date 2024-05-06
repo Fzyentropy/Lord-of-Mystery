@@ -52,6 +52,8 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
 
     private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
 
+    private bool is_playing_dragging_SFX;   // 是否正在播放拖拽音效，硬币函数
+
     
     
 
@@ -150,6 +152,16 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
                 delta.z = 0;
                 gameObject.transform.position += delta;
                 lastMousePosition = Input.mousePosition;
+                
+                if ((Input.mousePosition - click_mouse_position).magnitude > 0.3f)
+                {
+                    // 播放，卡牌点击 音效
+                    if (!is_playing_dragging_SFX)
+                    {
+                        is_playing_dragging_SFX = true;
+                        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Click);
+                    }
+                }
             }
             
         }
@@ -163,12 +175,20 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
         {
             Click_Effect();
         }
+        else
+        {
+            // 放下音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
+        }
 
         GameManager.GM.InputManager.Dragging_Object = null;     // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
         
         // 调整 卡牌的渲染 layer 让其回到原位
         gameObject.layer = LayerIndex; 
         DecreaseOrderInLayer();     // 设置回 原 Order in Layer
+        
+        // 拖拽音效 开关参数 设置回 false
+        is_playing_dragging_SFX = false;
     }
 
     private void OnMouseExit()      // 当鼠标离开卡牌上方时，取消高亮
@@ -357,9 +377,12 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
                 new Vector3(
                     gameObject.transform.position.x,
                     gameObject.transform.position.y,
-                    gameObject.transform.position.z - 1), Quaternion.identity);  
+                    gameObject.transform.position.z - 2), Quaternion.identity);  
             
+            // 播放 打开 Panel 音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Showup);
             
+
             SPcard_Make_Potion_Panel_Feature make_potion_panel_feature = make_potion_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>();    // 指代 panel 的 feature 脚本
 
             make_potion_panel_feature.Set_Attached_Make_Potion_Card(gameObject);        // 将生成的 panel 中的对于生成卡牌的指代设置为此卡

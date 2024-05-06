@@ -139,18 +139,18 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
             make_potion_start_button.transform.localPosition =
                 GameObject.Find("Start_Button_Location_Resource").transform.localPosition;
             
-            // 都得改
-            make_potion_button_physical_energy.SetActive(GameManager.GM.ResourceManager.is_physical_energy_ever_appears);
-            make_potion_button_spiritual_energy.SetActive(GameManager.GM.ResourceManager.is_spiritual_energy_ever_appears);
-            make_potion_button_soul.SetActive(GameManager.GM.ResourceManager.is_soul_ever_appears);
-            make_potion_button_spirituality_infused_material.SetActive(GameManager.GM.ResourceManager.is_spirituality_infused_material_ever_appears);
-            // make_potion_button_knowledge.SetActive(GameManager.GM.ResourceManager.is_knowledge_ever_appears);
+            
+            // make_potion_button_physical_energy.SetActive(GameManager.GM.ResourceManager.is_physical_energy_ever_appears);
+            // make_potion_button_spiritual_energy.SetActive(GameManager.GM.ResourceManager.is_spiritual_energy_ever_appears);
+            // make_potion_button_soul.SetActive(GameManager.GM.ResourceManager.is_soul_ever_appears);
+            // make_potion_button_spirituality_infused_material.SetActive(GameManager.GM.ResourceManager.is_spirituality_infused_material_ever_appears);
+            // // make_potion_button_knowledge.SetActive(GameManager.GM.ResourceManager.is_knowledge_ever_appears);
             make_potion_button_knowledge.SetActive(false);
-            make_potion_button_belief.SetActive(GameManager.GM.ResourceManager.is_belief_ever_appears);
-            make_potion_button_putrefaction.SetActive(GameManager.GM.ResourceManager.is_putrefaction_ever_appears);
-            make_potion_button_madness.SetActive(GameManager.GM.ResourceManager.is_madness_ever_appears);
-            make_potion_button_godhood.SetActive(GameManager.GM.ResourceManager.is_godhood_ever_appears);
-            //
+            // make_potion_button_belief.SetActive(GameManager.GM.ResourceManager.is_belief_ever_appears);
+            // make_potion_button_putrefaction.SetActive(GameManager.GM.ResourceManager.is_putrefaction_ever_appears);
+            // make_potion_button_madness.SetActive(GameManager.GM.ResourceManager.is_madness_ever_appears);
+            // make_potion_button_godhood.SetActive(GameManager.GM.ResourceManager.is_godhood_ever_appears);
+
 
             make_potion_button_physical_energy.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
             make_potion_button_spiritual_energy.GetComponent<Make_Potion_Panel_Resource_Button>().Set_Attached_Make_Potion_Panel(gameObject);
@@ -454,6 +454,12 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         
         
     }
+    
+ 
+    
+    
+    
+    
     
     
 }

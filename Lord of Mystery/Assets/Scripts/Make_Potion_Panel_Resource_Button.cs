@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Make_Potion_Panel_Resource_Button : MonoBehaviour
+public class Make_Potion_Panel_Resource_Button : MonoBehaviour, IPointerClickHandler
 {
 
    public enum Resources
@@ -25,6 +26,10 @@ public class Make_Potion_Panel_Resource_Button : MonoBehaviour
 
     public Resources Current_Resource;     // 用于标记当前 button 对应的资源是哪种
     public bool is_resource_set = false;        // 判断这个 button 对应的 resource 是否设置了
+
+    private bool is_button_available;       // button 是否 available，根据 is_ever_appears 设置
+
+    public GameObject empty_slot;       // 不 available 的时候的 empty slot
     
     [HideInInspector] public GameObject attached_make_potion_panel;       // 用于指代这个 button 附着的 panel 的 GameObject
     [HideInInspector] public SPcard_Make_Potion_Panel_Feature attached_make_potion_panel_feature;     // 这个 button 附着的 panel 的 panel_feature 脚本
@@ -47,10 +52,15 @@ public class Make_Potion_Panel_Resource_Button : MonoBehaviour
     {
         Check_If_Initialized_Well();
     }
-    
+
+    private void Update()
+    {
+        Set_Available_Based_On_Ever_Appears();
+        Set_Active_Based_On_Availability();
+    }
 
 
-    public void Set_Attached_Make_Potion_Panel(GameObject panel)    // 设置这个 button 附着的 panel 和其 panel_feature 脚本指代
+    public void Set_Attached_Make_Potion_Panel(GameObject panel)    // 设置这个 button 附着的 panel 和其 panel_feature 脚本指代， 外部设置
     {
         attached_make_potion_panel = panel;
         attached_make_potion_panel_feature = attached_make_potion_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>();
@@ -125,7 +135,112 @@ public class Make_Potion_Panel_Resource_Button : MonoBehaviour
             throw new ArgumentException("资源按钮未被正确设置");
         }
     }
-    
+
+    private void Set_Available_Based_On_Ever_Appears()
+    {
+        if (Current_Resource == Resources.Physical_Energy)          
+        {
+            if (GameManager.GM.ResourceManager.is_physical_energy_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Spiritual_Energy)          
+        {
+            if (GameManager.GM.ResourceManager.is_spiritual_energy_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Soul)          
+        {
+            if (GameManager.GM.ResourceManager.is_soul_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Spirituality_Infused_Material)          
+        {
+            if (GameManager.GM.ResourceManager.is_spirituality_infused_material_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Belief)          
+        {
+            if (GameManager.GM.ResourceManager.is_belief_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Putrefaction)          
+        {
+            if (GameManager.GM.ResourceManager.is_putrefaction_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Madness)          
+        {
+            if (GameManager.GM.ResourceManager.is_madness_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+        if (Current_Resource == Resources.Godhood)          
+        {
+            if (GameManager.GM.ResourceManager.is_godhood_ever_appears)
+            {
+                is_button_available = true;
+            }
+            else
+            {
+                is_button_available = false;
+            }
+        }
+
+
+    }
+
+    void Set_Active_Based_On_Availability()
+    {
+        if (is_button_available)
+        {
+            empty_slot.SetActive(false);
+        }
+        else
+        {
+            empty_slot.SetActive(true);
+        }
+    }
     
 
     public void AbsorbResource()        // 点击时执行 ：吸收资源，到 panel 上
@@ -205,10 +320,115 @@ public class Make_Potion_Panel_Resource_Button : MonoBehaviour
         
         ////////////////////// TODO 其他资源扩展，如有
     }
+    
+    
+    public void ReduceResource()        // 点击时执行 ：吸收资源，到 panel 上
+    {
+        if (Current_Resource == Resources.Fund)     // 如果这个按钮被设置为 fund 按钮，则吸收 fund
+        {
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Fund"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Fund"]--;
+                GameManager.GM.ResourceManager.Add_Fund(1, gameObject.transform.position);
+            }
+        }
+        if (Current_Resource == Resources.Physical_Energy)     // 如果这个按钮被设置为 Physical_Energy 按钮，则吸收 Physical_Energy
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Physical_Energy"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Physical_Energy"]--;
+                GameManager.GM.ResourceManager.Add_Physical_Energy(1, gameObject.transform.position);
+            }
+            
+        }
+        if (Current_Resource == Resources.Spiritual_Energy)     // 如果这个按钮被设置为 Spiritual_Energy 按钮，则吸收 Spirit
+        {
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Spiritual_Energy"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Spiritual_Energy"]--;
+                GameManager.GM.ResourceManager.Add_Spiritual_Energy(1, gameObject.transform.position);
+            }
+            
+        }
+        if (Current_Resource == Resources.Soul)     // 如果这个按钮被设置为 Soul 按钮，则吸收 Soul
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Soul"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Soul"]--;
+                GameManager.GM.ResourceManager.Add_Soul(1, gameObject.transform.position);
+            }
+            
+        }
+        if (Current_Resource == Resources.Spirituality_Infused_Material)     // 如果这个按钮被设置为 Spirituality_Infused_Material 按钮，则吸收 Spirituality_Infused_Material
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Spirituality_Infused_Material"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Spirituality_Infused_Material"]--;
+                GameManager.GM.ResourceManager.Add_Spirituality_Infused_Material(1, gameObject.transform.position);
+            }
+            
+        }
+        /*if (Current_Resource == Resources.Knowledge)     // 如果这个按钮被设置为 Knowledge 按钮，则吸收 Knowledge
+        {
+            if (GameManager.GM.ResourceManager.Knowledge > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Knowledge(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }*/
+        if (Current_Resource == Resources.Belief)     // 如果这个按钮被设置为 Belief 按钮，则吸收 Belief
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Belief"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Belief"]--;
+                GameManager.GM.ResourceManager.Add_Belief(1, gameObject.transform.position);
+            }
+            
+        }
+        if (Current_Resource == Resources.Putrefaction)     // 如果这个按钮被设置为 Putrefaction 按钮，则吸收 Putrefaction
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Putrefaction"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Putrefaction"]--;
+                GameManager.GM.ResourceManager.Add_Putrefaction(1, gameObject.transform.position);
+            }
+            
+        }
+        if (Current_Resource == Resources.Madness)     // 如果这个按钮被设置为 Madness 按钮，则吸收 Madness
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Madness"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Madness"]--;
+                GameManager.GM.ResourceManager.Add_Madness(1, gameObject.transform.position);
+            }
+            
+        }
+        if (Current_Resource == Resources.Godhood)     // 如果这个按钮被设置为 Godhood 按钮，则吸收 Godhood
+        {
+
+            if (attached_make_potion_panel_feature.absorbedResourceThisPanel["Godhood"] > 0)
+            {
+                attached_make_potion_panel_feature.absorbedResourceThisPanel["Godhood"]--;
+                GameManager.GM.ResourceManager.Add_Godhood(1, gameObject.transform.position);
+            }
+            
+        }
+        
+        ////////////////////// TODO 其他资源扩展，如有
+    }
+    
+    
 
     private void OnMouseOver()
     {
-        highlightSprite.color = highlight_color;  // 高亮
+        if (is_button_available)
+            highlightSprite.color = highlight_color;  // 高亮
     }
 
     private void OnMouseExit()
@@ -218,15 +438,45 @@ public class Make_Potion_Panel_Resource_Button : MonoBehaviour
 
     private void OnMouseDown()
     {
-        click_mouse_position = Input.mousePosition;
+        if (is_button_available)
+            click_mouse_position = Input.mousePosition;
         
     }
 
     private void OnMouseUp()
     {
-        if (((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f)  // 鼠标位置基本没变
+        if (is_button_available
+            && ((Vector2)Input.mousePosition - click_mouse_position).magnitude < 0.6f)  // 鼠标位置基本没变
         {
+            
+            // 播放 按钮音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Resource_Button);
+            
             AbsorbResource();
+        }
+    }
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (is_button_available)
+        {
+            
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+            
+            }
+            else if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                Debug.Log("右键点击");
+
+                ReduceResource();
+            
+                // 播放 按钮音效
+                GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Resource_Button);
+
+            }
+            
+            
         }
     }
 

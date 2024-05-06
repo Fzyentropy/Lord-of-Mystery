@@ -289,7 +289,16 @@ public class Card_Body_Part_Feature : MonoBehaviour
             }
             */
 
-            GameManager.GM.Generate_Message(_CardBodyPart.Produce_Message);      // 生成此 body part 卡对应的 message
+            if (GetComponent<Potion_Info>() != null
+                && GetComponent<Potion_Info>().potion_sequence.Corresponding_Potion_Message_Id != "")
+            {
+                GameManager.GM.Generate_Message(GetComponent<Potion_Info>().potion_sequence.Corresponding_Potion_Message_Id);
+            }
+            else
+            {
+                GameManager.GM.Generate_Message(_CardBodyPart.Produce_Message);      // 生成此 body part 卡对应的 message
+            }
+            
         }
         
         

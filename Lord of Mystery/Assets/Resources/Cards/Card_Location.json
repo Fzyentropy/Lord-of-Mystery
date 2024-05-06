@@ -575,7 +575,7 @@
             "Id": "Meditation",
             "Label": "Meditation",
             "Image": "Image_Meditation",
-            "Description": "",
+            "Description": "Meditation is a technique commonly practiced by Beyonders, aiding in the restoration of Spiritual Energy and resistance against the Putrefaction and Madness induced by extraordinary traits.",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -775,7 +775,7 @@
             "Id": "Explorer_Shop",
             "Label": "Explorer's Shop",
             "Image": "Image_Explorer_Shop",
-            "Description": "A shop",
+            "Description": "A mysterious little shop I stumbled upon in Tingen, selling peculiar yet spiritually infused items. I can find rare materials unavailable elsewhere here. The shop owner often disappears without a trace, and certain qualities about him make me suspect he hails from an extraordinary world.",
             "Card_Type": "",
 
             "Rank": -1,
@@ -903,7 +903,7 @@
             "Id": "Level_9_Apprentice_Of_The_Whisper",
             "Label": "Level 9: Apprentice of the Whisper",
             "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
-            "Description": ".............................",
+            "Description": "Apprentice of Whispers, Sequence 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.' \n\n [ This Level consumes Physical Energy and Spiritual Energy, if you run out of either one, Death will be accumulated ]",
             "Card_Type": "Sequence",
 
             "Rank": -1,

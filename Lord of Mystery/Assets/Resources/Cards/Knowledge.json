@@ -21,9 +21,9 @@
             "Id": "Potion_Formula_Level_9_Apprentice_Of_The_Whisper",
             "Rarity": "",
             "Label": "Potion Formula: Apprentice of the Whisper",
-            "Short_Label": "Formula",
+            "Short_Label": "Potion Formula",
             "Image": "Image_Knowledge_Id",
-            "Knowledge_Content": "Potion Formula: 3 P_E_0, 2 S_I_M\n\nApprentice of Whispers, Sequence 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.'"
+            "Knowledge_Content": "Potion Formula: 3 P_E_0, 2 S_I_M\n\nApprentice of Whispers, Level 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.'"
         },
 
 
@@ -31,23 +31,23 @@
             "Id": "Knowledge_Pioneer_Of_Wisdom",
             "Rarity": "",
             "Label": "Potion Formula: Pioneer of Wisdom",
-            "Short_Label": "Formula",
+            "Short_Label": "Potion Formula",
             "Image": "Image_Knowledge_Pioneer_Of_Wisdom",
-            "Knowledge_Content": "Potion Formula: 10 P_E_0, 6 S_I_M, 8 knowledge\n\nPioneer of Wisdom, Sequence 7, is a mid-tier rank within the 'God of Knowledge' sequence. By Sequence 7, the Pioneer of Wisdom can grasp an expanded breadth of knowledge and skillfully utilize various types of knowledge to create and combine energies."
+            "Knowledge_Content": "Potion Formula: 10 P_E_0, 6 S_I_M, 8 knowledge\n\nPioneer of Wisdom, Level 7, is a mid-tier level within the 'God of Knowledge' pathway. By Level 7, the Pioneer of Wisdom can grasp an expanded breadth of knowledge and skillfully utilize various types of knowledge to create and combine energies."
         },
         {
             "Id": "Potion_Formula_Level_9_Seer",
             "Rarity": "Rare",
             "Label": "Potion Formula: Seer",
-            "Short_Label": "Formula",
+            "Short_Label": "Potion Formula",
             "Image": "Image_Knowledge_Id",
-            "Knowledge_Content": "Potion Formula : 2 P_E_0, 3 S_I_M\n\nSeer, Sequence 9, initiates the 'Idiot God' pathway. The pathway of Seer is highly spiritual but physically frail. Its extraordinary powers primarily derive from the dominion over history and fate, reflected in the manipulation and foresight of history, the present, and the future."
+            "Knowledge_Content": "Potion Formula : 2 P_E_0, 3 S_I_M\n\nSeer, Level 9, initiates the 'Idiot God' pathway. The pathway of Seer is highly spiritual but physically frail. Its extraordinary powers primarily derive from the dominion over history and fate, reflected in the manipulation and foresight of history, the present, and the future."
         },
         {
             "Id": "Knowledge_Beyonder",
             "Rarity": "",
             "Label": "Knowledge: Beyonder",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Beyonder",
             "Image": "Image_Knowledge_Beyonder",
             "Knowledge_Content": "Beyonders are humans graced with extraordinary powers, shrouded in secrecy and unseen by the majority. The only path to become a Beyonder is through the consumption of potions. The most powerful among them wield abilities beyond mortal imagination."
         },
@@ -55,16 +55,16 @@
             "Id": "Knowledge_Potion",
             "Rarity": "",
             "Label": "Knowledge: Potion",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Potion",
             "Image": "Image_Knowledge_Potion",
-            "Knowledge_Content": "Consuming the potion is the sole path for humans to transcend their mortal bounds. Under divine protection, those who contest with giants, demons, and otherworldly beings have discovered the means to extraordinary powers. By combining the essences of malevolent spirits, dragons, monsters, and enchanted flora and crystals with various mental and energetic forces, diverse potions are crafted, bestowing unique extraordinary abilities upon their users."
+            "Knowledge_Content": "Consuming the potion is the sole path for humans to become Beyonders. Under divine protection, those who contest with giants, demons, and otherworldly beings have discovered the means to extraordinary powers. By combining the essences of malevolent spirits, dragons, monsters, and enchanted flora and crystals with various mental and energetic forces, diverse potions are crafted, bestowing unique extraordinary abilities upon their users."
         },
         
         {
             "Id": "Myth_The_Eight_Angels",
             "Rarity": "",
             "Label": "Myth: The 8 Angels of the God",
-            "Short_Label": "Myth",
+            "Short_Label": "The Eight Angels",
             "Image": "Image_Knowledge_Id",
             "Knowledge_Content": "The old frescoes in the God's Forbidden Land shows the Ancient God of Sun has 8 angels originally. Since the fall of the God of Sun, his 8 angels have shared his authority and become eight independent true gods, seven of which are the seven orthodox gods today. "
         },
@@ -92,47 +92,47 @@
             "Id": "Knowledge_Extraordinary_Traits",
             "Rarity": "Common",
             "Label": "Knowledge: Extraordinary Traits",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Extraordinary Traits",
             "Image": "Image_Knowledge_Extraordinary_Traits",
             "Knowledge_Content": "The core of potion potency and the source of a Beyonder's power are the Extraordinary Traits, manifestations of nature's authority and power. The Immutable Law of Traits, a common mystical knowledge, decrees that these traits do not perish but merely transfer."
         },
         {
-            "Id": "Knowledge_Sequence",
+            "Id": "Knowledge_Beyonder_Level",
             "Rarity": "Common",
-            "Label": "Knowledge: Sequence",
-            "Short_Label": "Knowledge",
-            "Image": "Image_Knowledge_Sequence",
-            "Knowledge_Content": "The Sequence represents the rank of a Beyonder's abilities, ascending from the weakest at Sequence 9 to the mightiest at Sequence 1. It is said that a Sequence 1 Beyonder possesses the power to rend heavens and shatter earths."
+            "Label": "Knowledge: Beyonder Level",
+            "Short_Label": "Beyonder Level",
+            "Image": "Image_Knowledge_Beyonder_Level",
+            "Knowledge_Content": "The Level represents the rank of a Beyonder's abilities, ascending from the weakest at Level 9 to the mightiest at Level 1. It is said that a Level 1 Beyonder possesses the power to rend heavens and shatter earths."
         },
         {
-            "Id": "Knowledge_Sequence_Upgrade",
+            "Id": "Knowledge_Level_Up",
             "Rarity": "Common",
-            "Label": "Knowledge: Sequence Upgrade",
-            "Short_Label": "Knowledge",
-            "Image": "Image_Knowledge_Sequence_Upgrade",
-            "Knowledge_Content": "Each Sequence rank has its corresponding potion. Consuming a higher ranked potion facilitates ascension, though skipping ranks or consuming potions from another Sequence is impossible. However, it is said that closely related pathways can interchange under specific ranks, allowing a shift by consuming a potion of a similar pathway..."
+            "Label": "Knowledge: Level Up",
+            "Short_Label": "Level Up",
+            "Image": "Image_Knowledge_Level_Up",
+            "Knowledge_Content": "Each Level has its corresponding potion. Consuming a higher level potion facilitates ascension, though skipping ranks or consuming potions from another pathway is impossible. However, it is said that closely related pathways can interchange under specific levels, allowing a shift by consuming a potion of a similar pathway..."
         },
         {
             "Id": "Knowledge_Ritual",
             "Rarity": "Rare",
             "Label": "Knowledge: Ritual",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Ritual",
             "Image": "Image_Knowledge_Ritual",
-            "Knowledge_Content": "Advancing beyond Sequence 5 requires the aid of rituals. Some rituals also allow communion with divine beings or unknown entities, seeking their power and blessing."
+            "Knowledge_Content": "Advancing beyond Level 5 requires the aid of rituals. Some rituals also allow communion with divine beings or unknown entities, seeking their power and blessing."
         },
         {
-            "Id": "Knowledge_Sequence_Zero",
+            "Id": "Knowledge_Level_Zero",
             "Rarity": "Rare",
-            "Label": "Knowledge: Sequence 0!",
-            "Short_Label": "Knowledge",
-            "Image": "Image_Knowledge_Sequence_Zero",
-            "Knowledge_Content": "Above the pinnacle of Sequence 1 lies Sequence 0! It is said to be the realm of true gods. Ascending to Sequence 0 grants dominion over a domain and god-like powers akin to those of the divine."
+            "Label": "Knowledge: Level 0!",
+            "Short_Label": "Level 0!",
+            "Image": "Image_Knowledge_Level_Zero",
+            "Knowledge_Content": "Above the pinnacle of Level 1 lies Level 0! It is said to be the realm of true gods. Ascending to Level 0 grants dominion over a domain and god-like powers akin to those of the divine."
         },
         {
             "Id": "Knowledge_Profane_Plaque",
             "Rarity": "Myth",
             "Label": "Knowledge: Profane Plaque",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Profane Plaque",
             "Image": "Image_Knowledge_Profane_Plaque",
             "Knowledge_Content": "The Profane Plaque, a sacred relic of humanity, purportedly crafted by an ancient Sun God. It contains all known paths to divine power and authority, ranging from potions and rituals for every Pathway, from 9 to 0. It is the true path to godhood, the essence of harnessing the powers of nature."
         },
@@ -140,7 +140,7 @@
             "Id": "Knowledge_Secret_Organizations",
             "Rarity": "Rare",
             "Label": "Knowledge: Secret Organizations",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Organizations",
             "Image": "Image_Knowledge_Secret_Organizations",
             "Knowledge_Content": "Beyond the Seven Major Church Gods, the world teems with myriad secret societies, such as the Aurora Society, the Rose School, the Hermetic Order, the Witch Sect, and the Life School. These organizations worship different divine beings and are deemed heretical and idolatrous by the eyes of the Seven Major Churches."
         },
@@ -148,7 +148,7 @@
             "Id": "Knowledge_Leon_Kingdom_One",
             "Rarity": "Common",
             "Label": "Knowledge: Leon Kingdom One",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Leon No.1",
             "Image": "Image_Knowledge_Leon_Kingdom_One",
             "Knowledge_Content": "The Leon Kingdom, situated in the eastern part of the Northern Continent, was established in the Fourth Epoch and is one of the four great kingdoms of the Northern Continent. The kingdom boasts robust economic and industrial strength, with a populace mainly worshipping the Goddess of Night, the Lord of Storms, and the Gods of Steam and Mechanics. Its capital is Beckland."
         },
@@ -156,7 +156,7 @@
             "Id": "Knowledge_Leon_Kingdom_Two",
             "Rarity": "Common",
             "Label": "Knowledge: Leon Kingdom Two",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Leon No.2",
             "Image": "Image_Knowledge_Leon_Kingdom_Two",
             "Knowledge_Content": "Having recently undergone its First Industrial Revolution, the Leon Kingdom has seen significant enhancements in productivity thanks to steam and mechanics. While the nobility retains its privileges, the middle class has rapidly expanded in proportion."
         },
@@ -164,7 +164,7 @@
             "Id": "Knowledge_Fifth_Epoch",
             "Rarity": "Common",
             "Label": "Knowledge: The Fifth Epoch",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Fifth Epoch",
             "Image": "Image_Knowledge_Fifth_Epoch",
             "Knowledge_Content": "The Fifth Epoch marks the current era, during which the Eastern Continent has become inaccessible. People now predominantly reside on the Northern and Southern Continents, where the worship of the Seven Orthodox Deities is lawful."
         },
@@ -172,7 +172,7 @@
             "Id": "Knowledge_Three_Kingdoms",
             "Rarity": "Rare",
             "Label": "Knowledge: Three Kingdoms",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Three Kingdoms",
             "Image": "Image_Knowledge_Three_Kingdoms",
             "Knowledge_Content": "Aside from the Leon Kingdom, the Northern Continent is home to the Intis Republic, the Vassak Empire, and the Feneport Kingdom. Their populace respectively worships the God of War, the Eternal Sun, and the Earth Mother."
         },
@@ -180,7 +180,7 @@
             "Id": "Knowledge_Southern_Continent",
             "Rarity": "Rare",
             "Label": "Knowledge: Southern Continent",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Southern Continent",
             "Image": "Image_Knowledge_Southern_Continent",
             "Knowledge_Content": "Separated from the Northern Continent by the Raging Sea, the Southern Continent was once the sole domain of the Byron Empire. In the current Fifth Epoch, however, it has become a colonial possession of the Leon Kingdom, the Intis Republic, and the Vassak Empire. The region remains relatively primitive, and the majority of its people worship the God of Death."
         },
@@ -188,7 +188,7 @@
             "Id": "Knowledge_Raging_Sea",
             "Rarity": "Rare",
             "Label": "Knowledge: Raging Sea",
-            "Short_Label": "Knowledge",
+            "Short_Label": "Raging Sea",
             "Image": "Image_Knowledge_Raging_Sea",
             "Knowledge_Content": "The Raging Sea, lying between the Northern and Southern Continents, was once impassable to humankind. It was said to be tranquil until the demise of the God of Death at the end of the Fourth Epoch, which greatly disturbed its natural state."
         },
@@ -196,7 +196,7 @@
             "Id": "Thought_Tarot_Conclave",
             "Rarity": "",
             "Label": "Thought: Tarot Conclave",
-            "Short_Label": "Thought",
+            "Short_Label": "Tarot Conclave",
             "Image": "Image_Thought_Tarot_Conclave",
             "Knowledge_Content": "This is my first encounter with a divine being! He reigns above the mists as a mysterious sovereign, a Foolish God of a bygone era. He has invited me to a gathering of Beyonders, a loosely organized group that trades information and items in a divine-created space, collaborating on worldly endeavors. Members use Tarot cards as their monikers. He appears benevolent, but should I entrust myself to this organization?"
         },

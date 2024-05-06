@@ -18,6 +18,10 @@ public class Panel_Manager : MonoBehaviour
     private GameObject location_card_panel;
     private GameObject sequence_card_panel;
     private GameObject function_panel;
+    
+    // 两条 Line
+    public GameObject Line_Up;
+    public GameObject Line_Down;
 
     // panel 指代
     public bool isPanelOpen = false;
@@ -102,6 +106,7 @@ public class Panel_Manager : MonoBehaviour
         if (current_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>() != null)
         {
             current_panel.GetComponent<SPcard_Make_Potion_Panel_Feature>().Return_Absorbed_Resource();
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Close);
         }
         
         Destroy(current_panel);
@@ -110,7 +115,45 @@ public class Panel_Manager : MonoBehaviour
 
 
     }
-    
+
+
+    public void Expand_Line(float delay, float length)
+    {
+        StartCoroutine(Set_Line_Length(delay, length));
+    }
+
+    public IEnumerator Set_Line_Length(float delay, float length)
+    {
+        LineRenderer line_renderer_up = Line_Up.GetComponent<LineRenderer>();
+        LineRenderer line_renderer_down = Line_Down.GetComponent<LineRenderer>();
+
+        float totalTime = 2f;
+        float interval = 0.05f;
+        float Length_to_expand = length;
+        float step = length * interval / totalTime;
+
+
+        yield return new WaitForSeconds(delay);
+        
+        while (Length_to_expand > 0)
+        {
+
+            line_renderer_up.SetPosition(1, new Vector3(
+                line_renderer_up.GetPosition(1).x + step,
+                line_renderer_up.GetPosition(1).y, 
+                line_renderer_up.GetPosition(1).z));
+            
+            line_renderer_down.SetPosition(1, new Vector3(
+                line_renderer_down.GetPosition(1).x + step,
+                line_renderer_down.GetPosition(1).y, 
+                line_renderer_down.GetPosition(1).z));
+
+            Length_to_expand -= step;
+            yield return new WaitForSeconds(interval);
+        }
+        
+        
+    }
     
     
     

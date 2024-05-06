@@ -7,9 +7,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
 using random = UnityEngine.Random;
+using UnityEngine.EventSystems;
 // using UnityEngine.UIElements;
 
 public class Card_Location_Feature : MonoBehaviour
+    // , IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     
     
@@ -73,6 +75,8 @@ public class Card_Location_Feature : MonoBehaviour
     // Mis Variables
     private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
     private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
+    private bool clicking_over_dragging;    // 是 drag 还是 click
+    private Vector3 dragging_offset;        // 拖拽时 鼠标位置和物体位置的差值，作 offset
 
     public int LayerIndex;      // 记录此 GameObject 所处的 layer（“Card_Location")
 
@@ -291,10 +295,110 @@ public class Card_Location_Feature : MonoBehaviour
     
     
     
+    /*/////////////////////////////////////////////////////////////////////////     I Pointer Handler 方法
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("左键点击");
+
+            if (card_location_availability   // 此卡处于 available 的状态
+                // && (Input.mousePosition - click_mouse_position).magnitude < 0.4f)
+                && clicking_over_dragging)
+            {
+                Open_Panel();
+            }
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log("右键点击");
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("鼠标悬停进入");
+        
+        if (card_location_availability
+            && GameManager.GM.InputManager.Dragging_Object == null)     // 鼠标悬停时，如果没拖拽着其他卡牌，
+        {
+            isHighlight = true;     // 高亮
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("鼠标悬停退出");
+        
+        isHighlight = false;    // 取消高亮, by 设定高亮参数为 false
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log("开始拖拽");
+        
+        if (card_location_availability)
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Click);
+
+        clicking_over_dragging = false;
+
+        dragging_offset = transform.position - eventData.pointerCurrentRaycast.worldPosition;
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        isHighlight = false; // 取消高亮
+
+        if (card_location_availability)
+        {
+            IncreaseOrderInLayer();
+            
+            if (!_cardLocation.Stable)
+            {
+                // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+                GameManager.GM.InputManager.Dragging_Object = gameObject; 
+            
+                // 更新物体位置逻辑
+                transform.position = eventData.pointerCurrentRaycast.worldPosition + dragging_offset;
+            }
+
+        }
+
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("结束拖拽");
+
+        
+        if (card_location_availability)
+        {
+            // 放下音效
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
+        
+            // 调整 卡牌的渲染 layer 让其回到原位
+            gameObject.layer = LayerIndex; 
+            
+            // 设置回 原 Order in Layer
+            DecreaseOrderInLayer();  
+        }
+        
+        // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
+        GameManager.GM.InputManager.Dragging_Object = null;
+        
+        
+        clicking_over_dragging = true;
+    }
+    
+    
+    /////////////////////////////////////////////////////////////////////////     I Pointer Handler 方法        END*/
     
     
 
+    /////////////////////////////////////////////////////////////////////////     On Mouse 系列方法
 
+    
     private void OnMouseOver()      // 鼠标悬停的时候，高亮
     {
         if (card_location_availability
@@ -331,11 +435,6 @@ public class Card_Location_Feature : MonoBehaviour
             // Clear_Highlight_Collider();                             // 取消高亮
             isHighlight = false; // 取消高亮
 
-            
-            
-            
-
-
             // 调整卡牌的渲染 layer，让其到最上面
             
             IncreaseOrderInLayer();
@@ -346,13 +445,14 @@ public class Card_Location_Feature : MonoBehaviour
             {
                 // float mouse_drag_sensitivity = 0.05f;
                 GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
+                
                 Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) -
                                 Camera.main.ScreenToWorldPoint(lastMousePosition);
                 delta.z = 0;
                 gameObject.transform.position += delta;
                 lastMousePosition = Input.mousePosition;
 
-                if ((Input.mousePosition - click_mouse_position).magnitude > 0.5f)
+                if ((Input.mousePosition - click_mouse_position).magnitude > 0.3f)
                 {
                     // 播放，卡牌点击 音效
                     if (!is_playing_dragging_SFX)
@@ -406,6 +506,9 @@ public class Card_Location_Feature : MonoBehaviour
     {
         isHighlight = false;    // 取消高亮, by 设定高亮参数为 false
     }
+    
+    
+    /////////////////////////////////////////////////////////////////////////     On Mouse 系列方法     END
     
     void OnTriggerEnter2D(Collider2D other)     
     {
@@ -556,7 +659,7 @@ public class Card_Location_Feature : MonoBehaviour
                 new Vector3(
                     gameObject.transform.position.x,
                     gameObject.transform.position.y,
-                    gameObject.transform.position.z - 1), Quaternion.identity);  
+                    gameObject.transform.position.z - 2), Quaternion.identity);  
             
             Card_Location_Panel_Feature panel_feature = panel.GetComponent<Card_Location_Panel_Feature>();    // 指代panel的feature脚本
             
@@ -848,8 +951,8 @@ public class Card_Location_Feature : MonoBehaviour
     {
         while (true)
         {
-            if (card_location_availability      // 如果此卡 available
-                && !is_counting_down)      // 如果没有在 倒计时
+            if (card_location_availability)      // 如果此卡 available
+                // && !is_counting_down)      // 如果没有在 倒计时
             {
                 
                 if (Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object)   // 如果拖拽的是需要的 body part，则高亮，根据是否跟 card location 重叠来判断是否是黄色
@@ -1704,8 +1807,10 @@ public class Card_Location_Feature : MonoBehaviour
                 "Flesh_And_Body", GameObject.Find("Sequence_Location_"+ GameManager.GM.Current_Rank).transform.position);
 
         GameManager.GM.CardManager.Let_Card_Location_Fade_In(flesh_and_body, 6f, 3f);
+        
+        // GameManager.GM.PanelManager.Expand_Line(7f, 12);
     }
-    
+
 
     void Get_Level_Up_Sequence(float delay)       // 生成 ？
     {

@@ -77,13 +77,15 @@
             "Label": "Level 9: The Seer",
             "Image": "Image_The_Seer",
             "Description": ".............................",
+            
+            "Corresponding_Potion_Message_Id": "Potion_Message_Level_9_Seer",
 
             "Rank": 9,
             "Occupation": "Seer",
 
             "Require_Resource":
             {
-                "Physical_Energy": 4,
+                "Physical_Energy": 2,
                 "Spirituality_Infused_Material": 3
             },
 
@@ -210,14 +212,16 @@
             "Id": "Level_9_Apprentice_Of_The_Whisper",
             "Label": "Level 9: Apprentice of the Whisper",
             "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
-            "Description": ".............................",
+            "Description": "Apprentice of Whispers, Sequence 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.' \n\n [ This Level consumes Physical Energy and Spiritual Energy, if you run out of either one, Death will be accumulated ]",
+            
+            "Corresponding_Potion_Message_Id": "Potion_Message_Level_9_Apprentice_Of_The_Whisper",
 
             "Rank": 9,
             "Occupation": "Knowledge",
 
             "Require_Resource":
             {
-                "Physical_Energy": 5,
+                "Physical_Energy": 3,
                 "Spirituality_Infused_Material": 2
             },
 

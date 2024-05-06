@@ -368,6 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Knowledge:
     Id: 
+    Rarity: 
     Short_Label: 
     Label: 
     Image: 
@@ -376,6 +377,7 @@ MonoBehaviour:
   knowledge_name_tag: {fileID: 7033580355473418520}
   knowledge_short_label: {fileID: 2328481247986825465}
   knowledge_shadow: {fileID: 8429035146368408124}
+  overlapped_card_location_or_knowledge_slot: {fileID: 0}
   lastPosition: {x: 0, y: 0, z: 0}
   LayerIndex: 0
 --- !u!1 &4326502533396991837
@@ -589,12 +591,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 6
-  m_fontSizeBase: 6
+  m_fontSize: 8
+  m_fontSizeBase: 4
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 4
+  m_fontSizeMax: 8
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -605,9 +607,9 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 3
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -625,7 +627,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.03026247, y: -0.015603423, z: -0.012488127, w: 0.011879325}
+  m_margin: {x: -0.1630969, y: -0.16504145, z: -0.17853045, w: -0.054537535}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0

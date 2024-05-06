@@ -110,7 +110,8 @@ public class Start_Button_Script : MonoBehaviour
         is_button_clicking = true;
         
         // 播放 Start Button 按下 音效
-        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Start_Button_Click_MouseDown);
+        if (is_button_available)
+            GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Start_Button_Click_MouseDown);
 
     }
 

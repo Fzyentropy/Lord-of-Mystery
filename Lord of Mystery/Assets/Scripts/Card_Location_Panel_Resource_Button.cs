@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Card_Location_Panel_Resource_Button : MonoBehaviour
+public class Card_Location_Panel_Resource_Button : MonoBehaviour, IPointerClickHandler
 {
 
    public enum Resources
@@ -194,6 +195,67 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
             }
         }
     }
+    
+    public void Reduce_Panel_Absorb_Amount()
+    {
+        switch (panel_resource_slot_number)
+        {
+            case 1 :
+            {
+                attached_panel_feature.current_resource_1_amount --;
+                break;
+            }
+            case 2 :
+            {
+                attached_panel_feature.current_resource_2_amount --;
+                break;
+            }
+            case 3 :
+            {
+                attached_panel_feature.current_resource_3_amount --;
+                break;
+            }
+            case 4 :
+            {
+                attached_panel_feature.current_resource_4_amount --;
+                break;
+            }
+            case 5 :
+            {
+                attached_panel_feature.current_resource_5_amount --;
+                break;
+            }
+        }
+    }
+
+    bool Have_Resource_Absorbed_In_This_Panel()
+    {
+        switch (panel_resource_slot_number)
+        {
+            case 1 :
+            {
+                return attached_panel_feature.current_resource_1_amount > 0;
+            }
+            case 2 :
+            {
+                return attached_panel_feature.current_resource_2_amount > 0;
+            }
+            case 3 :
+            {
+                return attached_panel_feature.current_resource_3_amount > 0;
+            }
+            case 4 :
+            {
+                return attached_panel_feature.current_resource_4_amount > 0;
+            }
+            case 5 :
+            {
+                return attached_panel_feature.current_resource_5_amount > 0;
+            }
+        }
+
+        return false;
+    }
 
     public void AbsorbResource()        // 点击时执行 ：吸收资源，到 panel 上
     {
@@ -280,6 +342,81 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
         
         ////////////////////// TODO 其他资源扩展，如有
     }
+    
+    
+    public void ReduceResource()        // 点击时执行 ：吸收资源，到 panel 上
+    {
+        if (Current_Resource == Resources.Fund)     // 如果这个按钮被设置为 fund 按钮，则吸收 fund
+        {
+            GameManager.GM.ResourceManager.Add_Fund(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+        }
+        if (Current_Resource == Resources.Physical_Energy)     // 如果这个按钮被设置为 Physical_Energy 按钮，则吸收 Physical_Energy
+        {
+
+            GameManager.GM.ResourceManager.Add_Physical_Energy(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        if (Current_Resource == Resources.Spiritual_Energy)     // 如果这个按钮被设置为 Spirit 按钮，则吸收 Spirit
+        {
+            GameManager.GM.ResourceManager.Add_Spiritual_Energy(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        if (Current_Resource == Resources.Soul)     // 如果这个按钮被设置为 Soul 按钮，则吸收 Soul
+        {
+
+            GameManager.GM.ResourceManager.Add_Soul(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        if (Current_Resource == Resources.Spirituality_Infused_Material)     // 如果这个按钮被设置为 Spirituality_Infused_Material 按钮，则吸收 Spirituality_Infused_Material
+        {
+
+            GameManager.GM.ResourceManager.Add_Spirituality_Infused_Material(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        /*if (Current_Resource == Resources.Knowledge)     // 如果这个按钮被设置为 Knowledge 按钮，则吸收 Knowledge
+        {
+            if (GameManager.GM.ResourceManager.Knowledge > 0 && Check_If_Absorb_Full())  // 当你拥有此资源（资源数量>0),且此panel对于该资源未吸收满时，触发
+            {
+                GameManager.GM.ResourceManager.Reduce_Knowledge(1, gameObject.transform.position);
+                Add_Panel_Absorb_Amount();
+            }
+        }*/
+        if (Current_Resource == Resources.Belief)     // 如果这个按钮被设置为 Belief 按钮，则吸收 Belief
+        {
+
+            GameManager.GM.ResourceManager.Add_Belief(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        if (Current_Resource == Resources.Putrefaction)     // 如果这个按钮被设置为 Putrefaction 按钮，则吸收 Putrefaction
+        {
+
+            GameManager.GM.ResourceManager.Add_Putrefaction(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        if (Current_Resource == Resources.Madness)     // 如果这个按钮被设置为 Madness 按钮，则吸收 Madness
+        {
+
+            GameManager.GM.ResourceManager.Add_Madness(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        if (Current_Resource == Resources.Godhood)     // 如果这个按钮被设置为 Godhood 按钮，则吸收 Godhood
+        {
+
+            GameManager.GM.ResourceManager.Add_Godhood(1, gameObject.transform.position);
+            Reduce_Panel_Absorb_Amount();
+            
+        }
+        
+        ////////////////////// TODO 其他资源扩展，如有
+    }
 
     private void OnMouseOver()
     {
@@ -305,6 +442,26 @@ public class Card_Location_Panel_Resource_Button : MonoBehaviour
             GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Resource_Button);
             
             AbsorbResource();
+        }
+    }
+    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            Debug.Log("右键点击");
+
+            if (Have_Resource_Absorbed_In_This_Panel())     // 如果这个按钮对应的资源，在 panel 上还有吸收的
+            {
+                // 播放 按钮音效
+                GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Resource_Button);
+                
+                ReduceResource();               // 则返还资源
+            }
         }
     }
 

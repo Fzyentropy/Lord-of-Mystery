@@ -75,7 +75,7 @@
             "Id": "Spiritual_Energy",
             "Label": "Spiritual Energy",
             "Image": "Image_Spiritual_Energy",
-            "Message_Content": "Spiritual energy this is it"
+            "Message_Content": "I've been attuned to the subtle currents of my spiritual essence since I became a Beyonder. It serves as the wellspring of a Beyonder's extraordinary abilities, facilitating transcendence beyond the material realm and journeying towards the essence of spirit, concept, and godhood."
 
         },
         {
@@ -190,9 +190,9 @@
         },
         {
             "Id": "Panel_Knowledge_Slot_Click_Show_Requirement",
-            "Label": "Slot: Potion",
+            "Label": "Slot: Knowledge",
             "Image": "Image_Knowledge",
-            "Message_Content": " [ This slot requires a piece of Knowledge, instead of clicking, drag the Knowledge piece to this slot. ]"
+            "Message_Content": " [ This slot requires a piece of Knowledge, DRAG the Knowledge piece to this slot instead of clicking. ]"
         },
         
 
@@ -342,10 +342,25 @@
             "Image": "Image_The_Beyonder",
             "Message_Content": "At the soiree, my eyes were opened: the world is veiled in layers unseen. I know about 'Beyonders', beings with powers echoing the ancient gods, capable of..."
 
+        },
+
+
+
+        
+        
+        
+        {
+            "Id": "Potion_Message_Level_9_Apprentice_Of_The_Whisper",
+            "Label": "Potion : Apprentice of the Whisper",
+            "Image": "Image_Potion",
+            "Message_Content": "The Potion of Apprentice of the Whisper, the Level 9 of the 'Pathway of Knowledge'. As long as I drink the potion, I can become the Beyonder and gain extraordinary powers..."
+        },
+        {
+            "Id": "Potion_Message_Level_9_Seer",
+            "Label": "Potion : Seer",
+            "Image": "Image_Potion",
+            "Message_Content": "The Potion of Seer, the Level 9 of the 'Pathway of Idiot God'. As long as I drink the potion, I can become the Beyonder and gain extraordinary powers..."
         }
-        
-        
-        
         
         
         
