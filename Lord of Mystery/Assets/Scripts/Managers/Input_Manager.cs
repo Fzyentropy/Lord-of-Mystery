@@ -8,30 +8,34 @@ using DG.Tweening;
 
 public class Input_Manager : MonoBehaviour
 {
+    // 相机
     public Camera mainCamera;          // 用于 get 场景中的 camera
+    public bool able_to_move_camera = true;        // 用于 限制移动 camera
+    public float CameraScrollOffset = 3f;
+    public float CameraMoveOffset = 0.05f;
+    
     public GameObject infoPanelPrefab; // Assign a prefab of the information panel in the inspector
     private GameObject selectedObject;
     
     private float mouseDownTime;
 
-    public float CameraScrollOffset = 3f;
-    public float CameraMoveOffset = 0.05f;
-
-    public float Time_X_Speed = 1f;
-
-    // public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
-    // public static GameObject panelReference;        // 打开的 Panel 的引用
-
-    private Vector3 lastMousePosition;      // 用于拖拽时临时存储鼠标位置的参数
+    // 鼠标交互
     public bool isClickOnObjects = true;      // 开关，鼠标点击到了带 collider 的物体，或 idle 时：true，点击到空地方：false
+    private Vector3 lastMousePosition;      // 用于拖拽时临时存储鼠标位置的参数
     private Vector3 click_mouse_position;     // 用于记录点击的时候鼠标的位置，来判断是点击还是拖拽
 
     
     public GameObject Dragging_Object;      // 当前拖拽的 卡牌 / body part 等物体的 GameObject
     
-    public GameObject raycast_top_object;       // 射线检测最顶层的 GameObject
     
-    public bool able_to_move_camera = true;        // 用于 限制移动 camera
+    public float Time_X_Speed = 1f;
+    
+    // public GameObject raycast_top_object;       // 射线检测最顶层的 GameObject
+    
+    // public static bool isInfoPanelOut = false;       // 是否有 Panel 已经打开
+    // public static GameObject panelReference;        // 打开的 Panel 的引用
+    
+    
 
 
     private void Start()
@@ -53,6 +57,72 @@ public class Input_Manager : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////               FUNCTIONS
     /////////////////////////////////////////////////////////////////////////
 
+    
+    
+    public void Start_Dragging(GameObject card)
+    {
+
+        Dragging_Object = card;
+        click_mouse_position = Input.mousePosition;
+        lastMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        lastMousePosition.z = card.transform.position.z;  // Ensure the z position is zero
+        
+    }
+
+    public void On_Dragging()
+    {
+        if (Dragging_Object != null)
+        {
+            Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            currentMousePosition.z = Dragging_Object.transform.position.z;
+            
+            Vector3 delta = currentMousePosition - lastMousePosition;
+            Dragging_Object.transform.position += delta;
+            lastMousePosition = currentMousePosition;
+        }
+    }
+
+    public void End_Dragging()
+    {
+        if (Dragging_Object != null 
+            && (Input.mousePosition - click_mouse_position).magnitude < 0.8f)
+        {
+
+            if (Dragging_Object.GetComponent<Card_Location_Feature>() != null)
+            {
+                Dragging_Object.GetComponent<Card_Location_Feature>().Card_Location_Click_Function();
+            }
+            
+            if (Dragging_Object.GetComponent<Card_Body_Part_Feature>() != null)
+            {
+                Dragging_Object.GetComponent<Card_Body_Part_Feature>().Card_Body_Part_Mouse_Click_Function();
+            }
+            
+            if (Dragging_Object.GetComponent<Knowledge_Feature>() != null)
+            {
+                Dragging_Object.GetComponent<Knowledge_Feature>().Knowledge_Click_Function();
+            }
+            
+            /*if (Dragging_Object.GetComponent<>() != null)
+            {
+                
+            }*/
+            
+        }
+        
+        Dragging_Object = null;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
     void FindMainCamera()
@@ -129,8 +199,13 @@ public class Input_Manager : MonoBehaviour
                 isClickOnObjects = true;    // 如果检测到了碰撞体，开关为是
             }
 
-            click_mouse_position = Input.mousePosition;
-            lastMousePosition = Input.mousePosition;
+            
+            if (!isClickOnObjects)
+            {
+                click_mouse_position = Input.mousePosition;
+                lastMousePosition = Input.mousePosition;
+            }
+            
         }
 
         if (Input.GetMouseButton(0))        // 按住鼠标左键时
@@ -155,7 +230,8 @@ public class Input_Manager : MonoBehaviour
             // 如果鼠标指针位置几乎没变，则可以视为点击，触发点击功能
             
             // 如果已经有 panel 打开，则关闭 panel
-            if ((Input.mousePosition - click_mouse_position).magnitude < 0.5 && !isClickOnObjects)
+            if (!isClickOnObjects
+                && (Input.mousePosition - click_mouse_position).magnitude < 0.5)
             {
                 // 点击
                 if (GameManager.GM.PanelManager.current_panel != null)    // 如果已经有 panel 打开，则关闭 panel

@@ -102,7 +102,7 @@ public class Knowledge_Feature : MonoBehaviour
     private void OnMouseUp()        // 如果此时鼠标的位置和先前按下左键时记录的位置差不多，则为点击，触发点击功能（打开 panel）
     {
         
-        if ((Input.mousePosition - click_mouse_position).magnitude < 0.6f) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
+        if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f) // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
         {
             Knowledge_Click_Function();                      // 点击功能的封装
         }
@@ -265,7 +265,7 @@ public class Knowledge_Feature : MonoBehaviour
     }
 
 
-    void Knowledge_Click_Function()
+    public void Knowledge_Click_Function()
     {
         GameManager.GM.Generate_Knowledge_Panel(_Knowledge.Id);
     }

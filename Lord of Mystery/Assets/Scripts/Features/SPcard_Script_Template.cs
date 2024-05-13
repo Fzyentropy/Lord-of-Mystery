@@ -58,7 +58,6 @@ public class SPcard_Script_Template : MonoBehaviour
     private void Start()
     {
         AddColliderAndRigidbody();      // 如果没加 collider 和 rigidbody，则加上
-        Set_Layer_Index();          // 设置 layer 的 index
 
         StartCoroutine(Highlight_If_Mouse_Hover());
     }
@@ -85,14 +84,6 @@ public class SPcard_Script_Template : MonoBehaviour
             rb2d.isKinematic = true;
         }
     }
-
-    void Set_Layer_Index()      // 设置 layer 的 index
-    {
-        LayerIndex = gameObject.layer;
-    }
-    
-    
-    
     
     
     
@@ -217,11 +208,11 @@ public class SPcard_Script_Template : MonoBehaviour
             
         }
         
-        
         // 拖拽音效 开关参数 设置回 false
         is_playing_dragging_SFX = false;
     }
 
+    
     private void OnMouseExit()      // 当鼠标离开卡牌上方时，取消高亮
     {
         isHighlight = false;    // 取消高亮, by 设定高亮参数为 false
@@ -251,17 +242,11 @@ public class SPcard_Script_Template : MonoBehaviour
 
     void Click_Effect()         // 点击时执行的逻辑集成
     {
-        Open_XXX_Panel();
+
         
     }
 
-    void Open_XXX_Panel()
-    {
-        
 
-        
-        
-    }
     
 
     

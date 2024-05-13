@@ -14,6 +14,11 @@ public class Card_Effects : MonoBehaviour
     
     
     
+    
+    
+    
+    
+    
     // 记录原方法，根据 Collider 将卡牌边缘 Highlight
     /*public void Highlight_Collider(Color color) 
     {
@@ -98,8 +103,100 @@ public class Card_Effects : MonoBehaviour
 
 
 
+    // 记录原方法 Increase Order In layer
+    /*public void IncreaseOrderInLayer()       
+    {
+        gameObject.layer = LayerMask.NameToLayer("DraggingLayer"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        
+        card_frame.sortingLayerName = "Dragging";
+        card_name_tag.sortingLayerName = "Dragging";
+        card_image.sortingLayerName = "Dragging";
+        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging";
+        card_image_mask.sortingLayerName = "Dragging";
+        card_shadow.sortingLayerName = "Dragging";
 
+        float x_movement = -0.1f;
+        float y_movement = 0.1f;
 
+        if (!is_dragging_pick_up_effect_applied)
+        {
+            is_dragging_pick_up_effect_applied = true;
+            
+            card_frame.transform.localPosition = new Vector3(
+                card_frame.transform.localPosition.x + x_movement,
+                card_frame.transform.localPosition.y + y_movement,
+                card_frame.transform.localPosition.z);
+        
+            card_name_tag.transform.localPosition = new Vector3(
+                card_name_tag.transform.localPosition.x + x_movement,
+                card_name_tag.transform.localPosition.y + y_movement,
+                card_name_tag.transform.localPosition.z);
+        
+            card_image.transform.localPosition = new Vector3(
+                card_image.transform.localPosition.x + x_movement,
+                card_image.transform.localPosition.y + y_movement,
+                card_image.transform.localPosition.z);
+        
+            card_label.transform.localPosition = new Vector3(
+                card_label.transform.localPosition.x + x_movement,
+                card_label.transform.localPosition.y + y_movement,
+                card_label.transform.localPosition.z);
+        
+            card_image_mask.transform.localPosition = new Vector3(
+                card_image_mask.transform.localPosition.x + x_movement,
+                card_image_mask.transform.localPosition.y + y_movement,
+                card_image_mask.transform.localPosition.z);
+        }
+        
+        
+    }*/
+    
+    // 记录原方法 Decrease Order In layer
+    /*public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
+    {
+        gameObject.layer = LayerMask.NameToLayer("Card Location"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
+        
+        card_frame.sortingLayerName = "Cards";
+        card_name_tag.sortingLayerName = "Cards";
+        card_image.sortingLayerName = "Cards";
+        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
+        card_image_mask.sortingLayerName = "Cards";
+        card_shadow.sortingLayerName = "Cards";
+
+        float x_movement = 0.1f;
+        float y_movement = -0.1f;
+
+        if (is_dragging_pick_up_effect_applied)
+        {
+            is_dragging_pick_up_effect_applied = false;
+            
+            card_frame.transform.localPosition = new Vector3(
+                card_frame.transform.localPosition.x + x_movement,
+                card_frame.transform.localPosition.y + y_movement,
+                card_frame.transform.localPosition.z);
+        
+            card_name_tag.transform.localPosition = new Vector3(
+                card_name_tag.transform.localPosition.x + x_movement,
+                card_name_tag.transform.localPosition.y + y_movement,
+                card_name_tag.transform.localPosition.z);
+        
+            card_image.transform.localPosition = new Vector3(
+                card_image.transform.localPosition.x + x_movement,
+                card_image.transform.localPosition.y + y_movement,
+                card_image.transform.localPosition.z);
+        
+            card_label.transform.localPosition = new Vector3(
+                card_label.transform.localPosition.x + x_movement,
+                card_label.transform.localPosition.y + y_movement,
+                card_label.transform.localPosition.z);
+        
+            card_image_mask.transform.localPosition = new Vector3(
+                card_image_mask.transform.localPosition.x + x_movement,
+                card_image_mask.transform.localPosition.y + y_movement,
+                card_image_mask.transform.localPosition.z);
+        }
+    }*/
+    
     // 改变 输入的 GameObject 的 Layer
     public void Change_GameObject_Layer(GameObject objectToChange, string layerString)
     {

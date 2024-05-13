@@ -463,6 +463,8 @@ public class Card_Location_Feature : MonoBehaviour
             // 如果鼠标移动，卡牌随之移动        // 临时，如果 Moveable 才可以移动，为了临时代替 序列 Sequence
             if (!_cardLocation.Stable)
             {
+                
+                
                 // float mouse_drag_sensitivity = 0.05f;
                 GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
                 
@@ -471,6 +473,9 @@ public class Card_Location_Feature : MonoBehaviour
                 delta.z = 0;
                 gameObject.transform.position += delta;
                 lastMousePosition = Input.mousePosition;
+                
+                
+                
 
                 if ((Input.mousePosition - click_mouse_position).magnitude > 0.3f)
                 {
@@ -493,17 +498,21 @@ public class Card_Location_Feature : MonoBehaviour
         if (card_location_availability) // 此卡处于 available 的状态
         {
             
+            
             // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
-            if ((Input.mousePosition - click_mouse_position).magnitude < 0.2f)  
+            if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f)  
             {
-                Open_Panel();   // 打开 panel
+                Card_Location_Click_Function();         // 点击功能的封装
             }
+            
+            
             else
             {
                 // 放下音效
                 GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
             }
 
+            
             // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
             GameManager.GM.InputManager.Dragging_Object = null;
 
@@ -633,10 +642,16 @@ public class Card_Location_Feature : MonoBehaviour
             }
         }
     }
-    
-    
-    
 
+
+
+
+
+    // 点击功能的封装，当点击了 Card Location 时，调用此方法
+    public void Card_Location_Click_Function()
+    {
+        Open_Panel();   // 打开 panel
+    }
 
     // 当卡牌被点击时调用，打开 Panel -2023_12_13
 
@@ -724,6 +739,8 @@ public class Card_Location_Feature : MonoBehaviour
         }
 
     }
+    
+    
     
     
 
@@ -964,110 +981,19 @@ public class Card_Location_Feature : MonoBehaviour
                 }
                 else
                 {
+                    // Clear Highlight
                     GameManager.GM.CardEffects.Clear_Highlight_Collider(GetComponent<LineRenderer>());
                 }
                 
             }
             else
             {
+                // Clear Highlight
                 GameManager.GM.CardEffects.Clear_Highlight_Collider(GetComponent<LineRenderer>());
             }
             
             
             yield return null;
-        }
-    }
-    
-    
-    
-    public void IncreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
-    {
-        gameObject.layer = LayerMask.NameToLayer("DraggingLayer"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-        
-        card_frame.sortingLayerName = "Dragging";
-        card_name_tag.sortingLayerName = "Dragging";
-        card_image.sortingLayerName = "Dragging";
-        card_label.GetComponent<Renderer>().sortingLayerName = "Dragging";
-        card_image_mask.sortingLayerName = "Dragging";
-        card_shadow.sortingLayerName = "Dragging";
-
-        float x_movement = -0.1f;
-        float y_movement = 0.1f;
-
-        if (!is_dragging_pick_up_effect_applied)
-        {
-            is_dragging_pick_up_effect_applied = true;
-            
-            card_frame.transform.localPosition = new Vector3(
-                card_frame.transform.localPosition.x + x_movement,
-                card_frame.transform.localPosition.y + y_movement,
-                card_frame.transform.localPosition.z);
-        
-            card_name_tag.transform.localPosition = new Vector3(
-                card_name_tag.transform.localPosition.x + x_movement,
-                card_name_tag.transform.localPosition.y + y_movement,
-                card_name_tag.transform.localPosition.z);
-        
-            card_image.transform.localPosition = new Vector3(
-                card_image.transform.localPosition.x + x_movement,
-                card_image.transform.localPosition.y + y_movement,
-                card_image.transform.localPosition.z);
-        
-            card_label.transform.localPosition = new Vector3(
-                card_label.transform.localPosition.x + x_movement,
-                card_label.transform.localPosition.y + y_movement,
-                card_label.transform.localPosition.z);
-        
-            card_image_mask.transform.localPosition = new Vector3(
-                card_image_mask.transform.localPosition.x + x_movement,
-                card_image_mask.transform.localPosition.y + y_movement,
-                card_image_mask.transform.localPosition.z);
-        }
-        
-        
-    }
-    public void DecreaseOrderInLayer()       // 提高 卡牌的 Order in Layer 数值，以让卡牌在最上方渲染
-    {
-        gameObject.layer = LayerMask.NameToLayer("Card Location"); // 调用系统方法来找到 "Dragging Layer"对应的 Index，并设置
-        
-        card_frame.sortingLayerName = "Cards";
-        card_name_tag.sortingLayerName = "Cards";
-        card_image.sortingLayerName = "Cards";
-        card_label.GetComponent<Renderer>().sortingLayerName = "Cards";
-        card_image_mask.sortingLayerName = "Cards";
-        card_shadow.sortingLayerName = "Cards";
-
-        float x_movement = 0.1f;
-        float y_movement = -0.1f;
-
-        if (is_dragging_pick_up_effect_applied)
-        {
-            is_dragging_pick_up_effect_applied = false;
-            
-            card_frame.transform.localPosition = new Vector3(
-                card_frame.transform.localPosition.x + x_movement,
-                card_frame.transform.localPosition.y + y_movement,
-                card_frame.transform.localPosition.z);
-        
-            card_name_tag.transform.localPosition = new Vector3(
-                card_name_tag.transform.localPosition.x + x_movement,
-                card_name_tag.transform.localPosition.y + y_movement,
-                card_name_tag.transform.localPosition.z);
-        
-            card_image.transform.localPosition = new Vector3(
-                card_image.transform.localPosition.x + x_movement,
-                card_image.transform.localPosition.y + y_movement,
-                card_image.transform.localPosition.z);
-        
-            card_label.transform.localPosition = new Vector3(
-                card_label.transform.localPosition.x + x_movement,
-                card_label.transform.localPosition.y + y_movement,
-                card_label.transform.localPosition.z);
-        
-            card_image_mask.transform.localPosition = new Vector3(
-                card_image_mask.transform.localPosition.x + x_movement,
-                card_image_mask.transform.localPosition.y + y_movement,
-                card_image_mask.transform.localPosition.z);
         }
     }
     
