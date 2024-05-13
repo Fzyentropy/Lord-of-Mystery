@@ -26,6 +26,9 @@ public class Input_Manager : MonoBehaviour
 
     
     public GameObject Dragging_Object;      // 当前拖拽的 卡牌 / body part 等物体的 GameObject
+
+    private bool is_playing_dragging_SFX;       // 是否在播放 drag 音效
+    
     
     
     public float Time_X_Speed = 1f;
@@ -64,53 +67,76 @@ public class Input_Manager : MonoBehaviour
 
         Dragging_Object = card;
         click_mouse_position = Input.mousePosition;
-        lastMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        lastMousePosition.z = card.transform.position.z;  // Ensure the z position is zero
-        
+        lastMousePosition = Input.mousePosition;
+
     }
 
     public void On_Dragging()
     {
         if (Dragging_Object != null)
         {
-            Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            currentMousePosition.z = Dragging_Object.transform.position.z;
             
-            Vector3 delta = currentMousePosition - lastMousePosition;
+            Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.ScreenToWorldPoint(lastMousePosition);
+            delta.z = 0;
             Dragging_Object.transform.position += delta;
-            lastMousePosition = currentMousePosition;
+            lastMousePosition = Input.mousePosition;
+            
+            
+            if ((Input.mousePosition - click_mouse_position).magnitude > 0.3f)
+            {
+                // 播放，卡牌点击 音效
+                if (!is_playing_dragging_SFX)
+                {
+                    is_playing_dragging_SFX = true;
+                    GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Click);
+                }
+            }
         }
     }
 
     public void End_Dragging()
     {
-        if (Dragging_Object != null 
-            && (Input.mousePosition - click_mouse_position).magnitude < 0.8f)
+        if (Dragging_Object != null)
         {
 
-            if (Dragging_Object.GetComponent<Card_Location_Feature>() != null)
-            {
-                Dragging_Object.GetComponent<Card_Location_Feature>().Card_Location_Click_Function();
-            }
-            
-            if (Dragging_Object.GetComponent<Card_Body_Part_Feature>() != null)
-            {
-                Dragging_Object.GetComponent<Card_Body_Part_Feature>().Card_Body_Part_Mouse_Click_Function();
-            }
-            
-            if (Dragging_Object.GetComponent<Knowledge_Feature>() != null)
-            {
-                Dragging_Object.GetComponent<Knowledge_Feature>().Knowledge_Click_Function();
-            }
-            
-            /*if (Dragging_Object.GetComponent<>() != null)
+            if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f)
             {
                 
-            }*/
+                if (Dragging_Object.GetComponent<Card_Location_Feature>() != null)
+                {
+                    Dragging_Object.GetComponent<Card_Location_Feature>().Card_Location_Click_Function();
+                }
+            
+                if (Dragging_Object.GetComponent<Card_Body_Part_Feature>() != null)
+                {
+                    Dragging_Object.GetComponent<Card_Body_Part_Feature>().Card_Body_Part_Mouse_Click_Function();
+                }
+            
+                if (Dragging_Object.GetComponent<Knowledge_Feature>() != null)
+                {
+                    Dragging_Object.GetComponent<Knowledge_Feature>().Knowledge_Click_Function();
+                }
+            
+                /*if (Dragging_Object.GetComponent<>() != null)
+                {
+                    
+                }*/
+            }
+
+            else
+            {
+                // 放下音效
+                GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
+            }
             
         }
         
+        // 拖拽音效 开关参数 设置回 false
+        is_playing_dragging_SFX = false;
+            
+        // 重置 Dragging Object
         Dragging_Object = null;
+        
     }
     
     

@@ -410,17 +410,11 @@ public class Card_Location_Feature : MonoBehaviour
 
     private void OnMouseDown()      // 按下鼠标左键的时候，记录鼠标位置，调整卡牌的渲染 layer，让其到最上面，取消高亮
     {
-        // if (GameManager.GM.InputManager.raycast_top_object == gameObject)   //只有当射线检测的 top GameObject 是这张卡时
+
         if (card_location_availability)
         {
-            // 记录鼠标位置
-            click_mouse_position = Input.mousePosition;
-            lastMousePosition = Input.mousePosition;
+            GameManager.GM.InputManager.Start_Dragging(gameObject);
 
-            // 取消高亮
-            
-
-            
         }
         
     }
@@ -464,28 +458,8 @@ public class Card_Location_Feature : MonoBehaviour
             if (!_cardLocation.Stable)
             {
                 
+                GameManager.GM.InputManager.On_Dragging();
                 
-                // float mouse_drag_sensitivity = 0.05f;
-                GameManager.GM.InputManager.Dragging_Object = gameObject; // 将 Input Manager 中的 正在拖拽物体 记录为此物体
-                
-                Vector3 delta = Camera.main.ScreenToWorldPoint(Input.mousePosition) -
-                                Camera.main.ScreenToWorldPoint(lastMousePosition);
-                delta.z = 0;
-                gameObject.transform.position += delta;
-                lastMousePosition = Input.mousePosition;
-                
-                
-                
-
-                if ((Input.mousePosition - click_mouse_position).magnitude > 0.3f)
-                {
-                    // 播放，卡牌点击 音效
-                    if (!is_playing_dragging_SFX)
-                    {
-                        is_playing_dragging_SFX = true;
-                        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Click);
-                    }
-                }
             }
             
         }
@@ -498,25 +472,8 @@ public class Card_Location_Feature : MonoBehaviour
         if (card_location_availability) // 此卡处于 available 的状态
         {
             
+            GameManager.GM.InputManager.End_Dragging();
             
-            // 判断此时鼠标的位置和记录的位置，如果差不多即视为点击，触发点击功能
-            if ((Input.mousePosition - click_mouse_position).magnitude < 0.8f)  
-            {
-                Card_Location_Click_Function();         // 点击功能的封装
-            }
-            
-            
-            else
-            {
-                // 放下音效
-                GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Card_Drop);
-            }
-
-            
-            // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
-            GameManager.GM.InputManager.Dragging_Object = null;
-
-
             
             // Decrease Order In Layer
             // 改变物体的 Layer，Sorting Layer，和 "放下卡牌" 效果
@@ -540,13 +497,11 @@ public class Card_Location_Feature : MonoBehaviour
             }
             
 
-            // 拖拽音效 开关参数 设置回 false
-            is_playing_dragging_SFX = false;
-
         }
         
     }
 
+    
     private void OnMouseExit()      // 当鼠标离开卡牌上方时，取消高亮
     {
         isHighlight = false;    // 取消高亮, by 设定高亮参数为 false
