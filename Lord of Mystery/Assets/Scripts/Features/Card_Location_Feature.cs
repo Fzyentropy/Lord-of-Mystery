@@ -90,7 +90,7 @@ public class Card_Location_Feature : MonoBehaviour
     private float newBodyPartPositionXOffset = 4f;
     private float newBodyPartPositionYOffset = 8f;
 
-    private bool dragging_shadow_effect_if_transformed = false;     // 用于记录是否 “抬起” 了卡牌
+    private bool is_dragging_pick_up_effect_applied;     // 用于记录是否 “抬起” 了卡牌
 
     private float draw_card_animation_duration = 0.4f;
 
@@ -435,10 +435,30 @@ public class Card_Location_Feature : MonoBehaviour
             // Clear_Highlight_Collider();                             // 取消高亮
             isHighlight = false; // 取消高亮
 
-            // 调整卡牌的渲染 layer，让其到最上面
-            
-            IncreaseOrderInLayer();
 
+
+            // Increase Order In Layer
+            // 改变物体的 Layer，Sorting Layer，和 "抬起卡牌" 效果
+            {
+                
+                // 调整卡牌的渲染 layer 层为 "DraggingLayer"
+                GameManager.GM.CardEffects.Change_GameObject_Layer(gameObject, "DraggingLayer");
+
+                // IncreaseOrderInLayer();
+                GameManager.GM.CardEffects.Change_Order_In_Layer("Dragging",
+                    card_frame, card_name_tag, card_image, card_label, card_image_mask, card_shadow);
+
+                // "抬起卡牌"效果
+                if (!is_dragging_pick_up_effect_applied)
+                {
+                    is_dragging_pick_up_effect_applied = true;
+                    GameManager.GM.CardEffects.Apply_Dragging_Pick_Up_Effect(
+                        card_frame, card_name_tag, card_image, card_label, card_image_mask);
+                }
+                
+            }
+            
+            
 
             // 如果鼠标移动，卡牌随之移动        // 临时，如果 Moveable 才可以移动，为了临时代替 序列 Sequence
             if (!_cardLocation.Stable)
@@ -485,18 +505,34 @@ public class Card_Location_Feature : MonoBehaviour
             }
 
             // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
-            GameManager.GM.InputManager.Dragging_Object = null;     
-        
-            // 调整 卡牌的渲染 layer 让其回到原位
-            gameObject.layer = LayerIndex; 
+            GameManager.GM.InputManager.Dragging_Object = null;
+
+
             
-            // 设置回 原 Order in Layer
-            DecreaseOrderInLayer();     
+            // Decrease Order In Layer
+            // 改变物体的 Layer，Sorting Layer，和 "放下卡牌" 效果
+            {
+                
+                // 调整卡牌的渲染 layer 层为 "Card Location"
+                GameManager.GM.CardEffects.Change_GameObject_Layer(gameObject, "Card Location");
+
+                // DecreaseOrderInLayer();   
+                GameManager.GM.CardEffects.Change_Order_In_Layer("Cards",
+                    card_frame, card_name_tag, card_image, card_label, card_image_mask, card_shadow);
+
+                // "放下卡牌"效果
+                if (is_dragging_pick_up_effect_applied)
+                {
+                    is_dragging_pick_up_effect_applied = false;
+                    GameManager.GM.CardEffects.Apply_Dragging_Put_Down_Effect(
+                        card_frame, card_name_tag, card_image, card_label, card_image_mask);
+                }
+                
+            }
             
+
             // 拖拽音效 开关参数 设置回 false
             is_playing_dragging_SFX = false;
-            
-            
 
         }
         
@@ -688,48 +724,7 @@ public class Card_Location_Feature : MonoBehaviour
         }
 
     }
-
-
-
-    public void Highlight_Collider(Color color)        // 利用 collider和 Line Renderer 来高亮 collider 边缘
-    {
-        BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
-        LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-
-        lineRenderer.startWidth = 0.2f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.positionCount = 5; // 四个角加上第一个点重复一次以闭合
-
-        // 计算BoxCollider2D的四个角
-        Vector3[] corners = new Vector3[5];
-        corners[0] = collider.offset + new Vector2(-collider.size.x, -collider.size.y) * 0.5f;
-        corners[1] = collider.offset + new Vector2(collider.size.x, -collider.size.y) * 0.5f;
-        corners[2] = collider.offset + new Vector2(collider.size.x, collider.size.y) * 0.5f;
-        corners[3] = collider.offset + new Vector2(-collider.size.x, collider.size.y) * 0.5f;
-        corners[4] = corners[0]; // 闭合线段
-
-        // 转换到世界坐标
-        for (int i = 0; i < corners.Length; i++)
-        {
-            corners[i] = transform.TransformPoint(corners[i]);
-            lineRenderer.SetPosition(i, corners[i]);
-        }
-
-        // 设置材质和颜色
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = color; // 高亮颜色
-        lineRenderer.endColor = color; // 高亮颜色
-    }
-
-    public void Clear_Highlight_Collider()      // 将 Line Renderer 的颜色设置为 透明
-    {
-        LineRenderer lineRenderer = gameObject.GetComponent<LineRenderer>();
-        if (lineRenderer != null)
-        {
-            lineRenderer.startColor = Color.clear; // 高亮颜色
-            lineRenderer.endColor = Color.clear; // 高亮颜色
-        }
-    }
+    
     
 
     /////////////啰嗦版 检测当前拖拽的卡牌是否是这张卡能够吸收的 body part，此判定若通过，则可以直接调用 card location panel feature 中的 吸收 body part 方法
@@ -959,23 +954,23 @@ public class Card_Location_Feature : MonoBehaviour
                     || Check_If_Dragging_Knowledge_Is_Need(GameManager.GM.InputManager.Dragging_Object))    // 或者拖拽的是需要的 Knowledge，则高亮，根据是否跟 card location 重叠来判断是否是黄色
                 {
                     if (!isHighlightYellow)
-                        Highlight_Collider(highlight_color_common);
+                        GameManager.GM.CardEffects.Highlight_Collider(GetComponent<BoxCollider2D>(), GetComponent<LineRenderer>(), highlight_color_common);
                     else
-                        Highlight_Collider(highlight_color_yellow);
+                        GameManager.GM.CardEffects.Highlight_Collider(GetComponent<BoxCollider2D>(), GetComponent<LineRenderer>(), highlight_color_yellow);
                 }
                 else if (isHighlight)       // 如果鼠标悬停让 isHighlight 参数为 true 了，也高亮，高亮白色
                 {
-                    Highlight_Collider(highlight_color_common);
+                    GameManager.GM.CardEffects.Highlight_Collider(GetComponent<BoxCollider2D>(), GetComponent<LineRenderer>(), highlight_color_common);
                 }
                 else
                 {
-                    Clear_Highlight_Collider();
+                    GameManager.GM.CardEffects.Clear_Highlight_Collider(GetComponent<LineRenderer>());
                 }
                 
             }
             else
             {
-                Clear_Highlight_Collider();
+                GameManager.GM.CardEffects.Clear_Highlight_Collider(GetComponent<LineRenderer>());
             }
             
             
@@ -999,9 +994,9 @@ public class Card_Location_Feature : MonoBehaviour
         float x_movement = -0.1f;
         float y_movement = 0.1f;
 
-        if (!dragging_shadow_effect_if_transformed)
+        if (!is_dragging_pick_up_effect_applied)
         {
-            dragging_shadow_effect_if_transformed = true;
+            is_dragging_pick_up_effect_applied = true;
             
             card_frame.transform.localPosition = new Vector3(
                 card_frame.transform.localPosition.x + x_movement,
@@ -1045,9 +1040,9 @@ public class Card_Location_Feature : MonoBehaviour
         float x_movement = 0.1f;
         float y_movement = -0.1f;
 
-        if (dragging_shadow_effect_if_transformed)
+        if (is_dragging_pick_up_effect_applied)
         {
-            dragging_shadow_effect_if_transformed = false;
+            is_dragging_pick_up_effect_applied = false;
             
             card_frame.transform.localPosition = new Vector3(
                 card_frame.transform.localPosition.x + x_movement,
@@ -1075,6 +1070,7 @@ public class Card_Location_Feature : MonoBehaviour
                 card_image_mask.transform.localPosition.z);
         }
     }
+    
     
     
     
@@ -1693,7 +1689,7 @@ public class Card_Location_Feature : MonoBehaviour
         if (use_time_counter <= 0)
         {
             // TODO 销毁动画，写一个方法，或者做一个特效，或者shader
-            GameManager.GM.CardManager.Let_Card_Location_Fade_Out(gameObject,0);
+            GameManager.GM.CardEffects.Let_Card_Location_Fade_Out(gameObject,0);
         }
     }
 
@@ -1806,7 +1802,7 @@ public class Card_Location_Feature : MonoBehaviour
             GameManager.GM.Generate_Card_Location(
                 "Flesh_And_Body", GameObject.Find("Sequence_Location_"+ GameManager.GM.Current_Rank).transform.position);
 
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(flesh_and_body, 6f, 3f);
+        GameManager.GM.CardEffects.Let_Card_Location_Fade_In(flesh_and_body, 6f, 3f);
         
         // GameManager.GM.PanelManager.Expand_Line(7f, 12);
     }
@@ -1818,14 +1814,14 @@ public class Card_Location_Feature : MonoBehaviour
             GameManager.GM.Generate_Card_Location(
                 "Level_Up_Sequence", GameObject.Find("Sequence_Location_"+ (GameManager.GM.Current_Rank-1)).transform.position);
 
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(new_question_mark, delay, 2f);
+        GameManager.GM.CardEffects.Let_Card_Location_Fade_In(new_question_mark, delay, 2f);
     }
     
     
     void Level_Up_Sequence_Based_On_Potion()        // 根据魔药升级
     {
         
-        GameManager.GM.CardManager.Let_Card_Location_Fade_Out(gameObject, 0);      // 将 旧的 ？ Fade Out
+        GameManager.GM.CardEffects.Let_Card_Location_Fade_Out(gameObject, 0);      // 将 旧的 ？ Fade Out
         
 
         GameObject sequence_to_level_up_to =                       // 生成新的 sequence 卡
@@ -1834,7 +1830,7 @@ public class Card_Location_Feature : MonoBehaviour
                     GameObject.Find("Sequence_Location_"+ (GameManager.GM.Current_Rank-1)).transform.position);
         
         
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(sequence_to_level_up_to, 2f, 3f);      // 将 新生成的 sequence 卡 Fade In
+        GameManager.GM.CardEffects.Let_Card_Location_Fade_In(sequence_to_level_up_to, 2f, 3f);      // 将 新生成的 sequence 卡 Fade In
         
         
         // 修改 等级信息
@@ -1884,7 +1880,7 @@ public class Card_Location_Feature : MonoBehaviour
             // StopCoroutine(menial_job.GetComponent<Card_Location_Feature>().Counting_Down_For_Card_Effect());
             // Destroy(menial_job.GetComponent<Card_Location_Feature>().progress_bar);
             
-            GameManager.GM.CardManager.Let_Card_Location_Fade_Out(menial_job, 1f);
+            GameManager.GM.CardEffects.Let_Card_Location_Fade_Out(menial_job, 1f);
         }
 
         GameObject nighthawk = GameManager.GM.Generate_Card_Location("The_Nighthawk", new Vector3(
@@ -1892,7 +1888,7 @@ public class Card_Location_Feature : MonoBehaviour
             transform.position.y + newCardLocationPositionYOffset,
             transform.position.z));
         
-        GameManager.GM.CardManager.Let_Card_Location_Fade_In(nighthawk, 0,2f);
+        GameManager.GM.CardEffects.Let_Card_Location_Fade_In(nighthawk, 0,2f);
 
     }
 
