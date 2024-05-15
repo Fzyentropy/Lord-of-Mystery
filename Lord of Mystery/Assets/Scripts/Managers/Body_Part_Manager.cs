@@ -12,6 +12,7 @@ public class Body_Part_Manager : MonoBehaviour
     public int Body_Part_Spirit;
     public int Body_Part_Psyche;
     public int Body_Part_Potion;
+    public int Body_Part_Save;
     
     // 如果 Make Potion 时给的资源 match，记录 matched 的 sequence Id
     [HideInInspector] public Sequence matched_sequence;       // 记录 matched 的 sequence 实例
@@ -29,6 +30,7 @@ public class Body_Part_Manager : MonoBehaviour
         Body_Part_Spirit = 0;
         Body_Part_Psyche = 0;
         Body_Part_Potion = 0;
+        Body_Part_Save = 0;
     }
 
     /////////////////////////       设置函数  结束
@@ -61,15 +63,16 @@ public class Body_Part_Manager : MonoBehaviour
             Body_Part_Physical_Body++;
 
             generatedBodyPart = GameManager.GM.Generate_Card_Body_Part("Physical_Body");
-            // Debug.Log("Body Part Physical Body Generated, Number: " + Body_Part_Physical_Body);
+            Debug.Log("Body Part Physical Body Generated, Number: " + Body_Part_Physical_Body);
         }
 
         if (bodyPartString == "Spirit")
         {
+
             Body_Part_Spirit++;
 
             generatedBodyPart = GameManager.GM.Generate_Card_Body_Part("Spirit");
-            // Debug.Log("Body Part Spirit Generated, Number: " + Body_Part_Spirit);
+            Debug.Log("Body Part Spirit Generated, Number: " + Body_Part_Spirit);
         }
 
         if (bodyPartString == "Psyche")
@@ -78,7 +81,7 @@ public class Body_Part_Manager : MonoBehaviour
 
             generatedBodyPart = GameManager.GM.Generate_Card_Body_Part("Psyche");
             
-            // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Psyche);
+            Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Psyche);
         }
         
         
@@ -93,6 +96,19 @@ public class Body_Part_Manager : MonoBehaviour
             // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Potion);
             
             generatedBodyPart.AddComponent<Potion_Info>().potion_sequence = matched_sequence;
+            
+        }
+        
+        if (bodyPartString == "Save")             // Save body Part TODO 或许添加任何 额外设置
+        {
+            Body_Part_Save++;
+
+            generatedBodyPart = GameManager.GM.Generate_Card_Body_Part("Save");
+            
+            // Debug.Log("Body Part Psyche Generated, Number: " + Body_Part_Potion);
+            
+            // TODO 
+            // generatedBodyPart.AddComponent<Save_Info>().potion_sequence = matched_sequence;
             
         }
 
@@ -141,6 +157,13 @@ public class Body_Part_Manager : MonoBehaviour
         { 
             Destroy(bodyPartGameObject);
             Body_Part_Potion--;
+            Debug.Log("Body Part Potion Destroyed");
+        }
+        
+        if (bodyPartGameObject.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id == "Save" && Body_Part_Save > 0)     // Potion TODO
+        { 
+            Destroy(bodyPartGameObject);
+            Body_Part_Save--;
             Debug.Log("Body Part Potion Destroyed");
         }
         

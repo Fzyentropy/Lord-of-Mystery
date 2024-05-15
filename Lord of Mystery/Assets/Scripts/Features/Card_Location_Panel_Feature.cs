@@ -118,6 +118,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public GameObject Slot_Spirit;
     public GameObject Slot_Psyche;
     public GameObject Slot_Potion;
+    public GameObject Slot_Save;
 
     // panel 外观设置
     [Header("Panel Appearance")]
@@ -139,7 +140,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     {
         Set_Panel_Section();
         Set_Start_Button();
-        
+        Set_Description_Font_Size();    // 若是特殊卡，设置 description 字体大小
         // StartCoroutine(Shift_Label_And_Description_If_Absorbed());    // 切换 Label 和 Description， 如果吸收满了  // 此方法目前会导致无限循环，卡死，先注掉
         
     }
@@ -155,6 +156,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
         
         Set_Start_Button_Availablitity();
+        Set_Start_Button_Text();
 
     }
 
@@ -676,6 +678,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
          
             // 初始化记录当前 body part slot 占用情况字典，将所有 body part 槽位对应的占用设置为 false(尚未占用），保证了记录是否占用槽位的字典与 required body part 序号相等
             currentlyAbosorbedBodyPartSlots.Add(body_part.Key, false);      
+
             
             // Instantiate body part
             // place it to the slot position
@@ -723,6 +726,17 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                     Card_Location_Panel_Body_Part_Slot.Body_Part_Slot_Type.Potion;
             }
             
+            if (body_part.Value == "Save")
+            {
+                bodyPartSlot = Instantiate(Slot_Save, panel_section_body_part.transform);
+                
+                // 设置 Body Part slot 脚本的各参数
+                bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().attached_card_location_panel_feature = this;
+                bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().slot_number_in_panel = body_part.Key;
+                bodyPartSlot.GetComponent<Card_Location_Panel_Body_Part_Slot>().BodyPartSlotType =
+                    Card_Location_Panel_Body_Part_Slot.Body_Part_Slot_Type.Save;
+            }
+            
             // TODO 设置 body part slot 的 panel 指代为此 panel
             
             bodyPartSlot.transform.localPosition =
@@ -763,6 +777,14 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public void Set_Description(string description)
     {
         panel_description.text = description;
+    }
+
+    public void Set_Description_Font_Size()
+    {
+        if (attached_card_location_feature._cardLocation.Card_Type == "Title")
+        {
+            panel_description.fontSize = 10;
+        }
     }
     
     ///////////////////////////////////////////////////     设置函数结束
@@ -911,7 +933,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         {
             foreach (var slot in currentlyAbosorbedBodyPartSlots)
             {
-                if (!slot.Value)
+                if (!slot.Value
+                    && requiredBodyPartsThisPanel[slot.Key] != "Save")      // 此句判定为临时，TODO 过滤掉所有 Save
                 {
                     is_bodypart_ok = false;
                     return false;
@@ -1000,6 +1023,28 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
         
         return 0;           // 没找到则返回 0
+    }
+    
+    
+    // 给定一个类型的 body part，寻找此 panel 中第一个该类型的 slot
+    public List<int> Find_All_Empty_Body_Part_Slot_Of_Type(string bodyPartType)
+    {
+        List<int> slot_list = new List<int>() { };
+        
+        if (requiredBodyPartsThisPanel.Count > 0)
+        {
+            for (int i = 1; i <= requiredBodyPartsThisPanel.Count; i++)     // 对于每个此 panel 需要的 body part 槽位
+            {
+                if (requiredBodyPartsThisPanel[i] == bodyPartType       // 如果槽位上对应的 body part 类型，与要寻找的类型相等
+                    && !currentlyAbosorbedBodyPartSlots[i])             // 而且该槽位没有被占用
+                {
+                    slot_list.Add(i);                                       // 则将 slot 编号 i 加入 list
+                }
+
+            }
+        }
+        
+        return slot_list;           // 没找到则返回 0
     }
     
     
@@ -1221,6 +1266,8 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     // 给定一个body part的GameObject (此GameObject为生成的空壳)，和 Slot number，将 body part 卡牌 Merge 上去
     public void Merge_Body_Part_To_Slot(GameObject bodyPartToMerge_Original, int slotNumber)    
     {
+        
+        
         
         // 播放 merge slot 音效
         GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Body_Part_Merge_Slot);
@@ -1467,6 +1514,9 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     public void Return_Body_Part()
     {
+        
+            
+            
         foreach (var slot in currentlyAbosorbedBodyPartSlots)
         {
             if (slot.Value)
@@ -1476,17 +1526,24 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                     absorbedBodyPartGameObjects[slot.Key].transform.position,
                     absorbedBodyPartGameObjects[slot.Key].GetComponent<Card_Body_Part_Feature>().lastPosition);
 
-                
+            
                 if (requiredBodyPartsThisPanel[slot.Key] == "Potion")       // 如果 return 的是 Potion，则加上记录的 potion sequence 实例
                 {
                     returned_body_part.AddComponent<Potion_Info>().potion_sequence =
                         attached_card_location_feature.current_potion_card_sequence;    // 塞入存储的 sequence 实例
-                    
+                
                     attached_card_location_feature.current_potion_card_sequence = null;   // 清空 sequence 实例
                 }
-                
+
+                // TODO 加上 Save 数据的传递
+                if (requiredBodyPartsThisPanel[slot.Key] == "Save")
+                {
+                    
+                }
+            
             }
         }
+            
         
         
     }
@@ -1526,35 +1583,52 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
     void Set_Start_Button_Availablitity()       // 设置 Start 按钮是否可点击，以及按钮的 text
     {
-        if (Check_If_Absorb_All_Requirements())     // 如果吸收了 所有需要的资源
+        if (Check_If_Absorb_All_Requirements()          // 如果吸收了 所有需要的资源
+            && !attached_card_location_feature.is_counting_down)     // 且没在 Countdown
         {
-            if (attached_card_location_feature.is_counting_down)    // 如果正在倒计时
-            {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Running..");
-            }
-            else      // 如果没在倒计时  
-            {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(true);
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
-            }
+            start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(true);
+        }
+        else 
+        {
+            start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
+        }
+    }
+
+    void Set_Start_Button_Text()
+    {
+
+        if (attached_card_location_feature._cardLocation.Id == "Title_Card_Exit")          // 为特殊的卡牌设置特殊 button 文本
+        {
+            start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Exit");
         }
         
-        else  // 如果没吸收够 所有需要的资源
-
+        else if (attached_card_location_feature._cardLocation.Id == "")
         {
+            
+        }
+
+
+
+        else       // 如果不是特殊卡牌，则正常设置 button 文本
+        {
+            
             if (attached_card_location_feature.is_counting_down) // 如果正在倒计时
             {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
                 start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Running..");
             }
             else
             {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Availability(false);
                 start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
             }
+            
+            
         }
+        
+        
+        
+        
     }
+    
     
     
     // 切换 Label 和 Description

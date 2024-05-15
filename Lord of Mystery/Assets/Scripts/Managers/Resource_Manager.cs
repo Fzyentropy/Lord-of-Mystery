@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.U2D.Path;
 using Random = UnityEngine.Random;
 
 public class Resource_Manager : MonoBehaviour

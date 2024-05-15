@@ -112,7 +112,8 @@ public class Panel_Manager : MonoBehaviour
         Destroy(current_panel);
         GameManager.GM.PanelManager.current_panel = null;
         GameManager.GM.PanelManager.isPanelOpen = false;        // 重新设置 panel 是否打开 为否
-
+        
+        GameManager.GM.InputManager.is_calling_exit_panel = false;      // 将 Exit Panel 打开 参数设置为 否
 
     }
 

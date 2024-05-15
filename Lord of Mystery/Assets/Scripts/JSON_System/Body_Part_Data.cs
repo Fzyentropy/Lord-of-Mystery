@@ -10,4 +10,6 @@ public class Body_Part_Data
     public int Psyche;
 
     public int Potion;
+
+    public int Save;
 }

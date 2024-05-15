@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class Input_Manager : MonoBehaviour
@@ -28,10 +30,12 @@ public class Input_Manager : MonoBehaviour
     public GameObject Dragging_Object;      // 当前拖拽的 卡牌 / body part 等物体的 GameObject
 
     private bool is_playing_dragging_SFX;       // 是否在播放 drag 音效
-    
+    public bool is_calling_exit_panel;     // 是否打开了 Exit Panel
     
     
     public float Time_X_Speed = 1f;
+    
+    public Image black_screen;
     
     // public GameObject raycast_top_object;       // 射线检测最顶层的 GameObject
     
@@ -54,6 +58,7 @@ public class Input_Manager : MonoBehaviour
         // CheckRayCast();
         
         Hold_F_To_Speed_Up();
+        Press_ESC_To_Exit();
     }
 
     /////////////////////////////////////////////////////////////////////////
@@ -204,6 +209,40 @@ public class Input_Manager : MonoBehaviour
         {
             Time_X_Speed = 1f;
         }
+    }
+
+    void Press_ESC_To_Exit()
+    {
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            
+            if (!is_calling_exit_panel)     // 如果没打开 Exit Panel
+            {
+                is_calling_exit_panel = true;
+            
+                if (SceneManager.GetActiveScene().name == "Lord_of_Mystery_Title_Screen")
+                {
+                    GameObject.Find("Card_Title__Title_Card_Exit").GetComponent<Card_Location_Feature>().Open_Panel();
+                }
+
+                else if (SceneManager.GetActiveScene().name == "Lord_of_Mystery")
+                {
+                    GameObject exit_card = GameObject.Find("Card_Title__Game_Scene_Card_Exit");
+                    exit_card.GetComponent<Card_Location_Feature>().Open_Panel();
+                    // 移动 Camera
+                    GameManager.GM.InputManager.Move_Camera_To(exit_card.transform.position);
+                }
+            }
+
+            else     // 如果已经打开了 Exit Panel
+            {
+                GameManager.GM.PanelManager.Close_Current_Panel();
+            }
+            
+            
+        }
+        
     }
 
 
@@ -441,6 +480,71 @@ public class Input_Manager : MonoBehaviour
             able_to_move_camera = true;
         });
     }
+
+
+
+    public IEnumerator Main_Scene_Fade_In()
+    {
+        // Fade In
+        
+        black_screen.color = Color.black;
+        float delay = 2f;
+        float duration = 2f;
+        float timeInterval = 0.05f;  // 设置每步渐变的时间间隔
+
+        float remainingTime = duration;
+
+        yield return new WaitForSeconds(delay);
+
+        while (remainingTime > 0)
+        {
+            // 等待 timeInterval时间长度 - 0.05 秒
+            yield return new WaitForSeconds(timeInterval);
+
+            // 使用Color.Lerp进行颜色插值
+            black_screen.color = new Color(black_screen.color.r,black_screen.color.g,black_screen.color.b,black_screen.color.a - timeInterval/duration);
+
+            remainingTime -= timeInterval;
+        }
+        
+        black_screen.color = Color.clear;
+        
+        // Fade In   END
+    }
+    
+    public IEnumerator Main_Scene_Fade_Out()
+    {
+        
+        // Fade In
+        
+        black_screen.color = Color.clear;
+        float delay = 0f;
+        float duration = 2f;
+        float timeInterval = 0.05f;  // 设置每步渐变的时间间隔
+
+        float remainingTime = duration;
+
+        yield return new WaitForSeconds(delay);
+
+        while (remainingTime > 0)
+        {
+            // 等待 timeInterval时间长度 - 0.05 秒
+            yield return new WaitForSeconds(timeInterval);
+
+            // 使用Color.Lerp进行颜色插值
+            black_screen.color = new Color(black_screen.color.r,black_screen.color.g,black_screen.color.b,black_screen.color.a + timeInterval/duration);
+
+            remainingTime -= timeInterval;
+        }
+        
+        black_screen.color = Color.black;
+        
+        // Fade In   END
+        
+    }
+    
+    
+    
     
     
 }

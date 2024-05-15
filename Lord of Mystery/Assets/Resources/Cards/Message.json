@@ -33,7 +33,7 @@
             "Id": "Spirit",
             "Label": "Spirit",
             "Image": "Image_Spirit",
-            "Message_Content": "I can feel something spiritual, they are like the glowworm near the physical surface."
+            "Message_Content": "My spirit, the wellspring behind my actions, encompasses my desires, hopes, fears, and addictions."
         },
         {
             "Id": "Psyche",
@@ -47,6 +47,13 @@
             "Label": "Potion",
             "Image": "Image_Potion",
             "Message_Content": "The Potion of CUSTOMIZE_POTION_NAME"
+
+        },
+        {
+            "Id": "Save",
+            "Label": "Game Save",
+            "Image": "Image_Save",
+            "Message_Content": "The Save"
 
         },
 
@@ -189,13 +196,19 @@
             "Message_Content": " [ This slot requires a specific type of Potion, you could only consume Potion that is exactly 1 rank above ]"
         },
         {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Save",
+            "Label": "Slot: Save",
+            "Image": "Image_Slot_Save",
+            "Message_Content": " [ You can put a Save into the slot to load a previous game, leaving this slot empty will start a new game. ]"
+        },
+        {
             "Id": "Panel_Knowledge_Slot_Click_Show_Requirement",
             "Label": "Slot: Knowledge",
             "Image": "Image_Knowledge",
             "Message_Content": " [ This slot requires a piece of Knowledge, DRAG the Knowledge piece to this slot instead of clicking. ]"
         },
         
-
+        
 
 
 

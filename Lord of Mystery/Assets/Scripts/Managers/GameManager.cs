@@ -169,7 +169,9 @@ public class GameManager : MonoBehaviour
     public GameObject Generate_Card_Body_Part(string id)  // 实例化 Body_Part， 根据 id 从 Card_Loader 的卡牌 list 中找到卡牌实例，并赋予生成的卡牌 prefab
     {
         GameObject cardBodyPart = Instantiate(Card_Body_Part_Prefab, new Vector3(random.Range(-3,3),random.Range(-3,3),-1), Quaternion.identity);
+        
         cardBodyPart.GetComponent<Card_Body_Part_Feature>()._CardBodyPart = CardLoader.Get_Card_Body_Part_By_Id(id);
+        cardBodyPart.name = "Body_Part_" + id;
         return cardBodyPart;
     }
 

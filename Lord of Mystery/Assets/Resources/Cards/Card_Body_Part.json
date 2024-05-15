@@ -27,6 +27,12 @@
             "Image": "Image_Potion",
             "Produce_Message":"Potion"
         },
+        {
+            "Id": "Save",
+            "Label": "Game Save ",
+            "Image": "Image_Save",
+            "Produce_Message":"Save"
+        },
 
 
 

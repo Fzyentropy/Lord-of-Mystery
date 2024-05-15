@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SPcard_Script_Template : MonoBehaviour
+public class SPcard_Title_Start_Feature : MonoBehaviour
 {
     
     // Prefab
@@ -37,10 +37,7 @@ public class SPcard_Script_Template : MonoBehaviour
     [HideInInspector]public TMP_Text countdown_text;               // 显示秒数文本
     
     
-    // Movement Variables
-    private Vector3 click_mouse_position;       // 用于点击时记录鼠标的位置
-    private Vector3 lastMousePosition;      // 用于记录鼠标拖拽时，前一帧鼠标的位置
-
+    // Mis
     public int LayerIndex;      // 记录此 GameObject 所处的 layer（“Card_Location")
 
     public bool isHighlightYellow = false;    // 是否需要黄色高亮，在拖拽需要的 body part 到卡牌上方时为黄色
@@ -57,7 +54,8 @@ public class SPcard_Script_Template : MonoBehaviour
     private void Start()
     {
         AddColliderAndRigidbody();      // 如果没加 collider 和 rigidbody，则加上
-
+        Initialize_Title_Start_Card();
+        
         StartCoroutine(Highlight_If_Mouse_Hover());
     }
 
@@ -82,6 +80,12 @@ public class SPcard_Script_Template : MonoBehaviour
             rb2d = gameObject.AddComponent<Rigidbody2D>();
             rb2d.isKinematic = true;
         }
+    }
+
+
+    void Initialize_Title_Start_Card()
+    {
+
     }
     
     
@@ -132,36 +136,7 @@ public class SPcard_Script_Template : MonoBehaviour
         
         // Clear_Highlight_Collider();                             // 取消高亮
         isHighlight = false; // 取消高亮
-
         
-        // Increase Order In Layer
-        // 改变物体的 Layer，Sorting Layer，和 "抬起卡牌" 效果
-        {
-                
-            // 调整卡牌的渲染 layer 层为 "DraggingLayer"
-            GameManager.GM.CardEffects.Change_GameObject_Layer(gameObject, "DraggingLayer");
-
-            // IncreaseOrderInLayer();
-            GameManager.GM.CardEffects.Change_Order_In_Layer("Dragging",
-                card_frame, card_name_tag, card_image, card_label, card_image_mask, card_shadow);
-
-            // "抬起卡牌"效果
-            if (!is_dragging_pick_up_effect_applied)
-            {
-                is_dragging_pick_up_effect_applied = true;
-                GameManager.GM.CardEffects.Apply_Dragging_Pick_Up_Effect(
-                    card_frame, card_name_tag, card_image, card_label, card_image_mask);
-            }
-                
-        }
-
-
-        // 如果鼠标移动，卡牌随之移动        // 临时，如果 Moveable 才可以移动，为了临时代替 序列 Sequence
-        // if (!_cardLocation.Stable)   
-        {
-            GameManager.GM.InputManager.On_Dragging();
-        }
-            
         
     }
     

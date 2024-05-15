@@ -14,11 +14,13 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
         Spirit,
         Psyche,
         
-        Potion
+        Potion,
+        
+        Save
     }
     public Body_Part_Slot_Type BodyPartSlotType;
-    public Card_Location_Panel_Feature attached_card_location_panel_feature;
-    public int slot_number_in_panel;
+    [HideInInspector] public Card_Location_Panel_Feature attached_card_location_panel_feature;
+    [HideInInspector] public int slot_number_in_panel;
 
     // 高亮边缘相关
     public SpriteRenderer highlightSprite;
@@ -68,6 +70,10 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
             if (attached_card_location_panel_feature.
                     attached_card_location_feature.
                         Check_If_Dragging_BodyPart_Is_Need(GameManager.GM.InputManager.Dragging_Object)   // 如果拖拽的是需要的 body part
+                && attached_card_location_panel_feature.
+                    Find_All_Empty_Body_Part_Slot_Of_Type(
+                        GameManager.GM.InputManager.Dragging_Object.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id).   // 找到所有 传入的 body part 类型的 空slot，若这些空slot的编号中有此 slot
+                            Contains(slot_number_in_panel)              
                 && !attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel])      // 且该槽位还没吸收
             {
                 if (!isHighlightYellow)                                                              // 则高亮，根据是否跟 slot 重叠来判断是否是黄色
@@ -128,6 +134,10 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
         {
             GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Potion");
         }
+        if (BodyPartSlotType == Body_Part_Slot_Type.Save)
+        {
+            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Save");
+        }
         
         
         
@@ -152,6 +162,10 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
             && attached_card_location_panel_feature.
                 attached_card_location_feature.
                 Check_If_Dragging_BodyPart_Is_Need(other.gameObject)    // 且是需要的 body part
+            && attached_card_location_panel_feature.
+                Find_All_Empty_Body_Part_Slot_Of_Type(
+                    other.gameObject.GetComponent<Card_Body_Part_Feature>()._CardBodyPart.Id).   // 找到所有 传入的 body part 类型的 空slot，若这些空slot的编号中有此 slot
+                Contains(slot_number_in_panel)
             && !attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel])     // 且该槽位还没吸收
         {
             
