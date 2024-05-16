@@ -273,6 +273,7 @@ GameObject:
   - component: {fileID: 3197951123223943867}
   - component: {fileID: 7357350245066612597}
   - component: {fileID: 4277094356126301526}
+  - component: {fileID: 5801219273169253487}
   m_Layer: 7
   m_Name: SPcard_Title_Card_Setting
   m_TagString: Card
@@ -454,6 +455,35 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &5801219273169253487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650628250851114781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 200a4804e380dfe419fb6b56c8ae6cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setting_panel_prefab: {fileID: 8673821900251910866, guid: fe6662f3c52429c4294b0154019ce7bd, type: 3}
+  showed_panel: {fileID: 0}
+  card_frame: {fileID: 2164638226719182283}
+  card_name_tag: {fileID: 7033580355473418520}
+  card_image: {fileID: 3453740908669060079}
+  card_label: {fileID: 2328481247986825465}
+  card_image_mask: {fileID: 3602805576023204968}
+  card_shadow: {fileID: 8429035146368408124}
+  is_counting_down: 0
+  progress_bar_prefab: {fileID: 0}
+  progress_bar: {fileID: 0}
+  progress_bar_root: {fileID: 0}
+  progress_bar_position: {fileID: 0}
+  countdown_text: {fileID: 0}
+  LayerIndex: 0
+  isHighlightYellow: 0
+  isHighlight: 0
 --- !u!1 &3705372317788103688
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         English,
         Chinese
     }
-    public static Language currentLanguage = Language.Chinese;
+    public static Language currentLanguage = Language.English;
     
     [Space(5)]
     [Header("Language")]
@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(car + "\n");
         }*/
+        
+        Debug.Log(currentLanguage);
     }
 
 

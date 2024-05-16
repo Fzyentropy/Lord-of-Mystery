@@ -314,6 +314,7 @@ MonoBehaviour:
   body_part_shadow: {fileID: 2379447303044674672}
   overlapped_card_location_or_panel_slot: {fileID: 0}
   lastPosition: {x: 0, y: 0, z: 0}
+  body_part_availabillity: 1
   cardBottom: {fileID: 0}
   LayerIndex: 0
 --- !u!61 &7651539474899524551
@@ -329,7 +330,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00000071525574, y: 0.03005898}
+  m_Offset: {x: 0.003622651, y: 0.030341148}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -340,7 +341,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5310855, y: 4.5853415}
+  m_Size: {x: 3.7283528, y: 4.806282}
   m_EdgeRadius: 0
 --- !u!120 &4756945292436905961
 LineRenderer:

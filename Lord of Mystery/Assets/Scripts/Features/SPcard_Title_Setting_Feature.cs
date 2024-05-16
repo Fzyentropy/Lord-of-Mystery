@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SPcard_Title_Start_Feature : MonoBehaviour
+public class SPcard_Title_Setting_Feature : MonoBehaviour
 {
     
     // Prefab
     [Header("Panel")]
-    public GameObject panel_prefab;       // 弹出的 Make Potion 的 panel
+    public GameObject setting_panel_prefab;       // 弹出的 Make Potion 的 panel
     
     // 打开 Panel 指代
     [HideInInspector]
@@ -85,7 +85,19 @@ public class SPcard_Title_Start_Feature : MonoBehaviour
 
     void Initialize_Title_Start_Card()
     {
-
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            card_label.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+            card_label.text = "Setting";
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            card_label.font = GameManager.Font_Chinese;
+            card_label.fontSize = 7.3F;
+            card_label.text = "设置";
+        }
+        
     }
     
     
@@ -183,14 +195,45 @@ public class SPcard_Title_Start_Feature : MonoBehaviour
     
 
 
-    void Click_Effect()         // 点击时执行的逻辑集成
+    public void Click_Effect()         // 点击时执行的逻辑集成
     {
         Debug.Log("You just clicked the card.");
+
+        /*if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            GameManager.currentLanguage = GameManager.Language.English;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.English)
+        {
+            GameManager.currentLanguage = GameManager.Language.Chinese;
+        }*/
         
+        
+        Open_Setting_Panel();
         
         
     }
 
+
+    void Open_Setting_Panel()
+    {
+        if (GameManager.GM.PanelManager.current_panel != null)
+            GameManager.GM.PanelManager.Close_Current_Panel();              // 有打开的 panel 则关闭 panel
+            
+        // 生成新的 panel
+        GameObject setting_panel = Instantiate(setting_panel_prefab,        // 实例化 panel
+            new Vector3(
+                GameObject.Find("Title_Screen_Panel_Location").transform.position.x,
+                GameObject.Find("Title_Screen_Panel_Location").transform.position.y,
+                GameObject.Find("Title_Screen_Panel_Location").transform.position.z - 2), Quaternion.identity);  
+            
+        // 播放 打开 Panel 音效
+        GameManager.GM.AudioManager.Play_AudioSource(GameManager.GM.AudioManager.SFX_Panel_Showup);
+
+        showed_panel = setting_panel;       // 记录打开的 panel 实例到 showed panel 参数
+        GameManager.GM.PanelManager.Set_Panel_Reference_And_Scale_Up(setting_panel);
+        GameManager.GM.PanelManager.isPanelOpen = true;
+    }
 
     
 

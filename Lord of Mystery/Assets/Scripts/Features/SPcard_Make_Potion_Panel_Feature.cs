@@ -101,7 +101,7 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
             panel_label.font = GameManager.Font_English;
             panel_description.text = "Consuming the potion is the sole path for humans to become Beyonders. By combining the essences of malevolent spirits, dragons, monsters, and enchanted flora and crystals with various mental and energetic forces, diverse potions are crafted, bestowing unique extraordinary abilities upon their users.";
             panel_description.font = GameManager.Font_English;
-            panel_description.fontSize = 10;
+            panel_description.fontSize = 8;
         }
         else if (GameManager.currentLanguage == GameManager.Language.Chinese)
         {

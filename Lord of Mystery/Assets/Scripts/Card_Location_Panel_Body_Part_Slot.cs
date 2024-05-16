@@ -116,28 +116,34 @@ public class Card_Location_Panel_Body_Part_Slot : MonoBehaviour
 
     private void OnMouseUp()
     {
+
+        if (!attached_card_location_panel_feature.currentlyAbosorbedBodyPartSlots[slot_number_in_panel])        // 如果对应槽位没吸收
+        {
+            
+            // 弹出一个 Message 来告诉玩家需要 某个类型的 Body Part
+            if (BodyPartSlotType == Body_Part_Slot_Type.Physical_Body)
+            {
+                GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Physical_Body");
+            }
+            if (BodyPartSlotType == Body_Part_Slot_Type.Spirit)
+            {
+                GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Spirit");
+            }
+            if (BodyPartSlotType == Body_Part_Slot_Type.Psyche)
+            {
+                GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Psyche");
+            }
+            if (BodyPartSlotType == Body_Part_Slot_Type.Potion)
+            {
+                GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Potion");
+            }
+            if (BodyPartSlotType == Body_Part_Slot_Type.Save)
+            {
+                GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Save");
+            }
+            
+        }
         
-        // 弹出一个 Message 来告诉玩家需要 某个类型的 Body Part
-        if (BodyPartSlotType == Body_Part_Slot_Type.Physical_Body)
-        {
-            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Physical_Body");
-        }
-        if (BodyPartSlotType == Body_Part_Slot_Type.Spirit)
-        {
-            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Spirit");
-        }
-        if (BodyPartSlotType == Body_Part_Slot_Type.Psyche)
-        {
-            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Psyche");
-        }
-        if (BodyPartSlotType == Body_Part_Slot_Type.Potion)
-        {
-            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Potion");
-        }
-        if (BodyPartSlotType == Body_Part_Slot_Type.Save)
-        {
-            GameManager.GM.Generate_Message("Panel_Body_Part_Slot_Click_Show_Requirement_Save");
-        }
         
         
         

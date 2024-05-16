@@ -1633,6 +1633,20 @@ public class Card_Location_Panel_Feature : MonoBehaviour
                 start_button.GetComponent<Start_Button_Script>().Set_Button_Text("离开");
         }
         
+        else if (attached_card_location_feature._cardLocation.Id == "Player_Death")
+        {
+            if (GameManager.currentLanguage == GameManager.Language.English)
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Restart");
+            
+            if (GameManager.currentLanguage == GameManager.Language.Chinese)
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("重新开始");
+        }
+        
+        else if (attached_card_location_feature._cardLocation.Id == "")
+        {
+            
+        }
+        
         else if (attached_card_location_feature._cardLocation.Id == "")
         {
             

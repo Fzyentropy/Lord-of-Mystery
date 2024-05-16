@@ -289,6 +289,35 @@
                 "Exit_To_Title_Page"
             ]
         },
+        {
+            "Id": "Player_Death",
+            "Label": "Death",
+            "Image": "Image_Death",
+            "Description": "This body has perished, but this does not signify the end. Your spirit can still be preserved, which is, perhaps, the ultimate pursuit of a Beyonder.",
+            "Card_Type": "Title",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 1,
+
+            "Stable": true,
+
+            "Start_Effect":
+            [
+            ],
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Exit_To_Title_Page"
+            ]
+        },
 
 
 

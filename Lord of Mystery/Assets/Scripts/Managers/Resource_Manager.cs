@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class Resource_Manager : MonoBehaviour
@@ -23,6 +24,7 @@ public class Resource_Manager : MonoBehaviour
     
     public int Death;   // Death added
     public int Max_Death = 6;    // the Max of Death, reached => Death
+    public bool player_is_dead;     // 玩家是否死亡
     
     // 各个资源的数量，用于显示在 UI 上的计数，会有闪烁动画，改变真实数量后，将滞后闪烁至最终值
     public int Fund_UI_Amount;
@@ -109,6 +111,8 @@ public class Resource_Manager : MonoBehaviour
     {
         Update_Resource_Amount_In_Slots();
         Check_If_Knowledge_Appears();
+
+        Check_Player_Death();
     }
 
     
@@ -145,6 +149,30 @@ public class Resource_Manager : MonoBehaviour
     void Set_Max_Death()        // 临时，设置最大死亡值数值，将来会根据职业和等级做更改
     {
         Max_Death = 6;
+    }
+
+    void Check_Player_Death()
+    {
+        if (Death >= Max_Death && !player_is_dead)
+        {
+            player_is_dead = true;
+            
+            // 死亡逻辑
+            StartCoroutine(Player_Death());
+        }
+    }
+    
+    IEnumerator Player_Death()
+    {
+        GameManager.GM.InputManager.Move_Camera_To(GameObject.Find("Resource_Location_Death").transform.position, 2f);
+
+        yield return new WaitForSeconds(1f);
+
+        StartCoroutine(GameManager.GM.InputManager.Main_Scene_Fade_Out());
+
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("Lord_of_Mystery_Death");
     }
     
     

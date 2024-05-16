@@ -121,6 +121,11 @@ public class Input_Manager : MonoBehaviour
                 {
                     Dragging_Object.GetComponent<Knowledge_Feature>().Knowledge_Click_Function();
                 }
+                
+                if (Dragging_Object.GetComponent<SPcard_Title_Setting_Feature>() != null)
+                {
+                    Dragging_Object.GetComponent<SPcard_Title_Setting_Feature>().Click_Effect();
+                }
             
                 /*if (Dragging_Object.GetComponent<>() != null)
                 {
@@ -284,7 +289,18 @@ public class Input_Manager : MonoBehaviour
                 Vector3 worldDelta = mainCamera.ScreenToWorldPoint(
                     new Vector3(delta.x, delta.y, mainCamera.nearClipPlane)) - 
                                 mainCamera.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.nearClipPlane));
-                mainCamera.transform.position -= worldDelta;
+
+                Vector3 virtualMove = mainCamera.transform.position - worldDelta;
+
+                if (virtualMove.x > -16f
+                    && virtualMove.x < 55f
+                    && virtualMove.y > -50  
+                    && virtualMove.y < 13
+                    && SceneManager.GetActiveScene().name == "Lord_of_Mystery")
+                {
+                    mainCamera.transform.position -= worldDelta;
+                }
+                
             }
             
             lastMousePosition = Input.mousePosition;        // 更新当前鼠标位置

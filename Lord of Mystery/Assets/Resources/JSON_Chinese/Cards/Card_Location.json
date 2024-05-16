@@ -289,6 +289,35 @@
                 "Exit_To_Title_Page"
             ]
         },
+        {
+            "Id": "Player_Death",
+            "Label": "死亡",
+            "Image": "Image_Death",
+            "Description": "这具躯体已经死亡，但这并不意味着结束。你的灵性仍可以被保存，这大概就是非凡者的夙求。",
+            "Card_Type": "Title",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 1,
+
+            "Stable": true,
+
+            "Start_Effect":
+            [
+            ],
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Exit_To_Title_Page"
+            ]
+        },
 
 
 

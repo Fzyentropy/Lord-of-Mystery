@@ -209,7 +209,7 @@ public class Card_Location_Feature : MonoBehaviour
         if (_cardLocation.Card_Type == "Title")     // 如果是 Title Page 的卡牌，则设置 Font Size 为 8
         {
             card_label.enableAutoSizing = false;
-            card_label.fontSize = 8;
+            card_label.fontSize = 7.3f;
         }
         
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
@@ -1150,7 +1150,8 @@ public class Card_Location_Feature : MonoBehaviour
         // 如果需要 body part，则吐出用完的 body part
         // 特定的卡牌不用吐出 body part
         if (_cardLocation.Id != "Title_Card_Start"
-            && _cardLocation.Id != "Game_Scene_Card_Exit")
+            && _cardLocation.Id != "Game_Scene_Card_Exit"
+            && _cardLocation.Id != "Player_Death")
         {
             Return_BodyParts_After_Progress();
         }

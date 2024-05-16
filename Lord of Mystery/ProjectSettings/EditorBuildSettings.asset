@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lord_of_Mystery.unity
     guid: 970693162f022ca459335ef1feb799bb
+  - enabled: 1
+    path: Assets/Scenes/Lord_of_Mystery_Death.unity
+    guid: 779090b3e84f22445976d467640d019f
   - enabled: 0
     path: Assets/Scenes/Souls.unity
     guid: 2cda990e2423bbf4892e6590ba056729
