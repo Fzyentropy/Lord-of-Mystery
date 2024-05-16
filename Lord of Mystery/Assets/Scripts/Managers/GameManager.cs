@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using random = UnityEngine.Random;
@@ -26,6 +27,20 @@ public class GameManager : MonoBehaviour
     public int Draw_New_Card_Location_Times__Location;    // 抽取新 Card Location 卡的次数，用于 抽 Location 的计数
     
     
+    // Language
+    public enum Language
+    {
+        English,
+        Chinese
+    }
+    public static Language currentLanguage = Language.Chinese;
+    
+    [Space(5)]
+    [Header("Language")]
+    public static TMP_FontAsset Font_English;
+    public static TMP_FontAsset Font_Chinese;
+
+
     // Mis
     
     
@@ -128,6 +143,11 @@ public class GameManager : MonoBehaviour
 
 
         ///// TODO 加上 其他计数器设置，以及保存和读取功能
+    }
+
+    void Set_Language(Language language)
+    {
+        currentLanguage = language;
     }
     
     

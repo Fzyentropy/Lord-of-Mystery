@@ -5,6 +5,10 @@ using Newtonsoft.Json;
 
 public class Card_Loader : MonoBehaviour
 {
+    public string PATH_LANGUAGE_ENGLISH = "JSON_English/";
+    public string PATH_LANGUAGE_CHINESE = "JSON_Chinese/";
+
+    public string PATH_LANGUAGE = "JSON_English/";   // 默认语言为 英文
 
     public const string PATH_CARD_AUTOMATIC = "Cards/Card_Automatic";
     public const string PATH_CARD_LOCATION = "Cards/Card_Location";
@@ -22,6 +26,8 @@ public class Card_Loader : MonoBehaviour
 
     void Start()
     {
+        Set_Language();
+        
         Load_All_Card_Automatic_From_JSON();
         Load_All_Card_Location_From_JSON();
         Load_All_Message_From_JSON();
@@ -35,10 +41,24 @@ public class Card_Loader : MonoBehaviour
 
     ////////////////////////////////////////////////////////////////////     加载 JSON 文件的脚本
 
+
+    void Set_Language()
+    {
+        if (GameManager.currentLanguage == GameManager.Language.English)
+        {
+            PATH_LANGUAGE = PATH_LANGUAGE_ENGLISH;
+        }
+        if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            PATH_LANGUAGE = PATH_LANGUAGE_CHINESE;
+        }
+    }
+    
     
     public void Load_All_Card_Automatic_From_JSON()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_CARD_AUTOMATIC);    // 从路径读取 JSON 文件
+        
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_LANGUAGE + PATH_CARD_AUTOMATIC);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
 
         // 这个步骤可以将 JSON 中 "Card_Automatic" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Automatic 类型的 list 里面
@@ -53,7 +73,7 @@ public class Card_Loader : MonoBehaviour
     
     public void Load_All_Card_Location_From_JSON()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_CARD_LOCATION);    // 从路径读取 JSON 文件
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_LANGUAGE + PATH_CARD_LOCATION);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
 
         // 这个步骤可以将 JSON 中 "Card_Location" 对应的数组中的每张卡的数据放进 Wrapper中的 Card_Location 类型的 list 里面
@@ -67,7 +87,7 @@ public class Card_Loader : MonoBehaviour
     
     public void Load_All_Message_From_JSON()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_MESSAGE);    // 从路径读取 JSON 文件
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_LANGUAGE + PATH_MESSAGE);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
 
         // 这个步骤可以将 JSON 中 "Message" 对应的数组中的每张卡的数据放进 Wrapper中的 Message 类型的 list 里面
@@ -81,7 +101,7 @@ public class Card_Loader : MonoBehaviour
 
     public void Load_All_Card_Body_Part_From_JSON()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_CARD_BODY_PART);    // 从路径读取 JSON 文件
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_LANGUAGE + PATH_CARD_BODY_PART);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
         
         // 这个步骤可以将 JSON 中 "Body_Part" 对应的数组中的每张卡的数据放进 Wrapper中的 Body_Part 类型的 list 里面
@@ -95,7 +115,7 @@ public class Card_Loader : MonoBehaviour
 
     public void Load_All_Sequence_From_JSON()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_SEQUENCE);    // 从路径读取 JSON 文件
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_LANGUAGE + PATH_SEQUENCE);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
         
         // 这个步骤可以将 JSON 中 "Sequence" 对应的数组中的每张卡的数据放进 Wrapper中的 Sequence 类型的 list 里面
@@ -109,7 +129,7 @@ public class Card_Loader : MonoBehaviour
     
     public void Load_All_Knowledge_From_JSON()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_KNOWLEDGE);    // 从路径读取 JSON 文件
+        TextAsset jsonFile = Resources.Load<TextAsset>(PATH_LANGUAGE + PATH_KNOWLEDGE);    // 从路径读取 JSON 文件
         string jsonData = jsonFile.text;    // 将 JSON 文件的文本数据存储在一个 string 参数 jsonData 中
         
         // 这个步骤可以将 JSON 中 "Knowledge" 对应的数组中的每张卡的数据放进 Wrapper中的 Knowledge 类型的 list 里面

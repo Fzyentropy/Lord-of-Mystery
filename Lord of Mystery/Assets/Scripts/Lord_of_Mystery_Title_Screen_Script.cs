@@ -17,10 +17,10 @@ public class Lord_of_Mystery_Title_Screen_Script : MonoBehaviour
        
         GameManager.GM.Generate_Card_Location("Title_Card_Exit", new Vector3(8.5f,-13.26f,0));
 
- 
+        Vector3 physical_body_generate_location = GameObject.Find("Physical_Body_Generate_Location").transform.position;
         GameManager.GM.BodyPartManager.Generate_Body_Part_To_Board("Physical_Body", 
-                new Vector3(24.7f, 12.14f, 0),
-                new Vector3(24.7f, 12.14f, 0));
+                physical_body_generate_location,
+                physical_body_generate_location);
         
         StartCoroutine(GameManager.GM.InputManager.Main_Scene_Fade_In());
 

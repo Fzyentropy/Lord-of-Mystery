@@ -140,7 +140,6 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     {
         Set_Panel_Section();
         Set_Start_Button();
-        Set_Description_Font_Size();    // 若是特殊卡，设置 description 字体大小
         // StartCoroutine(Shift_Label_And_Description_If_Absorbed());    // 切换 Label 和 Description， 如果吸收满了  // 此方法目前会导致无限循环，卡死，先注掉
         
     }
@@ -772,20 +771,46 @@ public class Card_Location_Panel_Feature : MonoBehaviour
     public void Set_Label(string label)
     {
         panel_label.text = label;
+        
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            panel_label.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            panel_label.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
     }
 
     public void Set_Description(string description)
     {
         panel_description.text = description;
+        
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            panel_label.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+            
+            if (attached_card_location_feature._cardLocation.Card_Type == "Title")
+            {
+                panel_description.fontSize = 10;
+            }
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            panel_label.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+            
+            if (attached_card_location_feature._cardLocation.Card_Type == "Title")
+            {
+                panel_description.fontSize = 10;
+            }
+        }
+        
     }
 
-    public void Set_Description_Font_Size()
-    {
-        if (attached_card_location_feature._cardLocation.Card_Type == "Title")
-        {
-            panel_description.fontSize = 10;
-        }
-    }
     
     ///////////////////////////////////////////////////     设置函数结束
     

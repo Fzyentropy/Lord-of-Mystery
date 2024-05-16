@@ -41,8 +41,20 @@ public class Knowledge_Feature : MonoBehaviour
 
     void Initialize_Knowledge()
     {
-        knowledge_short_label.text = _Knowledge.Short_Label;
         gameObject.name = _Knowledge.Id;
+        knowledge_short_label.text = _Knowledge.Short_Label;
+        
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            knowledge_short_label.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            knowledge_short_label.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
+        
     }
     
     void Set_Layer_Index()      // 设置 layer 的 index

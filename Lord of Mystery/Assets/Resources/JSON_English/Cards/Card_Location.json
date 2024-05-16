@@ -1,0 +1,1605 @@
+{
+
+    "List_Card_Location":
+    [
+        {
+            "Id": "card_id",
+            "Label": "card_lable",
+            "Image": "image_id",
+            "Description": "card_description",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 2,
+            "Counter": 1,
+            "Only": true,
+            "Time": 30,
+
+            "Auto_Start": false,
+            "Repeatable": false,
+            "Stable": false,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1,
+                "Psyche": 1
+            },
+
+        
+            "Require_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 1,
+                "Soul": 1,
+                "Spirituality_Infused_Material": 2,
+                "Knowledge": 1,
+                "Belief": 1,
+                "Putrefaction": 1,
+                "Madness": 1,
+                "Godhood": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": -1,
+                "Soul": 1,
+                "Spirituality_Infused_Material": 2,
+                "Knowledge": -1,
+                "Belief": 1,
+                "Putrefaction": 1,
+                "Madness": 1,
+                "Godhood": 1
+            },
+
+            "Produce_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 2,
+                "Psyche": 1
+            },
+
+            "Produce_Message":
+            [
+                "The_Beyonder"
+            ],
+
+            "Produce_Card_Automatic":
+            [
+                "Flesh_And_Body"
+            ],
+
+            "Produce_Card_Action":
+            [
+                "Historical_Travel"
+            ],
+
+            "Produce_Card_Event":
+            [
+                "Goddess_Of_Barren"
+            ],
+
+            "Produce_Card_Location":
+            [
+                "Church_Of_Death"
+            ],
+
+            "Produce_Special_Effect":
+            [
+                "Realize_Flesh_And_Body"
+            ]
+
+        },
+        {
+            "Id": "Location_Panel_Test_1",
+            "Label": "Fortune Telling",
+            "Image": "Image_Fortune_Telling",
+            "Description": "Is our fate determined or not? I am always asking. However, there must be price to look at the future...",
+
+            "Use_Time": -1,
+            "Time": 3,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 1,
+                "Soul": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+        },
+        {
+            "Id": "Location_Panel_Test_2",
+            "Label": "Goddess of Barren",
+            "Image": "Image_Goddess_Of_Barren",
+            "Description": "",
+
+            "Use_Time": -1,
+            "Time": 3,
+
+            "Require_Resource":
+            {
+                "Spirituality_Infused_Material": 2,
+                "Godhood": 3,
+                "Knowledge": 4,
+                "Madness": 11
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+        },
+        {
+            "Id": "Location_Panel_Test_3",
+            "Label": "The Feast",
+            "Image": "Image_The_Feast",
+            "Description": "Organic body can not persist long. New ways are waiting for us.",
+
+            "Use_Time": -1,
+            "Time": 3,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 2,
+                "Spiritual_Energy": 1,
+                "Psyche": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+        },
+        {
+            "Id": "Location_Panel_Test_4",
+            "Label": "Blessing from the Moon",
+            "Image": "Image_Blessing_From_The_Moon",
+            "Description": "Moon, the mother of the land.",
+
+            "Use_Time": -1,
+            "Time": 3,
+
+            "Require_Body_Part":
+            {
+                "Spiritual_Energy": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 5,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 1,
+                "Soul": 1
+                
+            }
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Title_Card_Start",
+            "Label": "Start",
+            "Image": "Image_Title_Card_Start",
+            "Description": "The mystery is as ever-changing as the spiritual realm. Each journey is a new beginning, unless you can provide me with memories of a past life?",
+            "Card_Type": "Title",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 2,
+
+            "Stable": true,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Save": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Start_Game"
+            ]
+        },
+        {
+            "Id": "Title_Card_Exit",
+            "Label": "Exit?",
+            "Image": "Image_Title_Card_Exit",
+            "Description": "You are not leaving, you just stop paying attention.",
+            "Card_Type": "Title",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 2,
+
+            "Stable": true,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Exit_Game"
+            ]
+        },
+        {
+            "Id": "Game_Scene_Card_Exit",
+            "Label": "Exit?",
+            "Image": "Image_Title_Card_Exit",
+            "Description": "You are not leaving, you just stop paying attention.",
+            "Card_Type": "Title",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 1,
+
+            "Stable": true,
+
+            "Start_Effect":
+            [
+                "Set_Game_Scene_Exit_Card"
+            ],
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Exit_To_Title_Page"
+            ]
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Loen",
+            "Label": "Loen",
+            "Image": "Image_Loen",
+            "Description": "The Kingdom of Loen, nestled in the northern reaches of the continent, where the people believe the Goddess of Night",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Counter": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Invisible_Description": true,
+
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Resource":
+            {
+            },
+            
+            "Produce_Card_Location":
+            [
+                "Mother"
+            ],
+
+            "Produce_Special_Effect":
+            [
+                "Level_10"
+            ]
+
+        },
+        {
+            "Id": "The_Fortune_Teller",
+            "Label": "The Fortune Teller",
+            "Image": "Image_The_Fortune_Teller",
+            "Description": "You looks depressed. How about draw a Tarot card and let me tell you about your future? It will only takes 1 bucks.",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "Fortune_Teller",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Counter": 1,
+            "Only": true,
+            "Time": 3,
+
+            "Require_Resource":
+            {
+                "Fund": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+
+        },
+       
+        {
+            "Id": "Mother",
+            "Label": "Mother",
+            "Image": "Image_Mother",
+            "Description": "My mother, ",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": 1,
+            "Time": 20,
+
+            "Invisible_Description": true,
+
+            "Start_Effect":
+            [
+                "Mother_Start"
+            ],
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 5
+            },
+
+            "Produce_Card_Location":
+            [
+                "Lens",
+                "Coarse_Bread"
+            ]
+        },
+        {
+            "Id": "Flesh_And_Body",
+            "Label": "Level 10: Flesh Body",
+            "Image": "Image_Flesh_And_Body",
+            "Description": "Within the confines of flesh and bone, no body can endure the unyielding force of realities without succumbing to the encroaching shadows of madness. \n\n [ This Level consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
+            "Card_Type": "Sequence",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 30,
+
+            "Auto_Start": true,
+            "Repeatable": true,
+            "Stable": true,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1
+            }
+        },
+        {
+            "Id": "Lens",
+            "Label": "Lens",
+            "Image": "Image_Lens",
+            "Description": "Peer through the lens and witness clarity emerge, yet remember, it reflects only what you know. Your perception shapes reality, bound by the confines of your understanding.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 20,
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 2
+            },
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Card_Location":
+            [
+                "Random_New_Card_Location__Function"
+            ]
+    
+        },
+        
+        {
+            "Id": "Coarse_Bread",
+            "Label": "Coase Bread",
+            "Image": "Image_Coarse_Bread",
+            "Description": "Spend a coin, get a slice of coarse bread. It's plain fare in the Kingdom of Leon, a daily ritual for those scraping by. Simple, yet it staves off hunger one more day. ",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 8,
+
+            "Require_Resource":
+            {
+                "Fund": 1
+            },
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+            
+            "Produce_Resource":
+            {
+                "Physical_Energy": 2
+            }
+        },
+        {
+            "Id": "A_Menial_Job",
+            "Label": "A Menial Job",
+            "Image": "Image_A_Menial_Job",
+            "Description": "I need a job to servive. By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 50,
+
+            "Auto_Start": true,
+            "Repeatable": true,
+            
+            "Produce_Resource":
+            {
+                "Fund": 2
+            }
+        },
+        {
+            "Id": "Invitation_Nighthawk",
+            "Label": "Invitation to Nighthawk",
+            "Image": "Image_Invitation_Nighthawk",
+            "Description": "I remember now, a few days ago I got caught up in a supernatural insident, my life hanging by a thread. It was then that Dunn Smith of the Nighthawk team intervened, offering me protection. He sensed something ethereal about me, foretelling frequent brushes with the things beyond. He then asked me to join the Nighthawk, where offers protection and some handy jobs. It seems like a promising offer, but why couldn't I remember it before? ",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": 1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Get_The_Nighthawk"
+            ]
+        },
+        {
+            "Id": "The_Nighthawk",
+            "Label": "The Nighthawk",
+            "Image": "Image_The_Nighthawk",
+            "Description": "I am now a member of the Nighthawk team. My days are spent in the shadows, dealing with supernatural and mysterious things. As Dunn said, \"We are guardians, yet also hapless creatures constantly dancing with danger and madness.\" But perhaps I shall only grasp its true significance in the future.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Time": 30,
+
+            "Auto_Start": true,
+            "Repeatable": true,
+
+            "Produce_Resource":
+            {
+                "Fund": 2
+            }
+        },
+        {
+            "Id": "Ms_Wendy",
+            "Label": "Ms Wendy",
+            "Image": "Image_Ms_Wendy",
+            "Description": "Grateful for Ms. Wendy's generosity, she offered me a part-time job baking bread in her bakery. Though she appears young, rumors suggest she's been in this town for many many years. I refrain from asking too much; after all, it doesn't affect my livelihood.",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 1
+            }
+    
+        },
+        {
+            "Id": "Invest_With_Lanevus",
+            "Label": "Invest with Lanevus",
+            "Image": "Image_Invest_With_Lanevus",
+            "Description": "Lanevus of Loen, known both for wealth and questionable repute, is gathering funds for a mining project. It promises gain, but his reputation makes one ponder: is it worth the risk? ",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": 3,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Resource":
+            {
+                "Fund": 2
+            },
+            
+            "Produce_Resource":
+            {
+                "Fund": 4
+            }
+        },
+        {
+            "Id": "White_Bread",
+            "Label": "White Bread",
+            "Image": "Image_White_Bread",
+            "Description": "\"Time for some better food,\" I decide. A simple change, aiming for a bit of comfort in my routine.",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 8,
+
+            "Require_Resource":
+            {
+                "Fund": 3
+            },
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+            
+            "Produce_Resource":
+            {
+                "Physical_Energy": 4
+            }
+        },
+        {
+            "Id": "Use_Drug",
+            "Label": "Use Drug",
+            "Image": "Image_Use_Drug",
+            "Description": "Buying a dose of laudanum, the short-lived pleasure is addictive, but I know it won't last long.",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 5,
+
+            "Require_Resource":
+            {
+                "Fund": 1
+            },
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+            
+            "Produce_Resource":
+            {
+                "Physical_Energy": 3,
+                "Death": 1
+            }
+        },
+        {
+            "Id": "Meditation",
+            "Label": "Meditation",
+            "Image": "Image_Meditation",
+            "Description": "Meditation is a technique commonly practiced by Beyonders, aiding in the restoration of Spiritual Energy and resistance against the Putrefaction and Madness induced by extraordinary traits.",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 1
+            },
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+            
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 2
+            }
+        },
+        {
+            "Id": "Sleep",
+            "Label": "Go to Sleep",
+            "Image": "Image_Sleep",
+            "Description": "The way ordinary people rest, its principle still remains a mystery. Perhaps dream is the closest way we come to understanding the essence of this world. I don't understand it, but I rely on it.",
+            "Card_Type": "Function",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Start_Countdown_Effect":
+            [
+                "Sleep__Pause_Flesh_Body"
+            ],
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+            
+            "Produce_Resource":
+            {
+                "Physical_Energy": 3
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Sleep__Resume_Flesh_Body"
+            ]
+
+        },
+        {
+            "Id": "Private_Soiree",
+            "Label": "Private Soiree",
+            "Image": "Image_Private_Soiree",
+            "Description": "By chance, I learned of a private soiree of the highborn in loen. I feel compelled to venture there, perhaps to unveil answers to the enigmas that shroud my existence.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Counter": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Resource":
+            {
+                "Fund": 3
+            },
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+
+            "Produce_Message":
+            [
+                "The_Beyonder"
+            ],
+
+            "Produce_Card_Location":
+            [
+                "A_Mysterious_Noble"
+            ],
+
+            "Produce_Special_Effect":
+            [
+                "Get_Level_Up_Sequence"
+            ]
+
+        },
+        {
+            "Id": "A_Mysterious_Noble",
+            "Label": "A Mysterious Noble",
+            "Image": "Image_A_Mysterious_Noble",
+            "Description": "I met a mysterious noble at the private soriee. She seemed to come from the Beyonder's world. After the party, I got a chance to speak with her alone.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": 1,
+            "Only": true,
+            "Time": 20,
+
+            "Start_Effect":
+            [
+                "Mysterious_Noble_Start"
+            ],
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Get_Make_Potion",
+                "Generate_Potion_Knowledge_Apprentice_Of_The_Whisper"
+            ]
+            
+        },
+        {
+            "Id": "Noble_Trade_Fair",
+            "Label": "Noble Trade Fair",
+            "Image": "Image_Noble_Trade_Fair",
+            "Description": "A trade fair I've heard whispered about in the hushed halls of noble soirees. They say it's where one can obtain spirituality-infused material, rumored to have connections to the \"Beyonders\".",
+            "Card_Type": "Location",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 4
+            },
+
+            "Produce_Resource":
+            {
+                "Spirituality_Infused_Material": 1
+            }
+
+        },
+        {
+            "Id": "Tingen",
+            "Label": "Tingen",
+            "Image": "Image_Tingen",
+            "Description": "The city I live in, in the northern Kingdom of Loen. Perhaps I should explore the city once again with my new perspective. I've been here for years, yet many corners of the city remain mysterious.",
+            "Card_Type": "Function",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 2,
+                "Physical_Energy": 1
+            },
+
+            "Produce_Card_Location":
+            [
+                "Random_New_Card_Location__Location"
+            ]
+        
+        },
+        {
+            "Id": "Explorer_Shop",
+            "Label": "Explorer's Shop",
+            "Image": "Image_Explorer_Shop",
+            "Description": "A mysterious little shop I stumbled upon in Tingen, selling peculiar yet spiritually infused items. I can find rare materials unavailable elsewhere here. The shop owner often disappears without a trace, and certain qualities about him make me suspect he hails from an extraordinary world.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 4
+            },
+
+            "Produce_Resource":
+            {
+                "Spirituality_Infused_Material": 1
+            }
+
+        },
+        {
+            "Id": "The_Fortune_Telling_Club",
+            "Label": "The Fortune Telling Club",
+            "Image": "Image_The_Fortune_Telling_Club",
+            "Description": "A place you can visit a Fortune Telling to see your future.",
+            "Card_Type": "Location",
+
+            "Rank": 10,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 2
+            }
+        },
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            "Id": "Level_Up_Sequence",
+            "Label": " ? ",
+            "Image": "Image_Level_Up",
+            "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
+            "Card_Type": "Sequence",
+
+            "Rank": -1,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Stable": true,
+
+            "Require_Body_Part":
+            {
+                "Potion": 1
+            },
+            
+            "Produce_Special_Effect":
+            [
+                "Level_Up_Sequence_Based_On_Potion"
+            ]
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            "Id": "Level_9_Apprentice_Of_The_Whisper",
+            "Label": "Level 9: Apprentice of the Whisper",
+            "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
+            "Description": "Apprentice of Whispers, Sequence 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.' \n\n [ This Level consumes Physical Energy and Spiritual Energy, if you run out of either one, Death will be accumulated ]",
+            "Card_Type": "Sequence",
+
+            "Rank": -1,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 30,
+
+            "Start_Effect":
+            [
+                "Get_3_Spiritual_Energy",
+                "Get_Level_Up_To_Level_9_Apprentice_Of_The_Whisper"
+            ],
+
+            "Auto_Start": true,
+            "Repeatable": true,
+            "Stable": true,
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": -1,
+                "Spiritual_Energy": -1
+            }
+
+        },
+        {
+            "Id": "Level_Up_To_Level_9_Apprentice_Of_The_Whisper",
+            "Label": "Level up to: Apprentice of the Whisper",
+            "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
+            "Description": ".............................",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": 1,
+            "Only": true,
+            "Time": 8,
+
+            "Auto_Start": true,
+
+            "Produce_Card_Location":
+            [
+                "Voice_From_The_Void",
+                "In_Sight"
+            ],
+
+            "Produce_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Special_Effect":
+            [
+                "Get_Level_Up_Sequence"
+            ]
+
+        },
+        {
+            "Id": "Lens_Knowledge_A",
+            "Label": "Lens: Omniscience, Lv1",
+            "Image": "Image_Lens",
+            "Description": "Peer through the lens and witness clarity emerge, yet remember, it reflects only what you know. Your perception shapes reality, bound by the confines of your understanding.",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "Knowledge",
+
+            "Use_Time": -1,
+            "Time": 20,
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 2,
+                "Knowledge": 1
+            },
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+            
+            "Produce_Special_Effect":
+            [
+                "Draw_New_Card_Location__Function"
+            ]
+        },
+        {
+            "Id": "Voice_From_The_Void",
+            "Label": "Voice from the Void",
+            "Image": "Image_Voice_From_The_Void",
+            "Description": "After I drank the Potion of Apprentice of the Whisper, I feel I've been connected to a concept in the void, who is constantly whispering and passing information to my mind, this makes me feel uncomfortable, but now I am able to know more about the world under the surface.",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 60,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+        },
+        {
+            "Id": "A_Beyonders_Gather",
+            "Label": "A Beyonder's Gather",
+            "Image": "Image_A_Beyonders_Gather",
+            "Description": "A place where beyonders gather and trade",
+            "Card_Type": "Location",
+
+            "Rank": 9,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 30,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 3,
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1,
+                "Spirituality_Infused_Material": 1
+            }
+        },
+        {
+            "Id": "Church_Of_The_Night_Goddess",
+            "Label": "Church of the Night Goddess",
+            "Image": "Image_Church_Of_The_Night_Goddess",
+            "Description": "The church of the Night Goddess,",
+            "Card_Type": "Location",
+
+            "Rank": 9,
+            "Occupation": "All",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Fund": 3
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 3
+            }
+        },
+        {
+            "Id": "Confront_The_Whisper",
+            "Label": "Confront the Whisper",
+            "Image": "Image_Confront_The_Whisper",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 2
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+
+        },
+        {
+            "Id": "Sacrificial_Ritual",
+            "Label": "Sacrificial Ritual",
+            "Image": "Image_Sacrificial_Ritual",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Spiritual_Energy": 1,
+                "Spirituality_Infused_Material": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+
+        },
+        {
+            "Id": "Manifestation",
+            "Label": "Manifestation",
+            "Image": "Image_Manifestation",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Spirituality_Infused_Material": 2
+            }
+
+        },
+        {
+            "Id": "Transmutation",
+            "Label": "Transmutation",
+            "Image": "Image_Transmutation",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Physical_Energy": 5
+            }
+
+        },
+        {
+            "Id": "Make_Up_Some_Stories",
+            "Label": "Make Up Some Stories",
+            "Image": "Image_Make_Up_Some_Stories",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 20,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Fund": 6
+            }
+
+        },
+        {
+            "Id": "Spiritual_World_Glimpse",
+            "Label": "Spiritual World (Glimpse)",
+            "Image": "Image_Spiritual_World_Glimpse",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 30,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 2
+            },
+
+            "Produce_Card_Location":
+            [
+            ],
+
+            "Produce_Special_Effect":
+            [
+            ]
+
+        },
+        {
+            "Id": "Pray_To_XXX",
+            "Label": "Pray to @#$%^&*( ",
+            "Image": "Image_Pray_To_XXX",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Knowledge": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 3
+            }
+
+        },
+        {
+            "Id": "Dream",
+            "Label": "Dream",
+            "Image": "Image_Dream",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 9,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 15,
+
+            "Require_Body_Part":
+            {
+                "Physical_Body": 1,
+                "Spirit": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Knowledge": 1
+            }
+
+        },
+
+        {
+            "Id": "Spiritual_World_Explore",
+            "Label": "Spiritual World (Explore)",
+            "Image": "Image_Spiritual_World_Explore",
+            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Card_Type": "Function",
+
+            "Rank": 8,
+            "Occupation": "Knowledge",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 35,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Require_Resource":
+            {
+                "Physical_Energy": 1,
+                "Spiritual_Energy": 3,
+                "Knowledge": 2
+            },
+
+            "Produce_Card_Location":
+            [
+            ],
+
+            "Produce_Special_Effect":
+            [
+            ]
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Level_9_Seer",
+            "Label": "Level 9: The Seer",
+            "Image": "Image_The_Seer",
+            "Description": ".............................",
+            "Card_Type": "Sequence",
+
+            "Rank": -1,
+            "Occupation": "Seer",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Stable": true,
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+
+        },
+
+        {
+            "Id": "In_Sight",
+            "Label": "In-sight",
+            "Image": "Image_In_Sight",
+            "Description": "I can see through the .... there's something spiritual ...",
+            "Card_Type": "",
+
+            "Rank": -1,
+            "Occupation": "Seer",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 25,
+
+            "Require_Body_Part":
+            {
+                "Spirit": 1
+            },
+
+            "Produce_Resource":
+            {
+                "Spiritual_Energy": 2
+            }
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Level_8_Fighter",
+            "Label": "Level 8: The Fighter",
+            "Image": "Image_The_Fighter",
+            "Description": ".............................",
+            "Card_Type": "Sequence",
+
+            "Rank": -1,
+            "Occupation": "Fighter",
+
+            "Burn": false,
+            "Use_Time": -1,
+            "Only": true,
+            "Time": 10,
+
+            "Stable": true,
+
+            "Produce_Special_Effect":
+            [
+                "Draw_A_Tarot_Card"
+            ]
+
+        }
+        
+
+
+
+
+
+
+
+
+            
+        
+
+
+
+
+
+
+
+    ]
+
+}

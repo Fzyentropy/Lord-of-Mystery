@@ -1,0 +1,403 @@
+{
+
+    "List_Message":
+    [
+        {
+            "Id": "Message_Id",
+            "Label": "Message Title",
+            "Image": "Image_Message_Id",
+            "Message_Content": "This is the message you want the player to know. So you are reading it right now."
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "躯体",
+            "Label": "Physical Body",
+            "Image": "Image_Physical_Body",
+            "Message_Content": "我存在的容器。 从欢乐到悲伤，从平凡到崇高，每一种感觉和体验都通过这个凡人躯壳的微妙平衡来过滤。"
+        },
+        {
+            "Id": "Spirit",
+            "Label": "灵性",
+            "Image": "Image_Spirit",
+            "Message_Content": "我的灵性，指导我身体行为的源头，包含欲望，希冀，恐惧，上瘾。"
+        },
+        {
+            "Id": "Psyche",
+            "Label": "Psyche",
+            "Image": "Image_Psyche",
+            "Message_Content": "I feel something beating, faint at first then gaining might, in the veiled unknown, a hidden radiance draws near. "
+
+        },
+        {
+            "Id": "Potion",
+            "Label": "魔药",
+            "Image": "Image_Potion",
+            "Message_Content": "The Potion of CUSTOMIZE_POTION_NAME"
+
+        },
+        {
+            "Id": "Save",
+            "Label": "存档",
+            "Image": "Image_Save",
+            "Message_Content": "The Save"
+
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Physical_Energy",
+            "Label": "体力",
+            "Image": "Image_Physical_Energy",
+            "Message_Content": "我感觉到我的心跳、呼吸的节奏———每一个动作、每一个动作，都在消耗我的体力。 我是一个容器，服从于存在的要求，即使是最简单的任务也会对我的活力造成损害。"
+
+        },
+        {
+            "Id": "Spiritual_Energy",
+            "Label": "Spiritual Energy",
+            "Image": "Image_Spiritual_Energy",
+            "Message_Content": "自从我成为一名非凡者以来，我就对我的灵性本质的微妙涌动有所感知。它是非凡者非凡能力的源泉，能够促成超越物质领域，通往精神、概念和神圣本质的旅程。"
+
+        },
+        {
+            "Id": "Fund",
+            "Label": "资金",
+            "Image": "Image_Fund",
+            "Message_Content": "金镑，它们被青铜锈玷污，我一开始肤浅地认为它们是我们在世界上赖以生存的本质。"
+
+        },
+
+        {
+            "Id": "Spirituality_Infused_Material",
+            "Label": "灵性材料",
+            "Image": "Image_Spirituality_Infused_Material",
+            "Message_Content": "它们看起来非常奇怪，但是似乎充满灵性。"
+
+        },
+        {
+            "Id": "Soul",
+            "Label": "Soul",
+            "Image": "Image_Soul",
+            "Message_Content": "Soul"
+
+        },
+        {
+            "Id": "Knowledge",
+            "Label": "知识",
+            "Image": "Image_Knowledge",
+            "Message_Content": "我了解到的关于这个世界的一段信息。 然而，在语言的过滤下，通常会失去部分本意。 我无法猜测原来的世界在我们的认知中已经变得多么狭隘。"
+
+        },
+        {
+            "Id": "Putrefaction",
+            "Label": "Putrefaction",
+            "Image": "Image_Putrefaction",
+            "Message_Content": "Putrefaction"
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {
+            "Id": "Beginning",
+            "Label": "虚无中的搏动",
+            "Image": "Image_Beginning",
+            "Message_Content": "我感觉到有什么东西在跳动，先是微弱，然后变得强大，在隐秘的未知中，隐藏的光芒正在逼近。"
+
+        },
+        {
+            "Id": "Born",
+            "Label": "我出生于鲁恩",
+            "Image": "Image_Born",
+            "Message_Content": "我出生在鲁恩。 在这个王国里流浪了二十多年，我仍然在迷茫中漂泊。 我相信我了解这个世界，但我感觉我只掌握了它的表面，只是现实的一层面纱。"
+
+        },
+        {
+            "Id": "Fortune_Teller_In_Loen",
+            "Label": "Fortune Teller In Loen",
+            "Image": "Image_Born",
+            "Message_Content": "In the allure of the night, I arrived in the Kingdom of Loen. There, I encountered a seer who claimed I was one of destiny's chosen. She expressed a desire to divine my future, shrouded in the mystique of the unknown."
+
+        },
+        {
+            "Id": "Death",
+            "Label": "死亡",
+            "Image": "Image_Death",
+            "Message_Content": "阴影笼罩着我的思绪，低语着超出凡人理解的领域。 我感觉到一个笼罩着神秘面纱的幽灵，以其空灵的触感在召唤着我。 \n \n 【 如果死亡达到最大值，游戏就会结束。】"
+
+        },
+
+        {
+            "Id": "Level_Up_To_Seer",
+            "Label": "Seer, the Beyonder",
+            "Image": "Image_The_Seer",
+            "Message_Content": "I drank the potion that is made of Spiritual Infused Materials, and my body experienced an indescribable sense of clarity, I felt my senses were opened, vision was enhanced, as if I had made a connection with some old existance unseen..."
+        },
+
+
+        
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Physical_Body",
+            "Label": "卡槽：躯体",
+            "Image": "Image_Slot_Physical_Body",
+            "Message_Content": " [ 这个卡槽需要放入一个“躯体”。]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Spirit",
+            "Label": "卡槽：灵性",
+            "Image": "Image_Slot_Spirit",
+            "Message_Content": " [ 这个卡槽需要放入一个“灵性”。]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Psyche",
+            "Label": "槽位：精神",
+            "Image": "Image_Slot_Psyche",
+            "Message_Content": " [ 这个卡槽需要放入一个“精神”。]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Potion",
+            "Label": "卡槽：魔药",
+            "Image": "Image_Slot_Potion",
+            "Message_Content": " [ 这个卡槽需要放入一个特定类型的“魔药”， 你只能服食下一个序列等级的魔药。]"
+        },
+        {
+            "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Save",
+            "Label": "卡槽：存档",
+            "Image": "Image_Slot_Save",
+            "Message_Content": " [ 你可以将一张游戏存档放入这个卡槽来加载一个之前的游戏, 不放入则会开始新游戏。]"
+        },
+        {
+            "Id": "Panel_Knowledge_Slot_Click_Show_Requirement",
+            "Label": "卡槽：知识",
+            "Image": "Image_Knowledge",
+            "Message_Content": " [ 这个卡槽需要放入“知识”，将知识拖拽到这个卡槽，而非点击。]"
+        },
+        
+        
+
+
+
+
+
+        {
+            "Id": "The_Fool",
+            "Label": "The Fool",
+            "Image": "Image_The_Fool",
+            "Message_Content": "A spirited journey awaits you, young wanderer. Embrace the unknown with open arms and a courageous heart. Opportunities for growth and learning beckon. Tread lightly yet boldly, for your path is one of discovery and joy. Remember, every step is both a risk and a chance to soar. "
+
+        },
+        {
+            "Id": "The_Magician",
+            "Label": "The Magician",
+            "Image": "Image_The_Magician",
+            "Message_Content": "Harness your skills and resources, for you have the power to manifest your desires. The world is your oyster, waiting for you to cast your spell of creativity and action. Focus your intent, and you shall turn possibilities into realities."
+        },
+        {
+            "Id": "The_High_Priestess",
+            "Label": "The High Priestess",
+            "Image": "Image_The_High_Priestess",
+            "Message_Content": "Intuition whispers secrets in your ear. Embrace your inner wisdom and the mysteries that lie within. A time of introspection and spiritual guidance awaits, revealing truths that lie beneath the surface."
+        },
+        {
+            "Id": "The_Empress",
+            "Label": "The Empress",
+            "Image": "Image_The_Empress",
+            "Message_Content": "Abundance and nurturing surround you. Embrace the role of creator and caretaker, fostering growth and harmony in your life. The Empress signals a time of fertility, beauty, and nature's bounty."
+        },
+        {
+            "Id": "The_Emperor",
+            "Label": "The Emperor",
+            "Image": "Image_The_Emperor",
+            "Message_Content": "Structure and authority pave your path. The Emperor calls for discipline and control, guiding you to establish order and stability in your life. Embrace leadership, for your strength will be the foundation of your achievements."
+        },
+        {
+            "Id": "The_Hierophant",
+            "Label": "The Hierophant",
+            "Image": "Image_The_Hierophant",
+            "Message_Content": "Tradition and wisdom guide your way. The Hierophant brings lessons of moral values and belief systems. It's time to seek counsel from a mentor or institution, or to adhere to established social structures and ideologies."
+        },
+        {
+            "Id": "The_Lovers",
+            "Label": "The Lovers",
+            "Image": "Image_The_Lovers",
+            "Message_Content": "Choices in love and harmony await. The Lovers signify a union or partnership that brings growth. This card also represents a moral or heart-led decision. Choose paths that align with your true self."
+        },
+        {
+            "Id": "The_Chariot",
+            "Label": "The Chariot",
+            "Image": "Image_The_Chariot",
+            "Message_Content": "Victory is within your grasp, driven by determination and willpower. The Chariot signals a journey of overcoming obstacles. Maintain focus and discipline, and you shall steer your way to success."
+        },
+        {
+            "Id": "Strength",
+            "Label": "Strength",
+            "Image": "Image_Strength",
+            "Message_Content": "Inner strength and courage reign. Strength is not just physical but emotional and spiritual. Face challenges with grace and resilience, and your gentle power will overcome and tame any adversities."
+        },
+        {
+            "Id": "The_Hermit",
+            "Label": "The Hermit",
+            "Image": "Image_The_Hermit",
+            "Message_Content": "Seek solitude to find wisdom. The Hermit invites you to a journey of introspection and self-discovery. In silence and retreat, you will find the inner guidance and answers you seek."
+        },
+        {
+            "Id": "Wheel_of_Fortune",
+            "Label": "Wheel of Fortune",
+            "Image": "Image_Wheel_of_Fortune",
+            "Message_Content": "Fate turns its wheel, bringing change and cycles. The Wheel of Fortune reminds you that life is full of ups and downs. Embrace the flux, and know that every turn brings new opportunities."
+        },
+        {
+            "Id": "Justice",
+            "Label": "Justice",
+            "Image": "Image_Justice",
+            "Message_Content": "Fairness and balance rule your decisions. Justice calls for honesty and integrity. Weigh your choices carefully, for each action will have its consequence, leading you to your rightful path."
+        },
+        {
+            "Id": "The_Hanged_Man",
+            "Label": "The Hanged Man",
+            "Image": "Image_The_Hanged_Man",
+            "Message_Content": "A pause for perspective is needed. The Hanged Man suggests a time of surrender and letting go. Sometimes, stepping back or viewing things from a new angle brings enlightenment."
+        },
+        {
+            "Id": "Death",
+            "Label": "Death",
+            "Image": "Image_Death",
+            "Message_Content": "Transformation awaits. Death is not an end, but a transition. It's time to let go of the old to make way for the new. Embrace the change, for it brings renewal and growth."
+        },
+        {
+            "Id": "Temperance",
+            "Label": "Temperance",
+            "Image": "Image_Temperance",
+            "Message_Content": "Harmony and balance are your guides. Temperance calls for moderation and patience. Blend the diverse aspects of your life into a cohesive whole. Your ability to adapt and integrate is your strength."
+        },
+        {
+            "Id": "The_Devil",
+            "Label": "The Devil",
+            "Image": "Image_The_Devil",
+            "Message_Content": "Break free from your chains. The Devil indicates a struggle with material or emotional bonds. Recognize and confront these limitations to find liberation and reclaim your power."
+        },
+        {
+            "Id": "The_Tower",
+            "Label": "The Tower",
+            "Image": "Image_The_Tower",
+            "Message_Content": "Sudden change brings liberation. The Tower signifies the collapse of old structures. Though disruptive, this upheaval clears the way for rebuilding and new insights. Embrace the transformation."
+        },
+        {
+            "Id": "The_Star",
+            "Label": "The Star",
+            "Image": "Image_The_Star",
+            "Message_Content": "Hope and inspiration light your path. The Star is a beacon of renewed faith and a sense of serenity. This card promises a sense of renewal, and the universe is guiding you towards healing."
+        },
+        {
+            "Id": "The_Moon",
+            "Label": "The Moon",
+            "Image": "Image_The_Moon",
+            "Message_Content": "Navigate through uncertainty. The Moon speaks of illusions and the need to trust your intuition. Explore the shadows of the subconscious, for this journey will reveal hidden truths and guide you to clarity."
+        },
+        {
+            "Id": "The_Sun",
+            "Label": "The Sun",
+            "Image": "Image_The_Sun",
+            "Message_Content": "Joy and vitality shine upon you. The Sun heralds a time of success, positivity, and clarity. Embrace this period of happiness and confidence, for your efforts are now bearing fruit."
+        },
+        {
+            "Id": "Judgement",
+            "Label": "Judgement",
+            "Image": "Image_Judgement",
+            "Message_Content": "Awaken to your calling. Judgement invites self-reflection and evaluation. It's time to rise and embrace a new phase of life. Heed your higher calling, and let your past experiences guide your rebirth."
+        },
+        {
+            "Id": "The_World",
+            "Label": "The World",
+            "Image": "Image_The_World",
+            "Message_Content": "Completion and achievement mark your journey's end. The World represents the fulfillment of a cycle, bringing a sense of accomplishment and unity. Celebrate your successes and prepare for the next phase of your life's adventure."
+        },
+        
+        
+
+
+        {
+            "Id": "The_Beyonder",
+            "Label": "关于 “非凡者”",
+            "Image": "Image_The_Beyonder",
+            "Message_Content": "在聚会上，我的眼界被打开了：世界被一层层看不见的面纱所掩盖。 我知道了“非凡者”，他们拥有与远古诸神的力量相呼应的存在，能够……"
+
+        },
+
+
+
+        
+        
+        
+        {
+            "Id": "Potion_Message_Level_9_Apprentice_Of_The_Whisper",
+            "Label": "魔药：低语学徒",
+            "Image": "Image_Potion",
+            "Message_Content": "低语学徒魔药，“知识之神”的序列9。 只要喝下魔药，我就能成为非凡者，获得非凡的力量……"
+        },
+        {
+            "Id": "Potion_Message_Level_9_Seer",
+            "Label": "魔药：占卜家",
+            "Image": "Image_Potion",
+            "Message_Content": "占卜家魔药，“痴愚之神”序列9。 只要喝下魔药，我就能成为非凡者，获得非凡的力量……"
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+    ]
+
+}

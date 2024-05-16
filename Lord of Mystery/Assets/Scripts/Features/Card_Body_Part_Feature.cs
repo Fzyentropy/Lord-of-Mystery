@@ -52,6 +52,18 @@ public class Card_Body_Part_Feature : MonoBehaviour
     void Initialize_Body_Part()
     {
         body_part_label.text = _CardBodyPart.Label;
+        
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            body_part_label.font = GameManager.Font_English;
+            // body_part_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            body_part_label.font = GameManager.Font_Chinese;
+            // body_part_label.fontSize = 8;
+        }
+        
         body_part_image.sprite = Resources.Load<Sprite>("Image/" + _CardBodyPart.Image);
 
         gameObject.name = _CardBodyPart.Id;     // 设置此 body part 的 GameObject 的名称为 ID

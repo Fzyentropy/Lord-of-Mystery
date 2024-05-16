@@ -40,6 +40,19 @@ public class Knowledge_Panel_Feature : MonoBehaviour
         knowledge_image.sprite = Resources.Load<Sprite>("Image/" + _Knowledge.Image);
         knowledge_content.text = _Knowledge.Knowledge_Content;
         
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            knowledge_label.font = GameManager.Font_English;
+            knowledge_content.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            knowledge_label.font = GameManager.Font_Chinese;
+            knowledge_content.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
+        
         ReplaceKeywordWithIcon(knowledge_content,"P_E_0", physicalEnergyIconPrefab);
         ReplaceKeywordWithIcon(knowledge_content,"S_I_M", spiritualityInfusedMaterialIconPrefab);
     }

@@ -210,9 +210,9 @@
 
         {
             "Id": "Title_Card_Start",
-            "Label": "Start",
+            "Label": "开始",
             "Image": "Image_Title_Card_Start",
-            "Description": "The mystery is as ever-changing as the spiritual realm. Each journey is a new beginning, unless you can provide me with memories of a past life?",
+            "Description": "神秘就像灵界一样不断变化，每一次旅程都是一个新的开始，除非你能给我提供前世的记忆？",
             "Card_Type": "Title",
 
             "Rank": -1,
@@ -236,9 +236,9 @@
         },
         {
             "Id": "Title_Card_Exit",
-            "Label": "Exit?",
+            "Label": "离开？",
             "Image": "Image_Title_Card_Exit",
-            "Description": "You are not leaving, you just stop paying attention.",
+            "Description": "你从来不会离开，你只是转移了注意力。",
             "Card_Type": "Title",
 
             "Rank": -1,
@@ -261,9 +261,9 @@
         },
         {
             "Id": "Game_Scene_Card_Exit",
-            "Label": "Exit?",
+            "Label": "离开？",
             "Image": "Image_Title_Card_Exit",
-            "Description": "You are not leaving, you just stop paying attention.",
+            "Description": "你从来不会离开，你只是转移了注意力。",
             "Card_Type": "Title",
 
             "Rank": -1,
@@ -311,9 +311,9 @@
 
         {
             "Id": "Loen",
-            "Label": "Loen",
+            "Label": "鲁恩",
             "Image": "Image_Loen",
-            "Description": "The Kingdom of Loen, nestled in the northern reaches of the continent, where the people believe the Goddess of Night",
+            "Description": "鲁恩王国，坐落在大陆的北部，那里的人们信仰黑夜女神。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -378,9 +378,9 @@
        
         {
             "Id": "Mother",
-            "Label": "Mother",
+            "Label": "母亲",
             "Image": "Image_Mother",
-            "Description": "My mother, ",
+            "Description": "我的母亲，",
             "Card_Type": "",
 
             "Rank": -1,
@@ -414,9 +414,9 @@
         },
         {
             "Id": "Flesh_And_Body",
-            "Label": "Level 10: Flesh Body",
+            "Label": "序列10：肉体凡胎",
             "Image": "Image_Flesh_And_Body",
-            "Description": "Within the confines of flesh and bone, no body can endure the unyielding force of realities without succumbing to the encroaching shadows of madness. \n\n [ This Level consumes Physical Energy, if you run out of Physical Energy, Death will be accumulated ]",
+            "Description": "在血肉和骨骼的束缚下，任何人都无法承受现实的不屈力量，而不屈服于疯狂和阴影的侵蚀。 \n\n【该等级消耗体力，体力耗尽就会开始累计死亡】",
             "Card_Type": "Sequence",
 
             "Rank": -1,
@@ -436,9 +436,9 @@
         },
         {
             "Id": "Lens",
-            "Label": "Lens",
+            "Label": "透镜",
             "Image": "Image_Lens",
-            "Description": "Peer through the lens and witness clarity emerge, yet remember, it reflects only what you know. Your perception shapes reality, bound by the confines of your understanding.",
+            "Description": "透过镜片凝视，见证清晰浮现，但要记住，它只反映你所知道的。你的感知塑造现实，被你理解的范围所束缚。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -466,9 +466,9 @@
         
         {
             "Id": "Coarse_Bread",
-            "Label": "Coase Bread",
+            "Label": "黑面包",
             "Image": "Image_Coarse_Bread",
-            "Description": "Spend a coin, get a slice of coarse bread. It's plain fare in the Kingdom of Leon, a daily ritual for those scraping by. Simple, yet it staves off hunger one more day. ",
+            "Description": "花一枚硬币，得到一片粗糙的黑面包。在鲁恩王国，这是平凡的食物，对于勉强度日的人来说是每日仪式。虽然简单，但它让饥饿再推迟一天。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -494,9 +494,9 @@
         },
         {
             "Id": "A_Menial_Job",
-            "Label": "A Menial Job",
+            "Label": "一份卑微的工作",
             "Image": "Image_A_Menial_Job",
-            "Description": "I need a job to servive. By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Description": "在昏暗的煤气灯光下，手因织机而疲惫，我编织的不仅是布料，更是我的生计。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -515,9 +515,9 @@
         },
         {
             "Id": "Invitation_Nighthawk",
-            "Label": "Invitation to Nighthawk",
+            "Label": "值夜者的邀请",
             "Image": "Image_Invitation_Nighthawk",
-            "Description": "I remember now, a few days ago I got caught up in a supernatural insident, my life hanging by a thread. It was then that Dunn Smith of the Nighthawk team intervened, offering me protection. He sensed something ethereal about me, foretelling frequent brushes with the things beyond. He then asked me to join the Nighthawk, where offers protection and some handy jobs. It seems like a promising offer, but why couldn't I remember it before? ",
+            "Description": "我想起来了，几天前，我被卷入了一起超凡事件，差点丧失生命。 还好值夜者小队的邓恩·史密斯保护了我。他感觉到我身上有某种飘渺的东西，预示着我会经常与神秘的事物产生纠缠。他邀请我加入值夜者，在那里可以受到保护并做一些方便的工作。 这似乎是一个不错的提议，但为什么我之前记不起来了呢？",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -544,9 +544,9 @@
         },
         {
             "Id": "The_Nighthawk",
-            "Label": "The Nighthawk",
+            "Label": "值夜者小队",
             "Image": "Image_The_Nighthawk",
-            "Description": "I am now a member of the Nighthawk team. My days are spent in the shadows, dealing with supernatural and mysterious things. As Dunn said, \"We are guardians, yet also hapless creatures constantly dancing with danger and madness.\" But perhaps I shall only grasp its true significance in the future.",
+            "Description": "我现在是值夜者的一员了。值夜者隶属于鲁恩王国的黑夜女神教会。我现在每天都能接触到超凡和神秘的事件和物品，让我越发觉得，我对我所处的世界知之甚少。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -565,9 +565,9 @@
         },
         {
             "Id": "Ms_Wendy",
-            "Label": "Ms Wendy",
+            "Label": "温蒂太太",
             "Image": "Image_Ms_Wendy",
-            "Description": "Grateful for Ms. Wendy's generosity, she offered me a part-time job baking bread in her bakery. Though she appears young, rumors suggest she's been in this town for many many years. I refrain from asking too much; after all, it doesn't affect my livelihood.",
+            "Description": "感谢温迪女士的慷慨，她向我提供了一份在她的面包店烤面包的兼职。尽管她看起来很年轻，但似乎听说她已经在这个小镇上呆了许久岁月。我也不好过多询问，毕竟这不影响我维持生计。",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -590,9 +590,9 @@
         },
         {
             "Id": "Invest_With_Lanevus",
-            "Label": "Invest with Lanevus",
+            "Label": "兰尔乌斯的投资",
             "Image": "Image_Invest_With_Lanevus",
-            "Description": "Lanevus of Loen, known both for wealth and questionable repute, is gathering funds for a mining project. It promises gain, but his reputation makes one ponder: is it worth the risk? ",
+            "Description": "鲁恩的兰尔乌斯，以财富和名声双重著称的贵族，正在为采矿项目集资。它承诺收益，但他的过去让人思考：值得冒险吗？",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -614,9 +614,9 @@
         },
         {
             "Id": "White_Bread",
-            "Label": "White Bread",
+            "Label": "白面包",
             "Image": "Image_White_Bread",
-            "Description": "\"Time for some better food,\" I decide. A simple change, aiming for a bit of comfort in my routine.",
+            "Description": "“是时候吃得好一点了”，我决定。一个简单的改变，旨在我的日常动作中增添一些舒适。",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -643,9 +643,9 @@
         },
         {
             "Id": "Use_Drug",
-            "Label": "Use Drug",
+            "Label": "使用药物",
             "Image": "Image_Use_Drug",
-            "Description": "Buying a dose of laudanum, the short-lived pleasure is addictive, but I know it won't last long.",
+            "Description": "购买一剂鸦片酊，短暂的愉悦令人上瘾，但我知道，这种快乐并不能长久。",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -673,9 +673,9 @@
         },
         {
             "Id": "Meditation",
-            "Label": "Meditation",
+            "Label": "冥想",
             "Image": "Image_Meditation",
-            "Description": "Meditation is a technique commonly practiced by Beyonders, aiding in the restoration of Spiritual Energy and resistance against the Putrefaction and Madness induced by extraordinary traits.",
+            "Description": "冥想是非凡者通用的一种技巧，能够帮助非凡者恢复灵性，抵抗非凡特性带来的污染和疯狂。",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -702,9 +702,9 @@
         },
         {
             "Id": "Sleep",
-            "Label": "Go to Sleep",
+            "Label": "睡觉",
             "Image": "Image_Sleep",
-            "Description": "The way ordinary people rest, its principle still remains a mystery. Perhaps dream is the closest way we come to understanding the essence of this world. I don't understand it, but I rely on it.",
+            "Description": "普通人休息的方式，其原理至今仍是一个谜。 也许做梦才是我们最能了解这个世界本质的方式。 我不明白它，但我依赖它。",
             "Card_Type": "Function",
 
             "Rank": 10,
@@ -737,9 +737,9 @@
         },
         {
             "Id": "Private_Soiree",
-            "Label": "Private Soiree",
+            "Label": "私人聚会",
             "Image": "Image_Private_Soiree",
-            "Description": "By chance, I learned of a private soiree of the highborn in loen. I feel compelled to venture there, perhaps to unveil answers to the enigmas that shroud my existence.",
+            "Description": "一次偶然的机会，我得知鲁恩有一场贵族的私人晚会。 我觉得有必要冒险去看看，或许可以揭开笼罩着我存在的谜团的答案。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -780,9 +780,9 @@
         },
         {
             "Id": "A_Mysterious_Noble",
-            "Label": "A Mysterious Noble",
+            "Label": "一个神秘的贵族",
             "Image": "Image_A_Mysterious_Noble",
-            "Description": "",
+            "Description": "我在鲁恩的贵族聚会上遇到的一位神秘贵族，她似乎来自非凡世界，在聚会结束后，我获得了一次和她单独聊天的机会。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -842,9 +842,9 @@
         },
         {
             "Id": "Tingen",
-            "Label": "Tingen",
+            "Label": "廷根",
             "Image": "Image_Tingen",
-            "Description": "The city I live in, in the northern Kingdom of Loen. Perhaps I should explore the city once again with my new perspective. I've been here for years, yet many corners of the city remain mysterious.",
+            "Description": "我所居住的城市，位于鲁恩王国北部。 也许我应该以新的视角再次探索这座城市。 我来这里已经很多年了，但这座城市的许多角落仍然神秘。",
             "Card_Type": "Function",
 
             "Rank": -1,
@@ -873,9 +873,9 @@
         },
         {
             "Id": "Explorer_Shop",
-            "Label": "Explorer's Shop",
+            "Label": "探索者店铺",
             "Image": "Image_Explorer_Shop",
-            "Description": "A mysterious little shop I stumbled upon in Tingen, selling peculiar yet spiritually infused items. I can find rare materials unavailable elsewhere here. The shop owner often disappears without a trace, and certain qualities about him make me suspect he hails from an extraordinary world.",
+            "Description": "在廷根偶然发现的一个神秘小店，里面售卖许多稀奇古怪却富有灵性的东西，我能够在这里买到许多别处找不到的稀有材料。很奇怪的是，店老板经常神龙不见收尾，他身上的某些气质让我怀疑他来自非凡世界。",
             "Card_Type": "",
 
             "Rank": -1,
@@ -904,9 +904,9 @@
         },
         {
             "Id": "The_Fortune_Telling_Club",
-            "Label": "The Fortune Telling Club",
+            "Label": "占卜俱乐部",
             "Image": "Image_The_Fortune_Telling_Club",
-            "Description": "A place you can visit a Fortune Telling to see your future.",
+            "Description": "占卜家聚集的地方",
             "Card_Type": "Location",
 
             "Rank": 10,
@@ -953,9 +953,9 @@
         
         {
             "Id": "Level_Up_Sequence",
-            "Label": " ? ",
+            "Label": " ？ ",
             "Image": "Image_Level_Up",
-            "Description": "An inexplicable impulse steers me, a silent whisper urging me forward.....",
+            "Description": "一种莫名的冲动引导着我，一种无声的低语催促着我前进......",
             "Card_Type": "Sequence",
 
             "Rank": -1,
@@ -1001,9 +1001,9 @@
         
         {
             "Id": "Level_9_Apprentice_Of_The_Whisper",
-            "Label": "Level 9: Apprentice of the Whisper",
+            "Label": "序列9：低语学徒",
             "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
-            "Description": "Apprentice of Whispers, Sequence 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.' \n\n [ This Level consumes Physical Energy and Spiritual Energy, if you run out of either one, Death will be accumulated ]",
+            "Description": "低语的学徒，序列9，是“知识之神”的序列起始，这条序列注重对知识与信息的获取和转化，其信奉的守则为：“全知即全能”。",
             "Card_Type": "Sequence",
 
             "Rank": -1,
@@ -1033,7 +1033,7 @@
         },
         {
             "Id": "Level_Up_To_Level_9_Apprentice_Of_The_Whisper",
-            "Label": "Level up to: Apprentice of the Whisper",
+            "Label": "正在晋升：序列9：低语学徒",
             "Image": "Image_Level_9_Apprentice_Of_The_Whisper",
             "Description": ".............................",
             "Card_Type": "",
@@ -1096,9 +1096,9 @@
         },
         {
             "Id": "Voice_From_The_Void",
-            "Label": "Voice from the Void",
+            "Label": "虚空呓语",
             "Image": "Image_Voice_From_The_Void",
-            "Description": "After I drank the Potion of Apprentice of the Whisper, I feel I've been connected to a concept in the void, who is constantly whispering and passing information to my mind, this makes me feel uncomfortable, but now I am able to know more about the world under the surface.",
+            "Description": "喝下低语学徒魔药后，我感觉自己和虚空中的一个概念产生了联系，祂在不断地向我的脑海传递知识，这让我感觉不舒服，但现在我能够了解更多地表下的世界了。",
             "Card_Type": "",
 
             "Rank": 9,
@@ -1121,9 +1121,9 @@
         },
         {
             "Id": "A_Beyonders_Gather",
-            "Label": "A Beyonder's Gather",
+            "Label": "非凡者聚会",
             "Image": "Image_A_Beyonders_Gather",
-            "Description": "A place where beyonders gather and trade",
+            "Description": "非凡者聚集，交易的地方。",
             "Card_Type": "Location",
 
             "Rank": 9,
@@ -1155,9 +1155,9 @@
         },
         {
             "Id": "Church_Of_The_Night_Goddess",
-            "Label": "Church of the Night Goddess",
+            "Label": "黑夜教堂",
             "Image": "Image_Church_Of_The_Night_Goddess",
-            "Description": "The church of the Night Goddess,",
+            "Description": "黑夜女神的教堂",
             "Card_Type": "Location",
 
             "Rank": 9,
@@ -1186,9 +1186,9 @@
         },
         {
             "Id": "Confront_The_Whisper",
-            "Label": "Confront the Whisper",
+            "Label": "直面呓语",
             "Image": "Image_Confront_The_Whisper",
-            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Description": "直面虚空中的呓语，我能获取比平时被动接受更多的东西。",
             "Card_Type": "Function",
 
             "Rank": 9,
@@ -1218,9 +1218,9 @@
         },
         {
             "Id": "Sacrificial_Ritual",
-            "Label": "Sacrificial Ritual",
+            "Label": "献祭仪式",
             "Image": "Image_Sacrificial_Ritual",
-            "Description": "I can see through the .... there's something spiritual ..... oh God...",
+            "Description": "献祭仪式",
             "Card_Type": "Function",
 
             "Rank": 9,
@@ -1250,7 +1250,7 @@
         },
         {
             "Id": "Manifestation",
-            "Label": "Manifestation",
+            "Label": "显化",
             "Image": "Image_Manifestation",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "Function",
@@ -1281,7 +1281,7 @@
         },
         {
             "Id": "Transmutation",
-            "Label": "Transmutation",
+            "Label": "嬗变",
             "Image": "Image_Transmutation",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "Function",
@@ -1312,7 +1312,7 @@
         },
         {
             "Id": "Make_Up_Some_Stories",
-            "Label": "Make Up Some Stories",
+            "Label": "编造故事",
             "Image": "Image_Make_Up_Some_Stories",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "Function",
@@ -1343,7 +1343,7 @@
         },
         {
             "Id": "Spiritual_World_Glimpse",
-            "Label": "Spiritual World (Glimpse)",
+            "Label": "灵界 (窥探)",
             "Image": "Image_Spiritual_World_Glimpse",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "",
@@ -1377,7 +1377,7 @@
         },
         {
             "Id": "Pray_To_XXX",
-            "Label": "Pray to @#$%^&*( ",
+            "Label": "向@#$%^&*(祈祷",
             "Image": "Image_Pray_To_XXX",
             "Description": "I can see through the .... there's something spiritual ..... oh God...",
             "Card_Type": "Function",
@@ -1492,7 +1492,7 @@
 
         {
             "Id": "Level_9_Seer",
-            "Label": "Level 9: The Seer",
+            "Label": "序列9：占卜家",
             "Image": "Image_The_Seer",
             "Description": ".............................",
             "Card_Type": "Sequence",
@@ -1516,7 +1516,7 @@
 
         {
             "Id": "In_Sight",
-            "Label": "In-sight",
+            "Label": "灵视",
             "Image": "Image_In_Sight",
             "Description": "I can see through the .... there's something spiritual ...",
             "Card_Type": "",

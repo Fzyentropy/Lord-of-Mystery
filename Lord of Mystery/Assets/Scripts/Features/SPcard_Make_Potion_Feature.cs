@@ -60,7 +60,7 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
     private void Start()
     {
         AddColliderAndRigidbody();      // 如果没加 collider 和 rigidbody，则加上
-        Set_Layer_Index();          // 设置 layer 的 index
+        Set_Make_Potion_Card();
 
         StartCoroutine(Highlight_If_Mouse_Hover());
     }
@@ -88,12 +88,25 @@ public class SPcard_Make_Potion_Feature : MonoBehaviour
         }
     }
 
-    void Set_Layer_Index()      // 设置 layer 的 index
+
+    void Set_Make_Potion_Card()
     {
-        LayerIndex = gameObject.layer;
+        
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            card_label.text = "MAKE POTION";
+            card_label.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            card_label.text = "制作魔药";
+            card_label.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
+        
+        
     }
-    
-    
     
     
     

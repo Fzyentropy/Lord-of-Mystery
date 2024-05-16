@@ -5889,6 +5889,7 @@ MonoBehaviour:
   infoPanelPrefab: {fileID: 8673821900251910866, guid: 8d7437142244d1a489ff64f75d994fac, type: 3}
   isClickOnObjects: 1
   Dragging_Object: {fileID: 0}
+  is_calling_exit_panel: 0
   Time_X_Speed: 1
   black_screen: {fileID: 403447803}
 --- !u!4 &531238711
@@ -7630,6 +7631,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604f005fb3a23bf4db1d6074d6f35e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PATH_LANGUAGE_ENGLISH: JSON_English/
+  PATH_LANGUAGE_CHINESE: JSON_Chinese/
+  PATH_LANGUAGE: JSON_English/
   Automatic_Card_List: []
   Location_Card_List: []
   Message_List: []
@@ -19192,6 +19196,8 @@ MonoBehaviour:
   is_dreaming: 0
   Draw_New_Card_Location_Times__Fuction: 0
   Draw_New_Card_Location_Times__Location: 0
+  Font_English: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  Font_Chinese: {fileID: 0}
   CardLoader: {fileID: 619533614}
   ResourceManager: {fileID: 1642947923}
   CardManager: {fileID: 1558427090}

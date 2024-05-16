@@ -1,0 +1,198 @@
+{
+
+    "List_Card_Body_Part":
+    [
+
+        {
+            "Id": "躯体",
+            "Label": "Physical Body",
+            "Image": "Image_Physical_Body",
+            "Produce_Message":"Physical_Body"
+        },
+        {
+            "Id": "灵性",
+            "Label": "Spirit",
+            "Image": "Image_Spirit",
+            "Produce_Message":"Spirit"
+        },
+        {
+            "Id": "精神",
+            "Label": "Psyche",
+            "Image": "Image_Psyche",
+            "Produce_Message":"Psyche"
+        },
+        {
+            "Id": "Potion",
+            "Label": "魔药：",
+            "Image": "Image_Potion",
+            "Produce_Message":"Potion"
+        },
+        {
+            "Id": "存档",
+            "Label": "Game Save ",
+            "Image": "Image_Save",
+            "Produce_Message":"Save"
+        },
+
+
+
+
+        {
+            "Id": "The_Fool",
+            "Label": "The Fool",
+            "Image": "Image_The_Fool",
+            "Produce_Message":"The_Fool"
+        },
+        {
+            "Id": "The_Magician",
+            "Label": "The Magician",
+            "Image": "Image_The_Magician",
+            "Produce_Message":"The_Magician"
+        },
+        
+        {
+            "Id": "The_High_Priestess",
+            "Label": "The High Priestess",
+            "Image": "Image_The_High_Priestess",
+            "Produce_Message":"The_High_Priestess"
+        },
+        
+        {
+            "Id": "The_Empress",
+            "Label": "The Empress",
+            "Image": "Image_The_Empress",
+            "Produce_Message":"The_Empress"
+        },
+        
+        {
+            "Id": "The_Emperor",
+            "Label": "The Emperor",
+            "Image": "Image_The_Emperor",
+            "Produce_Message":"The_Emperor"
+        },
+        
+        {
+            "Id": "The_Hierophant",
+            "Label": "The Hierophant",
+            "Image": "Image_The_Hierophant",
+            "Produce_Message":"The_Hierophant"
+        },
+        
+        {
+            "Id": "The_Lovers",
+            "Label": "The Lovers",
+            "Image": "Image_The_Lovers",
+            "Produce_Message":"The_Lovers"
+        },
+        
+        {
+            "Id": "The_Chariot",
+            "Label": "The Chariot",
+            "Image": "Image_The_Chariot",
+            "Produce_Message":"The_Chariot"
+        },
+        
+        {
+            "Id": "Strength",
+            "Label": "Strength",
+            "Image": "Image_Strength",
+            "Produce_Message":"Strength"
+        },
+        
+        {
+            "Id": "The_Hermit",
+            "Label": "The Hermit",
+            "Image": "Image_The_Hermit",
+            "Produce_Message":"The_Hermit"
+        },
+        
+        {
+            "Id": "Wheel_of_Fortune",
+            "Label": "Wheel of Fortune",
+            "Image": "Image_Wheel_of_Fortune",
+            "Produce_Message":"Wheel_of_Fortune"
+        },
+        
+        {
+            "Id": "Justice",
+            "Label": "Justice",
+            "Image": "Image_Justice",
+            "Produce_Message":"Justice"
+        },
+        
+        {
+            "Id": "The_Hanged_Man",
+            "Label": "The Hanged Man",
+            "Image": "Image_The_Hanged_Man",
+            "Produce_Message":"The_Hanged_Man"
+        },
+        
+        {
+            "Id": "Death",
+            "Label": "Death",
+            "Image": "Image_Death",
+            "Produce_Message":"Death"
+        },
+        
+        {
+            "Id": "Temperance",
+            "Label": "Temperance",
+            "Image": "Image_Temperance",
+            "Produce_Message":"Temperance"
+        },
+        
+        {
+            "Id": "The_Devil",
+            "Label": "The Devil",
+            "Image": "Image_The_Devil",
+            "Produce_Message":"The_Devil"
+        },
+        
+        {
+            "Id": "The_Tower",
+            "Label": "The Tower",
+            "Image": "Image_The_Tower",
+            "Produce_Message":"The_Tower"
+        },
+        
+        {
+            "Id": "The_Star",
+            "Label": "The Star",
+            "Image": "Image_The_Star",
+            "Produce_Message":"The_Star"
+        },
+        
+        {
+            "Id": "The_Moon",
+            "Label": "The Moon",
+            "Image": "Image_The_Moon",
+            "Produce_Message":"The_Moon"
+        },
+        
+        {
+            "Id": "The_Sun",
+            "Label": "The Sun",
+            "Image": "Image_The_Sun",
+            "Produce_Message":"The_Sun"
+        },
+        
+        {
+            "Id": "Judgement",
+            "Label": "Judgement",
+            "Image": "Image_Judgement",
+            "Produce_Message":"Judgement"
+        },
+        
+        {
+            "Id": "The_World",
+            "Label": "The World",
+            "Image": "Image_The_World",
+            "Produce_Message":"The_World"
+        }
+        
+
+
+
+    ]
+
+}

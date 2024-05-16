@@ -194,17 +194,31 @@ public class Card_Location_Feature : MonoBehaviour
         
         
         card_label.text = _cardLocation.Label;        // 设置 游戏场景中卡牌 名称
+        
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            card_label.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            card_label.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
+        
+        if (_cardLocation.Card_Type == "Title")     // 如果是 Title Page 的卡牌，则设置 Font Size 为 8
+        {
+            card_label.enableAutoSizing = false;
+            card_label.fontSize = 8;
+        }
+        
         card_image.sprite = Resources.Load<Sprite>("Image/" + _cardLocation.Image);          // 加载 id 对应的图片
         use_time_counter = _cardLocation.Use_Time == -1 ? int.MaxValue : _cardLocation.Use_Time;    // 初始化卡牌的使用次数
 
         gameObject.name = "Card_" + _cardLocation.Card_Type + "__" +  _cardLocation.Id;     // 设置此 card location 的 GameObject 的名称为 ID
 
 
-        if (_cardLocation.Card_Type == "Title")     // 如果是 Title Page 的卡牌，则设置 Font Size 为 8
-        {
-            card_label.enableAutoSizing = false;
-            card_label.fontSize = 8;
-        }
+        
         
         
         // 如果是 Sequence，则运动到 Sequence 标记的位置

@@ -1,0 +1,418 @@
+{
+
+    "List_Knowledge":
+    [
+        {
+            "Id": "Knowledge_Id",
+            "Rarity": "",
+            "Label": "Knowledge Title",
+            "Short_Label": "Title",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "This is the knowledge you want the player to know. So you are reading it right now."
+        },
+
+
+
+
+
+
+        
+        {
+            "Id": "Potion_Formula_Level_9_Apprentice_Of_The_Whisper",
+            "Rarity": "",
+            "Label": "魔药配方：低语学徒",
+            "Short_Label": "魔药配方",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "魔药配方：3 P_E_0, 2 S_I_M \n\n 低语的学徒，序列9，是“知识之神”的序列起始，这条序列注重对知识与信息的获取和转化，其信奉的守则为：“全知即全能”。"
+        },
+
+
+        {
+            "Id": "Knowledge_Pioneer_Of_Wisdom",
+            "Rarity": "",
+            "Label": "魔药配方：智慧先驱",
+            "Short_Label": "魔药配方",
+            "Image": "Image_Knowledge_Pioneer_Of_Wisdom",
+            "Knowledge_Content": "魔药配方: 10 P_E_0, 6 S_I_M, 8 knowledge\n\n智慧先驱，序列7，是‘知识之神’途径的中阶。 到了序列7，智慧先驱可以掌握更广泛的知识，并熟练地利用各种知识来创造和组合能量。"
+        },
+        {
+            "Id": "Potion_Formula_Level_9_Seer",
+            "Rarity": "Rare",
+            "Label": "魔药配方：占卜家",
+            "Short_Label": "魔药配方",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "魔药配方 : 2 P_E_0, 3 S_I_M\n\n占卜家，“痴愚之神”途径序列9。 痴愚之神途径非凡者灵性很强大，但身体却很脆弱。 非凡能力主要来源于对历史和命运的主宰，体现在对历史、现在和未来的操纵和预见。”"
+        },
+        {
+            "Id": "Knowledge_Beyonder",
+            "Rarity": "",
+            "Label": "知识：非凡者",
+            "Short_Label": "非凡者",
+            "Image": "Image_Knowledge_Beyonder",
+            "Knowledge_Content": "非凡者是具有超凡力量的人类，由于他们数量稀少，行动隐蔽，大部分民众不知道他们的存在。成为非凡者的唯一途径是服食魔药。强大的非凡者具有意想不到的超凡能力，远超普通人所想象。"
+        },
+        {
+            "Id": "Knowledge_Potion",
+            "Rarity": "",
+            "Label": "知识：序列魔药",
+            "Short_Label": "序列魔药",
+            "Image": "Image_Knowledge_Potion",
+            "Knowledge_Content": "服食魔药是人类成为非凡者的唯一途径。在神灵庇佑下与巨人、恶魔、异种等对抗的人类，逐渐摸索出了获得超凡之力的办法，那就是用恶灵，用巨龙，用怪物，用神奇树木、花朵或结晶等多种灵性材料，与不同的精神、能量相组合，能够配制出不同性相的魔药，并赋予使用者不同的非凡能力。【在制作魔药面板通过组合不同的资源和能量制作不同的魔药】"
+        },
+        
+        {
+            "Id": "Myth_The_Eight_Angels",
+            "Rarity": "",
+            "Label": "秘史：八大天使之王",
+            "Short_Label": "八大天使之王",
+            "Image": "Image_Knowledge_Id",
+            "Knowledge_Content": "神弃之地的古老壁画显示，远古太阳神原本有八位天使。自从太阳神陨落之后，他的八位天使就分享了他的权柄，成为了八位独立的真神，其中的七位就是今天的七位正统神。"
+        },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            "Id": "Knowledge_Extraordinary_Traits",
+            "Rarity": "Common",
+            "Label": "知识：非凡特性",
+            "Short_Label": "非凡特性",
+            "Image": "Image_Knowledge_Extraordinary_Traits",
+            "Knowledge_Content": "非凡特性是魔药的核心，也是非凡者力量的来源。非凡特性源自于大自然，是大自然力量与权柄的某种显化。“非凡特性不灭定律”是神秘学共通的知识，意为非凡特性不会毁灭，只会转移。"
+        },
+        {
+            "Id": "Knowledge_Beyonder_Level",
+            "Rarity": "Common",
+            "Label": "知识：序列等级",
+            "Short_Label": "序列等级",
+            "Image": "Image_Knowledge_Beyonder_Level",
+            "Knowledge_Content": "序列是非凡者能力等级的体现，非凡者从最低等级的序列9一直到最高等级的序列1，其非凡能力从弱小变强大，据说序列1的非凡者已经有毁天灭地般的超凡能力。"
+        },
+        {
+            "Id": "Knowledge_Level_Up",
+            "Rarity": "Common",
+            "Label": "知识：提升序列",
+            "Short_Label": "提升序列",
+            "Image": "Image_Knowledge_Level_Up",
+            "Knowledge_Content": "每一个序列等级都有其对应的魔药，服食下一个等级的魔药可以提升等级，但是无法跨等级服食魔药或者服食其他序列等级的魔药。但据说特性相近的序列途径之间可以互相转换，在特定的等级可以通过服食相近途径的魔药来变更途径..."
+        },
+        {
+            "Id": "Knowledge_Ritual",
+            "Rarity": "Rare",
+            "Label": "知识：仪式",
+            "Short_Label": "仪式",
+            "Image": "Image_Knowledge_Ritual",
+            "Knowledge_Content": "序列5以下的等级提升不需要仪式，然而序列5和以上的升级需要仪式的辅助。某些仪式还可以沟通神灵或者某些未知的存在，用于祈求力量和庇佑。"
+        },
+        {
+            "Id": "Knowledge_Level_Zero",
+            "Rarity": "Rare",
+            "Label": "知识：序列0！",
+            "Short_Label": "序列0！",
+            "Image": "Image_Knowledge_Level_Zero",
+            "Knowledge_Content": "原来在最高等级的序列，序列1之上，还存在序列0！据说序列0是真神所在的序列，成为序列0，能够掌握相应领域的权柄，获取如同神灵一般的能力。"
+        },
+        {
+            "Id": "Knowledge_Profane_Plaque",
+            "Rarity": "Myth",
+            "Label": "知识：亵渎石板",
+            "Short_Label": "亵渎石板",
+            "Image": "Image_Knowledge_Profane_Plaque",
+            "Knowledge_Content": "亵渎石板，人族的圣物，据说是远古太阳神制造。其上记载了人类能够获得神灵力量和权柄的所有途径，每一条途径的表现为从序列9到序列0的魔药配方以及仪式，这是人类获取自然力量本质的方法，是真正的神之途径。"
+        },
+        {
+            "Id": "Knowledge_Secret_Organizations",
+            "Rarity": "Rare",
+            "Label": "知识：隐秘组织",
+            "Short_Label": "隐秘组织",
+            "Image": "Image_Knowledge_Secret_Organizations",
+            "Knowledge_Content": "除了七大正神教会之外，这个世界上还充满了大大小小的隐秘组织，比如极光会，玫瑰学派，密修会，魔女教派，生命学派等等，这些组织信仰不同的神灵，在七大正神教会眼中被视为异端和对邪神的崇拜。"
+        },
+        {
+            "Id": "Knowledge_Leon_Kingdom_One",
+            "Rarity": "Common",
+            "Label": "知识：鲁恩王国之一",
+            "Short_Label": "鲁恩之一",
+            "Image": "Image_Knowledge_Leon_Kingdom_One",
+            "Knowledge_Content": "鲁恩王国位于北大陆东部，始立于第四纪，是北大陆四大王国之一。鲁恩王国综合实力强大，经济和工业实力都非常强盛，民众主要信仰黑夜女神、风暴之主，蒸汽与机械之神，首都为贝克兰德。"
+        },
+        {
+            "Id": "Knowledge_Leon_Kingdom_Two",
+            "Rarity": "Common",
+            "Label": "知识：鲁恩王国之二",
+            "Short_Label": "鲁恩之二",
+            "Image": "Image_Knowledge_Leon_Kingdom_Two",
+            "Knowledge_Content": "鲁恩王国刚刚经历了第一次工业革命，蒸汽和机械极大提高了生产力，虽然贵族阶级仍然享有特权，但中产阶级的比例快速增加"
+        },
+        {
+            "Id": "Knowledge_Fifth_Epoch",
+            "Rarity": "Common",
+            "Label": "知识：第五纪",
+            "Short_Label": "第五纪",
+            "Image": "Image_Knowledge_Fifth_Epoch",
+            "Knowledge_Content": "第五纪是我现在所处的纪元，此时东大陆和西大路已无法踏足，人们普遍居住在南北两块大陆上，合法的信仰是七大正统神灵。"
+        },
+        {
+            "Id": "Knowledge_Three_Kingdoms",
+            "Rarity": "Rare",
+            "Label": "知识：三大王国",
+            "Short_Label": "三大王国",
+            "Image": "Image_Knowledge_Three_Kingdoms",
+            "Knowledge_Content": "北大陆除了鲁恩王国之外，还有因蒂斯共和国，弗萨克帝国，费内波特王国。它们的民众分别信仰战神，永恒烈阳，以及大地母神。"
+        },
+        {
+            "Id": "Knowledge_Southern_Continent",
+            "Rarity": "Rare",
+            "Label": "知识：南大陆",
+            "Short_Label": "南大陆",
+            "Image": "Image_Knowledge_Southern_Continent",
+            "Knowledge_Content": "南大陆和北大陆被位于中间的狂暴海所隔开，南大陆原来仅有一个国家：拜朗帝国，然而在如今的第五纪，拜朗帝国已经沦为鲁恩王国，因蒂斯共和国以及弗萨克帝国的殖民地。这里的发展较为原始，民众大部分信奉死神。"
+        },
+        {
+            "Id": "Knowledge_Raging_Sea",
+            "Rarity": "Rare",
+            "Label": "知识：狂暴海",
+            "Short_Label": "狂暴海",
+            "Image": "Image_Knowledge_Raging_Sea",
+            "Knowledge_Content": "狂暴海位于北大陆和南大陆中间，在罗塞尔大帝开辟新航道之前，狂暴海一直是人类无法踏足的天堑，据说狂暴海原先并不狂暴，而然在第四纪末尾死神的陨落极大地破坏了狂暴海的自然环境。"
+        },
+        {
+            "Id": "Thought_Tarot_Conclave",
+            "Rarity": "",
+            "Label": "知识：塔罗会",
+            "Short_Label": "塔罗会",
+            "Image": "Image_Thought_Tarot_Conclave",
+            "Knowledge_Content": "这是我第一次跟神灵打交道！祂是灰雾之上的神秘主宰，不属于这个时代的痴愚之神。祂邀请我参加祂组织的非凡者聚会，这是一个较为松散随意的非凡者组织，大家在神灵创造的空间中交易信息、物品并达成现实世界中的合作。这个聚会的成员都以塔罗牌作为代号。祂似乎是一位善良的神灵，我该不该投身于这个组织？"
+        },
+        {
+            "Id": "Thought_Where_I_Come_From",
+            "Rarity": "",
+            "Label": "念头：我从哪里来？",
+            "Short_Label": "念头",
+            "Image": "Image_Thought_Where_I_Come_From",
+            "Knowledge_Content": "我隐约记得，我原本生活在21世纪的现实，但是我似乎穿越到了这个古怪的平行世界，正处于维多利亚时期。各处都充满了神秘和非凡的力量，民众似乎在信仰真正的神灵..."
+        },
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        {
+            "Id": "Potion_Guardian_Secrets",
+            "Rarity": "",
+            "Label": "Potion Formula: Guardian of Secrets",
+            "Short_Label": "Formula",
+            "Image": "Image_Guardian_Secrets",
+            "Knowledge_Content": "This potion grants the ability to shield and decrypt secrets. Rank: 7, Ingredients: 3 Mental Clarity, 2 Secret Essence."
+        },
+        {
+            "Id": "Knowledge_Pathways",
+            "Rarity": "",
+            "Label": "Knowledge: Pathways",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Pathways",
+            "Knowledge_Content": "Pathways refer to the distinct routes taken by Beyonders to enhance their powers and transform their souls."
+        },
+        {
+            "Id": "Myth_Crimson_Moon",
+            "Rarity": "",
+            "Label": "Myth: The Crimson Moon",
+            "Short_Label": "Myth",
+            "Image": "Image_Crimson_Moon",
+            "Knowledge_Content": "Legend speaks of a Crimson Moon that appears to herald the awakening of ancient beings and untold chaos."
+        },
+        {
+            "Id": "Potion_Dreamer",
+            "Rarity": "",
+            "Label": "Potion Formula: Dreamer",
+            "Short_Label": "Formula",
+            "Image": "Image_Dreamer",
+            "Knowledge_Content": "Enables profound connection to the dream world. Rank: 8, Ingredients: 4 Dream Dust, 1 Nightmare Essence."
+        },
+        {
+            "Id": "Knowledge_Elder_Ones",
+            "Rarity": "",
+            "Label": "Knowledge: Elder Ones",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Elder_Ones",
+            "Knowledge_Content": "The Elder Ones are ancient entities possessing vast knowledge and mysterious powers, often worshipped or feared."
+        },
+        {
+            "Id": "Potion_Nightwalker",
+            "Rarity": "",
+            "Label": "Potion Formula: Nightwalker",
+            "Short_Label": "Formula",
+            "Image": "Image_Nightwalker",
+            "Knowledge_Content": "Grants enhanced abilities to operate under the cover of darkness. Rank: 6, Ingredients: 3 Shadow Essence, 2 Moonlight Dew."
+        },
+        {
+            "Id": "Knowledge_Sacred_Grounds",
+            "Rarity": "",
+            "Label": "Knowledge: Sacred Grounds",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Sacred_Grounds",
+            "Knowledge_Content": "Sacred Grounds are locations charged with spiritual energy, often sites of major historical or mystical events."
+        },
+        {
+            "Id": "Myth_Seven_Seas",
+            "Rarity": "",
+            "Label": "Myth: The Seven Seas",
+            "Short_Label": "Myth",
+            "Image": "Image_Seven_Seas",
+            "Knowledge_Content": "The Seven Seas are said to be pathways to hidden truths and are guarded by sea monsters and old gods."
+        },
+        {
+            "Id": "Potion_True_Sight",
+            "Rarity": "",
+            "Label": "Potion Formula: True Sight",
+            "Short_Label": "Formula",
+            "Image": "Image_True_Sight",
+            "Knowledge_Content": "Provides the drinker with the ability to see the true nature of things. Rank: 7, Ingredients: 5 Visionary Leaves, 1 Eye of Newt."
+        },
+        {
+            "Id": "Knowledge_Ancient_Contracts",
+            "Rarity": "",
+            "Label": "Knowledge: Ancient Contracts",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Ancient_Contracts",
+            "Knowledge_Content": "Ancient Contracts are pacts made between humans and supernatural beings, often involving complex rituals and steep prices."
+        },
+        
+        {
+            "Id": "Potion_Voiceless_Bard",
+            "Rarity": "",
+            "Label": "Potion Formula: Voiceless Bard",
+            "Short_Label": "Formula",
+            "Image": "Image_Voiceless_Bard",
+            "Knowledge_Content": "Grants the ability to influence emotions silently. Rank: 6, Ingredients: 3 Bard's Tears, 2 Silent Whispers."
+        },
+        {
+            "Id": "Knowledge_Forbidden_Scripts",
+            "Rarity": "",
+            "Label": "Knowledge: Forbidden Scripts",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Forbidden_Scripts",
+            "Knowledge_Content": "Forbidden Scripts contain spells and knowledge that have been sealed away due to their dangerous nature."
+        },
+        {
+            "Id": "Myth_Forgotten_King",
+            "Rarity": "",
+            "Label": "Myth: The Forgotten King",
+            "Short_Label": "Myth",
+            "Image": "Image_Forgotten_King",
+            "Knowledge_Content": "The Forgotten King was a ruler whose kingdom was lost to time, rumored to be buried under the sea."
+        },
+        {
+            "Id": "Potion_Star_Gazer",
+            "Rarity": "",
+            "Label": "Potion Formula: Star Gazer",
+            "Short_Label": "Formula",
+            "Image": "Image_Star_Gazer",
+            "Knowledge_Content": "Enables the user to read fortunes in the stars. Rank: 8, Ingredients: 4 Starlight, 1 Mystic Orb."
+        },
+        {
+            "Id": "Knowledge_Ancient_Runes",
+            "Rarity": "",
+            "Label": "Knowledge: Ancient Runes",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Ancient_Runes",
+            "Knowledge_Content": "Ancient Runes are symbols from old civilizations, holding power and secrets of old magics."
+        },
+        {
+            "Id": "Potion_Shadow_Mender",
+            "Rarity": "",
+            "Label": "Potion Formula: Shadow Mender",
+            "Short_Label": "Formula",
+            "Image": "Image_Shadow_Mender",
+            "Knowledge_Content": "Heals wounds in shadows and darkness. Rank: 5, Ingredients: 2 Shadow Herb, 3 Moonlight Dew."
+        },
+        {
+            "Id": "Knowledge_Lost_Cities",
+            "Rarity": "",
+            "Label": "Knowledge: Lost Cities",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Lost_Cities",
+            "Knowledge_Content": "Lost Cities are ancient metropolises that vanished without a trace, often spoken of in myths and legends."
+        },
+        {
+            "Id": "Myth_Silent_Watchers",
+            "Rarity": "",
+            "Label": "Myth: The Silent Watchers",
+            "Short_Label": "Myth",
+            "Image": "Image_Silent_Watchers",
+            "Knowledge_Content": "The Silent Watchers are spectral figures that guard forbidden knowledge and realms."
+        },
+        {
+            "Id": "Potion_Lightweaver",
+            "Rarity": "",
+            "Label": "Potion Formula: Lightweaver",
+            "Short_Label": "Formula",
+            "Image": "Image_Lightweaver",
+            "Knowledge_Content": "Manipulates light to create illusions. Rank: 7, Ingredients: 5 Photon Particles, 2 Illusion Webs."
+        },
+        {
+            "Id": "Knowledge_Time_Fragments",
+            "Rarity": "",
+            "Label": "Knowledge: Time Fragments",
+            "Short_Label": "Knowledge",
+            "Image": "Image_Time_Fragments",
+            "Knowledge_Content": "Time Fragments are remnants of past or future events, capable of revealing history or possibilities."
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+    ]
+
+}

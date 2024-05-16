@@ -20,6 +20,10 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
     public GameObject Resource_Section;
     public GameObject ProgressBar_Section;
 
+    [Header("Text")] 
+    public TMP_Text panel_label;
+    public TMP_Text panel_description;
+
     // 各资源 button prefab
     [Header("Resource Button Prefab")]
     public GameObject make_potion_button_physical_energy;
@@ -63,6 +67,8 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
 
     private void Start()
     {
+        Set_Panel_Text();
+        
         Set_Absorbed_Resource_Dictionary();     // 初始化这个 panel 上吸收的 resource 的 Dictionary
         Set_Make_Potion_Start_Button();
         
@@ -85,6 +91,26 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         attached_make_potion_card_feature = attached_make_potion_card.GetComponent<SPcard_Make_Potion_Feature>();
     }
 
+
+    void Set_Panel_Text()
+    {
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            panel_label.text = "MAKE POTION";
+            panel_label.font = GameManager.Font_English;
+            panel_description.text = "Consuming the potion is the sole path for humans to become Beyonders. By combining the essences of malevolent spirits, dragons, monsters, and enchanted flora and crystals with various mental and energetic forces, diverse potions are crafted, bestowing unique extraordinary abilities upon their users.";
+            panel_description.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            panel_label.text = "制作魔药";
+            panel_label.font = GameManager.Font_Chinese;
+            panel_description.text = "服食魔药是人类成为非凡者的唯一途径。用恶灵，用巨龙，用怪物，用神奇树木、花朵或结晶等多种灵性材料，与不同的精神、能量相组合，能够配制出不同性相的魔药，并赋予使用者不同的非凡能力。";
+            panel_description.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
+    }
 
     void Set_Absorbed_Resource_Dictionary()
     {

@@ -37,6 +37,19 @@ public class Message_Feature : MonoBehaviour
         message_image.sprite = Resources.Load<Sprite>("Image/" + _message.Image);
         message_content.text = _message.Message_Content;
         
+        if (GameManager.currentLanguage == GameManager.Language.English)        // 设置语言
+        {
+            message_label.font = GameManager.Font_English;
+            message_content.font = GameManager.Font_English;
+            // card_label.fontSize = 8;
+        }
+        else if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            message_label.font = GameManager.Font_Chinese;
+            message_content.font = GameManager.Font_Chinese;
+            // card_label.fontSize = 8;
+        }
+        
     }
     
     
