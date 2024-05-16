@@ -47,7 +47,10 @@ public class Message_Feature : MonoBehaviour
         {
             message_label.font = GameManager.Font_Chinese;
             message_content.font = GameManager.Font_Chinese;
-            // card_label.fontSize = 8;
+
+            message_content.fontSize = 17;
+            message_content.characterSpacing = -2;
+            message_content.lineSpacing = -20;
         }
         
     }

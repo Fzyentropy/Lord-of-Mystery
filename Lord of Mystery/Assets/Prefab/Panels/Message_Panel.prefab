@@ -252,7 +252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 286, y: 62.60004}
+  m_AnchoredPosition: {x: 286, y: 56.999992}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4127473093770661501
@@ -283,10 +283,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Label
+  m_text: Physical Body
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
-  m_sharedMaterial: {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
+  m_sharedMaterial: {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -387,7 +387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 286.49988, y: 18}
+  m_AnchoredPosition: {x: 286.49988, y: -1.1999788}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4127473094145828439
@@ -418,13 +418,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ah, The Fool! A spirited journey awaits you, young wanderer. Embrace the
-    unknown with open arms and a courageous heart. Opportunities for growth and learning
-    beckon. Tread lightly yet boldly, for your path is one of discovery and joy.
-    Remember, every step is both a risk and a chance to soar.
+  m_text: The vessel of my existence. From joy to sorrow, mundane to sublime, every
+    sensation and experience is filtered through the delicate balance of this mortal
+    shell.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
-  m_sharedMaterial: {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
+  m_sharedMaterial: {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -565,7 +564,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 365.39987, y: 56.19997}
+  m_AnchoredPosition: {x: 365.39987, y: 37}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4127473094886464201

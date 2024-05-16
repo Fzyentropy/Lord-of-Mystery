@@ -10,6 +10,8 @@ public class Start_Button_Script : MonoBehaviour
 {
     public GameObject attached_panel;         // 对于这个按钮所在的 panel 的指代，可通过此 panel 指代找到相应的卡牌，并触发countdown功能
     // public Card_Location_Panel_Feature attached_panel_feature;    // 对所在 panel 上的 panel_feature 进行指代
+
+    public TMP_Text button_text;    // 按钮文本
     
     public SpriteRenderer button_sprite_renderer;       // Button 的 SpriteRenderer 指代，方便调用以调整颜色
     private bool is_button_available;                      // Button 是否能够点击，当条件满足时，可以点击
@@ -35,6 +37,7 @@ public class Start_Button_Script : MonoBehaviour
     private void Update()
     {
         Update_Button_Color();
+        Set_Button_Text_Language();
     }
 
 
@@ -58,8 +61,20 @@ public class Start_Button_Script : MonoBehaviour
 
     public void Set_Button_Text(string text)
     {
-        TMP_Text buttonText = GetComponentInChildren<TMP_Text>();
-        buttonText.text = text;
+        button_text.text = text;
+    }
+
+    public void Set_Button_Text_Language()
+    {
+        if (GameManager.currentLanguage == GameManager.Language.English)
+        {
+            button_text.font = GameManager.Font_English;
+        }
+        if (GameManager.currentLanguage == GameManager.Language.Chinese)
+        {
+            button_text.font = GameManager.Font_Chinese;
+            button_text.fontSize = 7.5f;
+        }
     }
 
 

@@ -780,7 +780,7 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         else if (GameManager.currentLanguage == GameManager.Language.Chinese)
         {
             panel_label.font = GameManager.Font_Chinese;
-            // card_label.fontSize = 8;
+            panel_label.fontSize = 10;
         }
     }
 
@@ -800,12 +800,14 @@ public class Card_Location_Panel_Feature : MonoBehaviour
         }
         else if (GameManager.currentLanguage == GameManager.Language.Chinese)
         {
-            panel_label.font = GameManager.Font_Chinese;
-            // card_label.fontSize = 8;
+            panel_description.font = GameManager.Font_Chinese;
+            panel_description.fontSize = 7;
+            panel_description.characterSpacing = -2;
+            panel_description.lineSpacing = -20;
             
             if (attached_card_location_feature._cardLocation.Card_Type == "Title")
             {
-                panel_description.fontSize = 10;
+                panel_description.fontSize = 8;
             }
         }
         
@@ -1624,7 +1626,11 @@ public class Card_Location_Panel_Feature : MonoBehaviour
 
         if (attached_card_location_feature._cardLocation.Id == "Title_Card_Exit")          // 为特殊的卡牌设置特殊 button 文本
         {
-            start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Exit");
+            if (GameManager.currentLanguage == GameManager.Language.English)
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Exit");
+            
+            if (GameManager.currentLanguage == GameManager.Language.Chinese)
+                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("离开");
         }
         
         else if (attached_card_location_feature._cardLocation.Id == "")
@@ -1639,11 +1645,19 @@ public class Card_Location_Panel_Feature : MonoBehaviour
             
             if (attached_card_location_feature.is_counting_down) // 如果正在倒计时
             {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Running..");
+                if (GameManager.currentLanguage == GameManager.Language.English)
+                    start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Running..");
+                
+                if (GameManager.currentLanguage == GameManager.Language.Chinese)
+                    start_button.GetComponent<Start_Button_Script>().Set_Button_Text("进行中..");
             }
             else
             {
-                start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
+                if (GameManager.currentLanguage == GameManager.Language.English)
+                    start_button.GetComponent<Start_Button_Script>().Set_Button_Text("Start");
+                
+                if (GameManager.currentLanguage == GameManager.Language.Chinese)
+                    start_button.GetComponent<Start_Button_Script>().Set_Button_Text("开始");
             }
             
             

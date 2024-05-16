@@ -345,6 +345,7 @@ MonoBehaviour:
       Spirit: 0
       Psyche: 0
       Potion: 0
+      Save: 0
     Require_Resource:
       Fund: 0
       Physical_Energy: 0
@@ -374,6 +375,7 @@ MonoBehaviour:
       Spirit: 0
       Psyche: 0
       Potion: 0
+      Save: 0
     Start_Effect: []
     Start_Countdown_Effect: []
     Produce_Message: []
@@ -396,6 +398,7 @@ MonoBehaviour:
   body_part_slots: []
   card_location_availability: 1
   is_counting_down: 0
+  is_card_able_to_move: 1
   progress_bar_prefab: {fileID: 6519039351980061584, guid: 1dbcd721cc66ecb41b58bc9dad46383f, type: 3}
   progress_bar: {fileID: 0}
   progress_bar_root: {fileID: 0}
@@ -768,7 +771,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  - {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -812,8 +815,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Church of Death
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
-  m_sharedMaterial: {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
+  m_sharedMaterial: {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

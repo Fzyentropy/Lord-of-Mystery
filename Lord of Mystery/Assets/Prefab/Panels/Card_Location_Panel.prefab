@@ -2891,6 +2891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attached_panel: {fileID: 8673821900251910866}
+  button_text: {fileID: 1278239928622706485}
   button_sprite_renderer: {fileID: 0}
   button_idle_color: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   button_hover_color: {r: 1, g: 1, b: 1, a: 1}

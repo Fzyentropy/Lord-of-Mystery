@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Set_Game_Manager();     // 设置 GM 为 static 唯一 GameManager
+        Set_Language_FontAsset();
     }
 
     private void Start()
@@ -145,9 +146,15 @@ public class GameManager : MonoBehaviour
         ///// TODO 加上 其他计数器设置，以及保存和读取功能
     }
 
-    void Set_Language(Language language)
+    void Set_Current_Language(Language language)
     {
         currentLanguage = language;
+    }
+
+    void Set_Language_FontAsset()
+    {
+        Font_English = Resources.Load<TMP_FontAsset>("JSON_English/BASKVILL");
+        Font_Chinese = Resources.Load<TMP_FontAsset>("JSON_Chinese/NotoSansSC");
     }
     
     

@@ -50,7 +50,14 @@ public class Knowledge_Panel_Feature : MonoBehaviour
         {
             knowledge_label.font = GameManager.Font_Chinese;
             knowledge_content.font = GameManager.Font_Chinese;
-            // card_label.fontSize = 8;
+            
+            knowledge_label.enableAutoSizing = true;
+            knowledge_label.fontSizeMax = 25f;
+            knowledge_label.fontSizeMin = 15f;
+
+            knowledge_content.fontSize = 15f;
+            knowledge_content.characterSpacing = -2;
+            knowledge_content.lineSpacing = -20;
         }
         
         ReplaceKeywordWithIcon(knowledge_content,"P_E_0", physicalEnergyIconPrefab);

@@ -61,7 +61,7 @@ public class Card_Body_Part_Feature : MonoBehaviour
         else if (GameManager.currentLanguage == GameManager.Language.Chinese)
         {
             body_part_label.font = GameManager.Font_Chinese;
-            // body_part_label.fontSize = 8;
+            body_part_label.fontSize = 5.7f;
         }
         
         body_part_image.sprite = Resources.Load<Sprite>("Image/" + _CardBodyPart.Image);

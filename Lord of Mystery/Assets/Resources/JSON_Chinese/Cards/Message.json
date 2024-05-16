@@ -24,10 +24,10 @@
 
 
         {
-            "Id": "躯体",
-            "Label": "Physical Body",
+            "Id": "Physical_Body",
+            "Label": "躯体",
             "Image": "Image_Physical_Body",
-            "Message_Content": "我存在的容器。 从欢乐到悲伤，从平凡到崇高，每一种感觉和体验都通过这个凡人躯壳的微妙平衡来过滤。"
+            "Message_Content": "我存在的容器。从欢乐到悲伤，从平凡到崇高，每一种感觉和体验都通过这个凡人躯壳的微妙平衡来过滤。"
         },
         {
             "Id": "Spirit",
@@ -75,12 +75,12 @@
             "Id": "Physical_Energy",
             "Label": "体力",
             "Image": "Image_Physical_Energy",
-            "Message_Content": "我感觉到我的心跳、呼吸的节奏———每一个动作、每一个动作，都在消耗我的体力。 我是一个容器，服从于存在的要求，即使是最简单的任务也会对我的活力造成损害。"
+            "Message_Content": "我感觉到我的心跳、呼吸的节奏———每一个动作、每一个动作，都在消耗我的体力。我是一个容器，服从于存在的要求，即使是最简单的任务也会对我的活力造成损害。"
 
         },
         {
             "Id": "Spiritual_Energy",
-            "Label": "Spiritual Energy",
+            "Label": "精神能量",
             "Image": "Image_Spiritual_Energy",
             "Message_Content": "自从我成为一名非凡者以来，我就对我的灵性本质的微妙涌动有所感知。它是非凡者非凡能力的源泉，能够促成超越物质领域，通往精神、概念和神圣本质的旅程。"
 
@@ -111,7 +111,7 @@
             "Id": "Knowledge",
             "Label": "知识",
             "Image": "Image_Knowledge",
-            "Message_Content": "我了解到的关于这个世界的一段信息。 然而，在语言的过滤下，通常会失去部分本意。 我无法猜测原来的世界在我们的认知中已经变得多么狭隘。"
+            "Message_Content": "我了解到的关于这个世界的一段信息。然而，在语言的过滤下，通常会失去部分本意。我无法猜测原来的世界在我们的认知中已经变得多么狭隘。"
 
         },
         {
@@ -144,7 +144,7 @@
             "Id": "Born",
             "Label": "我出生于鲁恩",
             "Image": "Image_Born",
-            "Message_Content": "我出生在鲁恩。 在这个王国里流浪了二十多年，我仍然在迷茫中漂泊。 我相信我了解这个世界，但我感觉我只掌握了它的表面，只是现实的一层面纱。"
+            "Message_Content": "我出生在鲁恩。在这个王国里流浪了二十多年，我仍然在迷茫中漂泊。我相信我了解这个世界，但我感觉我只掌握了它的表面，只是现实的一层面纱。"
 
         },
         {
@@ -158,7 +158,7 @@
             "Id": "Death",
             "Label": "死亡",
             "Image": "Image_Death",
-            "Message_Content": "阴影笼罩着我的思绪，低语着超出凡人理解的领域。 我感觉到一个笼罩着神秘面纱的幽灵，以其空灵的触感在召唤着我。 \n \n 【 如果死亡达到最大值，游戏就会结束。】"
+            "Message_Content": "阴影笼罩着我的思绪，低语着超出凡人理解的领域。我感觉到一个笼罩着神秘面纱的幽灵，以其空灵的触感在召唤着我。\n\n[ 如果死亡达到最大值，游戏就会结束。 ]"
 
         },
 
@@ -193,7 +193,7 @@
             "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Potion",
             "Label": "卡槽：魔药",
             "Image": "Image_Slot_Potion",
-            "Message_Content": " [ 这个卡槽需要放入一个特定类型的“魔药”， 你只能服食下一个序列等级的魔药。]"
+            "Message_Content": " [ 这个卡槽需要放入一个特定类型的“魔药”，你只能服食下一个序列等级的魔药。]"
         },
         {
             "Id": "Panel_Body_Part_Slot_Click_Show_Requirement_Save",

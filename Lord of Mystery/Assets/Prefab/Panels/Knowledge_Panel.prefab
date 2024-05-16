@@ -287,10 +287,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Label
+  m_text: 'Potion Formula: Appretance of the Whisper'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
-  m_sharedMaterial: {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
+  m_sharedMaterial: {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
+  m_fontSize: 25
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -422,13 +422,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ah, The Fool! A spirited journey awaits you, young wanderer. Embrace the
-    unknown with open arms and a courageous heart. Opportunities for growth and learning
-    beckon. Tread lightly yet boldly, for your path is one of discovery and joy.
-    Remember, every step is both a risk and a chance to soar.
+  m_text: 'Potion Formula: 3 P_E_0, 2 S_I_M\n\nApprentice of Whispers, Level 9, marks
+    the beginning of the ''God of Knowledge'' pathway. This pathway focuses on the
+    acquisition and transformation of knowledge and information. Its creed: ''Omniscience
+    is omnipotence.'''
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
-  m_sharedMaterial: {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
+  m_sharedMaterial: {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

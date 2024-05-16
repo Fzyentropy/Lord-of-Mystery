@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Make Potion
+  m_text: MAKE POTION
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
   m_sharedMaterial: {fileID: -6485531231523736196, guid: 4a54e05fcfa3e38489a46cc0e8e5ff74, type: 2}
@@ -1427,8 +1427,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3200,6 +3200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attached_make_potion_panel: {fileID: 0}
+  button_text: {fileID: 1278239928622706485}
   button_sprite_renderer: {fileID: 3625569748772959761}
   button_idle_color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   button_hover_color: {r: 1, g: 1, b: 1, a: 1}
@@ -4021,6 +4022,8 @@ MonoBehaviour:
     Produce_Special_Effect: []
   Resource_Section: {fileID: 4836992904368272514}
   ProgressBar_Section: {fileID: 5899824736913069985}
+  panel_label: {fileID: 9052688202075834355}
+  panel_description: {fileID: 2590580191475585822}
   make_potion_button_physical_energy: {fileID: 3870767552616416136}
   make_potion_button_spiritual_energy: {fileID: 5652028357630061442}
   make_potion_button_soul: {fileID: 541523660242480443}

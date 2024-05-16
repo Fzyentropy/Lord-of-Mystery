@@ -33,7 +33,7 @@
             "Label": "魔药配方：智慧先驱",
             "Short_Label": "魔药配方",
             "Image": "Image_Knowledge_Pioneer_Of_Wisdom",
-            "Knowledge_Content": "魔药配方: 10 P_E_0, 6 S_I_M, 8 knowledge\n\n智慧先驱，序列7，是‘知识之神’途径的中阶。 到了序列7，智慧先驱可以掌握更广泛的知识，并熟练地利用各种知识来创造和组合能量。"
+            "Knowledge_Content": "魔药配方: 10 P_E_0, 6 S_I_M, 8 knowledge\n\n智慧先驱，序列7，是‘知识之神’途径的中阶。到了序列7，智慧先驱可以掌握更广泛的知识，并熟练地利用各种知识来创造和组合能量。"
         },
         {
             "Id": "Potion_Formula_Level_9_Seer",
@@ -41,7 +41,7 @@
             "Label": "魔药配方：占卜家",
             "Short_Label": "魔药配方",
             "Image": "Image_Knowledge_Id",
-            "Knowledge_Content": "魔药配方 : 2 P_E_0, 3 S_I_M\n\n占卜家，“痴愚之神”途径序列9。 痴愚之神途径非凡者灵性很强大，但身体却很脆弱。 非凡能力主要来源于对历史和命运的主宰，体现在对历史、现在和未来的操纵和预见。”"
+            "Knowledge_Content": "魔药配方 : 2 P_E_0, 3 S_I_M\n\n占卜家，“痴愚之神”途径序列9。痴愚之神途径非凡者灵性很强大，但身体却很脆弱。非凡能力主要来源于对历史和命运的主宰，体现在对历史、现在和未来的操纵和预见。”"
         },
         {
             "Id": "Knowledge_Beyonder",

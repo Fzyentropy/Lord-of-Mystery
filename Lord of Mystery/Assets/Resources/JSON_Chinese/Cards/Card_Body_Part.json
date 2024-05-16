@@ -4,32 +4,32 @@
     [
 
         {
-            "Id": "躯体",
-            "Label": "Physical Body",
+            "Id": "Physical_Body",
+            "Label": "躯体",
             "Image": "Image_Physical_Body",
             "Produce_Message":"Physical_Body"
         },
         {
-            "Id": "灵性",
-            "Label": "Spirit",
+            "Id": "Spirit",
+            "Label": "灵性",
             "Image": "Image_Spirit",
             "Produce_Message":"Spirit"
         },
         {
-            "Id": "精神",
-            "Label": "Psyche",
+            "Id": "Psyche",
+            "Label": "精神",
             "Image": "Image_Psyche",
             "Produce_Message":"Psyche"
         },
         {
             "Id": "Potion",
-            "Label": "魔药：",
+            "Label": "魔药",
             "Image": "Image_Potion",
             "Produce_Message":"Potion"
         },
         {
-            "Id": "存档",
-            "Label": "Game Save ",
+            "Id": "Save",
+            "Label": "存档",
             "Image": "Image_Save",
             "Produce_Message":"Save"
         },
