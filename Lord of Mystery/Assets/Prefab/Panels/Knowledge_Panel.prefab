@@ -422,10 +422,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Potion Formula: 3 P_E_0, 2 S_I_M\n\nApprentice of Whispers, Level 9, marks
-    the beginning of the ''God of Knowledge'' pathway. This pathway focuses on the
-    acquisition and transformation of knowledge and information. Its creed: ''Omniscience
-    is omnipotence.'''
+  m_text: Consuming the potion is the sole path for humans to become Beyonders. Under
+    divine protection, those who contest with giants, demons, and otherworldly beings
+    have discovered the means to extraordinary powers. By combining the essences
+    of malevolent spirits, dragons, monsters, and enchanted flora and crystals with
+    various mental and energetic forces, diverse poRtions are crafted, bestowing
+    unique extraordinary abilities upon their users.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
   m_sharedMaterial: {fileID: -6485531231523736196, guid: 15dcd5fc24e0bb2459b3de2c1e89dccc, type: 2}
@@ -452,12 +454,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18.6
+  m_fontSizeBase: 18
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 8
   m_VerticalAlignment: 256

@@ -25,6 +25,9 @@ public class Lord_Of_Mystery_Testing_Script : MonoBehaviour
         GameManager.GM.ResourceManager.Add_Spiritual_Energy(5, Vector3.zero);
         
         GameManager.GM.ResourceManager.Draw_A_Knowledge_By_Name("Potion_Formula_Level_9_Apprentice_Of_The_Whisper", Vector3.zero, Vector3.one);
+        
+        GameManager.GM.ResourceManager.Draw_A_Knowledge_By_Name("Knowledge_Potion", Vector3.zero, Vector3.zero);
+        GameManager.GM.ResourceManager.Draw_A_Knowledge_By_Name("Knowledge_Three_Kingdoms", Vector3.zero, Vector3.zero);
 
         for (int i = 0; i < 10; i++)
         {

@@ -44,7 +44,10 @@ public class Knowledge_Panel_Feature : MonoBehaviour
         {
             knowledge_label.font = GameManager.Font_English;
             knowledge_content.font = GameManager.Font_English;
-            // card_label.fontSize = 8;
+            
+            knowledge_content.enableAutoSizing = true;
+            knowledge_content.fontSizeMax = 20f;
+            knowledge_content.fontSizeMin = 18f;
         }
         else if (GameManager.currentLanguage == GameManager.Language.Chinese)
         {
@@ -55,7 +58,9 @@ public class Knowledge_Panel_Feature : MonoBehaviour
             knowledge_label.fontSizeMax = 25f;
             knowledge_label.fontSizeMin = 15f;
 
-            knowledge_content.fontSize = 15f;
+            knowledge_content.enableAutoSizing = true;
+            knowledge_content.fontSizeMax = 15f;
+            knowledge_content.fontSizeMin = 13f;
             knowledge_content.characterSpacing = -2;
             knowledge_content.lineSpacing = -20;
         }
