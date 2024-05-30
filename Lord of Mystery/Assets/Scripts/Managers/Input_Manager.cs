@@ -34,6 +34,8 @@ public class Input_Manager : MonoBehaviour
     
     
     public float Time_X_Speed = 1f;
+    public bool is_game_pause;
+    public bool is_holding_F;
     
     public Image black_screen;
     
@@ -57,7 +59,9 @@ public class Input_Manager : MonoBehaviour
         MouseLogic();
         // CheckRayCast();
         
+        Game_Speed_Adjustment();
         Hold_F_To_Speed_Up();
+        Press_Space_To_Pause();
         Press_ESC_To_Exit();
     }
 
@@ -204,15 +208,46 @@ public class Input_Manager : MonoBehaviour
     }*/
 
 
-    void Hold_F_To_Speed_Up()
+    void Game_Speed_Adjustment()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (is_game_pause)
+        {
+            Time_X_Speed = 0f;
+        }
+        else if (is_holding_F)
         {
             Time_X_Speed = 5f;
         }
         else
         {
             Time_X_Speed = 1f;
+        }
+    }
+
+    void Hold_F_To_Speed_Up()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            is_holding_F = true;
+        }
+        else
+        {
+            is_holding_F = false;
+        }
+    }
+
+    void Press_Space_To_Pause()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (is_game_pause)
+            {
+                is_game_pause = false;
+            }
+            else
+            {
+                is_game_pause = true;
+            }
         }
     }
 

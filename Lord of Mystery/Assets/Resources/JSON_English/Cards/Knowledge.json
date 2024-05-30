@@ -22,7 +22,7 @@
             "Rarity": "",
             "Label": "Potion Formula: Apprentice of the Whisper",
             "Short_Label": "Potion Formula",
-            "Image": "Image_Knowledge_Id",
+            "Image": "Image_Knowledge_Potion",
             "Knowledge_Content": "Potion Formula: 3 P_E_0, 2 S_I_M\n\nApprentice of Whispers, Level 9, marks the beginning of the 'God of Knowledge' pathway. This pathway focuses on the acquisition and transformation of knowledge and information. Its creed: 'Omniscience is omnipotence.'"
         },
 
@@ -40,7 +40,7 @@
             "Rarity": "Rare",
             "Label": "Potion Formula: Seer",
             "Short_Label": "Potion Formula",
-            "Image": "Image_Knowledge_Id",
+            "Image": "Image_Knowledge_Potion",
             "Knowledge_Content": "Potion Formula : 2 P_E_0, 3 S_I_M\n\nSeer, Level 9, initiates the 'Idiot God' pathway. The pathway of Seer is highly spiritual but physically frail. Its extraordinary powers primarily derive from the dominion over history and fate, reflected in the manipulation and foresight of history, the present, and the future."
         },
         {
