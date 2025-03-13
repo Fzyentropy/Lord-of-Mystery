@@ -452,7 +452,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 30,
+            "Time": 40,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -474,7 +474,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 20,
+            "Time": 10,
 
             "Require_Resource":
             {
@@ -523,16 +523,16 @@
         },
         {
             "Id": "A_Menial_Job",
-            "Label": "一份卑微的工作",
+            "Label": "卑微的工作",
             "Image": "Image_A_Menial_Job",
-            "Description": "在昏暗的煤气灯光下，手因织机而疲惫，我编织的不仅是布料，更是我的生计。",
+            "Description": "母亲死后，我开始从事一份又一份工作。在昏暗的煤气灯光下，手因织机而疲惫，我编织的不仅是布料，更是我的生计。我无法离开工作，它对我而言就像落水者的缆绳一般。",
             "Card_Type": "",
 
             "Rank": -1,
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 50,
+            "Time": 40,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -554,7 +554,7 @@
 
             "Use_Time": 1,
             "Only": true,
-            "Time": 15,
+            "Time": 10,
 
             "Require_Body_Part":
             {
@@ -582,7 +582,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 30,
+            "Time": 20,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -712,7 +712,7 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 20,
+            "Time": 15,
 
             "Require_Resource":
             {
@@ -819,7 +819,7 @@
 
             "Use_Time": 1,
             "Only": true,
-            "Time": 20,
+            "Time": 12,
 
             "Start_Effect":
             [
@@ -881,7 +881,7 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 20,
+            "Time": 12,
 
             "Require_Body_Part":
             {

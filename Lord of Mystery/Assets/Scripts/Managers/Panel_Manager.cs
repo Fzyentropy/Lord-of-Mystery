@@ -118,6 +118,51 @@ public class Panel_Manager : MonoBehaviour
     }
 
 
+    public void Draw_Sequence_Frame()
+    {
+        StartCoroutine(Sequence_Frame_Fade_In());
+    }
+
+    private IEnumerator Sequence_Frame_Fade_In()
+    {
+        SpriteRenderer[] all_frame_edge = GameObject.Find("Sequence_Frame").GetComponentsInChildren<SpriteRenderer>();
+        
+        ///// Fade in
+        
+        float timeInterval = 0.05f;  // 设置每步渐变的时间间隔
+        float duration = 3f;
+        float remainingTime = duration;
+        
+        // 先设置为白色透明
+        foreach (var sprite in all_frame_edge)
+        {
+            sprite.color = new Color(1,1,1,0);
+        }
+        
+        // 等待 6s，与 Level 10 一起出现
+        yield return new WaitForSeconds(6f);
+
+        // 渐变增加 a值
+        while (remainingTime > 0)
+        {
+            // 等待 timeInterval时间长度 - 0.05 秒
+            yield return new WaitForSeconds(timeInterval);
+
+            foreach (var sprite in all_frame_edge)
+            {
+                sprite.color = new Color(sprite.color.r,sprite.color.g,sprite.color.b,sprite.color.a + timeInterval/duration);
+            }
+            
+            remainingTime -= timeInterval;
+        }
+        
+        // 最终设置为白色
+        foreach (var sprite in all_frame_edge)
+        {
+            sprite.color = Color.white;
+        }
+    }
+
     public void Expand_Line(float delay, float length)
     {
         StartCoroutine(Set_Line_Length(delay, length));

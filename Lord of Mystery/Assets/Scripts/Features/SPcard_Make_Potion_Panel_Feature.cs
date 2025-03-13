@@ -99,7 +99,7 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         {
             panel_label.text = "MAKE POTION";
             panel_label.font = GameManager.Font_English;
-            panel_description.text = "Consuming the potion is the sole path for humans to become Beyonders. By combining the essences of malevolent spirits, dragons, monsters, and enchanted flora and crystals with various mental and energetic forces, diverse potions are crafted, bestowing unique extraordinary abilities upon their users.";
+            panel_description.text = "Consuming the potion is the sole path for humans to become Beyonders. By combining the essences of malevolent spirits, dragons, monsters, and enchanted flora and crystals with various mental and energetic forces, diverse potions are crafted, bestowing unique extraordinary abilities upon their users. \n\n[Left-click to add ingredients, right-click to remove. Whether you have a formula or not, as long as you input the correct proportions, the potion will be complete...]";
             panel_description.font = GameManager.Font_English;
             panel_description.fontSize = 8;
         }
@@ -107,7 +107,7 @@ public class SPcard_Make_Potion_Panel_Feature : MonoBehaviour
         {
             panel_label.text = "制作魔药";
             panel_label.font = GameManager.Font_Chinese;
-            panel_description.text = "服食魔药是人类成为非凡者的唯一途径。用恶灵，用巨龙，用怪物，用神奇树木、花朵或结晶等多种灵性材料，与不同的精神、能量相组合，能够配制出不同性相的魔药，并赋予使用者不同的非凡能力。";
+            panel_description.text = "服食魔药是人类成为非凡者的唯一途径。用恶灵，用巨龙，用怪物，用神奇树木、花朵或结晶等多种灵性材料，与不同的精神、能量相组合，能够配制出不同性相的魔药，并赋予使用者不同的非凡能力。\n\n【左键添加材料，右键减少材料，无论你有没有配方，只要你输入了正确的比例，魔药就可以完成…】";
             panel_description.font = GameManager.Font_Chinese;
             panel_description.fontSize = 7;
             panel_description.characterSpacing = -2;

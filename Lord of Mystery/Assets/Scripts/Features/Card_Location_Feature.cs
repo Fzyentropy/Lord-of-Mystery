@@ -1782,6 +1782,8 @@ public class Card_Location_Feature : MonoBehaviour
 
         GameManager.GM.CardEffects.Let_Card_Location_Fade_In(flesh_and_body, 6f, 3f);
         
+        // 让 Sequence Frame 出现
+        GameManager.GM.PanelManager.Draw_Sequence_Frame();      
         // GameManager.GM.PanelManager.Expand_Line(7f, 12);
     }
 

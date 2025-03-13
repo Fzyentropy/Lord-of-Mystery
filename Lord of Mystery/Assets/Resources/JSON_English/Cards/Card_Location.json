@@ -452,7 +452,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 30,
+            "Time": 40,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -474,7 +474,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 20,
+            "Time": 10,
 
             "Require_Resource":
             {
@@ -523,16 +523,16 @@
         },
         {
             "Id": "A_Menial_Job",
-            "Label": "A Menial Job",
+            "Label": "Menial Jobs",
             "Image": "Image_A_Menial_Job",
-            "Description": "I need a job to servive. By the dim gaslight, hands weary from the loom, I weave not just fabric but my very sustenance. ",
+            "Description": "After my mother’s death, I took on job after job. By the dim gaslight, hands weary from the loom, I weave not just fabric but my very survival. I could not live without jobs, they are like a rope to the drowning",
             "Card_Type": "",
 
             "Rank": -1,
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 50,
+            "Time": 40,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -554,7 +554,7 @@
 
             "Use_Time": 1,
             "Only": true,
-            "Time": 15,
+            "Time": 10,
 
             "Require_Body_Part":
             {
@@ -582,7 +582,7 @@
             "Occupation": "All",
 
             "Use_Time": -1,
-            "Time": 30,
+            "Time": 20,
 
             "Auto_Start": true,
             "Repeatable": true,
@@ -712,7 +712,7 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 20,
+            "Time": 15,
 
             "Require_Resource":
             {
@@ -819,7 +819,7 @@
 
             "Use_Time": 1,
             "Only": true,
-            "Time": 20,
+            "Time": 12,
 
             "Start_Effect":
             [
@@ -881,7 +881,7 @@
 
             "Use_Time": -1,
             "Only": true,
-            "Time": 20,
+            "Time": 12,
 
             "Require_Body_Part":
             {
