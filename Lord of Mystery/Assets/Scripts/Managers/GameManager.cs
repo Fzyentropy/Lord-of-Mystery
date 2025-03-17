@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(car + "\n");
         }*/
         
-        Debug.Log(currentLanguage);
+        // Debug.Log(currentLanguage);
     }
 
 

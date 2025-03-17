@@ -329,6 +329,14 @@ public class Card_Location_Feature : MonoBehaviour
     
     
     
+    //------------------------------------------------------------------------------------------------------------------
+    // I Pointer Handler 方法
+    
+    /*public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("点击了");
+    }*/
+    
     
     /*/////////////////////////////////////////////////////////////////////////     I Pointer Handler 方法
     
@@ -1907,29 +1915,6 @@ public class Card_Location_Feature : MonoBehaviour
         SceneManager.LoadScene("Lord_of_Mystery_Title_Screen");
     }
 
-    
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
