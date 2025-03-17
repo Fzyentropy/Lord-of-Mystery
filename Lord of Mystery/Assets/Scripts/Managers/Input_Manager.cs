@@ -347,7 +347,7 @@ public class Input_Manager : MonoBehaviour
             
             // 如果已经有 panel 打开，则关闭 panel
             if (!isClickOnObjects
-                && (Input.mousePosition - click_mouse_position).magnitude < 0.5)
+                && (Input.mousePosition - click_mouse_position).magnitude < 1.3f)
             {
                 // 点击
                 if (GameManager.GM.PanelManager.current_panel != null)    // 如果已经有 panel 打开，则关闭 panel

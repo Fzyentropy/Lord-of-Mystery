@@ -134,7 +134,7 @@ public class Start_Button_Script : MonoBehaviour
     {
         is_button_clicking = false;
         
-        if (is_button_available && (Input.mousePosition - mouse_click_position).magnitude < 1f)
+        if (is_button_available && (Input.mousePosition - mouse_click_position).magnitude < 1.5f)
         {
             /////// 点击后的执行逻辑
             

@@ -395,7 +395,7 @@ public class Card_Location_Feature : MonoBehaviour
 
         if (card_location_availability)
         {
-            IncreaseOrderInLayer();
+            // IncreaseOrderInLayer();
             
             if (!_cardLocation.Stable)
             {
@@ -424,7 +424,7 @@ public class Card_Location_Feature : MonoBehaviour
             gameObject.layer = LayerIndex; 
             
             // 设置回 原 Order in Layer
-            DecreaseOrderInLayer();  
+            // DecreaseOrderInLayer();  
         }
         
         // 释放 Input Manager 中的 正在拖拽 GameObject，设置为空
