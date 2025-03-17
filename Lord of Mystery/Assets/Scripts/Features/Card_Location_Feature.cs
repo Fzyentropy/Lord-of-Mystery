@@ -1857,6 +1857,7 @@ public class Card_Location_Feature : MonoBehaviour
     void Get_The_Nighthawk()
     {
         GameObject menial_job = GameObject.Find("Card___A_Menial_Job");
+        Transform menial_job_transform = menial_job.transform;
 
         if (menial_job != null)
         {
@@ -1866,12 +1867,9 @@ public class Card_Location_Feature : MonoBehaviour
             GameManager.GM.CardEffects.Let_Card_Location_Fade_Out(menial_job, 1f);
         }
 
-        GameObject nighthawk = GameManager.GM.Generate_Card_Location("The_Nighthawk", new Vector3(
-            transform.position.x + newCardLocationPositionXOffset,
-            transform.position.y + newCardLocationPositionYOffset,
-            transform.position.z));
+        GameObject nighthawk = GameManager.GM.Generate_Card_Location("The_Nighthawk", menial_job_transform.position);
         
-        GameManager.GM.CardEffects.Let_Card_Location_Fade_In(nighthawk, 0,2f);
+        GameManager.GM.CardEffects.Let_Card_Location_Fade_In(nighthawk, 1f,2f);
 
     }
 
